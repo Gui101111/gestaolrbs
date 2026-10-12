@@ -11,6 +11,7 @@ import { ease } from "@/lib/animations";
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
 
+
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;

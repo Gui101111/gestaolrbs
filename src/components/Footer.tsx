@@ -2,6 +2,7 @@ import { business, navLinks, whatsappUrl } from "@/data/business";
 import { Logo } from "./Logo";
 import { InstagramIcon, WhatsAppIcon } from "./icons";
 import { CurrentYear } from "./CurrentYear";
+import { Drip } from "./Drip";
 
 export function Footer() {
   const { address } = business;
@@ -12,8 +13,9 @@ export function Footer() {
   ] as { label: string; href: string; external?: boolean }[];
 
   return (
-    <footer className="on-dark bg-navy-deep text-white">
-      <div className="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-12 lg:py-20">
+    <footer className="on-dark relative bg-navy-deep text-white">
+      <Drip color="#ffffff" />
+      <div className="container-x grid gap-12 pb-16 pt-36 md:pt-44 md:grid-cols-2 lg:grid-cols-12 lg:py-20">
         <div className="lg:col-span-4">
           <Logo tone="light" />
           <p className="mt-5 max-w-xs text-white/80">{business.tagline}</p>

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/plus-jakarta-sans";
 import "@fontsource-variable/dm-sans";
+import "@fontsource-variable/caveat";
 import "./globals.css";
 import { business } from "@/data/business";
 import { LocalBusinessSchema } from "@/components/LocalBusinessSchema";

@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prints originais (contêm nomes/fotos de perfil de terceiros)
+/assets-src/*.jpg
+/assets-src/*.png

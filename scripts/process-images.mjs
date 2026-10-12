@@ -17,13 +17,15 @@ const OUT = path.resolve("public/images");
 
 // crop: { left, top, width, height } em frações da imagem original
 const images = [
-  { out: "interior", src: "1000311595.jpg", w: 1600, h: 1067, crop: { left: 0, top: 0.14, width: 1, height: 0.62 } },
-  { out: "balcao", src: "1000311599.jpg", w: 1600, h: 1067, crop: { left: 0, top: 0.14, width: 1, height: 0.62 } },
-  { out: "self-service", src: "1000311601.jpg", w: 1200, h: 1500, crop: { left: 0, top: 0.12, width: 1, height: 0.72 } },
-  { out: "toppings", src: "1000311600.jpg", w: 1600, h: 1200, crop: { left: 0, top: 0.12, width: 1, height: 0.72 } },
-  { out: "ambiente", src: "1000311598.jpg", w: 1600, h: 1200, crop: { left: 0, top: 0.12, width: 1, height: 0.72 } },
-  { out: "fachada", src: "1000311602.jpg", w: 1200, h: 1500, crop: { left: 0, top: 0.12, width: 1, height: 0.72 } },
-  { out: "copos", src: "1000311597.jpg", w: 1200, h: 1500, crop: { left: 0, top: 0.1, width: 1, height: 0.6 } },
+  { out: "interior", src: "1000311595.jpg", crop: { left: 0, top: 0.197, width: 1, height: 0.43 } },
+  { out: "balcao", src: "1000311599.jpg", crop: { left: 0, top: 0.252, width: 1, height: 0.59 } },
+  { out: "self-service", src: "1000311601.jpg", crop: { left: 0, top: 0.252, width: 1, height: 0.59 } },
+  { out: "toppings", src: "1000311600.jpg", crop: { left: 0, top: 0.327, width: 1, height: 0.44 } },
+  { out: "ambiente", src: "1000311598.jpg", crop: { left: 0, top: 0.327, width: 1, height: 0.44 } },
+  { out: "fachada", src: "1000311602.jpg", crop: { left: 0, top: 0.252, width: 1, height: 0.59 } },
+  { out: "copos", src: "1000311597.jpg", crop: { left: 0, top: 0.405, width: 1, height: 0.47 } },
+  // Ilustração da vaquinha com a cerca (fundo azul da arte original)
+  { out: "vaquinha", src: "1000311596.jpg", crop: { left: 0, top: 0.47, width: 1, height: 0.406 } },
 ];
 
 const palettes = [
@@ -59,12 +61,14 @@ for (const [i, img] of images.entries()) {
         width: Math.round(c.width * meta.width),
         height: Math.round(c.height * meta.height),
       })
-      .resize(img.w, img.h, { fit: "cover", position: "attention" })
-      .webp({ quality: 82 })
+      .resize({ width: 1600, withoutEnlargement: true })
+      .sharpen({ sigma: 0.6 })
+      .webp({ quality: 86 })
       .toFile(outPath);
-    console.log(`✔ ${img.src} → ${img.out}.webp`);
+    const m = await sharp(outPath).metadata();
+    console.log(`✔ ${img.src} → ${img.out}.webp (${m.width}x${m.height})`);
   } else {
-    await sharp(placeholderSvg(img.w, img.h, i)).webp({ quality: 80 }).toFile(outPath);
+    await sharp(placeholderSvg(1200, 900, i)).webp({ quality: 80 }).toFile(outPath);
     console.log(`… ${img.src} ausente → placeholder ${img.out}.webp`);
   }
 }

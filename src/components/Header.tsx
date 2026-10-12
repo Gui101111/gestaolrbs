@@ -34,8 +34,8 @@ export function Header() {
         )}
       >
         <div className="container-x flex h-[var(--header-h)] items-center justify-between gap-6">
-          <a href="#inicio" aria-label="Berry's — voltar ao início" className={cn(!solid && "on-dark")}>
-            <Logo tone={solid ? "dark" : "light"} />
+          <a href="#inicio" aria-label="Berry's — voltar ao início">
+            <Logo tone={open ? "light" : "dark"} />
           </a>
 
           <nav aria-label="Principal" className="hidden lg:block">
@@ -46,7 +46,7 @@ export function Header() {
                     href={l.href}
                     className={cn(
                       "group relative rounded-lg px-3.5 py-2 text-[0.92rem] font-medium transition-colors duration-300",
-                      solid ? "text-ink/80 hover:text-berry-deep" : "on-dark text-white/90 hover:text-white",
+                      "text-ink/80 hover:text-berry-deep",
                     )}
                   >
                     {l.label}
@@ -64,7 +64,7 @@ export function Header() {
               rel="noopener noreferrer"
               className={cn(
                 "group hidden items-center gap-2 rounded-[12px] px-4 py-2.5 font-display text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 sm:inline-flex",
-                solid ? "bg-berry-deep text-white hover:bg-navy" : "on-dark bg-white text-navy hover:bg-mist",
+                "bg-berry-deep text-white hover:bg-navy",
               )}
             >
               <WhatsAppIcon className="size-[18px] transition-transform duration-300 group-hover:rotate-[-10deg] group-hover:scale-110" />
@@ -78,7 +78,7 @@ export function Header() {
               aria-label={open ? "Fechar menu" : "Abrir menu"}
               className={cn(
                 "relative z-[60] grid size-11 place-items-center rounded-xl transition-colors lg:hidden",
-                open ? "text-white" : solid ? "text-navy hover:bg-mist" : "on-dark text-white hover:bg-white/10",
+                open ? "on-dark text-white" : "text-navy hover:bg-mist",
               )}
             >
               <span className="relative block h-3.5 w-6" aria-hidden="true">
