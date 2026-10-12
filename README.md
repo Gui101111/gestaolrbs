@@ -39,11 +39,12 @@ docs/design-package.md        direção criativa, paleta, tipografia e texto do 
 
 ### Publicar
 
-Qualquer hospedagem de site estático serve (Hostinger, Netlify, Vercel, GitHub Pages): envie o
-**conteúdo** da pasta `berrys/` (o `index.html` precisa ficar na raiz do site).
+Qualquer hospedagem de site estático serve: envie o **conteúdo** da pasta `berrys/`
+(o `index.html` precisa ficar na raiz do site, por exemplo dentro de `public_html`).
 
-Antes de publicar, troque `https://SEU-DOMINIO/` pelo endereço final nas linhas marcadas com
-`DEPLOY STEP` no `index.html` (canonical, `og:url`, `og:image` e o JSON-LD).
+Com o domínio definido, siga o comentário `DEPLOY STEP` no `index.html`: adicionar o canonical e o
+`og:url`, e trocar o caminho da imagem de compartilhamento (`og:image` e JSON-LD) pelo endereço completo.
+Sem isso o site funciona normalmente; só a prévia de link no WhatsApp e redes sociais fica sem imagem.
 
 ### Trocar ou adicionar fotos
 
