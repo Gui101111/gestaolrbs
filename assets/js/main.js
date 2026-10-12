@@ -399,8 +399,13 @@
       return;
     }
     const text = `Olá, Viking Praia! Sou ${nome}.\n\n${msg}\n\nWhatsApp: ${wpp}${email ? `\nE-mail: ${email}` : ''}`;
-    window.open('https://wa.me/554599847212?text=' + encodeURIComponent(text), '_blank', 'noopener');
-    ok.textContent = 'Pronto! Abrimos o WhatsApp com a sua mensagem. É só tocar em enviar.';
+    const url = 'https://wa.me/554599847212?text=' + encodeURIComponent(text);
+    const win = window.open(url, '_blank', 'noopener');
+    ok.textContent = 'Sua mensagem está pronta. ';
+    const link = document.createElement('a');
+    link.href = url; link.target = '_blank'; link.rel = 'noopener';
+    link.textContent = win ? 'Se o WhatsApp não abriu, toque aqui.' : 'Toque aqui para abrir no WhatsApp.';
+    ok.appendChild(link);
     ok.classList.add('show');
     form.reset();
   });
