@@ -66,7 +66,7 @@
   const nav = $('[data-nav]');
   let navSolid = null;
   function navState() {
-    const solid = scrollY > Math.min(90, vh * .12);
+    const solid = scrollY > heroEnd() + Math.min(90, vh * .12);
     if (solid !== navSolid) { navSolid = solid; nav.classList.toggle('is-solid', solid); }
   }
   const navLinks = $$('[data-link]');
@@ -113,60 +113,246 @@
   });
   mqDesk.addEventListener('change', () => { if (mqDesk.matches && menu.classList.contains('is-open')) closeMenu(false); });
 
-  /* ---------- vídeo da hero (a animação do cliente, em loop) ---------- */
+  /* ---------- HERO: o vídeo do cliente controlado pelo scroll ----------
+     Desce a página, o vídeo anda para frente; sobe, ele volta. A página pousa no último quadro. */
   const hero = $('[data-hero]');
+  const heroFrame = $('[data-hero-frame]');
   const video = $('[data-hero-video]');
   const poster = $('.hero__poster');
+  const cue = $('.hero__cue');
+  const ring = $('.hero__ring');
+  // as mesmas condições que o <head> usou antes da primeira pintura
+  const GATES = window.__heroGates || ['(prefers-reduced-motion: reduce)', '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)'];
+  const GATE_MQLS = GATES.map(q => matchMedia(q));
   const saveData = !!(navigator.connection && navigator.connection.saveData);
-  let videoArmed = false;
-  let heroVisible = true;
+  const VIDEO_BYTES = { 'hero-scrub-1280.mp4': 3318483, 'hero-scrub-1280.webm': 2907509, 'hero-scrub-portrait.mp4': 1757352, 'hero-scrub-portrait.webm': 1732644 };
+  const smooth = (p, e0, e1) => { const t = clamp((p - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
 
-  function videoSource() {
+  let heroTop = 0, heroRange = 0;
+  function measureHero() { heroTop = hero.offsetTop; heroRange = Math.max(0, hero.offsetHeight - vh); }
+  const heroProgress = () => (heroRange > 0 ? clamp((scrollY - heroTop) / heroRange, 0, 1) : 0);
+  const heroEnd = () => heroTop + heroRange;
+
+  /* frases divididas em palavras e letras uma vez só, com sorteio de semente fixa */
+  $$('[data-split]', hero).forEach((host, hi) => {
+    const r = rng(97 + hi * 31);
+    const byChar = host.dataset.split === 'chars';
+    const lines = $$('.ln', host);
+    const total = lines.reduce((n, l) => n + l.textContent.trim().split(/\s+/).length, 0);
+    const sr = d.createElement('span');
+    sr.className = 'sr-only';
+    sr.textContent = lines.map(l => l.textContent.trim()).join(' ');
+    const vis = d.createElement('span');
+    vis.className = 'split';
+    vis.setAttribute('aria-hidden', 'true');
+    let wi = 0;
+    lines.forEach(l => {
+      const ln = d.createElement('span');
+      ln.className = l.className;
+      const list = l.textContent.trim().split(/\s+/);
+      list.forEach((word, n) => {
+        const w = d.createElement('span');
+        w.className = 'w';
+        w.style.setProperty('--th', (wi++ / Math.max(1, total) * 0.5 + r() * 0.05).toFixed(3));
+        if (byChar) {
+          [...word].forEach(ch => {
+            const c = d.createElement('span');
+            c.className = 'c';
+            c.textContent = ch;
+            c.style.setProperty('--th', (r() * 0.55).toFixed(3));
+            c.style.setProperty('--jx', ((r() - 0.5) * 180).toFixed(1) + 'px');
+            c.style.setProperty('--jy', ((r() - 0.5) * 140).toFixed(1) + 'px');
+            c.style.setProperty('--jr', ((r() - 0.5) * 80).toFixed(1) + 'deg');
+            w.append(c);
+          });
+        } else {
+          w.textContent = word;
+        }
+        ln.append(w);
+        if (n < list.length - 1) ln.append(' ');
+      });
+      vis.append(ln);
+    });
+    host.textContent = '';
+    host.append(sr, vis);
+  });
+
+  /* faixas: cada uma é dona de um trecho do progresso, com platô longo e rampas suaves */
+  const bands = $$('[data-band]', hero).map((el, i, all) => {
+    const [a, b] = el.dataset.band.split(',').map(Number);
+    return { el, a, b, ramp: parseFloat(el.dataset.ramp) || 0, first: i === 0, last: i === all.length - 1, op: -1, k: -1, off: null, inert: null };
+  });
+  function updateBands(p) {
+    const rv = Math.max(1, heroRange / vh);            // trecho de scroll em alturas de tela
+    for (const bd of bands) {
+      const f = Math.min(0.2 / rv, (bd.b - bd.a) / 3);  // rampas de ~20vh
+      const op = (bd.first ? 1 : smooth(p, bd.a, bd.a + f)) * (bd.last ? 1 : 1 - smooth(p, bd.b - f, bd.b));
+      const k = clamp((p - bd.a) / (bd.ramp || Math.min(0.24 / rv, (bd.b - bd.a) * 0.45)), 0, 1);
+      if (Math.abs(op - bd.op) > 0.003 || ((op === 0 || op === 1) && op !== bd.op)) { bd.op = op; bd.el.style.setProperty('--op', op.toFixed(3)); }
+      if (Math.abs(k - bd.k) > 0.008 || ((k === 0 || k === 1) && k !== bd.k)) { bd.k = k; bd.el.style.setProperty('--k', k.toFixed(3)); }
+      const off = op < 0.01, inert = op < 0.6;
+      if (off !== bd.off) { bd.off = off; bd.el.classList.toggle('is-off', off); }
+      if (inert !== bd.inert) { bd.inert = inert; bd.el.classList.toggle('is-inert', inert); }
+    }
+  }
+  let cueProg = -1;
+  function setCue(p) { if (Math.abs(p - cueProg) > 0.004 || (p === 1 && cueProg !== 1)) { cueProg = p; cue.style.setProperty('--prog', p.toFixed(3)); } }
+
+  /* buscas no vídeo com portão: nunca duas ao mesmo tempo, guarda só a mais nova */
+  let videoReady = false, loading = false, loadToken = 0, loadCtrl = null;
+  let seekBusy = false, pendingTime = null;
+  function requestSeek(t) {
+    if (!videoReady || !video.duration) return;
+    if (seekBusy) { pendingTime = t; return; }
+    if (Math.abs(video.currentTime - t) < 0.008) return;
+    seekBusy = true;
+    video.currentTime = t;
+  }
+  video.addEventListener('seeked', () => {
+    seekBusy = false;
+    if (pendingTime !== null) { const t = pendingTime; pendingTime = null; requestSeek(t); }
+  });
+  video.addEventListener('error', () => {      // a saída do impasse: o portão nunca trava
+    seekBusy = false;
+    pendingTime = null;
+    if (videoReady) failVideo();
+  });
+  const timeFor = p => clamp(p / 0.94, 0, 1) * Math.max(0, (video.duration || 0) - 0.05);
+
+  /* tempo exibido suavizado (independente da taxa de quadros) num loop que descansa */
+  let target = 0, shown = 0, rafId = null, lastTick = 0, scrubOn = false, heroOnScreen = true;
+  function scrubTick(now) {
+    const dt = Math.min(100, now - (lastTick || now));
+    lastTick = now;
+    shown += (target - shown) * (1 - Math.pow(1 - 0.16, dt / 16.667));
+    if (Math.abs(target - shown) < 0.0005) { shown = target; rafId = null; lastTick = 0; }
+    else rafId = requestAnimationFrame(scrubTick);
+    requestSeek(timeFor(shown));
+    updateBands(shown);
+    setCue(shown);
+  }
+  function heroScroll() {
+    if (!scrubOn) return;
+    target = heroProgress();
+    if (rafId === null && heroOnScreen) { lastTick = 0; rafId = requestAnimationFrame(scrubTick); }
+  }
+  new IntersectionObserver(([e]) => { heroOnScreen = e.isIntersecting; if (heroOnScreen) heroScroll(); }).observe(hero);
+
+  /* o vídeo chega como Blob inteiro: busca funciona até em hospedagem sem Range */
+  function videoFile() {
     const kind = mqPortrait.matches ? 'portrait' : '1280';
-    const webm = video.canPlayType('video/webm; codecs="vp9"');
-    return `assets/video/hero-${kind}.${webm ? 'webm' : 'mp4'}`;
+    const mp4 = video.canPlayType('video/mp4; codecs="avc1.640028"');
+    return `hero-scrub-${kind}.${mp4 ? 'mp4' : 'webm'}`;
   }
-  function tryPlay() {
-    if (!videoArmed || !heroVisible || d.hidden || reduced) return;
-    const p = video.play();
-    if (p && p.catch) p.catch(() => {});
-  }
-  function armVideo() {
-    if (videoArmed || reduced || saveData || !video) return;
-    videoArmed = true;
-    video.src = videoSource();
-    tryPlay();
-  }
-  if (video) {
-    video.addEventListener('playing', () => hero.classList.add('is-playing'));
-    video.addEventListener('error', () => {
-      // a página fica completa com o poster por trás
-      hero.classList.remove('is-playing');
-      videoArmed = false;
-      video.removeAttribute('src');
-    });
-    // o poster vence a disputa de banda: o vídeo só começa depois dele
-    let started = false;
-    const start = () => { if (!started) { started = true; armVideo(); } };
-    if (poster && poster.complete) setTimeout(start, 150);
-    else if (poster) { poster.addEventListener('load', start, { once: true }); poster.addEventListener('error', start, { once: true }); }
-    setTimeout(start, 3500);
-    mqPortrait.addEventListener('change', () => {
-      if (!videoArmed) return;
-      const next = videoSource();
-      if (!video.src.endsWith(next)) {
-        const t = video.currentTime;
-        hero.classList.remove('is-playing');
-        video.src = next;
-        video.addEventListener('loadedmetadata', () => { video.currentTime = t % (video.duration || 1); }, { once: true });
-        tryPlay();
+  async function loadVideo() {
+    if (loading || videoReady || !scrubOn) return;
+    loading = true;
+    const token = ++loadToken;
+    const file = videoFile();
+    const ctrl = loadCtrl = new AbortController();
+    let watchdog = setTimeout(() => ctrl.abort(), 20000);
+    try {
+      const res = await fetch('assets/video/' + file, { signal: ctrl.signal, priority: 'low' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const total = Number(res.headers.get('Content-Length')) || VIDEO_BYTES[file] || 3e6;
+      let blob;
+      if (res.body && res.body.getReader) {
+        const reader = res.body.getReader();
+        const chunks = [];
+        let got = 0, lastRing = 0;
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          clearTimeout(watchdog);                       // 20s sem progresso aborta
+          watchdog = setTimeout(() => ctrl.abort(), 20000);
+          chunks.push(value);
+          got += value.length;
+          const now = performance.now();
+          if (now - lastRing > 100) { lastRing = now; ring.style.setProperty('--ld', Math.round(126 * (1 - Math.min(1, got / total)))); }
+        }
+        blob = new Blob(chunks, { type: file.endsWith('.mp4') ? 'video/mp4' : 'video/webm' });
+      } else {
+        blob = await res.blob();
       }
-    });
+      clearTimeout(watchdog);
+      ring.style.setProperty('--ld', 0);
+      if (token !== loadToken) return;
+      if (video.__url) URL.revokeObjectURL(video.__url);
+      video.__url = URL.createObjectURL(blob);
+      video.muted = true;
+      video.src = video.__url;
+      video.load();
+      await new Promise((ok, bad) => {
+        video.addEventListener('loadeddata', ok, { once: true });
+        video.addEventListener('error', bad, { once: true });
+      });
+      // alguns navegadores (iOS) só desenham quadros buscados depois de um play: destrava em silêncio
+      try { await video.play(); } catch (e) { /* sem autoplay: a busca funciona mesmo assim */ }
+      video.pause();
+      if (token !== loadToken) return;
+      videoReady = true;
+      loading = false;
+      hero.classList.remove('video-failed');
+      hero.classList.add('video-ready');
+      shown = target = heroProgress();
+      requestSeek(timeFor(shown));
+    } catch (err) {
+      clearTimeout(watchdog);
+      if (token === loadToken) { loading = false; failVideo(); }
+    }
   }
-  new IntersectionObserver(([e]) => {
-    heroVisible = e.isIntersecting;
-    if (heroVisible) tryPlay(); else if (videoArmed) video.pause();
-  }, { threshold: 0.02 }).observe(hero);
+  function failVideo() {
+    // o poster segura a jornada: as faixas continuam seguindo o scroll
+    videoReady = false;
+    hero.classList.remove('video-ready');
+    hero.classList.add('video-failed');
+  }
+  // o poster vence a disputa de banda: o vídeo só começa depois dele
+  let posterReady = false;
+  const onPoster = () => { if (posterReady) return; posterReady = true; loadVideo(); };
+  if (poster.complete) onPoster();
+  else { poster.addEventListener('load', onPoster, { once: true }); poster.addEventListener('error', onPoster, { once: true }); }
+  setTimeout(onPoster, 4000);
+  mqPortrait.addEventListener('change', () => {
+    if (!videoReady && !loading) return;
+    loadToken++;
+    if (loadCtrl) loadCtrl.abort();
+    videoReady = false;
+    loading = false;
+    hero.classList.remove('video-ready');
+    if (posterReady) loadVideo();
+  });
+
+  /* imagem estática x vídeo com scroll, decidido ao vivo (girar a tela, mudar preferência) */
+  function enableScrub() {
+    if (scrubOn) return;
+    scrubOn = true;
+    bands.forEach(bd => { bd.op = -1; bd.k = -1; bd.off = null; bd.inert = null; });
+    cueProg = -1;
+    if (posterReady) loadVideo();
+    shown = target = heroProgress();
+    updateBands(shown);
+    setCue(shown);
+    requestSeek(timeFor(shown));
+  }
+  function disableScrub() {
+    scrubOn = false;
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    bands.forEach(bd => {
+      bd.el.style.removeProperty('--op');
+      bd.el.style.removeProperty('--k');
+      bd.el.classList.remove('is-off', 'is-inert');
+      bd.op = -1;
+    });
+    cue.style.removeProperty('--prog');
+  }
+  function applyHeroMode() {
+    const isStatic = saveData || GATE_MQLS.some(m => m.matches);
+    root.classList.toggle('hero-static', isStatic);
+    measureHero();
+    if (isStatic) disableScrub(); else enableScrub();
+  }
+  GATE_MQLS.forEach(m => m.addEventListener('change', () => { applyHeroMode(); requestTick(); }));
 
   /* ---------- entradas ---------- */
   $$('[data-stagger]').forEach(group => {
@@ -213,6 +399,7 @@
   function requestTick() { if (!ticking) { ticking = true; requestAnimationFrame(tick); } }
   function tick() {
     ticking = false;
+    heroScroll();
     navState();
     for (const dr of drivers) if (dr.on) dr.fn(dr);
     fabState();
@@ -221,15 +408,15 @@
   let resizeT;
   addEventListener('resize', () => {
     vh = innerHeight; vw = innerWidth;
+    measureHero();
     requestTick();
     clearTimeout(resizeT);
     resizeT = setTimeout(() => { $$('[data-drip]').forEach(buildDrip); fillTicker(); requestTick(); }, 180);
   });
 
-  /* hero: encolhe, arredonda e revela o milk por baixo */
-  const heroFrame = $('[data-hero-frame]');
+  /* hero: quando o vídeo termina e o palco solta, ele encolhe, arredonda e revela o milk por baixo */
   drive(heroFrame, dr => {
-    const p = reduced ? 0 : clamp(scrollY / (vh * 0.85), 0, 1);
+    const p = reduced ? 0 : clamp((scrollY - heroEnd()) / (vh * 0.85), 0, 1);
     setVar(dr, '--hp', +p.toFixed(4));
   }, hero);
 
@@ -498,28 +685,25 @@
   });
   $$('.final, .footer').forEach(el => endIO.observe(el));
   function fabState() {
-    const on = scrollY > vh * 0.8 && !fabHidden;
+    const on = scrollY > heroEnd() + vh * 0.8 && !fabHidden;
     if (on !== fabOn) { fabOn = on; fab.classList.toggle('is-on', on); }
   }
 
   /* ---------- aba oculta: pausa tudo ---------- */
   d.addEventListener('visibilitychange', () => {
     d.body.classList.toggle('paused', d.hidden);
-    if (d.hidden) { if (videoArmed) video.pause(); }
-    else { tryPlay(); startTicker(); }
+    if (!d.hidden) startTicker();
   });
 
   /* ---------- movimento reduzido ao vivo, nos dois sentidos ---------- */
   mqReduce.addEventListener('change', e => {
     reduced = e.matches;
+    // a hero troca de modo pelo listener dos portões; aqui fixa o resto da página no estado final
     if (reduced) {
-      if (videoArmed) video.pause();
-      hero.classList.remove('is-playing');
       $$('[data-reveal]').forEach(el => el.classList.add('in', 'settled'));
       $$('[data-magnetic]').forEach(b => { b.style.setProperty('--mx', '0px'); b.style.setProperty('--my', '0px'); });
       depthEls.forEach(o => { o.el.style.setProperty('--dx', 0); o.el.style.setProperty('--dy', 0); });
     } else {
-      if (!videoArmed) armVideo(); else tryPlay();
       startTicker();
     }
     requestTick();
@@ -528,5 +712,6 @@
   const year = $('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
+  applyHeroMode();
   requestTick();
 })();

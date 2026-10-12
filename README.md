@@ -3,7 +3,9 @@
 ## Site da Berry's Iced Food · Porto Seguro
 
 Site completo da Berry's em `berrys/`: HTML, CSS e JavaScript puros, sem build e sem dependências.
-A hero usa a animação do cliente em loop; o resto do site é animado por um motor de scroll próprio
+Na hero, a animação do cliente é controlada pelo scroll: rolando para baixo o vídeo anda, rolando para
+cima ele volta, com as frases mudando junto e a página pousando na casquinha pronta. O resto do site é
+animado pelo mesmo motor de scroll
 (entradas por máscara, parallax, a calda que derrete entre as seções, faixa cinética, storytelling
 com sticky, galeria com lightbox e chips interativos).
 

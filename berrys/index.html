@@ -25,7 +25,17 @@
 <link rel="preload" as="image" href="assets/img/hero-poster.webp" media="(min-aspect-ratio: 701/1000) and (prefers-reduced-motion: no-preference)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/img/hero-poster-portrait.webp" media="(max-aspect-ratio: 7/10) and (prefers-reduced-motion: no-preference)" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/site.css">
-<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.__berrys)document.documentElement.classList.remove('js')},4000)</script>
+<script>
+/* decide antes da primeira pintura se a hero roda o vídeo com o scroll ou mostra a imagem estática */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  var gates = window.__heroGates = ['(prefers-reduced-motion: reduce)', '(orientation: landscape) and (pointer: coarse) and (max-height: 560px)'];
+  var c = navigator.connection;
+  if ((c && c.saveData) || gates.some(function (q) { return matchMedia(q).matches; })) d.classList.add('hero-static');
+  setTimeout(function () { if (!window.__berrys) { d.classList.remove('js'); d.classList.add('hero-static'); } }, 4000);
+})();
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -123,8 +133,9 @@
 
 <main id="main" tabindex="-1">
 
-<!-- ============ HERO ============ -->
+<!-- ============ HERO: o vídeo controlado pelo scroll ============ -->
 <section class="hero" id="inicio" aria-labelledby="hero-title" data-hero>
+  <div class="hero__stage">
   <div class="hero__frame" data-hero-frame>
     <div class="hero__media" aria-hidden="true">
       <picture>
@@ -133,11 +144,12 @@
         <source media="(max-aspect-ratio: 7/10)" srcset="assets/img/hero-poster-portrait.webp">
         <img class="hero__poster" src="assets/img/hero-poster.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
       </picture>
-      <video class="hero__video" muted loop playsinline preload="none" tabindex="-1" aria-hidden="true" disablepictureinpicture data-hero-video></video>
+      <video class="hero__video" muted playsinline preload="none" tabindex="-1" aria-hidden="true" disablepictureinpicture data-hero-video></video>
     </div>
     <div class="hero__scrim" aria-hidden="true"></div>
 
-    <div class="hero__content" data-hero-content>
+    <!-- faixa 1: abertura (já assentada no carregamento) -->
+    <div class="hero__content band band--1" data-band="0,0.22">
       <p class="kicker kicker--light hero__kicker"><span class="dot dot--cyan" aria-hidden="true"></span>Berry's • Porto Seguro</p>
       <h1 class="hero__title" id="hero-title">
         <span class="mask"><span class="mask__in">O mió<sup class="hero__star" aria-hidden="true">*</sup></span></span>
@@ -162,10 +174,41 @@
       </p>
     </div>
 
-    <a class="hero__cue" href="#resistir" aria-label="Rolar para a próxima seção">
+    <!-- faixa 2: a colher assenta a bola (as palavras descem junto) -->
+    <div class="band band--mid band--drift" data-band="0.25,0.49">
+      <p class="band__kick mono"><span class="dot dot--straw" aria-hidden="true"></span>Sorvete artesanal</p>
+      <p class="band__h" data-split="words"><span class="ln">Bola por bola,</span><span class="ln ln--accent">do jeito mineiro.</span></p>
+    </div>
+
+    <!-- faixa 3: o chocolate voa (as letras se juntam como os pedaços no ar) -->
+    <div class="band band--mid band--scatter" data-band="0.52,0.77" data-ramp="0.07">
+      <p class="band__kick mono"><span class="dot dot--cyan" aria-hidden="true"></span>Self-service do seu jeito</p>
+      <p class="band__h" data-split="chars"><span class="ln">Chocolate escorrendo,</span><span class="ln ln--accent">morango no topo.</span></p>
+    </div>
+
+    <!-- faixa 4: a página pousa na casquinha pronta -->
+    <div class="band band--settle" data-band="0.8,1" data-ramp="0.09">
+      <p class="band__big" data-split="words"><span class="ln">Pronto.</span></p>
+      <p class="band__line">Agora é a sua vez.</p>
+      <div class="band__ctas">
+        <a class="btn btn--milk" data-magnetic href="#experiencia">
+          <span class="btn__label" data-text="Quero conhecer">Quero conhecer</span>
+          <svg class="btn__icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="btn btn--ghost" data-magnetic href="https://www.google.com/maps/dir/?api=1&amp;destination=Berry%27s%20Av.%2022%20de%20Abril%2C%20329B%20Centro%2C%20Porto%20Seguro%20BA" target="_blank" rel="noopener">
+          <span class="btn__label" data-text="Como chegar">Como chegar</span>
+          <svg class="btn__icon" aria-hidden="true"><use href="#i-out"/></svg>
+        </a>
+      </div>
+      <p class="band__hours">Av. 22 de Abril, 329B · Todos os dias, 12h às 23h30</p>
+    </div>
+
+    <a class="hero__cue" href="#resistir" aria-label="Pular a animação e ir para a próxima seção">
+      <svg class="hero__ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20"/></svg>
       <span class="hero__cue-text mono">Role e prove</span>
       <span class="hero__cue-line" aria-hidden="true"><i></i></span>
     </a>
+  </div>
   </div>
 </section>
 

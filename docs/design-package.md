@@ -35,20 +35,25 @@ texto pequeno vai em Dark (4,7:1) ou o fundo vira Deep Blue (7:1). Morango só e
 - Texto: **Figtree** 400, 500, 600, 700.
 - Rótulos: **DM Mono** 400, 500.
 
-## 4. Hero (vídeo do cliente, autoplay em loop)
+## 4. Hero: o vídeo do cliente controlado pelo scroll
 
-Desvio consciente da skill: a skill pede vídeo controlado pelo scroll; o cliente entregou uma animação
-pronta e pediu autoplay em loop. Mantido o pedido. Da skill ficam o sistema de legibilidade (scrim +
-sombra de texto + auditoria do pior quadro), o poster primeiro, a página completa sem vídeo e as regras
-de movimento reduzido.
+Pedido do cliente após a primeira versão: o vídeo vira a animação de rolagem principal (o padrão da skill).
+A hero é uma seção de 560vh com um palco fixo; o progresso do scroll vira o tempo do vídeo (desce, o vídeo
+anda; sobe, ele volta) e a página pousa no último quadro, a casquinha pronta. O vídeo não foi recriado:
+só recodificado com keyframe a cada 8 quadros (`-g 8`) para a busca ficar lisa, em versão horizontal e
+vertical (celular).
 
-- Kicker: "Berry's • Porto Seguro"
-- H1: "O mió / sorvete / do mundo."
-- Nota: "*mió: o melhor, em bom mineirês"
-- Sub: "Sorvete artesanal, combinações do seu jeito e uma experiência feita para quem é #LoucosPorSorvete."
-- CTAs: "Quero conhecer" e "Como chegar"
-- Status: "Todos os dias • 12h às 23h30" com indicador ao vivo (Aberto agora / Fechado agora)
-- Pista de scroll: "Role e prove"
+| Faixa | Trecho do progresso | O que o vídeo mostra | Texto | Entrada |
+|---|---|---|---|---|
+| 1 | 0 a 0,22 | a colher chega com a bola de morango | "O mió / sorvete / do mundo." + nota, subtítulo, botões, status | máscara por linha no carregamento |
+| 2 | 0,25 a 0,49 | a colher assenta a bola | "Bola por bola, / do jeito mineiro." | palavras descendo (eco da bola assentando) |
+| 3 | 0,52 a 0,77 | pedaços de chocolate voando, a colher sobe | "Chocolate escorrendo, / morango no topo." | letras se juntando de posições soltas (eco dos pedaços no ar) |
+| 4 | 0,80 a 1 | a câmera se afasta e repousa na casquinha pronta | "Pronto." / "Agora é a sua vez." + botões e endereço | palavra sobe, depois frase, depois botões |
+
+Validação: teste de flick (passos de 120, 240 e 360 px: cada faixa legível por 5 ou mais passos, nenhuma
+pulável) e auditoria do pior quadro por faixa (todas acima de 4:1 de 1024 a 1920 px e no celular).
+Imagem estática no lugar do vídeo para movimento reduzido, economia de dados e celular deitado
+(as mesmas condições no `<head>` e no JS, decididas ao vivo).
 
 ## 5. Seções (em ordem)
 
