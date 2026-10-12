@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --color-berry: #25a9d6;
+  --color-berry-light: #50c1e8;
+  --color-berry-mid: #198fbf;
+  --color-berry-deep: #087aa9;
+  --color-navy: #104d72;
+  --color-navy-deep: #0b4669;
+  --color-offwhite: #f8fbfc;
+  --color-mist: #eff7fa;
+  --color-wood: #b7804d;
+  --color-wood-dark: #8d5a36;
+  --color-ink: #162027;
+
+  --font-display: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 10px 30px -12px rgb(16 77 114 / 0.18);
+  --shadow-lift: 0 24px 50px -20px rgb(16 77 114 / 0.28);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root {
+  --header-h: 76px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-offwhite);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+::selection {
+  background: var(--color-berry-light);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-berry);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.12s !important;
+  }
+}
+
+.container-x {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .container-x { padding-inline: 2rem; }
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Gotas suaves para a barra de rolagem da galeria mobile */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@keyframes scroll-dot {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(14px); opacity: 0; }
+}
+.animate-scroll-dot { animation: scroll-dot 1.8s var(--ease-out-soft) infinite; }
