@@ -1,0 +1,444 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Tokens                                                            */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Paleta TRIBUNA */
+  --ink: #07090c;
+  --ink-2: #0b0d10;
+  --graphite: #121419;
+  --graphite-2: #1a1d23;
+  --navy: #0b1625;
+  --navy-deep: #101d2d;
+  --navy-soft: #16263d;
+  --gold: #c6a15b;
+  --gold-light: #e1c487;
+  --gold-deep: #8c6b2f;
+  --mist: #a6abb4;
+  --ivory: #f5f5f2;
+
+  /* Semânticos (shadcn) */
+  --background: var(--ink);
+  --foreground: var(--ivory);
+  --card: #0d1015;
+  --card-foreground: var(--ivory);
+  --popover: #0d1117;
+  --popover-foreground: var(--ivory);
+  --primary: var(--gold);
+  --primary-foreground: #120d05;
+  --secondary: var(--navy-deep);
+  --secondary-foreground: var(--ivory);
+  --muted: #14171d;
+  --muted-foreground: var(--mist);
+  --accent: #172235;
+  --accent-foreground: var(--ivory);
+  --destructive: #d0574d;
+  --success: #6fbf8e;
+  --warning: #e0a948;
+  --info: #7aa7d9;
+  --border: rgb(255 255 255 / 0.08);
+  --border-gold: rgb(198 161 91 / 0.28);
+  --input: rgb(255 255 255 / 0.1);
+  --ring: var(--gold);
+  --radius: 0.875rem;
+
+  --gold-gradient: linear-gradient(135deg, #8c6b2f 0%, #e1c487 45%, #c6a15b 70%, #9c7a3c 100%);
+  --gold-gradient-soft: linear-gradient(135deg, rgb(225 196 135 / 0.9), rgb(198 161 91 / 0.75));
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-graphite: var(--graphite);
+  --color-graphite-2: var(--graphite-2);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-soft: var(--navy-soft);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-deep: var(--gold-deep);
+  --color-mist: var(--mist);
+  --color-ivory: var(--ivory);
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 3px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-shimmer: shimmer 2.4s var(--ease-luxe) infinite;
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                              */
+/* ------------------------------------------------------------------ */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+    background-color: var(--ink);
+  }
+  ::selection {
+    background: rgb(198 161 91 / 0.35);
+    color: var(--ivory);
+  }
+  :focus-visible {
+    outline: 1.5px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  input,
+  textarea,
+  select {
+    font-size: 16px; /* evita zoom no iOS */
+  }
+  @media (min-width: 768px) {
+    input,
+    textarea,
+    select {
+      font-size: 0.9375rem;
+    }
+  }
+  /* Scrollbar discreta */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(198 161 91 / 0.25) transparent;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilitários da identidade                                          */
+/* ------------------------------------------------------------------ */
+@utility text-gold-gradient {
+  background: linear-gradient(120deg, #a17c3a 0%, #f1d9a3 38%, #c6a15b 62%, #8c6b2f 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-ivory-fade {
+  background: linear-gradient(180deg, #f5f5f2 0%, rgb(245 245 242 / 0.72) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gold-gradient {
+  background-image: var(--gold-gradient);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@utility hairline {
+  background: linear-gradient(90deg, transparent, rgb(198 161 91 / 0.55), transparent);
+  height: 1px;
+}
+
+@utility hairline-v {
+  background: linear-gradient(180deg, transparent, rgb(198 161 91 / 0.45), transparent);
+  width: 1px;
+}
+
+/* Painel de vidro escuro com borda dourada sutil (glass contido) */
+@utility panel {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.01)),
+    rgb(12 15 20 / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.07);
+  box-shadow:
+    0 1px 0 0 rgb(255 255 255 / 0.04) inset,
+    0 30px 60px -30px rgb(0 0 0 / 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Borda luminosa em gradiente dourado (máscara) */
+@utility gold-ring {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      rgb(225 196 135 / 0.7),
+      rgb(198 161 91 / 0.08) 35%,
+      rgb(198 161 91 / 0.04) 65%,
+      rgb(225 196 135 / 0.45)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility glow-gold {
+  box-shadow:
+    0 0 0 1px rgb(198 161 91 / 0.35),
+    0 0 24px -4px rgb(225 196 135 / 0.45),
+    0 0 80px -20px rgb(198 161 91 / 0.55);
+}
+
+@utility glow-gold-soft {
+  box-shadow:
+    0 0 0 1px rgb(198 161 91 / 0.18),
+    0 0 40px -18px rgb(198 161 91 / 0.45);
+}
+
+@utility text-glow {
+  text-shadow:
+    0 0 18px rgb(225 196 135 / 0.35),
+    0 0 42px rgb(198 161 91 / 0.18);
+}
+
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
+
+@utility vignette {
+  background: radial-gradient(ellipse at center, transparent 45%, rgb(0 0 0 / 0.65) 100%);
+}
+
+@utility mask-fade-x {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+@utility mask-fade-b {
+  -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent);
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
+}
+
+@utility text-stroke-gold {
+  -webkit-text-stroke: 1px rgb(198 161 91 / 0.55);
+  color: transparent;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Linhas finas douradas de fundo (grid jurídico) */
+@utility bg-gold-lines {
+  background-image:
+    linear-gradient(rgb(198 161 91 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(198 161 91 / 0.045) 1px, transparent 1px);
+  background-size: 88px 88px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Keyframes                                                          */
+/* ------------------------------------------------------------------ */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  60%,
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.04);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+@keyframes sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes blink-dot {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(220%);
+  }
+}
+@keyframes ripple {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.5;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(36);
+    opacity: 0;
+  }
+}
+.btn-ripple {
+  background: radial-gradient(circle, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0) 70%);
+  animation: ripple 0.7s var(--ease-luxe) forwards;
+}
+
+/* Skeleton premium */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.04);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(198 161 91 / 0.07) 40%,
+    rgb(225 196 135 / 0.12) 50%,
+    rgb(198 161 91 / 0.07) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: sweep 1.8s var(--ease-luxe) infinite;
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Movimento reduzido: desliga animações decorativas */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.12s !important;
+    scroll-behavior: auto !important;
+  }
+  .skeleton::after {
+    animation: none;
+  }
+}
