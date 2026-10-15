@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 export function BottomNav({ isAdmin }: { isAdmin: boolean }) {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
-  React.useEffect(() => setOpen(false), [pathname]);
 
   const items = [
     { href: "/app", label: "Início", icon: LayoutDashboard, exact: true },
@@ -65,6 +64,7 @@ export function BottomNav({ isAdmin }: { isAdmin: boolean }) {
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={() => setOpen(false)}
                   className={cn(
                     "flex items-center gap-3 rounded-2xl border px-4 py-3.5 text-sm transition",
                     active ? "border-gold/40 bg-gold/10 text-gold-light" : "border-white/[0.07] bg-white/[0.02] text-ivory/85",

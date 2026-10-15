@@ -17,8 +17,14 @@ export function LibraryToolbar({ counts }: { counts: Record<string, number> }) {
   const push = React.useCallback(
     (next: { q?: string; filtro?: string }) => {
       const params = new URLSearchParams(sp.toString());
-      if (next.q !== undefined) (next.q ? params.set("q", next.q) : params.delete("q"));
-      if (next.filtro !== undefined) (next.filtro !== "all" ? params.set("filtro", next.filtro) : params.delete("filtro"));
+      if (next.q !== undefined) {
+        if (next.q) params.set("q", next.q);
+        else params.delete("q");
+      }
+      if (next.filtro !== undefined) {
+        if (next.filtro !== "all") params.set("filtro", next.filtro);
+        else params.delete("filtro");
+      }
       router.replace(`${pathname}${params.size ? `?${params}` : ""}`, { scroll: false });
     },
     [pathname, router, sp],

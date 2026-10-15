@@ -20,7 +20,6 @@ import { cn } from "@/lib/utils";
 const IMG_W = 720;
 const IMG_H = 704;
 const CENTER_X = 360;
-const CENTER_Y = 330;
 const THETA_MAX = 0.13; // ~7.4°
 
 const VERT = `

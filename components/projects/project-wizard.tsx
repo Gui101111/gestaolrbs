@@ -272,7 +272,7 @@ export function ProjectWizard({ userId, initial, video: initialVideo, limits, bi
           <p className="eyebrow">
             Novo projeto · Etapa {step + 1} de {STEPS.length}
           </p>
-          <SaveIndicator state={save} hasId={Boolean(idRef.current)} />
+          <SaveIndicator state={save} hasId={Boolean(p.id)} />
         </div>
         <ol className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1">
           {STEPS.map((s, i) => {

@@ -46,6 +46,17 @@ export function remapTime(t: number, kept: Segment[]): number | null {
   return null;
 }
 
+/** Versão monotônica: tempos dentro de um corte são presos à borda mais próxima do trecho mantido. */
+export function remapTimeClamped(t: number, kept: Segment[]): number {
+  let offset = 0;
+  for (const s of kept) {
+    if (t < s.start) return offset;
+    if (t <= s.end) return offset + (t - s.start);
+    offset += s.end - s.start;
+  }
+  return offset;
+}
+
 /** Recorte centralizado para a proporção desejada. */
 export function cropFor(srcW: number, srcH: number, ratio: string) {
   const { w, h } = OUTPUT_SIZES[ratio] ?? OUTPUT_SIZES["9:16"];
@@ -67,9 +78,10 @@ function assTime(t: number) {
   return `${h}:${String(m).padStart(2, "0")}:${s}`;
 }
 
-function assColor(hex: string) {
+/** Cor no formato de tag inline do ASS (\1c&HBBGGRR&). */
+function assInline(hex: string) {
   const c = hex.replace("#", "");
-  return `&H00${c.slice(4, 6)}${c.slice(2, 4)}${c.slice(0, 2)}`.toUpperCase();
+  return `&H${c.slice(4, 6)}${c.slice(2, 4)}${c.slice(0, 2)}&`.toUpperCase();
 }
 
 /**
@@ -89,7 +101,8 @@ export function buildAssSubtitles(opts: {
   const style = opts.plan.captions.style;
   const vertical = h > w;
   const fontSize = Math.round((vertical ? 0.052 : 0.06) * h * (style === "discreta" ? 0.75 : 1));
-  const highlightColor = assColor(opts.brandColor ?? "#E1C487");
+  const highlightColor = assInline(opts.brandColor ?? "#E1C487");
+  const baseColor = assInline("#F5F5F2");
   const highlights = new Set(opts.plan.captions.highlights.flatMap((x) => x.term.toLowerCase().split(/\s+/)));
   const maxWords = opts.maxWords ?? (opts.plan.captions.mode === "word" ? 3 : 7);
 
@@ -111,15 +124,15 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
   const lines: string[] = [];
   for (let i = 0; i < words.length; i += maxWords) {
     const group = words.slice(i, i + maxWords);
-    const start = remapTime(group[0].start, opts.kept);
-    const end = remapTime(group[group.length - 1].end, opts.kept);
-    if (start == null || end == null || end <= start) continue;
+    const start = remapTimeClamped(group[0].start, opts.kept);
+    const end = remapTimeClamped(group[group.length - 1].end, opts.kept);
+    if (end - start < 0.12) continue; // grupo inteiro dentro de um corte
     const text = group
       .map((wd) => {
         const raw = style === "caixa_alta" ? wd.text.toUpperCase() : wd.text;
         const clean = raw.replace(/[{}\\]/g, "");
         const key = wd.text.toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
-        return highlights.has(key) ? `{\\c${highlightColor}}${clean}{\\c&H00F2F5F5}` : clean;
+        return highlights.has(key) ? `{\\1c${highlightColor}}${clean}{\\1c${baseColor}}` : clean;
       })
       .join(" ");
     lines.push(`Dialogue: 0,${assTime(start)},${assTime(end)},Default,,0,0,0,,${text}`);

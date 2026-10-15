@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { z } from "zod";
 import { toast } from "sonner";
@@ -20,7 +20,7 @@ export function ResetForm() {
   const [error, setError] = React.useState<string | null>(null);
   const [pending, start] = React.useTransition();
   const form = useForm<Values>({ resolver: zodResolver(resetSchema), defaultValues: { password: "", confirm: "" } });
-  const password = form.watch("password");
+  const password = useWatch({ control: form.control, name: "password" });
 
   const onSubmit = form.handleSubmit((values) => {
     setError(null);

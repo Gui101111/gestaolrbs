@@ -10,7 +10,7 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { requireOnboardedProfile } from "@/lib/auth/dal";
 import { getDashboardData } from "@/services/projects/queries";
 import { PIPELINE_STEPS } from "@/lib/constants/domain";
-import { firstName, formatMinutes, formatRelative, greeting } from "@/lib/utils";
+import { firstName, formatRelative, greeting } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Dashboard" };
 

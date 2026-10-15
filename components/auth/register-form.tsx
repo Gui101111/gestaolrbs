@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { z } from "zod";
 import { ArrowRight } from "lucide-react";
@@ -27,7 +27,7 @@ export function RegisterForm() {
     resolver: zodResolver(registerSchema),
     defaultValues: { fullName: "", email: "", password: "", terms: false },
   });
-  const password = form.watch("password");
+  const password = useWatch({ control: form.control, name: "password" });
 
   const onSubmit = form.handleSubmit((values) => {
     setError(null);
