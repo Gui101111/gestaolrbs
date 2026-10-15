@@ -65,7 +65,17 @@ export function Marquee({
 }
 
 /** Palavras que surgem em sequência, uma substituindo a outra suavemente. */
-export function WordCycle({ words, className, interval = 2600 }: { words: string[]; className?: string; interval?: number }) {
+export function WordCycle({
+  words,
+  className,
+  wordClassName,
+  interval = 2600,
+}: {
+  words: string[];
+  className?: string;
+  wordClassName?: string;
+  interval?: number;
+}) {
   const [i, setI] = React.useState(0);
   const reduce = useReducedMotion();
   React.useEffect(() => {
@@ -78,7 +88,7 @@ export function WordCycle({ words, className, interval = 2600 }: { words: string
       {words.map((w, idx) => (
         <motion.span
           key={w}
-          className="col-start-1 row-start-1 whitespace-nowrap"
+          className={cn("col-start-1 row-start-1 whitespace-nowrap", wordClassName)}
           initial={false}
           animate={
             idx === i

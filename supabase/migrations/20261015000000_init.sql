@@ -772,6 +772,10 @@ create policy "brand_kits: atualizar o próprio" on public.brand_kits
 -- Planos --------------------------------------------------------------
 create policy "plans: públicos e ativos" on public.plans
   for select to anon, authenticated using ((is_active and is_public) or (select public.is_admin()));
+create policy "plans: plano da própria assinatura" on public.plans
+  for select to authenticated using (
+    exists (select 1 from public.subscriptions s where s.plan_id = plans.id and s.user_id = (select auth.uid()))
+  );
 create policy "plans: admin gerencia" on public.plans
   for all to authenticated using ((select public.is_admin())) with check ((select public.is_admin()));
 

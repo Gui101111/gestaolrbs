@@ -77,9 +77,12 @@ export function initials(name: string | null | undefined) {
   return ((parts[0]?.[0] ?? "") + (parts.length > 1 ? parts[parts.length - 1][0] : "")).toUpperCase();
 }
 
+/** Primeiro nome, preservando o tratamento (ex.: "Dra. Ana Souza" → "Dra. Ana"). */
 export function firstName(name: string | null | undefined) {
   if (!name) return "";
-  return name.trim().split(/\s+/)[0] ?? "";
+  const parts = name.trim().split(/\s+/);
+  if (/^(dr|dra|doutor|doutora)\.?$/i.test(parts[0] ?? "") && parts[1]) return `${parts[0]} ${parts[1]}`;
+  return parts[0] ?? "";
 }
 
 export function greeting(date = new Date()) {
