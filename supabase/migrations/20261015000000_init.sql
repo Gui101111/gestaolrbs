@@ -175,8 +175,8 @@ create trigger payments_updated_at before update on public.payments
 create table public.usage (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users (id) on delete cascade,
-  period_start date not null,
-  period_end date not null,
+  period_start timestamptz not null,
+  period_end timestamptz not null,
   videos_created integer not null default 0,
   minutes_used numeric(10, 2) not null default 0,
   storage_bytes bigint not null default 0,
@@ -459,18 +459,18 @@ set search_path = ''
 as $$
 declare
   v_sub public.subscriptions%rowtype;
-  v_start date;
-  v_end date;
+  v_start timestamptz;
+  v_end timestamptz;
   v_row public.usage%rowtype;
 begin
   select * into v_sub from public.subscriptions where user_id = p_user;
   if found and v_sub.current_period_start is not null and v_sub.current_period_end is not null
      and now() between v_sub.current_period_start and v_sub.current_period_end then
-    v_start := v_sub.current_period_start::date;
-    v_end := v_sub.current_period_end::date;
+    v_start := v_sub.current_period_start;
+    v_end := v_sub.current_period_end;
   else
-    v_start := date_trunc('month', now())::date;
-    v_end := (date_trunc('month', now()) + interval '1 month - 1 day')::date;
+    v_start := date_trunc('month', now());
+    v_end := date_trunc('month', now()) + interval '1 month';
   end if;
 
   insert into public.usage (user_id, period_start, period_end)

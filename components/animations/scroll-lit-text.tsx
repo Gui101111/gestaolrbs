@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -10,25 +10,9 @@ import { cn } from "@/lib/utils";
  */
 export function ScrollLitText({ text, className }: { text: string; className?: string }) {
   const ref = React.useRef<HTMLParagraphElement>(null);
-  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 85%", "end 45%"] });
   const tokens = text.split(/\s+/).filter(Boolean);
   const plain = text.replace(/\*/g, "");
-
-  if (reduce) {
-    return (
-      <p ref={ref} className={className}>
-        {tokens.map((t, i) => {
-          const gold = t.startsWith("*");
-          return (
-            <span key={i} className={gold ? "text-gold-light" : "text-ivory"}>
-              {t.replace(/\*/g, "")}{" "}
-            </span>
-          );
-        })}
-      </p>
-    );
-  }
 
   return (
     <p ref={ref} className={cn("flex flex-wrap", className)} aria-label={plain}>
@@ -57,7 +41,7 @@ function Word({
   const filter = useTransform(blur, (b) => `blur(${b}px)`);
   return (
     <span aria-hidden className="relative mr-[0.26em] mb-[0.06em]">
-      <motion.span style={{ opacity, filter }} className={gold ? "text-gold-gradient text-glow" : "text-ivory"}>
+      <motion.span data-lit-word style={{ opacity, filter }} className={gold ? "text-gold-gradient text-glow" : "text-ivory"}>
         {children}
       </motion.span>
     </span>

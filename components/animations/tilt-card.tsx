@@ -37,7 +37,7 @@ export function TiltCard({
   const surfaceBg = useMotionTemplate`radial-gradient(520px circle at ${mx} ${my}, rgba(198,161,91,0.10), transparent 60%)`;
 
   const onMove = (e: React.PointerEvent) => {
-    if (e.pointerType !== "mouse") return;
+    if (e.pointerType !== "mouse" || reduce) return;
     const r = ref.current?.getBoundingClientRect();
     if (!r) return;
     px.set((e.clientX - r.left) / r.width);
@@ -57,7 +57,7 @@ export function TiltCard({
       ref={ref}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      style={reduce ? undefined : { rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
+      style={{ rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
       className={cn("group/tilt relative rounded-2xl will-change-transform", className)}
     >
       {glow && (

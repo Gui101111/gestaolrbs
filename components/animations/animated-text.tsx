@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -36,7 +36,6 @@ export function AnimatedText({
   once?: boolean;
   trigger?: "view" | "mount";
 }) {
-  const reduce = useReducedMotion();
   const segs: Segment[] = segments ?? [{ text: text ?? "" }];
   const label = segs.map((s) => s.text).join("");
   const Tag = motion[as] as typeof motion.h2;
@@ -56,15 +55,8 @@ export function AnimatedText({
             <motion.span
               className={cn("inline-block will-change-transform", seg.className, wordClassName)}
               variants={{
-                hidden: reduce ? { opacity: 0 } : { opacity: 0, y: "65%", filter: "blur(10px)" },
-                show: reduce
-                  ? { opacity: 1, transition: { duration: 0.3 } }
-                  : {
-                      opacity: 1,
-                      y: "0%",
-                      filter: "blur(0px)",
-                      transition: { duration, ease: EASE, delay: delay + i * stagger },
-                    },
+                hidden: { opacity: 0, y: "65%", filter: "blur(10px)" },
+                show: { opacity: 1, y: "0%", filter: "blur(0px)", transition: { duration, ease: EASE, delay: delay + i * stagger } },
               }}
             >
               {w}
@@ -102,7 +94,6 @@ export function LineReveal({
   stagger?: number;
   trigger?: "view" | "mount";
 }) {
-  const reduce = useReducedMotion();
   const animateProps =
     trigger === "mount"
       ? { initial: "hidden", animate: "show" }
@@ -114,10 +105,8 @@ export function LineReveal({
           <motion.span
             className={cn("block will-change-transform", lineClassName)}
             variants={{
-              hidden: reduce ? { opacity: 0 } : { y: "105%", opacity: 0 },
-              show: reduce
-                ? { opacity: 1 }
-                : { y: "0%", opacity: 1, transition: { duration: 1.2, ease: EASE, delay: delay + i * stagger } },
+              hidden: { y: "105%", opacity: 0 },
+              show: { y: "0%", opacity: 1, transition: { duration: 1.2, ease: EASE, delay: delay + i * stagger } },
             }}
           >
             {line}

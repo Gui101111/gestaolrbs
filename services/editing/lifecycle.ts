@@ -14,6 +14,12 @@ export async function advanceJob(
 ) {
   const { data: job } = await admin.from("render_jobs").select("*").eq("id", jobId).single();
   if (!job) throw new Error("job_not_found");
+  const finishing = patch.status === "succeeded" && job.status !== "succeeded";
+  if (finishing) {
+    // Valida antes de alterar o estado: concluir exige ao menos uma entrega registrada
+    const { count } = await admin.from("renders").select("id", { count: "exact", head: true }).eq("project_id", job.project_id);
+    if (!count) throw new Error("no_renders");
+  }
 
   const history = Array.isArray(job.step_history) ? (job.step_history as { step: string; at: string }[]) : [];
   if (patch.step && patch.step !== job.current_step) history.push({ step: patch.step, at: new Date().toISOString() });
@@ -40,8 +46,8 @@ export async function advanceJob(
   if (status === "running") {
     await admin.from("projects").update({ status: job.kind === "revision" ? "revision_requested" : "processing" }).eq("id", job.project_id).in("status", ["queued", "processing", "revision_requested"]);
   }
-  if (status === "failed") await failProject(job.project_id, patch.errorMessage, admin);
-  if (status === "succeeded") await completeProject(job.project_id, jobId, admin);
+  if (patch.status === "failed" && job.status !== "failed") await failProject(job.project_id, patch.errorMessage, admin);
+  if (finishing) await completeProject(job.project_id, jobId, admin);
   return job;
 }
 
@@ -93,6 +99,7 @@ export async function completeProject(projectId: string, jobId: string | null, a
   const { count } = await admin.from("renders").select("id", { count: "exact", head: true }).eq("project_id", projectId);
   if (!count) throw new Error("no_renders");
 
+  if (project.status === "ready" || project.status === "completed") return; // idempotente
   const wasRevision = project.status === "revision_requested";
   const last = PIPELINE_STEPS[PIPELINE_STEPS.length - 1].value;
   const jobQuery = admin.from("render_jobs").update({ status: "succeeded", current_step: last, progress: 100, completed_at: new Date().toISOString(), error_code: null, error_message: null });

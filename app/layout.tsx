@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { MotionProvider } from "@/components/animations/motion-provider";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -64,7 +65,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" className={`${cormorant.variable} ${manrope.variable} dark`} suppressHydrationWarning>
       <body className="min-h-dvh bg-ink">
-        <TooltipProvider delayDuration={250}>{children}</TooltipProvider>
+        <MotionProvider>
+          <TooltipProvider delayDuration={250}>{children}</TooltipProvider>
+        </MotionProvider>
         <Toaster />
       </body>
     </html>

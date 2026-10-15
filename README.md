@@ -59,7 +59,12 @@ npm run dev                 # http://localhost:3000
 - Para virar administrador: `update public.profiles set role = 'admin' where email = 'voce@exemplo.com';`
 - Tipos do banco: `npm run db:types`
 
-Scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `db:reset`, `db:types`, `worker`.
+Scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `db:reset`, `db:types`, `worker`, `test:rls`, `test:e2e`.
+
+### Testes
+
+- `npm run test:rls` — 44 verificações de isolamento entre usuários (RLS, Storage, RPCs, colunas protegidas). Só roda contra o Supabase local.
+- `npm run test:e2e` — Playwright (desktop + mobile): landing, rotas protegidas, validações, páginas legais e o fluxo completo cadastro → confirmação por e-mail (Mailpit) → onboarding → upload TUS → envio para edição. Requer `npm run dev` e o Supabase local. Em ambientes com Chromium próprio, use `PLAYWRIGHT_CHROMIUM_PATH=/caminho/do/chromium`.
 
 ## Supabase em produção
 

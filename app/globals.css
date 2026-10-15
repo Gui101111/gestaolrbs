@@ -441,4 +441,8 @@ html.lenis body {
   .skeleton::after {
     animation: none;
   }
+  [data-lit-word] {
+    opacity: 1 !important;
+    filter: none !important;
+  }
 }

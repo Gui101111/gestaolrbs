@@ -52,7 +52,7 @@ export function ProcessingTimeline({ projectId, initialJob, projectStatus }: { p
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "projects", filter: `id=eq.${projectId}` }, (payload) => {
         const next = (payload.new as { status: string }).status;
         setStatus(next);
-        if (next === "ready" || next === "completed") router.refresh();
+        router.refresh(); // atualiza selo de status e, quando pronto, troca para o resultado
       })
       .subscribe();
 
@@ -65,7 +65,7 @@ export function ProcessingTimeline({ projectId, initialJob, projectStatus }: { p
       if (j) setJob(j);
       if (p && p.status !== status) {
         setStatus(p.status);
-        if (p.status === "ready" || p.status === "completed") router.refresh();
+        router.refresh();
       }
     }, 15000);
 

@@ -138,7 +138,7 @@ export function Hero({ isAuthenticated = false }: { isAuthenticated?: boolean })
           initial={{ opacity: 0, scale: 0.96, filter: "blur(12px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 1.8, ease: EASE, delay: 0.1 }}
-          className="relative order-1 mx-auto w-full max-w-[min(88vw,420px)] sm:max-w-[480px] lg:order-2 lg:max-w-[640px]"
+          className="relative order-1 mx-auto w-full max-w-[min(80vw,330px)] sm:max-w-[440px] lg:order-2 lg:max-w-[640px]"
         >
           <JusticeScale />
         </motion.div>

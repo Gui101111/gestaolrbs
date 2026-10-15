@@ -86,7 +86,7 @@ export function HowItWorks() {
   );
 
   return (
-    <section ref={sectionRef} id="como-funciona" className="relative overflow-hidden bg-ink-2 py-28 lg:flex lg:h-[100svh] lg:flex-col lg:justify-center lg:py-0">
+    <section ref={sectionRef} id="como-funciona" className="relative overflow-hidden bg-ink-2 py-28 lg:flex lg:h-[100svh] lg:flex-col lg:justify-center lg:py-0 motion-reduce:lg:h-auto motion-reduce:lg:py-40">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-gold-lines opacity-50 [mask-image:linear-gradient(180deg,transparent,#000_30%,#000_70%,transparent)]" />
         <div className="absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-gold/[0.06] blur-[120px]" />
@@ -101,10 +101,10 @@ export function HowItWorks() {
       </div>
       <div
         ref={trackRef}
-        className="relative mt-14 flex flex-col gap-5 px-6 md:px-10 lg:mt-16 lg:w-max lg:flex-row lg:gap-7 lg:pr-[20vw] lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))]"
+        className="relative mt-14 flex flex-col gap-5 px-6 md:px-10 lg:mt-16 lg:w-max lg:flex-row lg:gap-7 lg:pr-[20vw] lg:pl-[max(2.5rem,calc((100vw-80rem)/2+2.5rem))] motion-reduce:lg:mx-auto motion-reduce:lg:grid motion-reduce:lg:w-full motion-reduce:lg:max-w-7xl motion-reduce:lg:grid-cols-2 motion-reduce:lg:px-10"
       >
         {STEPS.map((s) => (
-          <div key={s.n} data-step-card className="lg:w-[min(36rem,42vw)]">
+          <div key={s.n} data-step-card className="lg:w-[min(36rem,42vw)] motion-reduce:lg:w-auto">
             <TiltCard className="h-full" innerClassName="p-7 md:p-9">
               <div className="flex h-full flex-col">
                 <div className="flex items-start justify-between gap-6">
