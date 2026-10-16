@@ -21,7 +21,7 @@ export function ProjectCard({ project, index = 0 }: { project: ProjectListItem; 
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: Math.min(index * 0.06, 0.4), ease: [0.22, 1, 0.36, 1] }}
-      className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] transition-all duration-700 ease-[var(--ease-luxe)] hover:-translate-y-1 hover:border-gold/30 hover:shadow-[0_30px_60px_-35px_rgba(198,161,91,0.55)]"
+      className="group relative overflow-hidden rounded-2xl border border-fg/[0.07] bg-fg/[0.02] transition-all duration-700 ease-[var(--ease-luxe)] hover:-translate-y-1 hover:border-gold/30 hover:shadow-[0_30px_60px_-35px_rgba(198,161,91,0.55)]"
     >
       <Link href={href} className="block" aria-label={`Abrir ${project.name}`}>
         <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-navy-deep to-ink">
@@ -43,7 +43,7 @@ export function ProjectCard({ project, index = 0 }: { project: ProjectListItem; 
             <StatusBadge status={project.status} className="bg-ink/70 backdrop-blur" />
           </div>
           {done && (
-            <span className="absolute top-1/2 left-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 scale-90 place-items-center rounded-full bg-gold/90 text-ink opacity-0 shadow-[0_0_30px_rgba(198,161,91,0.7)] transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
+            <span className="absolute top-1/2 left-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 scale-90 place-items-center rounded-full bg-gold/90 text-on-gold opacity-0 shadow-[0_0_30px_rgba(198,161,91,0.7)] transition-all duration-500 group-hover:scale-100 group-hover:opacity-100">
               <Play className="size-5 fill-current" />
             </span>
           )}
@@ -77,7 +77,7 @@ export function ProjectCard({ project, index = 0 }: { project: ProjectListItem; 
 
 export function ProjectCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/[0.06]">
+    <div className="overflow-hidden rounded-2xl border border-fg/[0.06]">
       <div className="skeleton aspect-[16/10]" />
       <div className="space-y-2 p-4">
         <div className="skeleton h-4 w-2/3 rounded-md" />

@@ -94,7 +94,7 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
   return (
     <div className="grid gap-8 xl:grid-cols-[1fr_22rem]">
       <form onSubmit={submit} className="space-y-6" noValidate>
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
           <h2 className="font-display text-2xl text-ivory">Logotipo</h2>
           <p className="mt-1 text-sm text-mist">PNG ou SVG com fundo transparente funciona melhor nos vídeos.</p>
           <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center">
@@ -120,7 +120,7 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
           </div>
         </section>
 
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
           <h2 className="font-display text-2xl text-ivory">Identificação</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <Field label="Nome do escritório" htmlFor="officeName" error={errors.officeName}>
@@ -149,7 +149,7 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
           </div>
         </section>
 
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
           <h2 className="font-display text-2xl text-ivory">Cores</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             {PRESETS.map((p) => (
@@ -157,7 +157,7 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
                 key={p.name}
                 type="button"
                 onClick={() => setV((s) => ({ ...s, primaryColor: p.primary, secondaryColor: p.secondary, accentColor: p.accent }))}
-                className="flex items-center gap-2 rounded-full border border-white/10 px-3 py-1.5 text-xs text-mist transition hover:border-gold/40 hover:text-ivory"
+                className="flex items-center gap-2 rounded-full border border-fg/10 px-3 py-1.5 text-xs text-mist transition hover:border-gold/40 hover:text-ivory"
               >
                 <span className="flex -space-x-1">
                   {[p.primary, p.secondary, p.accent].map((c) => (
@@ -177,7 +177,7 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
               ] as const
             ).map(([key, label]) => (
               <Field key={key} label={label} error={errors[key]}>
-                <div className="flex items-center gap-2 rounded-xl border border-input bg-white/[0.03] p-1.5 pr-3">
+                <div className="flex items-center gap-2 rounded-xl border border-input bg-fg/[0.03] p-1.5 pr-3">
                   <input type="color" value={v[key]} onChange={(e) => set(key, e.target.value.toUpperCase())} className="size-9 cursor-pointer rounded-lg border-0 bg-transparent p-0" aria-label={`Cor ${label}`} />
                   <input
                     value={v[key]}
@@ -192,7 +192,7 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
           </div>
         </section>
 
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
           <h2 className="font-display text-2xl text-ivory">Contatos para CTA</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-3">
             <Field label="Site" htmlFor="website" error={errors.website} optional>
@@ -225,7 +225,7 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
 
 function BrandPreview({ v, logoUrl }: { v: BrandKitValues; logoUrl: string | null }) {
   return (
-    <div className="relative mx-auto aspect-[9/16] w-full max-w-[18rem] overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_40px_80px_-30px_rgba(0,0,0,1)]" style={{ background: v.secondaryColor }}>
+    <div className="relative mx-auto aspect-[9/16] w-full max-w-[18rem] overflow-hidden rounded-[2rem] border border-fg/10 shadow-[0_40px_80px_-30px_rgba(0,0,0,1)]" style={{ background: v.secondaryColor }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/media/justica-rosto.webp" alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40" />

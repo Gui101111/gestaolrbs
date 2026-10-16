@@ -65,7 +65,7 @@ export function SiteHeader({ isAuthenticated = false }: { isAuthenticated?: bool
           className={cn(
             "flex w-full max-w-7xl items-center justify-between gap-4 rounded-full border px-4 transition-all duration-700 ease-[var(--ease-luxe)] md:px-6",
             scrolled
-              ? "h-14 border-white/[0.08] bg-ink/70 shadow-[0_20px_40px_-24px_rgba(0,0,0,0.9)] backdrop-blur-xl md:h-16"
+              ? "h-14 border-fg/[0.08] bg-ink/70 shadow-[0_20px_40px_-24px_rgba(0,0,0,0.9)] backdrop-blur-xl md:h-16"
               : "h-16 border-transparent bg-transparent md:h-20",
           )}
         >
@@ -123,7 +123,7 @@ export function SiteHeader({ isAuthenticated = false }: { isAuthenticated?: bool
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="grid size-10 place-items-center rounded-full border border-white/10 text-ivory transition hover:border-gold/40 lg:hidden"
+            className="grid size-10 place-items-center rounded-full border border-fg/10 text-ivory transition hover:border-gold/40 lg:hidden"
             aria-label="Abrir menu"
             aria-expanded={open}
           >
@@ -150,7 +150,7 @@ export function SiteHeader({ isAuthenticated = false }: { isAuthenticated?: bool
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="grid size-10 place-items-center rounded-full border border-white/10 text-ivory"
+                className="grid size-10 place-items-center rounded-full border border-fg/10 text-ivory"
                 aria-label="Fechar menu"
               >
                 <X className="size-5" />
@@ -167,7 +167,7 @@ export function SiteHeader({ isAuthenticated = false }: { isAuthenticated?: bool
                   <Link
                     href={href(l.href)}
                     onClick={() => setOpen(false)}
-                    className="group flex items-baseline gap-4 border-b border-white/[0.06] py-4 font-display text-4xl text-ivory"
+                    className="group flex items-baseline gap-4 border-b border-fg/[0.06] py-4 font-display text-4xl text-ivory"
                   >
                     <span className="font-sans text-xs tracking-[0.2em] text-gold">0{i + 1}</span>
                     <span className="transition-colors group-hover:text-gold-light">{l.label}</span>

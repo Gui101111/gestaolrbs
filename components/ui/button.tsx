@@ -7,47 +7,55 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
- * Botão base da TRIBUNA.
- * - gold: gradiente metálico, brilho que atravessa no hover, profundidade sutil;
- * - outline: borda dourada fina que acende no hover;
- * - ghost / subtle / destructive para a interface.
- * Ripple suave no clique e estado de carregamento com spinner fino.
+ * Botão base da TRIBUNA (Grafite Neon).
+ * - gold: neon dourado, o botão principal;
+ * - glass / outline: vidro com borda que acende em ciano;
+ * - neon: ciano, para estados ativos e ações secundárias fortes;
+ * - metal / subtle / ghost / link / destructive para a interface.
+ * Em todos: faixa de luz que atravessa no hover, escala 0,97 no clique e ripple.
  */
 const buttonVariants = cva(
   [
     "group/btn relative inline-flex shrink-0 items-center justify-center gap-2 overflow-hidden whitespace-nowrap",
-    "font-sans font-semibold tracking-[0.02em] select-none outline-none",
+    "font-sans font-semibold select-none outline-none",
     "transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-500 ease-[var(--ease-luxe)]",
-    "active:scale-[0.975] disabled:pointer-events-none disabled:opacity-50",
-    "focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ink",
+    "active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50",
+    "focus-visible:ring-2 focus-visible:ring-cyan/60 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   ].join(" "),
   {
     variants: {
       variant: {
         gold: [
-          "text-[#140f06] bg-gold-gradient bg-[length:160%_160%] bg-[position:0%_0%]",
-          "shadow-[0_1px_0_0_rgb(255_255_255/0.35)_inset,0_-1px_0_0_rgb(0_0_0/0.25)_inset,0_10px_30px_-12px_rgb(198_161_91/0.7)]",
-          "hover:bg-[position:100%_100%] hover:-translate-y-px",
-          "hover:shadow-[0_1px_0_0_rgb(255_255_255/0.45)_inset,0_-1px_0_0_rgb(0_0_0/0.25)_inset,0_18px_44px_-14px_rgb(225_196_135/0.85),0_0_0_1px_rgb(225_196_135/0.4)]",
+          "text-[#1a1306] bg-[linear-gradient(135deg,#f7d898_0%,#f2c46d_45%,#c99a3b_100%)]",
+          "shadow-[0_1px_0_0_rgb(255_255_255/0.5)_inset,0_0_0_1px_rgb(242_196_109/0.55),0_10px_30px_-12px_rgb(242_196_109/0.75)]",
+          "hover:-translate-y-px hover:shadow-[0_1px_0_0_rgb(255_255_255/0.6)_inset,0_0_0_1px_rgb(247_216_152/0.8),0_0_32px_-4px_rgb(242_196_109/0.6),0_18px_40px_-14px_rgb(242_196_109/0.9)]",
+        ].join(" "),
+        neon: [
+          "text-cyan bg-cyan/[0.1] border border-cyan/40",
+          "hover:bg-cyan/[0.16] hover:border-cyan/70 hover:shadow-[var(--glow-cyan)]",
+        ].join(" "),
+        glass: [
+          "glass text-fg",
+          "hover:border-cyan/45 hover:shadow-[var(--glow-cyan)]",
         ].join(" "),
         outline: [
-          "text-ivory bg-white/[0.02] border border-gold/35",
-          "hover:border-gold-light/80 hover:bg-gold/[0.06] hover:text-gold-light",
-          "hover:shadow-[0_0_0_1px_rgb(198_161_91/0.25),0_0_32px_-10px_rgb(198_161_91/0.55)]",
+          "text-fg bg-fg/[0.03] border border-line-strong",
+          "hover:border-cyan/50 hover:bg-cyan/[0.06] hover:shadow-[var(--glow-cyan)]",
         ].join(" "),
-        subtle: "text-ivory bg-white/[0.05] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.14]",
-        ghost: "text-mist hover:text-ivory hover:bg-white/[0.05]",
-        link: "text-gold hover:text-gold-light underline-offset-4 hover:underline px-0 h-auto",
+        metal: "metal text-fg hover:border-line-strong hover:-translate-y-px",
+        subtle: "text-fg bg-fg/[0.06] border border-line hover:bg-fg/[0.1] hover:border-line-strong",
+        ghost: "text-fg-2 hover:text-fg hover:bg-fg/[0.06]",
+        link: "text-cyan hover:text-fg underline-offset-4 hover:underline px-0 h-auto",
         destructive:
-          "text-ivory bg-destructive/15 border border-destructive/40 hover:bg-destructive/25 hover:border-destructive/70",
-        navy: "text-ivory bg-navy-deep border border-white/[0.08] hover:bg-navy-soft hover:border-gold/30",
+          "text-destructive bg-destructive/[0.1] border border-destructive/35 hover:bg-destructive/[0.18] hover:border-destructive/60",
+        navy: "metal text-fg hover:border-line-strong",
       },
       size: {
         sm: "h-9 rounded-full px-4 text-[0.8125rem]",
-        md: "h-11 rounded-full px-6 text-sm",
-        lg: "h-13 rounded-full px-8 text-[0.8125rem] uppercase tracking-[0.16em]",
-        xl: "h-15 rounded-full px-10 text-[0.8125rem] uppercase tracking-[0.2em]",
+        md: "h-11 rounded-full px-5 text-sm",
+        lg: "h-12 rounded-full px-7 text-[0.9375rem]",
+        xl: "h-14 rounded-full px-9 text-base",
         icon: "size-10 rounded-full",
         "icon-sm": "size-8 rounded-full",
       },
@@ -63,15 +71,20 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
-  /** Desliga o brilho que atravessa o botão (apenas variante gold). */
+  /** Desliga a faixa de luz que atravessa o botão. */
   noShine?: boolean;
+  /** Glow pulsando devagar (CTA principal). */
+  pulse?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, loading = false, noShine, children, onPointerDown, disabled, ...props }, ref) => {
+  (
+    { className, variant, size, asChild = false, loading = false, noShine, pulse, children, onPointerDown, disabled, ...props },
+    ref,
+  ) => {
     const [ripples, setRipples] = React.useState<RippleState[]>([]);
     const Comp = asChild ? Slot.Root : "button";
-    const showShine = variant === "gold" && !noShine;
+    const showShine = !noShine && variant !== "link" && variant !== "ghost";
 
     const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
       onPointerDown?.(e);
@@ -81,12 +94,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       window.setTimeout(() => setRipples((r) => r.filter((rp) => rp.id !== id)), 700);
     };
 
+    const classes = cn(buttonVariants({ variant, size }), pulse && "cta-pulse", className);
+
     const decorations = (
       <>
         {showShine && (
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -translate-x-[120%] skew-x-[-18deg] bg-gradient-to-r from-transparent via-white/55 to-transparent opacity-0 transition-opacity duration-300 group-hover/btn:animate-shimmer group-hover/btn:opacity-100"
+            className={cn(
+              "pointer-events-none absolute inset-y-0 left-0 w-1/2 -translate-x-[120%] skew-x-[-18deg] bg-gradient-to-r from-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover/btn:animate-shimmer group-hover/btn:opacity-100",
+              variant === "gold" ? "via-white/60" : "via-fg/15",
+            )}
           />
         )}
         {ripples.map((r) => (
@@ -102,12 +120,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (asChild) {
       return (
-        <Comp
-          ref={ref}
-          className={cn(buttonVariants({ variant, size }), className)}
-          onPointerDown={handlePointerDown}
-          {...props}
-        >
+        <Comp ref={ref} className={classes} onPointerDown={handlePointerDown} {...props}>
           {children}
         </Comp>
       );
@@ -116,7 +129,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={cn(buttonVariants({ variant, size }), className)}
+        className={classes}
         onPointerDown={handlePointerDown}
         disabled={disabled || loading}
         aria-busy={loading || undefined}

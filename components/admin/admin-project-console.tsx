@@ -68,7 +68,7 @@ export function AdminProjectConsole({
   return (
     <div className="grid gap-6 xl:grid-cols-[1.2fr_1fr]">
       <div className="space-y-6">
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-display text-2xl text-ivory">Processamento</h2>
             {originalUrl && (
@@ -121,7 +121,7 @@ export function AdminProjectConsole({
           )}
         </section>
 
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6">
           <h2 className="font-display text-2xl text-ivory">Entregas por formato</h2>
           <p className="mt-1 text-sm text-mist">Envie o MP4 editado de cada proporção. Novas entregas viram uma nova versão.</p>
           <div className="mt-5 space-y-4">
@@ -130,7 +130,7 @@ export function AdminProjectConsole({
             ))}
           </div>
           {renders.length > 0 && (
-            <ul className="mt-6 divide-y divide-white/[0.05] border-t border-white/[0.06]">
+            <ul className="mt-6 divide-y divide-fg/[0.05] border-t border-fg/[0.06]">
               {renders.map((rd) => (
                 <li key={rd.id} className="flex items-center justify-between gap-3 py-3 text-sm">
                   <span className="flex items-center gap-3">
@@ -169,7 +169,7 @@ export function AdminProjectConsole({
       </div>
 
       <div className="space-y-6">
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6">
           <h2 className="font-display text-2xl text-ivory">Notas internas</h2>
           <Textarea className="mt-4" rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Visível somente para a equipe." />
           <Button
@@ -189,7 +189,7 @@ export function AdminProjectConsole({
           </Button>
           <ul className="mt-5 space-y-3">
             {notes.map((n) => (
-              <li key={n.id} className="rounded-xl border border-white/[0.06] p-3 text-sm">
+              <li key={n.id} className="rounded-xl border border-fg/[0.06] p-3 text-sm">
                 <p className="text-xs text-mist">{formatDateTime(n.created_at)}</p>
                 <p className="mt-1 whitespace-pre-line text-ivory/90">{n.body}</p>
               </li>
@@ -246,7 +246,7 @@ function RenderUploader({ ratio, ownerId, projectId, onDone }: { ratio: string; 
 
   const uploading = state.status === "uploading" || state.status === "paused" || state.status === "offline";
   return (
-    <div className="flex items-center gap-4 rounded-2xl border border-dashed border-white/10 p-4">
+    <div className="flex items-center gap-4 rounded-2xl border border-dashed border-fg/10 p-4">
       <span className="grid size-12 shrink-0 place-items-center rounded-xl border border-gold/30 bg-gold/[0.06] font-mono text-xs text-gold-light">{ratio}</span>
       <div className="min-w-0 flex-1">
         {uploading ? (

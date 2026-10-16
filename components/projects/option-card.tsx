@@ -42,7 +42,7 @@ export function OptionCard({
         "focus-visible:ring-2 focus-visible:ring-gold/50 disabled:cursor-not-allowed disabled:opacity-40",
         selected
           ? "border-gold/60 bg-gold/[0.07] shadow-[0_0_0_1px_rgba(198,161,91,0.25),0_18px_40px_-24px_rgba(198,161,91,0.7)]"
-          : "border-white/[0.08] bg-white/[0.02] hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.04]",
+          : "border-fg/[0.08] bg-fg/[0.02] hover:-translate-y-0.5 hover:border-fg/20 hover:bg-fg/[0.04]",
         className,
       )}
     >
@@ -58,7 +58,7 @@ export function OptionCard({
           <span
             className={cn(
               "grid size-10 shrink-0 place-items-center rounded-xl border transition-all duration-500",
-              selected ? "border-gold/50 bg-gold/15 text-gold-light" : "border-white/10 bg-white/[0.03] text-mist group-hover:text-ivory",
+              selected ? "border-gold/50 bg-gold/15 text-gold-light" : "border-fg/10 bg-fg/[0.03] text-mist group-hover:text-ivory",
             )}
           >
             {icon}
@@ -69,7 +69,7 @@ export function OptionCard({
           className={cn(
             "grid size-5 shrink-0 place-items-center border transition-all duration-500",
             multiple ? "rounded-md" : "rounded-full",
-            selected ? "border-gold bg-gold text-ink" : "border-white/20",
+            selected ? "border-gold bg-gold text-on-gold" : "border-fg/20",
           )}
         >
           {selected && <Check className="size-3" strokeWidth={3} />}

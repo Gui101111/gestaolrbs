@@ -26,17 +26,17 @@ export function Field({
       {label && (
         <Label htmlFor={htmlFor}>
           {label}
-          {optional && <span className="text-[0.6875rem] font-normal text-mist/70">(opcional)</span>}
+          {optional && <span className="text-[0.6875rem] font-normal text-fg-3">(opcional)</span>}
         </Label>
       )}
       {children}
       {error ? (
-        <p role="alert" className="flex items-center gap-1.5 text-[0.8125rem] text-[#ec8a80] animate-in fade-in-0 slide-in-from-top-1">
+        <p role="alert" className="flex items-center gap-1.5 text-[0.8125rem] text-destructive animate-in fade-in-0 slide-in-from-top-1">
           <AlertCircle className="size-3.5 shrink-0" />
           {error}
         </p>
       ) : hint ? (
-        <p className="text-[0.8125rem] text-mist/80">{hint}</p>
+        <p className="text-[0.8125rem] text-fg-3">{hint}</p>
       ) : null}
     </div>
   );

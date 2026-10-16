@@ -207,7 +207,7 @@ export function VideoUploader({
               MP4, MOV ou WEBM · até {formatBytes(maxBytes, 0)}
               {maxDurationSec ? ` · até ${formatDuration(maxDurationSec)}` : ""}
             </span>
-            <span className="relative mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-[0.6875rem] text-mist">
+            <span className="relative mt-5 inline-flex items-center gap-2 rounded-full border border-fg/10 px-3 py-1 text-[0.6875rem] text-mist">
               Envio retomável — se a conexão cair, continua de onde parou
             </span>
           </motion.button>
@@ -302,7 +302,7 @@ function FileSummary({
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-white/[0.07] bg-white/[0.02] px-3 py-2">
+    <div className="rounded-xl border border-fg/[0.07] bg-fg/[0.02] px-3 py-2">
       <p className="text-[0.625rem] tracking-[0.12em] text-mist uppercase">{label}</p>
       <p className="mt-0.5 font-semibold text-ivory">{value}</p>
     </div>

@@ -99,7 +99,7 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
     <div className="w-full max-w-2xl">
       <div className="mb-8 flex items-center gap-3">
         {STEPS.map((_, i) => (
-          <div key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
+          <div key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-fg/[0.07]">
             <motion.div
               className="h-full bg-gold-gradient"
               initial={false}

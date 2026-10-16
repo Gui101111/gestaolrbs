@@ -63,7 +63,7 @@ export function FormatsSection() {
                   }}
                   className={cn(
                     "rounded-2xl border p-4 text-left transition-all duration-500",
-                    idx === i ? "border-gold/50 bg-gold/[0.07] shadow-[0_0_30px_-12px_rgba(198,161,91,0.7)]" : "border-white/[0.07] hover:border-white/15",
+                    idx === i ? "border-gold/50 bg-gold/[0.07] shadow-[0_0_30px_-12px_rgba(198,161,91,0.7)]" : "border-fg/[0.07] hover:border-fg/15",
                   )}
                 >
                   <span className="flex items-center justify-between">

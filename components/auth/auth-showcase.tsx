@@ -8,7 +8,7 @@ import { WordCycle } from "@/components/animations/marquee";
 
 export function AuthShowcase() {
   return (
-    <aside className="relative hidden overflow-hidden border-r border-white/[0.06] bg-ink-2 lg:flex lg:flex-col lg:justify-between lg:p-12">
+    <aside className="relative hidden overflow-hidden border-r border-fg/[0.06] bg-ink-2 lg:flex lg:flex-col lg:justify-between lg:p-12">
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_20%_0%,rgba(22,38,61,0.9),transparent_60%)]" />
         <div className="absolute inset-0 bg-gold-lines opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000,transparent_75%)]" />

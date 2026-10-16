@@ -30,7 +30,7 @@ export function SettingsForm({
 
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-8">
+      <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-8">
         <h2 className="font-display text-2xl text-ivory">Padrões do novo projeto</h2>
         <p className="mt-1 text-sm text-mist">Pré-selecionados sempre que você iniciar um vídeo. Você pode mudar em cada projeto.</p>
         <div className="mt-6 max-w-sm">
@@ -53,9 +53,9 @@ export function SettingsForm({
         <PlatformSelector value={v.defaultPlatforms} onChange={(defaultPlatforms) => setV((s) => ({ ...s, defaultPlatforms }))} />
       </section>
 
-      <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-8">
+      <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-8">
         <h2 className="font-display text-2xl text-ivory">Notificações</h2>
-        <div className="mt-5 divide-y divide-white/[0.06]">
+        <div className="mt-5 divide-y divide-fg/[0.06]">
           {(
             [
               ["emailNotifications", "E-mails sobre meus projetos", "Projeto recebido, vídeo pronto e ajustes concluídos."],
@@ -93,7 +93,7 @@ export function SettingsForm({
 
       <div className="grid gap-6 lg:grid-cols-2">
         <form
-          className="space-y-4 rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7"
+          className="space-y-4 rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7"
           onSubmit={(e) => {
             e.preventDefault();
             setEmailError(null);
@@ -118,7 +118,7 @@ export function SettingsForm({
             Alterar e-mail
           </Button>
         </form>
-        <div className="space-y-4 rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+        <div className="space-y-4 rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
           <h2 className="font-display text-2xl text-ivory">Segurança</h2>
           <p className="text-sm text-mist">Encerre a sessão em todos os dispositivos conectados à sua conta.</p>
           <Button variant="outline" onClick={() => void signOutEverywhereAction()}>

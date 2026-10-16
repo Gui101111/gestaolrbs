@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Instrument_Serif, Manrope, Sora } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { MotionProvider } from "@/components/animations/motion-provider";
+import { themeBootScript } from "@/components/theme/theme-provider";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const sora = Sora({
+  variable: "--font-sora",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
@@ -18,6 +18,14 @@ const manrope = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -54,8 +62,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07090c",
-  colorScheme: "dark",
+  themeColor: "#1a1d22",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -63,12 +70,20 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${cormorant.variable} ${manrope.variable} dark`} suppressHydrationWarning>
-      <body className="min-h-dvh bg-ink">
+    <html
+      lang="pt-BR"
+      data-theme="grafite"
+      className={`${sora.variable} ${manrope.variable} ${instrument.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
+      <body className="min-h-dvh bg-canvas">
         <MotionProvider>
           <TooltipProvider delayDuration={250}>{children}</TooltipProvider>
+          <Toaster />
         </MotionProvider>
-        <Toaster />
       </body>
     </html>
   );

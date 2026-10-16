@@ -5,14 +5,15 @@ import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring,
 import { cn } from "@/lib/utils";
 
 /**
- * Card com inclinação 3D leve e borda dourada que acende seguindo o cursor.
- * Em toque ou com movimento reduzido, mantém apenas o brilho estático.
+ * Card com inclinação 3D leve, borda neon que acende seguindo o cursor
+ * e reflexo metálico que passa no hover. Em toque ou com movimento
+ * reduzido, mantém apenas o card estático.
  */
 export function TiltCard({
   children,
   className,
   innerClassName,
-  max = 6,
+  max = 3,
   glow = true,
   as = "div",
 }: {
@@ -33,8 +34,8 @@ export function TiltCard({
   const glowOpacity = useSpring(hovered, { stiffness: 120, damping: 20 });
   const mx = useTransform(px, (v) => `${v * 100}%`);
   const my = useTransform(py, (v) => `${v * 100}%`);
-  const borderBg = useMotionTemplate`radial-gradient(420px circle at ${mx} ${my}, rgba(225,196,135,0.75), rgba(198,161,91,0.12) 40%, transparent 70%)`;
-  const surfaceBg = useMotionTemplate`radial-gradient(520px circle at ${mx} ${my}, rgba(198,161,91,0.10), transparent 60%)`;
+  const borderBg = useMotionTemplate`radial-gradient(380px circle at ${mx} ${my}, color-mix(in oklab, var(--cyan) 90%, transparent), color-mix(in oklab, var(--gold) 40%, transparent) 38%, transparent 70%)`;
+  const surfaceBg = useMotionTemplate`radial-gradient(520px circle at ${mx} ${my}, color-mix(in oklab, var(--cyan) 9%, transparent), transparent 60%)`;
 
   const onMove = (e: React.PointerEvent) => {
     if (e.pointerType !== "mouse" || reduce) return;
@@ -58,7 +59,7 @@ export function TiltCard({
       onPointerMove={onMove}
       onPointerLeave={onLeave}
       style={{ rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
-      className={cn("group/tilt relative rounded-2xl will-change-transform", className)}
+      className={cn("group/tilt relative rounded-[20px] will-change-transform", className)}
     >
       {glow && (
         <motion.div
@@ -67,7 +68,8 @@ export function TiltCard({
           style={{ background: borderBg, opacity: glowOpacity }}
         />
       )}
-      <div className={cn("panel relative h-full overflow-hidden rounded-[inherit]", innerClassName)}>
+      <div className={cn("panel sheen relative h-full overflow-hidden rounded-[inherit]", innerClassName)}>
+        <span aria-hidden className="sheen-layer" />
         <motion.div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: surfaceBg, opacity: glowOpacity }} />
         <div className="relative h-full">{children}</div>
       </div>

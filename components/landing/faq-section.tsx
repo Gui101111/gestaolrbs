@@ -50,7 +50,7 @@ export function FaqSection() {
           description="Não encontrou sua resposta? Fale com a nossa equipe pelo e-mail de suporte."
         />
         <Reveal delay={0.15}>
-          <Accordion type="single" collapsible className="border-t border-white/[0.07]">
+          <Accordion type="single" collapsible className="border-t border-fg/[0.07]">
             {FAQ.map((f, i) => (
               <AccordionItem key={f.q} value={`q-${i}`}>
                 <AccordionTrigger>{f.q}</AccordionTrigger>

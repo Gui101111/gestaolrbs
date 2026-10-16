@@ -44,15 +44,15 @@ export default async function AdminProjects({ searchParams }: { searchParams: Se
           <Link
             key={f.value}
             href={`/admin/projetos?status=${f.value}`}
-            className={cn("rounded-full border px-4 py-2 text-sm transition", f.value === filter.value ? "border-gold/50 bg-gold/10 text-gold-light" : "border-white/10 text-mist hover:text-ivory")}
+            className={cn("rounded-full border px-4 py-2 text-sm transition", f.value === filter.value ? "border-gold/50 bg-gold/10 text-gold-light" : "border-fg/10 text-mist hover:text-ivory")}
           >
             {f.label}
           </Link>
         ))}
       </div>
-      <div className="overflow-x-auto rounded-3xl border border-white/[0.07] bg-white/[0.02]">
+      <div className="overflow-x-auto rounded-3xl border border-fg/[0.07] bg-fg/[0.02]">
         <table className="w-full min-w-[56rem] text-left text-sm">
-          <thead className="border-b border-white/[0.06] text-xs text-mist">
+          <thead className="border-b border-fg/[0.06] text-xs text-mist">
             <tr>
               <th className="px-5 py-3 font-medium">Projeto</th>
               <th className="px-5 py-3 font-medium">Cliente</th>
@@ -67,7 +67,7 @@ export default async function AdminProjects({ searchParams }: { searchParams: Se
               const u = byUser.get(p.user_id);
               const job = lastJob.get(p.id);
               return (
-                <tr key={p.id} className="border-b border-white/[0.04] transition hover:bg-white/[0.02]">
+                <tr key={p.id} className="border-b border-fg/[0.04] transition hover:bg-fg/[0.02]">
                   <td className="px-5 py-3.5">
                     <Link href={`/admin/projetos/${p.id}`} className="font-medium text-ivory hover:text-gold-light">
                       {p.name}

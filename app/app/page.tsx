@@ -79,14 +79,14 @@ export default async function DashboardPage() {
 
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         {/* Continue de onde parou */}
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
           <div className="flex items-center justify-between">
             <h2 className="font-display text-2xl text-ivory">Continue de onde parou</h2>
             {data.continueProject && <span className="text-xs text-mist">{formatRelative(data.continueProject.updated_at)}</span>}
           </div>
           {data.continueProject ? (
             <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center">
-              <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl border border-white/10 bg-navy-deep sm:w-48">
+              <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl border border-fg/10 bg-navy-deep sm:w-48">
                 {data.continueProject.thumbnail_url && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={data.continueProject.thumbnail_url} alt="" className="h-full w-full object-cover" />
@@ -112,7 +112,7 @@ export default async function DashboardPage() {
         </section>
 
         {/* Em processamento */}
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
           <h2 className="font-display text-2xl text-ivory">Em processamento</h2>
           {data.inFlight.length ? (
             <ul className="mt-5 space-y-4">
@@ -120,7 +120,7 @@ export default async function DashboardPage() {
                 const step = PIPELINE_STEPS.find((s) => s.value === p.job?.current_step);
                 return (
                   <li key={p.id}>
-                    <Link href={`/app/projetos/${p.id}`} className="group block rounded-xl p-2 -m-2 transition hover:bg-white/[0.03]">
+                    <Link href={`/app/projetos/${p.id}`} className="group block rounded-xl p-2 -m-2 transition hover:bg-fg/[0.03]">
                       <div className="flex items-center justify-between gap-3 text-sm">
                         <span className="truncate text-ivory group-hover:text-gold-light">{p.name}</span>
                         <span className="text-xs text-mist tabular-nums">{p.job?.progress ?? 0}%</span>

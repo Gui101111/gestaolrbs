@@ -53,8 +53,8 @@ export function ForLawyers() {
           <Stagger className="mt-16 grid gap-5 md:grid-cols-2" stagger={0.1}>
             {PILLARS.map((p) => (
               <StaggerItem key={p.title}>
-                <div className="group flex h-full gap-5 rounded-2xl border border-white/[0.07] bg-ink/40 p-7 backdrop-blur transition-all duration-700 hover:border-gold/30 hover:bg-ink/60">
-                  <span className="grid size-12 shrink-0 place-items-center rounded-full border border-gold/30 text-gold transition-all duration-700 group-hover:bg-gold group-hover:text-ink">
+                <div className="group flex h-full gap-5 rounded-2xl border border-fg/[0.07] bg-ink/40 p-7 backdrop-blur transition-all duration-700 hover:border-gold/30 hover:bg-ink/60">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-full border border-gold/30 text-gold transition-all duration-700 group-hover:bg-gold group-hover:text-on-gold">
                     <p.icon className="size-5" />
                   </span>
                   <div>
@@ -66,7 +66,7 @@ export function ForLawyers() {
             ))}
           </Stagger>
 
-          <div className="mt-20 grid grid-cols-2 gap-y-10 border-t border-white/[0.08] pt-12 md:grid-cols-4">
+          <div className="mt-20 grid grid-cols-2 gap-y-10 border-t border-fg/[0.08] pt-12 md:grid-cols-4">
             {siteConfig.highlights.map((h) => (
               <div key={h.label} className="px-2">
                 <div className="font-display text-5xl text-ivory md:text-6xl">

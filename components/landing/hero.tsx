@@ -53,7 +53,7 @@ export function Hero({ isAuthenticated = false }: { isAuthenticated?: boolean })
             initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1, ease: EASE, delay: 0.3 }}
-            className="gold-ring inline-flex items-center gap-2.5 rounded-full bg-white/[0.03] py-1.5 pr-4 pl-1.5 backdrop-blur"
+            className="gold-ring inline-flex items-center gap-2.5 rounded-full bg-fg/[0.03] py-1.5 pr-4 pl-1.5 backdrop-blur"
           >
             <span className="grid size-7 place-items-center rounded-full bg-gold/15 text-gold-light shadow-[0_0_16px_-2px_rgba(198,161,91,0.6)]">
               <Scale className="size-3.5" />
@@ -109,7 +109,7 @@ export function Hero({ isAuthenticated = false }: { isAuthenticated?: boolean })
             initial="hidden"
             animate="show"
             variants={{ show: { transition: { staggerChildren: 0.1, delayChildren: 1.6 } } }}
-            className="mt-12 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-white/[0.08]"
+            className="mt-12 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-fg/[0.08]"
           >
             {[
               { icon: Landmark, title: "Provimento 205/2021", text: "Sem promessas" },
@@ -151,7 +151,7 @@ export function Hero({ isAuthenticated = false }: { isAuthenticated?: boolean })
         transition={{ duration: 1.2, ease: EASE, delay: 1.8 }}
         className="relative z-10 mx-auto mt-10 max-w-5xl px-6 md:mt-4 md:px-10"
       >
-        <div className="panel gold-ring grid grid-cols-2 gap-y-6 rounded-3xl px-4 py-6 md:grid-cols-4 md:divide-x md:divide-white/[0.07] md:px-2">
+        <div className="panel gold-ring grid grid-cols-2 gap-y-6 rounded-3xl px-4 py-6 md:grid-cols-4 md:divide-x md:divide-fg/[0.07] md:px-2">
           {siteConfig.highlights.map((h) => (
             <div key={h.label} className="px-3 text-center md:px-6">
               <div className="font-display text-4xl font-medium text-gold-gradient md:text-5xl">
@@ -181,7 +181,7 @@ function ScrollCue() {
       aria-label="Rolar para o produto"
     >
       Role
-      <span className="relative h-12 w-px overflow-hidden bg-white/10">
+      <span className="relative h-12 w-px overflow-hidden bg-fg/10">
         <span className="absolute inset-x-0 top-0 h-1/2 animate-[scroll-cue_2.2s_cubic-bezier(0.65,0,0.35,1)_infinite] bg-gradient-to-b from-transparent via-gold to-transparent" />
       </span>
     </motion.button>

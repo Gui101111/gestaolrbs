@@ -137,7 +137,7 @@ export function SubscriptionView({
                 transition={{ delay: i * 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className={cn(
                   "relative flex flex-col rounded-3xl border p-7 transition-all duration-700",
-                  p.is_featured ? "border-gold/40 bg-gradient-to-b from-navy-deep to-transparent glow-gold-soft" : "border-white/[0.08] bg-white/[0.02]",
+                  p.is_featured ? "border-gold/40 bg-gradient-to-b from-navy-deep to-transparent glow-gold-soft" : "border-fg/[0.08] bg-fg/[0.02]",
                 )}
               >
                 {p.is_featured && (
@@ -185,13 +185,13 @@ export function SubscriptionView({
       </section>
 
       {/* Histórico */}
-      <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+      <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
         <h2 className="font-display text-2xl text-ivory">Histórico de pagamentos</h2>
         {payments.length ? (
           <div className="mt-5 overflow-x-auto">
             <table className="w-full min-w-[32rem] text-left text-sm">
               <thead className="text-xs text-mist">
-                <tr className="border-b border-white/[0.06]">
+                <tr className="border-b border-fg/[0.06]">
                   <th className="py-2 font-medium">Data</th>
                   <th className="py-2 font-medium">Valor</th>
                   <th className="py-2 font-medium">Forma</th>
@@ -201,7 +201,7 @@ export function SubscriptionView({
               </thead>
               <tbody>
                 {payments.map((p) => (
-                  <tr key={p.id} className="border-b border-white/[0.04]">
+                  <tr key={p.id} className="border-b border-fg/[0.04]">
                     <td className="py-3 text-ivory/90">{formatDate(p.paid_at ?? p.due_date ?? p.created_at)}</td>
                     <td className="py-3 text-ivory/90">{formatCurrency(p.amount_cents)}</td>
                     <td className="py-3 text-mist">{p.billing_type === "PIX" ? "Pix" : p.billing_type === "CREDIT_CARD" ? "Cartão" : (p.billing_type ?? "—")}</td>
@@ -320,7 +320,7 @@ function CheckoutDialog({ plan, onClose, onDone }: { plan: Plan | null; onClose:
               onClick={() => setMethod(value)}
               className={cn(
                 "flex items-center gap-3 rounded-2xl border p-4 text-left text-sm transition-all",
-                method === value ? "border-gold/60 bg-gold/10 text-gold-light" : "border-white/10 text-ivory/80 hover:border-white/25",
+                method === value ? "border-gold/60 bg-gold/10 text-gold-light" : "border-fg/10 text-ivory/80 hover:border-fg/25",
               )}
             >
               <Icon className="size-5" /> {label}

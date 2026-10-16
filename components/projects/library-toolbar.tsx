@@ -44,7 +44,7 @@ export function LibraryToolbar({ counts }: { counts: Record<string, number> }) {
           {LIBRARY_FILTERS.map((f) => (
             <TabsTrigger key={f.value} value={f.value}>
               {f.label}
-              <span className="rounded-full bg-white/10 px-1.5 text-[0.625rem] tabular-nums">{counts[f.value] ?? 0}</span>
+              <span className="rounded-full bg-fg/10 px-1.5 text-[0.625rem] tabular-nums">{counts[f.value] ?? 0}</span>
             </TabsTrigger>
           ))}
         </TabsList>

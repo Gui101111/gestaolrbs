@@ -52,9 +52,9 @@ export function FeaturesSection() {
             <StaggerItem key={f.title} className={cn(f.span)}>
               <article
                 className={cn(
-                  "group relative h-full overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 transition-all duration-700 ease-[var(--ease-luxe)]",
+                  "group relative h-full overflow-hidden rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-6 transition-all duration-700 ease-[var(--ease-luxe)]",
                   "hover:-translate-y-1 hover:border-gold/30 hover:bg-gold/[0.035] hover:shadow-[0_24px_50px_-30px_rgba(198,161,91,0.55)]",
-                  f.feature && "bg-gradient-to-br from-navy-deep/80 to-white/[0.01] md:p-8",
+                  f.feature && "bg-gradient-to-br from-navy-deep/80 to-fg/[0.01] md:p-8",
                 )}
               >
                 <span

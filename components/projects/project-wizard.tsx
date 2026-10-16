@@ -286,7 +286,7 @@ export function ProjectWizard({ userId, initial, video: initialVideo, limits, bi
                   className="group w-full text-left disabled:cursor-default"
                   aria-current={i === step ? "step" : undefined}
                 >
-                  <span className="block h-1 overflow-hidden rounded-full bg-white/[0.07]">
+                  <span className="block h-1 overflow-hidden rounded-full bg-fg/[0.07]">
                     <motion.span
                       className="block h-full bg-gold-gradient"
                       initial={false}
@@ -368,7 +368,7 @@ export function ProjectWizard({ userId, initial, video: initialVideo, limits, bi
                   onChange={(platforms) => update({ platforms, aspect_ratios: ratiosForPlatforms(platforms).filter((r) => limits.allowedRatios.includes(r)) })}
                 />
                 {p.aspect_ratios.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.02] px-5 py-4 text-sm">
+                  <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-fg/[0.07] bg-fg/[0.02] px-5 py-4 text-sm">
                     <span className="text-mist">Você receberá:</span>
                     {p.aspect_ratios.map((r) => (
                       <span key={r} className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 font-mono text-xs text-gold-light">
@@ -454,7 +454,7 @@ function Chips<T extends string>({ options, value, onChange }: { options: readon
           aria-pressed={value === o.value}
           className={cn(
             "rounded-full border px-3.5 py-1.5 text-xs transition-all",
-            value === o.value ? "border-gold/60 bg-gold/15 text-gold-light" : "border-white/10 text-mist hover:text-ivory",
+            value === o.value ? "border-gold/60 bg-gold/15 text-gold-light" : "border-fg/10 text-mist hover:text-ivory",
           )}
         >
           {o.label}
@@ -485,9 +485,9 @@ function CustomizeStep({
     <div className="space-y-8">
       <div className="grid gap-4 lg:grid-cols-2">
         {groups.map((g) => (
-          <div key={g} className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5">
+          <div key={g} className="rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5">
             <p className="eyebrow mb-3">{g}</p>
-            <div className="divide-y divide-white/[0.06]">
+            <div className="divide-y divide-fg/[0.06]">
               {EDIT_SETTINGS.filter((s) => s.group === g).map((s) => (
                 <div key={s.key} className="py-3.5 first:pt-1 last:pb-1">
                   <label className="flex cursor-pointer items-center justify-between gap-4">
@@ -559,7 +559,7 @@ function CustomizeStep({
         ))}
       </div>
 
-      <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 md:p-6">
+      <div className="rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5 md:p-6">
         <Field
           label="Quer dar alguma instrução adicional?"
           htmlFor="instructions"
@@ -584,7 +584,7 @@ function CustomizeStep({
         )}
       </div>
 
-      <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02]">
+      <div className="rounded-2xl border border-fg/[0.07] bg-fg/[0.02]">
         <button type="button" onClick={() => setAdvanced((v) => !v)} className="flex w-full items-center justify-between px-5 py-4 text-left md:px-6" aria-expanded={advanced}>
           <span>
             <span className="block text-sm font-medium text-ivory">Ajustes avançados</span>
@@ -595,7 +595,7 @@ function CustomizeStep({
         <AnimatePresence initial={false}>
           {advanced && (
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.45, ease: EASE }} className="overflow-hidden">
-              <div className="space-y-6 border-t border-white/[0.06] px-5 py-5 md:px-6">
+              <div className="space-y-6 border-t border-fg/[0.06] px-5 py-5 md:px-6">
                 <Field label="Duração final">
                   <Chips options={TARGET_DURATIONS} value={p.options.target_duration ?? "completo"} onChange={(v) => setOption({ target_duration: v })} />
                 </Field>
@@ -687,7 +687,7 @@ function ReviewStep({
             <div className="absolute inset-0 bg-gradient-to-t from-ink/80 to-transparent" />
             <p className="absolute bottom-4 left-4 right-4 truncate font-display text-xl text-ivory">{p.name}</p>
           </div>
-          <dl className="divide-y divide-white/[0.06]">
+          <dl className="divide-y divide-fg/[0.06]">
             {rows.map((r) => (
               <div key={r.label} className="grid grid-cols-[7.5rem_1fr_auto] items-start gap-3 px-5 py-3.5 text-sm md:grid-cols-[9rem_1fr_auto]">
                 <dt className="text-mist">{r.label}</dt>
@@ -701,7 +701,7 @@ function ReviewStep({
         </div>
       </div>
 
-      <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 text-sm leading-relaxed text-ivory/90">
+      <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5 text-sm leading-relaxed text-ivory/90">
         <Checkbox checked={p.rights_confirmed} onCheckedChange={(v) => update({ rights_confirmed: v === true })} className="mt-0.5" />
         Declaro que tenho direito de uso da imagem e do conteúdo deste vídeo, e que o conteúdo observa as normas éticas da advocacia.
       </label>

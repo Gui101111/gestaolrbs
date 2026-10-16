@@ -62,12 +62,12 @@ export default async function AdminProjectPage({ params }: { params: Promise<{ i
       <ProjectBriefing project={project} revisions={revisions ?? []} />
 
       {brand && (
-        <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6">
+        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6">
           <h2 className="font-display text-2xl text-ivory">Identidade visual do cliente</h2>
           <div className="mt-4 flex flex-wrap items-center gap-6 text-sm text-mist">
             <span className="flex gap-1.5">
               {[brand.primary_color, brand.secondary_color, brand.accent_color].map((c) => (
-                <span key={c} className="size-6 rounded-full ring-1 ring-white/20" style={{ background: c }} title={c} />
+                <span key={c} className="size-6 rounded-full ring-1 ring-fg/20" style={{ background: c }} title={c} />
               ))}
             </span>
             <span>{brand.professional_name ?? "—"}</span>
@@ -81,7 +81,7 @@ export default async function AdminProjectPage({ params }: { params: Promise<{ i
       )}
 
       {job?.brief && (
-        <details className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6">
+        <details className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6">
           <summary className="cursor-pointer font-display text-xl text-ivory">Briefing JSON enviado ao processador</summary>
           <pre className="mt-4 max-h-96 overflow-auto rounded-xl bg-black/50 p-4 text-xs text-mist" data-lenis-prevent>
             {JSON.stringify(job.brief, (k, v) => (k === "url" || k === "logoUrl" ? (v ? "[url assinada]" : v) : v), 2)}

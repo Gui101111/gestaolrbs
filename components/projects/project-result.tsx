@@ -174,7 +174,7 @@ export function ProjectResult({
         </div>
 
         <aside className="space-y-4">
-          <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5">
+          <div className="rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5">
             <p className="eyebrow mb-4">Detalhes</p>
             <dl className="space-y-3 text-sm">
               {[
@@ -194,7 +194,7 @@ export function ProjectResult({
             </dl>
           </div>
 
-          <div className="grid gap-2 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-3">
+          <div className="grid gap-2 rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-3">
             {project.status === "ready" && (
               <Button variant="gold" onClick={approve} loading={pending}>
                 <CheckCircle2 /> Aprovar vídeo

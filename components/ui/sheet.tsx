@@ -17,10 +17,10 @@ function SheetContent({
 }: React.ComponentProps<typeof SheetPrimitive.Content> & { side?: "left" | "right" | "bottom" | "top" }) {
   return (
     <SheetPrimitive.Portal>
-      <SheetPrimitive.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0" />
+      <SheetPrimitive.Overlay className="fixed inset-0 z-50 bg-[#0b0d10]/60 backdrop-blur-md data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0" />
       <SheetPrimitive.Content
         className={cn(
-          "fixed z-50 flex flex-col gap-4 border-white/[0.08] bg-[#0a0d12]/95 shadow-2xl backdrop-blur-xl transition ease-[var(--ease-luxe)]",
+          "glass-strong fixed z-50 flex flex-col gap-4 border-line shadow-[var(--shadow-pop)] transition ease-[var(--ease-luxe)]",
           "data-[state=open]:animate-in data-[state=open]:duration-500 data-[state=closed]:animate-out data-[state=closed]:duration-300",
           side === "left" && "inset-y-0 left-0 h-full w-[86%] max-w-sm border-r data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left",
           side === "right" && "inset-y-0 right-0 h-full w-[86%] max-w-sm border-l data-[state=open]:slide-in-from-right data-[state=closed]:slide-out-to-right",
@@ -31,7 +31,7 @@ function SheetContent({
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className="absolute top-5 right-5 rounded-full p-2 text-mist transition hover:bg-white/5 hover:text-ivory">
+        <SheetPrimitive.Close className="absolute top-5 right-5 rounded-full p-2 text-fg-3 transition hover:bg-fg/[0.08] hover:text-fg">
           <X className="size-5" />
           <span className="sr-only">Fechar</span>
         </SheetPrimitive.Close>
@@ -44,7 +44,7 @@ function SheetTitle({ className, ...props }: React.ComponentProps<typeof SheetPr
   return <SheetPrimitive.Title className={cn("font-display text-xl", className)} {...props} />;
 }
 function SheetDescription({ className, ...props }: React.ComponentProps<typeof SheetPrimitive.Description>) {
-  return <SheetPrimitive.Description className={cn("text-sm text-mist", className)} {...props} />;
+  return <SheetPrimitive.Description className={cn("text-sm text-fg-2", className)} {...props} />;
 }
 
 export { Sheet, SheetTrigger, SheetClose, SheetContent, SheetTitle, SheetDescription };

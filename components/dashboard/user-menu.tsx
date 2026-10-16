@@ -17,7 +17,7 @@ import { initials } from "@/lib/utils";
 export function UserMenu({ name, email, avatarUrl, isAdmin }: { name: string; email: string; avatarUrl: string | null; isAdmin: boolean }) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-3 rounded-full p-0.5 pr-0.5 transition hover:bg-white/[0.04] md:pr-3" aria-label="Menu da conta">
+      <DropdownMenuTrigger className="flex items-center gap-3 rounded-full p-0.5 pr-0.5 transition hover:bg-fg/[0.04] md:pr-3" aria-label="Menu da conta">
         <Avatar className="size-9">
           {avatarUrl && <AvatarImage src={avatarUrl} alt="" />}
           <AvatarFallback>{initials(name)}</AvatarFallback>

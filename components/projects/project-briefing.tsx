@@ -24,11 +24,11 @@ export function ProjectBriefing({ project, revisions }: { project: Project; revi
 
   return (
     <section className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-      <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+      <div className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
         <h2 className="font-display text-2xl text-ivory">Briefing do projeto</h2>
         <dl className="mt-5 grid gap-x-8 gap-y-3 text-sm sm:grid-cols-2">
           {rows.map(([k, v]) => (
-            <div key={k} className="flex flex-col gap-0.5 border-b border-white/[0.05] pb-2.5">
+            <div key={k} className="flex flex-col gap-0.5 border-b border-fg/[0.05] pb-2.5">
               <dt className="text-xs text-mist">{k}</dt>
               <dd className="break-words text-ivory/90">{v}</dd>
             </div>
@@ -47,16 +47,16 @@ export function ProjectBriefing({ project, revisions }: { project: Project; revi
         {project.instructions && (
           <div className="mt-6">
             <p className="text-xs text-mist">Instruções para a IA</p>
-            <p className="mt-2 rounded-xl border border-white/[0.06] bg-ink/50 p-4 text-sm leading-relaxed whitespace-pre-line text-ivory/85">{project.instructions}</p>
+            <p className="mt-2 rounded-xl border border-fg/[0.06] bg-ink/50 p-4 text-sm leading-relaxed whitespace-pre-line text-ivory/85">{project.instructions}</p>
           </div>
         )}
       </div>
-      <div className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+      <div className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
         <h2 className="font-display text-2xl text-ivory">Ajustes</h2>
         {revisions.length ? (
           <ul className="mt-5 space-y-4">
             {revisions.map((r) => (
-              <li key={r.id} className="rounded-xl border border-white/[0.06] p-4">
+              <li key={r.id} className="rounded-xl border border-fg/[0.06] p-4">
                 <div className="flex items-center justify-between gap-2 text-xs">
                   <span className="text-mist">{formatDateTime(r.created_at)}</span>
                   <span className={r.status === "resolved" ? "text-success" : "text-warning"}>

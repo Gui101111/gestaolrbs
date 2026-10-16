@@ -39,7 +39,7 @@ export const VideoPlayer = React.forwardRef<
   return (
     <div
       ref={wrapRef}
-      className={cn("group relative overflow-hidden rounded-2xl border border-white/10 bg-black", className)}
+      className={cn("group relative overflow-hidden rounded-2xl border border-fg/10 bg-black", className)}
       style={{ aspectRatio: `${w} / ${h}` }}
     >
       {src && !error ? (
@@ -73,7 +73,7 @@ export const VideoPlayer = React.forwardRef<
             <button
               type="button"
               onClick={toggle}
-              className="absolute top-1/2 left-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gold/90 text-ink shadow-[0_0_40px_rgba(198,161,91,0.6)] transition-transform hover:scale-105"
+              className="absolute top-1/2 left-1/2 grid size-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-gold/90 text-on-gold shadow-[0_0_40px_rgba(198,161,91,0.6)] transition-transform hover:scale-105"
               aria-label="Reproduzir"
             >
               <Play className="ml-0.5 size-6 fill-current" />
@@ -95,11 +95,11 @@ export const VideoPlayer = React.forwardRef<
                 const v = videoRef.current;
                 if (v) v.currentTime = Number(e.target.value);
               }}
-              className="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/20 accent-[#C6A15B]"
+              className="h-1 w-full cursor-pointer appearance-none rounded-full bg-fg/20 accent-[#C6A15B]"
               aria-label="Posição do vídeo"
             />
             <div className="mt-1.5 flex items-center gap-2 text-xs text-ivory/85">
-              <button type="button" onClick={toggle} className="grid size-8 place-items-center rounded-full hover:bg-white/10" aria-label={playing ? "Pausar" : "Reproduzir"}>
+              <button type="button" onClick={toggle} className="grid size-8 place-items-center rounded-full hover:bg-fg/10" aria-label={playing ? "Pausar" : "Reproduzir"}>
                 {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
               </button>
               <button
@@ -110,7 +110,7 @@ export const VideoPlayer = React.forwardRef<
                   v.muted = !v.muted;
                   setMuted(v.muted);
                 }}
-                className="grid size-8 place-items-center rounded-full hover:bg-white/10"
+                className="grid size-8 place-items-center rounded-full hover:bg-fg/10"
                 aria-label={muted ? "Ativar som" : "Silenciar"}
               >
                 {muted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
@@ -126,7 +126,7 @@ export const VideoPlayer = React.forwardRef<
                   if (document.fullscreenElement) void document.exitFullscreen();
                   else void el.requestFullscreen?.();
                 }}
-                className="ml-auto grid size-8 place-items-center rounded-full hover:bg-white/10"
+                className="ml-auto grid size-8 place-items-center rounded-full hover:bg-fg/10"
                 aria-label="Tela cheia"
               >
                 <Maximize2 className="size-4" />

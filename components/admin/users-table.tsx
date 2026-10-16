@@ -38,9 +38,9 @@ export function UsersTable({ users, plans }: { users: AdminUserRow[]; plans: { i
   return (
     <div className="space-y-4">
       <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar por nome ou e-mail" className="max-w-sm" aria-label="Buscar usuários" />
-      <div className="overflow-x-auto rounded-3xl border border-white/[0.07] bg-white/[0.02]">
+      <div className="overflow-x-auto rounded-3xl border border-fg/[0.07] bg-fg/[0.02]">
         <table className="w-full min-w-[56rem] text-left text-sm">
-          <thead className="border-b border-white/[0.06] text-xs text-mist">
+          <thead className="border-b border-fg/[0.06] text-xs text-mist">
             <tr>
               <th className="px-5 py-3 font-medium">Usuário</th>
               <th className="px-5 py-3 font-medium">Plano</th>
@@ -52,7 +52,7 @@ export function UsersTable({ users, plans }: { users: AdminUserRow[]; plans: { i
           </thead>
           <tbody>
             {filtered.map((u) => (
-              <tr key={u.id} className="border-b border-white/[0.04]">
+              <tr key={u.id} className="border-b border-fg/[0.04]">
                 <td className="px-5 py-3.5">
                   <p className="text-ivory">
                     {u.name ?? "—"} {u.role === "admin" && <Badge variant="gold" className="ml-1">Admin</Badge>}

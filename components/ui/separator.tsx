@@ -19,7 +19,7 @@ function Separator({
       className={cn(
         "shrink-0",
         orientation === "horizontal" ? "h-px w-full" : "h-full w-px",
-        gold ? (orientation === "horizontal" ? "hairline" : "hairline-v") : "bg-white/[0.07]",
+        gold ? (orientation === "horizontal" ? "hairline" : "hairline-v") : "bg-fg/[0.07]",
         className,
       )}
       {...props}

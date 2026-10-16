@@ -85,7 +85,7 @@ export function ProjectActionsMenu({
         <DropdownMenuTrigger
           className={
             triggerClassName ??
-            "grid size-9 place-items-center rounded-full border border-white/10 bg-ink/70 text-ivory backdrop-blur transition hover:border-gold/40"
+            "grid size-9 place-items-center rounded-full border border-fg/10 bg-ink/70 text-ivory backdrop-blur transition hover:border-gold/40"
           }
           aria-label={`Ações do projeto ${name}`}
           onClick={(e) => e.stopPropagation()}

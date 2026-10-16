@@ -38,18 +38,18 @@ export function NotificationsMenu({ userId, initial }: { userId: string; initial
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="relative grid size-10 place-items-center rounded-full border border-white/[0.08] text-mist transition hover:border-gold/40 hover:text-ivory"
+        className="relative grid size-10 place-items-center rounded-full border border-fg/[0.08] text-mist transition hover:border-gold/40 hover:text-ivory"
         aria-label={unread ? `Notificações (${unread} não lidas)` : "Notificações"}
       >
         <Bell className="size-[18px]" />
         {unread > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 grid min-w-4 place-items-center rounded-full bg-gold px-1 text-[0.5625rem] font-bold text-ink shadow-[0_0_10px_rgba(198,161,91,0.8)]">
+          <span className="absolute -top-0.5 -right-0.5 grid min-w-4 place-items-center rounded-full bg-gold px-1 text-[0.5625rem] font-bold text-on-gold shadow-[0_0_10px_rgba(198,161,91,0.8)]">
             {unread > 9 ? "9+" : unread}
           </span>
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[min(92vw,22rem)] p-0">
-        <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-3">
+        <div className="flex items-center justify-between border-b border-fg/[0.07] px-4 py-3">
           <p className="text-sm font-semibold">Notificações</p>
           <button type="button" onClick={markAll} className="flex items-center gap-1.5 text-xs text-gold hover:text-gold-light disabled:opacity-40" disabled={!unread}>
             <CheckCheck className="size-3.5" /> Marcar como lidas
@@ -63,9 +63,9 @@ export function NotificationsMenu({ userId, initial }: { userId: string; initial
               <Link
                 key={n.id}
                 href={n.link ?? "/app"}
-                className={cn("flex gap-3 rounded-lg px-3 py-3 transition hover:bg-white/[0.04]", !n.read_at && "bg-gold/[0.04]")}
+                className={cn("flex gap-3 rounded-lg px-3 py-3 transition hover:bg-fg/[0.04]", !n.read_at && "bg-gold/[0.04]")}
               >
-                <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", n.read_at ? "bg-white/15" : "bg-gold shadow-[0_0_8px_rgba(198,161,91,0.9)]")} />
+                <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", n.read_at ? "bg-fg/15" : "bg-gold shadow-[0_0_8px_rgba(198,161,91,0.9)]")} />
                 <span className="min-w-0">
                   <span className="block text-sm font-medium text-ivory">{n.title}</span>
                   {n.body && <span className="mt-0.5 block text-xs leading-relaxed text-mist">{n.body}</span>}

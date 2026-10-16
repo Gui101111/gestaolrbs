@@ -97,7 +97,7 @@ export function PlansManager({ plans }: { plans: Plan[] }) {
       </div>
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {plans.map((p) => (
-          <div key={p.id} className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6">
+          <div key={p.id} className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="font-display text-2xl text-ivory">{p.name}</p>

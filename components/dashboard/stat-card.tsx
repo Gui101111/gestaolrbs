@@ -30,8 +30,8 @@ export function StatCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.08 * index, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5 transition-all duration-700 hover:border-gold/25 md:p-6",
-        accent && "bg-gradient-to-br from-navy-deep/80 to-white/[0.01]",
+        "group relative overflow-hidden rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5 transition-all duration-700 hover:border-gold/25 md:p-6",
+        accent && "bg-gradient-to-br from-navy-deep/80 to-fg/[0.01]",
       )}
     >
       <span aria-hidden className="pointer-events-none absolute -top-12 -right-12 size-32 rounded-full bg-gold/10 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100" />

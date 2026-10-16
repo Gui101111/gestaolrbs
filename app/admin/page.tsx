@@ -31,13 +31,13 @@ export default async function AdminOverview() {
       <PageHeader eyebrow="Admin" title="Visão geral" description="Operação da plataforma em tempo real." />
       <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-5">
+          <div key={s.label} className="rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5">
             <p className="text-xs text-mist">{s.label}</p>
             <p className="mt-3 font-display text-3xl text-ivory">{s.value}</p>
           </div>
         ))}
       </div>
-      <section className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6">
+      <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="font-display text-2xl text-ivory">Próximos da fila</h2>
           <Link href="/admin/projetos" className="inline-flex items-center gap-1 text-sm text-gold hover:text-gold-light">
@@ -45,7 +45,7 @@ export default async function AdminOverview() {
           </Link>
         </div>
         {recent.data?.length ? (
-          <ul className="divide-y divide-white/[0.05]">
+          <ul className="divide-y divide-fg/[0.05]">
             {recent.data.map((p) => (
               <li key={p.id}>
                 <Link href={`/admin/projetos/${p.id}`} className="flex items-center justify-between gap-4 py-3 transition hover:text-gold-light">

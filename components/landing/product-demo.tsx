@@ -53,7 +53,7 @@ export function ProductDemo() {
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
             >
-              <span aria-hidden className="absolute top-6 bottom-6 left-[1.45rem] hidden w-px bg-white/[0.07] lg:block" />
+              <span aria-hidden className="absolute top-6 bottom-6 left-[1.45rem] hidden w-px bg-fg/[0.07] lg:block" />
               <motion.span
                 aria-hidden
                 className="absolute top-6 left-[1.45rem] hidden w-px origin-top bg-gradient-to-b from-gold-light via-gold to-gold/0 lg:block"
@@ -71,7 +71,7 @@ export function ProductDemo() {
                       onClick={() => setActive(i)}
                       className={cn(
                         "group relative flex w-56 items-center gap-4 rounded-2xl border p-3 text-left transition-all duration-500 lg:w-full lg:border-transparent lg:p-3",
-                        isActive ? "border-gold/30 bg-gold/[0.06] lg:border-gold/20" : "border-white/[0.06] hover:bg-white/[0.03]",
+                        isActive ? "border-gold/30 bg-gold/[0.06] lg:border-gold/20" : "border-fg/[0.06] hover:bg-fg/[0.03]",
                       )}
                       aria-current={isActive ? "step" : undefined}
                     >
@@ -79,10 +79,10 @@ export function ProductDemo() {
                         className={cn(
                           "relative z-10 grid size-10 shrink-0 place-items-center rounded-full border transition-all duration-500",
                           isActive
-                            ? "border-gold bg-gold text-ink shadow-[0_0_24px_-2px_rgba(198,161,91,0.75)]"
+                            ? "border-gold bg-gold text-on-gold shadow-[0_0_24px_-2px_rgba(198,161,91,0.75)]"
                             : done
                               ? "border-gold/50 bg-ink text-gold"
-                              : "border-white/15 bg-ink text-mist",
+                              : "border-fg/15 bg-ink text-mist",
                         )}
                       >
                         {done ? <Check className="size-4" /> : <Icon className="size-4" />}
@@ -103,10 +103,10 @@ export function ProductDemo() {
           {/* Janela do estúdio */}
           <Reveal delay={0.15}>
             <div className="panel gold-ring relative overflow-hidden rounded-[1.75rem] glow-gold-soft">
-              <div className="flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+              <div className="flex items-center justify-between border-b border-fg/[0.06] px-5 py-3.5">
                 <div className="flex items-center gap-2">
-                  <span className="size-2.5 rounded-full bg-white/15" />
-                  <span className="size-2.5 rounded-full bg-white/15" />
+                  <span className="size-2.5 rounded-full bg-fg/15" />
+                  <span className="size-2.5 rounded-full bg-fg/15" />
                   <span className="size-2.5 rounded-full bg-gold/60" />
                 </div>
                 <p className="truncate px-4 text-xs text-mist">
@@ -130,7 +130,7 @@ export function ProductDemo() {
                   </motion.div>
                 </AnimatePresence>
               </div>
-              <div className="h-0.5 w-full bg-white/[0.04]">
+              <div className="h-0.5 w-full bg-fg/[0.04]">
                 <motion.div
                   className="h-full bg-gold-gradient"
                   animate={{ width: `${((active + 1) / STAGES.length) * 100}%` }}
@@ -167,7 +167,7 @@ function Tag({ children, gold }: { children: React.ReactNode; gold?: boolean }) 
     <span
       className={cn(
         "rounded-md border px-2 py-0.5 text-[0.625rem] font-semibold tracking-[0.12em] uppercase backdrop-blur",
-        gold ? "border-gold/40 bg-gold/15 text-gold-light" : "border-white/15 bg-black/50 text-ivory/80",
+        gold ? "border-gold/40 bg-gold/15 text-gold-light" : "border-fg/15 bg-black/50 text-ivory/80",
       )}
     >
       {children}
@@ -179,7 +179,7 @@ function OriginalView() {
   const clips = [18, 7, 24, 5, 14, 9, 20, 3];
   return (
     <div className="flex h-full flex-col gap-4">
-      <div className="relative flex-1 overflow-hidden rounded-xl border border-white/10">
+      <div className="relative flex-1 overflow-hidden rounded-xl border border-fg/10">
         <Image src="/media/justica-busto.webp" alt="" fill sizes="(min-width: 1024px) 700px, 100vw" className="object-cover saturate-[0.55] brightness-[0.62]" />
         <div className="absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.03)_0_1px,transparent_1px_3px)]" />
         <div className="absolute top-3 left-3 flex gap-2">
@@ -191,9 +191,9 @@ function OriginalView() {
           <span className="size-2 animate-[blink-dot_1.2s_infinite] rounded-full bg-destructive" /> REC
         </div>
       </div>
-      <div className="flex h-9 items-stretch gap-1 rounded-lg border border-white/10 bg-black/30 p-1">
+      <div className="flex h-9 items-stretch gap-1 rounded-lg border border-fg/10 bg-black/30 p-1">
         {clips.map((w, i) => (
-          <div key={i} style={{ flex: w }} className={cn("rounded-[4px]", i % 3 === 1 ? "bg-white/[0.06]" : "bg-white/[0.14]")} />
+          <div key={i} style={{ flex: w }} className={cn("rounded-[4px]", i % 3 === 1 ? "bg-fg/[0.06]" : "bg-fg/[0.14]")} />
         ))}
       </div>
     </div>
@@ -220,7 +220,7 @@ function AnalysisView() {
           return (
             <motion.span
               key={i}
-              className={cn("flex-1 rounded-full", silent ? "bg-white/10" : i % 9 === 4 ? "bg-gold-light" : "bg-gold/60")}
+              className={cn("flex-1 rounded-full", silent ? "bg-fg/10" : i % 9 === 4 ? "bg-gold-light" : "bg-gold/60")}
               initial={{ scaleY: 0.1 }}
               animate={reduce ? { scaleY: h } : { scaleY: silent ? [0.08, 0.12, 0.08] : [h * 0.5, h, h * 0.7] }}
               transition={{ duration: 1.2 + (i % 5) * 0.15, repeat: reduce ? 0 : Infinity, repeatType: "mirror", ease: "easeInOut" }}
@@ -241,7 +241,7 @@ function AnalysisView() {
           ["Eco", "Reduzível"],
           ["Ritmo de fala", "148 ppm"],
         ].map(([k, v]) => (
-          <div key={k} className="rounded-lg border border-white/[0.07] bg-white/[0.02] p-3">
+          <div key={k} className="rounded-lg border border-fg/[0.07] bg-fg/[0.02] p-3">
             <p className="text-mist">{k}</p>
             <p className="mt-1 font-semibold text-ivory">{v}</p>
           </div>
@@ -270,7 +270,7 @@ function TranscriptView() {
           transition={{ delay: 0.15 + i * 0.32, duration: 0.6, ease: EASE }}
           className={cn(
             "flex items-start gap-4 rounded-xl border px-4 py-3",
-            line.cut ? "border-destructive/25 bg-destructive/[0.05]" : "border-white/[0.06] bg-white/[0.02]",
+            line.cut ? "border-destructive/25 bg-destructive/[0.05]" : "border-fg/[0.06] bg-fg/[0.02]",
           )}
         >
           <span className="mt-0.5 font-mono text-[0.6875rem] text-gold/80">{line.t}</span>
@@ -316,7 +316,7 @@ function PlanView() {
       {TRACKS.map((track, ti) => (
         <div key={track.name} className="grid grid-cols-[5.5rem_1fr] items-center gap-3">
           <span className="text-xs text-mist">{track.name}</span>
-          <div className="relative h-7 rounded-md bg-white/[0.03]">
+          <div className="relative h-7 rounded-md bg-fg/[0.03]">
             {track.blocks.map(([start, width], bi) => (
               <motion.span
                 key={bi}
@@ -362,7 +362,7 @@ function EditView() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
         <div className="absolute inset-x-3 top-3 flex items-center gap-2">
           <span className="size-5 rounded-full bg-gold/80" />
-          <span className="h-1.5 w-16 rounded-full bg-white/50" />
+          <span className="h-1.5 w-16 rounded-full bg-fg/50" />
         </div>
         <div className="absolute inset-x-3 bottom-[22%] flex flex-wrap justify-center gap-x-1.5 gap-y-0.5 text-center font-sans text-sm leading-tight font-extrabold uppercase sm:text-base">
           {words.map((word, i) => (
@@ -423,7 +423,7 @@ function FinalView() {
           <div className={cn("relative overflow-hidden rounded-xl border border-gold/35 glow-gold-soft", f.cls)}>
             <Image src="/media/justica-rosto.webp" alt="" fill sizes="300px" className="object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-            <span className="absolute top-2 right-2 grid size-5 place-items-center rounded-full bg-gold text-ink">
+            <span className="absolute top-2 right-2 grid size-5 place-items-center rounded-full bg-gold text-on-gold">
               <Check className="size-3" strokeWidth={3} />
             </span>
             <span className="absolute bottom-2 left-2 font-mono text-[0.625rem] text-ivory/80">MP4 · {f.r}</span>

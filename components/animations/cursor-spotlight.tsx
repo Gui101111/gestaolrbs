@@ -12,7 +12,7 @@ export function CursorSpotlight() {
   const y = useMotionValue(-1000);
   const sx = useSpring(x, { stiffness: 90, damping: 22, mass: 0.6 });
   const sy = useSpring(y, { stiffness: 90, damping: 22, mass: 0.6 });
-  const bg = useMotionTemplate`radial-gradient(520px circle at ${sx}px ${sy}px, rgba(198,161,91,0.065), transparent 65%)`;
+  const bg = useMotionTemplate`radial-gradient(520px circle at ${sx}px ${sy}px, color-mix(in oklab, var(--cyan) 6%, transparent), transparent 65%)`;
 
   React.useEffect(() => {
     if (!fine || reduce) return;

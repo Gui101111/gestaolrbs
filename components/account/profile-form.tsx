@@ -84,7 +84,7 @@ export function ProfileForm({
 
   return (
     <div className="space-y-6">
-      <form onSubmit={submit} className="rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-8" noValidate>
+      <form onSubmit={submit} className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-8" noValidate>
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           <div className="relative w-fit">
             <Avatar className="size-24 ring-2">
@@ -94,7 +94,7 @@ export function ProfileForm({
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="absolute -right-1 -bottom-1 grid size-9 place-items-center rounded-full border border-gold/50 bg-ink text-gold-light shadow-lg transition hover:bg-gold hover:text-ink"
+              className="absolute -right-1 -bottom-1 grid size-9 place-items-center rounded-full border border-gold/50 bg-ink text-gold-light shadow-lg transition hover:bg-gold hover:text-on-gold"
               aria-label="Alterar foto"
             >
               {uploading ? <Loader2 className="size-4 animate-spin" /> : <Camera className="size-4" />}
@@ -179,13 +179,13 @@ export function ProfileForm({
 
       <div className="grid gap-6 lg:grid-cols-2">
         <PasswordCard />
-        <div className="space-y-4 rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7">
+        <div className="space-y-4 rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
           <h2 className="font-display text-2xl text-ivory">Sessão</h2>
           <p className="text-sm text-mist">Encerre o acesso neste dispositivo.</p>
           <Button variant="outline" onClick={() => void signOutAction()}>
             <LogOut /> Sair da conta
           </Button>
-          <div className="my-2 h-px bg-white/[0.06]" />
+          <div className="my-2 h-px bg-fg/[0.06]" />
           <DeleteAccount />
         </div>
       </div>
@@ -200,7 +200,7 @@ function PasswordCard() {
   const [pending, start] = React.useTransition();
   return (
     <form
-      className="space-y-4 rounded-3xl border border-white/[0.07] bg-white/[0.02] p-6 md:p-7"
+      className="space-y-4 rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7"
       onSubmit={(e) => {
         e.preventDefault();
         setError(null);

@@ -138,7 +138,7 @@ function StepVisual({ kind }: { kind: (typeof STEPS)[number]["visual"] }) {
       <div className="flex h-32 flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-gold/30 bg-gold/[0.03] text-center">
         <UploadCloud className="size-6 text-gold animate-[float_3s_ease-in-out_infinite]" />
         <p className="text-xs text-mist">Arraste seu vídeo ou clique para selecionar</p>
-        <div className="mt-1 h-1 w-40 overflow-hidden rounded-full bg-white/[0.06]">
+        <div className="mt-1 h-1 w-40 overflow-hidden rounded-full bg-fg/[0.06]">
           <div className="h-full w-2/3 rounded-full bg-gold-gradient" />
         </div>
       </div>
@@ -152,7 +152,7 @@ function StepVisual({ kind }: { kind: (typeof STEPS)[number]["visual"] }) {
             key={t}
             className={cn(
               "rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors",
-              i === 2 ? "border-gold bg-gold/15 text-gold-light shadow-[0_0_20px_-6px_rgba(198,161,91,0.8)]" : "border-white/10 text-mist",
+              i === 2 ? "border-gold bg-gold/15 text-gold-light shadow-[0_0_20px_-6px_rgba(198,161,91,0.8)]" : "border-fg/10 text-mist",
             )}
           >
             {t}
@@ -187,12 +187,12 @@ function StepVisual({ kind }: { kind: (typeof STEPS)[number]["visual"] }) {
     );
   }
   return (
-    <div className="flex h-32 items-center justify-between gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] px-5">
+    <div className="flex h-32 items-center justify-between gap-4 rounded-2xl border border-fg/[0.07] bg-fg/[0.02] px-5">
       <div>
         <p className="text-sm font-semibold text-ivory">revisao-beneficio_9x16.mp4</p>
         <p className="text-xs text-mist">1080 × 1920 · 01:12 · 38 MB</p>
       </div>
-      <span className="grid size-11 place-items-center rounded-full bg-gold-gradient text-ink shadow-[0_10px_30px_-10px_rgba(198,161,91,0.9)]">
+      <span className="grid size-11 place-items-center rounded-full bg-gold-gradient text-on-gold shadow-[0_10px_30px_-10px_rgba(198,161,91,0.9)]">
         <Download className="size-4" />
       </span>
     </div>

@@ -38,9 +38,9 @@ export function AuthCard({
 export function OrDivider() {
   return (
     <div className="my-7 flex items-center gap-4 text-[0.6875rem] tracking-[0.25em] text-mist/60 uppercase">
-      <span className="h-px flex-1 bg-gradient-to-r from-transparent to-white/10" />
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent to-fg/10" />
       ou
-      <span className="h-px flex-1 bg-gradient-to-l from-transparent to-white/10" />
+      <span className="h-px flex-1 bg-gradient-to-l from-transparent to-fg/10" />
     </div>
   );
 }

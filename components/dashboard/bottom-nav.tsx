@@ -23,7 +23,7 @@ export function BottomNav({ isAdmin }: { isAdmin: boolean }) {
   return (
     <>
       <nav
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-white/[0.07] bg-ink/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-fg/[0.07] bg-ink/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden"
         aria-label="Navegação inferior"
       >
         <div className="mx-auto grid max-w-md grid-cols-5 items-end px-2 pt-2 pb-2">
@@ -34,7 +34,7 @@ export function BottomNav({ isAdmin }: { isAdmin: boolean }) {
             <Link
               href="/app/projetos/novo"
               aria-label="Novo projeto"
-              className="-mt-7 grid size-14 place-items-center rounded-full bg-gold-gradient text-ink shadow-[0_10px_30px_-8px_rgba(198,161,91,0.9),0_0_0_6px_#07090c] transition-transform active:scale-95"
+              className="-mt-7 grid size-14 place-items-center rounded-full bg-gold-gradient text-on-gold shadow-[0_10px_30px_-8px_rgba(198,161,91,0.9),0_0_0_6px_#07090c] transition-transform active:scale-95"
             >
               <Plus className="size-6" strokeWidth={2.5} />
             </Link>
@@ -67,7 +67,7 @@ export function BottomNav({ isAdmin }: { isAdmin: boolean }) {
                   onClick={() => setOpen(false)}
                   className={cn(
                     "flex items-center gap-3 rounded-2xl border px-4 py-3.5 text-sm transition",
-                    active ? "border-gold/40 bg-gold/10 text-gold-light" : "border-white/[0.07] bg-white/[0.02] text-ivory/85",
+                    active ? "border-gold/40 bg-gold/10 text-gold-light" : "border-fg/[0.07] bg-fg/[0.02] text-ivory/85",
                   )}
                 >
                   <Icon className="size-4 text-gold" />

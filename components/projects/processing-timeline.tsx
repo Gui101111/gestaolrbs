@@ -107,7 +107,7 @@ export function ProcessingTimeline({ projectId, initialJob, projectStatus }: { p
       </div>
 
       <ol className="relative space-y-2" aria-label="Etapas do processamento">
-        <span aria-hidden className="absolute top-6 bottom-6 left-[1.6rem] w-px bg-white/[0.07]" />
+        <span aria-hidden className="absolute top-6 bottom-6 left-[1.6rem] w-px bg-fg/[0.07]" />
         <motion.span
           aria-hidden
           className="absolute top-6 left-[1.6rem] w-px origin-top bg-gradient-to-b from-gold-light via-gold to-gold/20"
@@ -132,9 +132,9 @@ export function ProcessingTimeline({ projectId, initialJob, projectStatus }: { p
               <span
                 className={cn(
                   "relative z-10 grid size-[2.2rem] shrink-0 place-items-center rounded-full border transition-all duration-700",
-                  state === "done" && "border-gold/60 bg-gold text-ink",
+                  state === "done" && "border-gold/60 bg-gold text-on-gold",
                   state === "active" && "border-gold bg-ink text-gold-light shadow-[0_0_24px_-4px_rgba(198,161,91,0.9)]",
-                  state === "pending" && "border-white/10 bg-ink text-mist/50",
+                  state === "pending" && "border-fg/10 bg-ink text-mist/50",
                   state === "error" && "border-destructive/60 bg-ink text-[#ec8a80]",
                 )}
               >
@@ -215,7 +215,7 @@ function StepVisual({ step }: { step: string }) {
   }
   if (step === "rendering" || step === "editing") {
     return (
-      <span className="relative h-1.5 w-16 overflow-hidden rounded-full bg-white/10" aria-hidden>
+      <span className="relative h-1.5 w-16 overflow-hidden rounded-full bg-fg/10" aria-hidden>
         <motion.span className="absolute inset-y-0 w-1/2 rounded-full bg-gold-gradient" animate={{ x: ["-100%", "200%"] }} transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }} />
       </span>
     );

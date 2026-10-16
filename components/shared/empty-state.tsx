@@ -24,7 +24,7 @@ export function EmptyState({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "relative flex flex-col items-center overflow-hidden rounded-3xl border border-dashed border-white/10 bg-white/[0.015] px-6 text-center",
+        "relative flex flex-col items-center overflow-hidden rounded-3xl border border-dashed border-fg/10 bg-fg/[0.015] px-6 text-center",
         compact ? "py-10" : "py-16 md:py-20",
         className,
       )}

@@ -13,8 +13,8 @@ function SelectTrigger({ className, children, ...props }: React.ComponentProps<t
   return (
     <SelectPrimitive.Trigger
       className={cn(
-        "flex h-12 w-full items-center justify-between gap-2 rounded-xl border border-input bg-white/[0.03] px-4 text-left text-ivory outline-none transition",
-        "hover:border-white/20 focus-visible:border-gold/60 focus-visible:shadow-[0_0_0_4px_rgb(198_161_91/0.12)] data-[placeholder]:text-mist/60 aria-invalid:border-destructive/70",
+        "flex h-12 w-full items-center justify-between gap-2 rounded-[14px] border border-input bg-raised/60 px-4 text-left text-fg outline-none transition",
+        "hover:border-fg/25 focus-visible:border-cyan/70 focus-visible:shadow-[0_0_0_4px_color-mix(in_oklab,var(--cyan)_14%,transparent)] data-[placeholder]:text-fg-3 aria-invalid:border-destructive/70",
         "[&>span]:line-clamp-1",
         className,
       )}
@@ -22,7 +22,7 @@ function SelectTrigger({ className, children, ...props }: React.ComponentProps<t
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDown className="size-4 text-mist" />
+        <ChevronDown className="size-4 text-fg-3" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -35,7 +35,7 @@ function SelectContent({ className, children, position = "popper", ...props }: R
         position={position}
         sideOffset={6}
         className={cn(
-          "relative z-50 max-h-80 min-w-[8rem] overflow-hidden rounded-xl border border-white/[0.08] bg-[#0d1117]/95 text-ivory shadow-2xl backdrop-blur-xl",
+          "relative z-50 max-h-80 min-w-[8rem] overflow-hidden rounded-2xl border border-line bg-popover/95 text-fg shadow-[var(--shadow-pop)] backdrop-blur-xl",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           position === "popper" && "w-[var(--radix-select-trigger-width)]",
           className,
@@ -52,14 +52,14 @@ function SelectItem({ className, children, ...props }: React.ComponentProps<type
   return (
     <SelectPrimitive.Item
       className={cn(
-        "relative flex w-full cursor-pointer items-center rounded-lg py-2 pr-8 pl-2.5 text-sm outline-none select-none focus:bg-white/[0.06] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "relative flex w-full cursor-pointer items-center rounded-lg py-2 pr-8 pl-2.5 text-sm outline-none select-none focus:bg-cyan/[0.08] focus:text-fg data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         className,
       )}
       {...props}
     >
       <span className="absolute right-2.5 flex size-4 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <Check className="size-4 text-gold" />
+          <Check className="size-4 text-cyan" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

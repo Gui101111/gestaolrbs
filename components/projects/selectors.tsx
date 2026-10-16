@@ -86,7 +86,7 @@ export function LegalAreaSelector({ value, onChange }: { value: string | null; o
               "inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm transition-all duration-400",
               selected
                 ? "border-gold/60 bg-gold/15 text-gold-light shadow-[0_0_24px_-8px_rgba(198,161,91,0.8)]"
-                : "border-white/10 bg-white/[0.02] text-ivory/80 hover:border-white/25 hover:text-ivory",
+                : "border-fg/10 bg-fg/[0.02] text-ivory/80 hover:border-fg/25 hover:text-ivory",
             )}
           >
             <span className={selected ? "text-gold-light" : "text-mist"}>{AREA_ICONS[a.value]}</span>
@@ -102,7 +102,7 @@ export function LegalAreaSelector({ value, onChange }: { value: string | null; o
 function StyleSwatch({ style, active }: { style: string; active: boolean }) {
   const bars = { institucional: [1, 1], dinamico: [1, 0.6, 0.9, 0.5], cinematografico: [1, 0.85], performance: [0.9, 0.4, 0.8, 0.3, 0.7], descontraido: [0.8, 0.6, 0.9] }[style] ?? [1];
   return (
-    <div className="relative h-20 w-full overflow-hidden rounded-xl border border-white/[0.07] bg-gradient-to-br from-navy-deep to-ink">
+    <div className="relative h-20 w-full overflow-hidden rounded-xl border border-fg/[0.07] bg-gradient-to-br from-navy-deep to-ink">
       {style === "cinematografico" && (
         <>
           <span className="absolute inset-x-0 top-0 h-3 bg-black" />
@@ -113,7 +113,7 @@ function StyleSwatch({ style, active }: { style: string; active: boolean }) {
         {bars.map((h, i) => (
           <motion.span
             key={i}
-            className={cn("flex-1 rounded-sm", active ? "bg-gold/70" : "bg-white/15")}
+            className={cn("flex-1 rounded-sm", active ? "bg-gold/70" : "bg-fg/15")}
             style={{ height: 6 }}
             animate={active ? { opacity: [0.5, 1, 0.5] } : { opacity: 0.6 }}
             transition={{ duration: 0.6 + i * 0.12, repeat: active ? Infinity : 0 }}
@@ -126,8 +126,8 @@ function StyleSwatch({ style, active }: { style: string; active: boolean }) {
           style === "institucional" && "font-display text-sm text-ivory/80 italic",
           style === "dinamico" && "font-sans text-xs font-extrabold text-ivory uppercase",
           style === "cinematografico" && "font-display text-xs tracking-[0.4em] text-ivory/80 uppercase",
-          style === "performance" && "rounded bg-ivory px-1.5 py-0.5 font-sans text-[0.625rem] font-extrabold text-ink uppercase",
-          style === "descontraido" && "rounded-full bg-gold px-2 py-0.5 font-sans text-[0.625rem] font-bold text-ink",
+          style === "performance" && "rounded bg-ivory px-1.5 py-0.5 font-sans text-[0.625rem] font-extrabold text-on-gold uppercase",
+          style === "descontraido" && "rounded-full bg-gold px-2 py-0.5 font-sans text-[0.625rem] font-bold text-on-gold",
         )}
       >
         {{ institucional: "“Autoridade”", dinamico: "SEUS DIREITOS", cinematografico: "Precisão", performance: "Teve o benefício negado?", descontraido: "Vamos por partes" }[style]}
@@ -151,7 +151,7 @@ export function EditingStyleSelector({ value, onChange }: { value: string | null
             <span className="text-[0.8125rem] leading-relaxed text-mist">{s.description}</span>
             <span className="flex flex-wrap gap-1.5">
               {s.traits.map((t) => (
-                <span key={t} className="rounded-full border border-white/10 px-2 py-0.5 text-[0.6875rem] text-ivory/70">
+                <span key={t} className="rounded-full border border-fg/10 px-2 py-0.5 text-[0.6875rem] text-ivory/70">
                   {t}
                 </span>
               ))}

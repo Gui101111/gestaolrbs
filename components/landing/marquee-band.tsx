@@ -13,7 +13,7 @@ const WORDS = [
 
 export function MarqueeBand() {
   return (
-    <section aria-label="Pilares da plataforma" className="relative border-y border-white/[0.06] bg-ink-2 py-7 md:py-9">
+    <section aria-label="Pilares da plataforma" className="relative border-y border-fg/[0.06] bg-ink-2 py-7 md:py-9">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline opacity-60" />
       <Marquee baseVelocity={-1.6} itemClassName="gap-10 pr-10 md:gap-16 md:pr-16">
         {WORDS.map((w, i) => (

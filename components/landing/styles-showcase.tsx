@@ -27,7 +27,7 @@ export function StylesShowcase() {
 
         <div className="mt-16 grid items-center gap-12 lg:grid-cols-[1fr_auto] lg:gap-20">
           <Reveal>
-            <ul className="divide-y divide-white/[0.07] border-y border-white/[0.07]" role="tablist" aria-label="Estilos">
+            <ul className="divide-y divide-fg/[0.07] border-y border-fg/[0.07]" role="tablist" aria-label="Estilos">
               {EDITING_STYLES.map((s, i) => {
                 const isActive = i === active;
                 return (
@@ -83,7 +83,7 @@ export function StylesShowcase() {
                         {[1, 2, 3, 4].map((p) => (
                           <span
                             key={p}
-                            className={cn("h-4 w-1 rounded-full transition-colors duration-500", p <= s.pace ? (isActive ? "bg-gold" : "bg-gold/30") : "bg-white/10")}
+                            className={cn("h-4 w-1 rounded-full transition-colors duration-500", p <= s.pace ? (isActive ? "bg-gold" : "bg-gold/30") : "bg-fg/10")}
                           />
                         ))}
                       </span>
@@ -110,7 +110,7 @@ export function StylesShowcase() {
                     <StylePreview value={style.value} />
                   </motion.div>
                 </AnimatePresence>
-                <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10" />
+                <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-fg/10" />
               </div>
               <p className="mt-5 text-center text-xs text-mist">Prévia ilustrativa do acabamento</p>
             </div>
@@ -163,9 +163,9 @@ function StylePreview({ value }: { value: (typeof EDITING_STYLES)[number]["value
           </motion.div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
           <div className="absolute inset-x-4 bottom-24 text-center font-sans text-2xl leading-tight font-extrabold text-ivory uppercase [text-shadow:0_3px_14px_rgba(0,0,0,0.8)]">
-            Seus <span className="rounded bg-gold px-1.5 text-ink">direitos</span> em 30 segundos
+            Seus <span className="rounded bg-gold px-1.5 text-on-gold">direitos</span> em 30 segundos
           </div>
-          <div className="absolute top-6 right-4 rounded-full border border-white/20 bg-black/50 px-3 py-1 text-[0.625rem] text-ivory backdrop-blur">B-roll</div>
+          <div className="absolute top-6 right-4 rounded-full border border-fg/20 bg-black/50 px-3 py-1 text-[0.625rem] text-ivory backdrop-blur">B-roll</div>
         </>
       );
     case "cinematografico":
@@ -186,7 +186,7 @@ function StylePreview({ value }: { value: (typeof EDITING_STYLES)[number]["value
           {base}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80" />
           <motion.div
-            className="absolute inset-x-4 top-10 rounded-xl bg-ivory px-3 py-2 text-center font-sans text-lg font-extrabold text-ink uppercase"
+            className="absolute inset-x-4 top-10 rounded-xl bg-ivory px-3 py-2 text-center font-sans text-lg font-extrabold text-on-gold uppercase"
             animate={{ scale: [1, 1.04, 1] }}
             transition={{ duration: 1.2, repeat: Infinity }}
           >
@@ -195,7 +195,7 @@ function StylePreview({ value }: { value: (typeof EDITING_STYLES)[number]["value
           <div className="absolute inset-x-4 bottom-28 text-center font-sans text-xl font-extrabold text-ivory uppercase [text-shadow:0_3px_14px_rgba(0,0,0,0.8)]">
             Entenda o que <span className="text-gold-light">a lei prevê</span>
           </div>
-          <div className="absolute inset-x-6 bottom-8 rounded-full bg-gold-gradient py-2.5 text-center text-xs font-bold tracking-[0.12em] text-ink uppercase">
+          <div className="absolute inset-x-6 bottom-8 rounded-full bg-gold-gradient py-2.5 text-center text-xs font-bold tracking-[0.12em] text-on-gold uppercase">
             Saiba mais
           </div>
         </>
@@ -206,10 +206,10 @@ function StylePreview({ value }: { value: (typeof EDITING_STYLES)[number]["value
           {base}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
           <div className="absolute inset-x-4 bottom-20 space-y-2">
-            <div className="w-fit max-w-[85%] rounded-2xl rounded-bl-sm bg-white/90 px-3 py-2 text-xs font-semibold text-ink">
+            <div className="w-fit max-w-[85%] rounded-2xl rounded-bl-sm bg-fg/90 px-3 py-2 text-xs font-semibold text-on-gold">
               “Doutor, posso pedir revisão?”
             </div>
-            <div className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-gold px-3 py-2 text-xs font-semibold text-ink">
+            <div className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-gold px-3 py-2 text-xs font-semibold text-on-gold">
               Vamos por partes. Primeiro, o prazo.
             </div>
           </div>

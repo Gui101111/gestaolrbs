@@ -34,7 +34,7 @@ const groups = [
 export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden border-t border-white/[0.06] bg-ink-2">
+    <footer className="relative overflow-hidden border-t border-fg/[0.06] bg-ink-2">
       <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline" />
       <div aria-hidden className="pointer-events-none absolute -bottom-40 left-1/2 h-80 w-[60rem] -translate-x-1/2 rounded-full bg-gold/[0.06] blur-[100px]" />
       <div className="relative mx-auto grid max-w-7xl gap-14 px-6 py-20 md:grid-cols-[1.4fr_repeat(3,1fr)] md:px-10">
@@ -57,7 +57,7 @@ export function SiteFooter() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="grid size-10 place-items-center rounded-full border border-white/10 text-mist transition-all duration-500 hover:-translate-y-0.5 hover:border-gold/50 hover:text-gold-light"
+                className="grid size-10 place-items-center rounded-full border border-fg/10 text-mist transition-all duration-500 hover:-translate-y-0.5 hover:border-gold/50 hover:text-gold-light"
               >
                 <Icon className="size-4" />
               </a>
@@ -79,7 +79,7 @@ export function SiteFooter() {
           </div>
         ))}
       </div>
-      <div className="relative border-t border-white/[0.06]">
+      <div className="relative border-t border-fg/[0.06]">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-6 text-xs text-mist/70 md:flex-row md:items-center md:justify-between md:px-10">
           <p>
             © {year} {siteConfig.legal.companyName}. Todos os direitos reservados.
