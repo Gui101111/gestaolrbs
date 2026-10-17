@@ -14,6 +14,7 @@ import { BRAZIL_UFS, LEGAL_AREAS, PROFILE_GOALS } from "@/lib/constants/domain";
 import { completeOnboardingAction } from "@/lib/actions/profile";
 import type { OnboardingInput } from "@/lib/validations/profile";
 import { cn } from "@/lib/utils";
+import { ROUTES } from "@/lib/routes";
 
 const STEPS = [
   { title: "Como devemos chamar você?", subtitle: "Esses dados aparecem nos seus vídeos quando você quiser.", icon: Briefcase },
@@ -83,7 +84,7 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
         return;
       }
       toast.success("Tudo pronto. Bem-vindo(a) à TRIBUNA!");
-      router.replace("/app");
+      router.replace(ROUTES.app);
       router.refresh();
     });
   };
@@ -101,19 +102,19 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
         {STEPS.map((_, i) => (
           <div key={i} className="h-1 flex-1 overflow-hidden rounded-full bg-fg/[0.07]">
             <motion.div
-              className="h-full bg-gold-gradient"
+              className="h-full bg-brand-gradient"
               initial={false}
               animate={{ width: i < step ? "100%" : i === step ? "50%" : "0%" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
         ))}
-        <span className="text-xs text-mist tabular-nums">
+        <span className="text-xs text-fg-3 tabular-nums">
           {step + 1}/{STEPS.length}
         </span>
       </div>
 
-      <div className="panel gold-ring relative overflow-hidden rounded-3xl p-6 md:p-10">
+      <div className="glass-strong relative overflow-hidden rounded-[28px] p-6 shadow-[var(--shadow-pop)] md:p-10">
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div
             key={step}
@@ -123,11 +124,11 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
             exit={{ opacity: 0, x: dir * -40, filter: "blur(8px)" }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span className="grid size-12 place-items-center rounded-2xl border border-gold/30 bg-gold/10 text-gold-light">
+            <span className="grid size-12 place-items-center rounded-2xl border border-cyan/30 bg-cyan/10 text-cyan">
               <Icon className="size-5" />
             </span>
-            <h1 className="mt-6 font-display text-3xl leading-tight text-ivory md:text-4xl">{STEPS[step].title}</h1>
-            <p className="mt-2 text-sm text-mist">{STEPS[step].subtitle}</p>
+            <h1 className="mt-6 text-3xl leading-tight text-fg md:text-4xl">{STEPS[step].title}</h1>
+            <p className="mt-2 text-sm text-fg-2">{STEPS[step].subtitle}</p>
 
             <div className="mt-8">
               {step === 0 && (

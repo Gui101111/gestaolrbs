@@ -262,7 +262,7 @@ function HowTab() {
             transition={{ duration: 0.7, ease: EASE, delay: 0.25 + i * 0.35 }}
             className="relative flex items-center gap-5 md:flex-col md:text-center"
           >
-            <span className="neon-border relative grid size-20 shrink-0 place-items-center rounded-full bg-surface md:size-[6.5rem]">
+            <span className="neon-border relative grid size-20 shrink-0 place-items-center rounded-full [--neon-radius:999px] bg-surface md:size-[6.5rem]">
               <Icon className="size-8 text-cyan md:size-10" />
               <span className="absolute -top-1 -right-1 grid size-7 place-items-center rounded-full bg-gold font-display text-xs font-bold text-[#1a1306] shadow-[0_0_12px_-2px_var(--gold)]">
                 {i + 1}

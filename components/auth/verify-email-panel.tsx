@@ -2,11 +2,13 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion } from "motion/react";
-import { MailOpen, RotateCw } from "lucide-react";
+import { RotateCw } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { authLinkClass } from "@/components/auth/auth-card";
+import { NeonEnvelope } from "@/components/auth/neon-envelope";
 import { resendConfirmationAction } from "@/lib/actions/auth";
+import { ROUTES } from "@/lib/routes";
 
 const COOLDOWN = 60;
 
@@ -41,36 +43,30 @@ export function VerifyEmailPanel({ email }: { email?: string }) {
       : null;
 
   return (
-    <div className="space-y-6">
-      <div className="panel gold-ring relative overflow-hidden rounded-2xl p-7 text-center">
-        <motion.span
-          className="mx-auto grid size-16 place-items-center rounded-full border border-gold/40 bg-gold/10 text-gold-light shadow-[0_0_40px_-10px_color-mix(in_oklab,var(--gold)_90%,transparent)]"
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <MailOpen className="size-7" />
-        </motion.span>
-        <p className="mt-5 text-sm leading-relaxed text-mist">
-          Enviamos um link de confirmação para
+    <div className="space-y-5">
+      <div className="text-center">
+        <NeonEnvelope />
+        <p className="mt-5 text-sm leading-relaxed text-fg-2">
+          Enviamos o link para
           <br />
-          <span className="font-semibold text-ivory">{email ?? "o seu e-mail"}</span>
+          <span className="font-semibold break-all text-fg">{email ?? "o seu e-mail"}</span>
         </p>
-        <p className="mt-3 text-xs text-mist/70">Não encontrou? Verifique a caixa de spam ou promoções.</p>
+        <p className="mt-2 text-xs text-fg-3">Não chegou? Veja o spam ou promoções.</p>
       </div>
       {webmail && (
-        <Button asChild variant="outline" size="lg" className="w-full">
+        <Button asChild variant="gold" size="lg" className="w-full">
           <a href={webmail.href} target="_blank" rel="noreferrer">
             {webmail.label}
           </a>
         </Button>
       )}
-      <Button variant="subtle" size="lg" className="w-full normal-case tracking-normal" disabled={!email || left > 0} loading={pending} onClick={resend}>
+      <Button variant="glass" size="lg" className="w-full" disabled={!email || left > 0} loading={pending} onClick={resend}>
         {!pending && <RotateCw />}
         {left > 0 ? `Reenviar em ${left}s` : "Reenviar e-mail"}
       </Button>
-      <p className="text-center text-sm text-mist">
+      <p className="text-center text-sm text-fg-2">
         Já confirmou?{" "}
-        <Link href="/login" className="font-semibold text-gold-light hover:underline">
+        <Link href={ROUTES.login} className={authLinkClass}>
           Entrar
         </Link>
       </p>

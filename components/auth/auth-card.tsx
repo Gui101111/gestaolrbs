@@ -2,18 +2,18 @@
 
 import * as React from "react";
 import { motion } from "motion/react";
+import { AccentText } from "@/components/shared/accent-text";
 import { cn } from "@/lib/utils";
 
+/** Card de vidro das telas de acesso. O título aceita *destaque* entre asteriscos. */
 export function AuthCard({
-  eyebrow,
   title,
   description,
   children,
   footer,
   className,
 }: {
-  eyebrow?: string;
-  title: React.ReactNode;
+  title: string;
   description?: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
@@ -21,26 +21,34 @@ export function AuthCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24, filter: "blur(10px)" }}
+      initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      className={cn("w-full max-w-[440px]", className)}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(
+        "glass-strong relative w-full max-w-[440px] rounded-[28px] p-6 shadow-[var(--shadow-pop)] sm:p-8",
+        className,
+      )}
     >
-      {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-      <h1 className="mt-3 font-display text-4xl leading-tight font-medium text-ivory md:text-[2.75rem]">{title}</h1>
-      {description && <p className="mt-3 text-[0.9375rem] leading-relaxed text-mist">{description}</p>}
-      <div className="mt-9">{children}</div>
-      {footer && <div className="mt-8 text-center text-sm text-mist">{footer}</div>}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-12 -top-px h-px bg-[linear-gradient(90deg,transparent,var(--cyan),var(--gold),transparent)] opacity-80"
+      />
+      <h1 className="text-[2rem] leading-[1.08] text-fg sm:text-[2.25rem]">
+        <AccentText text={title} />
+      </h1>
+      {description && <p className="mt-2 text-[0.9375rem] leading-relaxed text-fg-2">{description}</p>}
+      <div className="mt-7">{children}</div>
+      {footer && <div className="mt-7 border-t border-line pt-5 text-center text-sm text-fg-2">{footer}</div>}
     </motion.div>
   );
 }
 
 export function OrDivider() {
   return (
-    <div className="my-7 flex items-center gap-4 text-[0.6875rem] tracking-[0.25em] text-mist/60 uppercase">
-      <span className="h-px flex-1 bg-gradient-to-r from-transparent to-fg/10" />
-      ou
-      <span className="h-px flex-1 bg-gradient-to-l from-transparent to-fg/10" />
+    <div className="my-6 flex items-center gap-4 text-[0.6875rem] tracking-[0.2em] text-fg-3 uppercase">
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line-strong" />
+      ou com e-mail
+      <span className="h-px flex-1 bg-gradient-to-l from-transparent to-line-strong" />
     </div>
   );
 }
@@ -54,11 +62,14 @@ export function FormAlert({ tone = "error", children }: { tone?: "error" | "info
       className={cn(
         "rounded-xl border px-4 py-3 text-[0.8125rem] leading-relaxed",
         tone === "error" && "border-destructive/35 bg-destructive/10 text-destructive",
-        tone === "info" && "border-info/30 bg-info/10 text-[#b8d0ec]",
-        tone === "success" && "border-gold/35 bg-gold/10 text-gold-light",
+        tone === "info" && "border-info/30 bg-info/10 text-info",
+        tone === "success" && "border-success/35 bg-success/10 text-success",
       )}
     >
       {children}
     </motion.div>
   );
 }
+
+/** Link de texto padrão das telas de acesso. */
+export const authLinkClass = "font-semibold text-link underline-offset-4 hover:underline";

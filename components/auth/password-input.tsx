@@ -14,7 +14,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, React.ComponentP
       <button
         type="button"
         onClick={() => setShow((s) => !s)}
-        className="absolute top-1/2 right-2 grid size-9 -translate-y-1/2 place-items-center rounded-full text-mist transition hover:bg-fg/5 hover:text-ivory"
+        className="absolute top-1/2 right-2 grid size-9 -translate-y-1/2 place-items-center rounded-full text-fg-3 transition hover:bg-fg/5 hover:text-fg"
         aria-label={show ? "Ocultar senha" : "Mostrar senha"}
         tabIndex={-1}
       >
@@ -28,7 +28,7 @@ PasswordInput.displayName = "PasswordInput";
 export function PasswordStrength({ value }: { value: string }) {
   const { score, label } = passwordStrength(value);
   if (!value) return null;
-  const colors = ["bg-destructive", "bg-warning", "bg-gold/70", "bg-gold", "bg-gold-light"];
+  const colors = ["bg-destructive", "bg-warning", "bg-gold", "bg-cyan", "bg-success"];
   return (
     <div className="flex items-center gap-3" aria-live="polite">
       <div className="flex flex-1 gap-1.5">
@@ -39,7 +39,7 @@ export function PasswordStrength({ value }: { value: string }) {
           />
         ))}
       </div>
-      <span className="w-20 text-right text-[0.6875rem] text-mist">{label}</span>
+      <span className="w-20 text-right text-[0.6875rem] text-fg-3">{label}</span>
     </div>
   );
 }

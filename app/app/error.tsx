@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { RotateCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ROUTES } from "@/lib/routes";
 
 export default function AppError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
@@ -15,7 +16,7 @@ export default function AppError({ reset }: { error: Error & { digest?: string }
           <RotateCw /> Tentar novamente
         </Button>
         <Button asChild variant="outline">
-          <Link href="/login?sessao=1">Entrar novamente</Link>
+          <Link href={`${ROUTES.login}?sessao=1`}>Entrar novamente</Link>
         </Button>
       </div>
     </div>

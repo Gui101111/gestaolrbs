@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import type { Profile } from "@/types/domain";
+import { ROUTES } from "@/lib/routes";
 
 /** Usuário autenticado (validado no servidor do Supabase Auth). */
 export const getSessionUser = cache(async () => {
@@ -24,7 +25,7 @@ export const getProfile = cache(async (): Promise<Profile | null> => {
 
 export async function requireUser(next?: string) {
   const user = await getSessionUser();
-  if (!user) redirect(next ? `/login?next=${encodeURIComponent(next)}` : "/login");
+  if (!user) redirect(next ? `${ROUTES.login}?next=${encodeURIComponent(next)}` : ROUTES.login);
   return user;
 }
 
@@ -32,7 +33,7 @@ export async function requireUser(next?: string) {
 export async function requireOnboardedProfile() {
   const user = await requireUser();
   const profile = await getProfile();
-  if (!profile) redirect("/login?error=perfil");
+  if (!profile) redirect(`${ROUTES.login}?error=perfil`);
   if (!profile.onboarding_completed_at) redirect("/onboarding");
   return { user, profile };
 }

@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { emailSchema, nameSchema, passwordSchema } from "@/lib/validations/common";
 import { errorCode, friendlyError } from "@/lib/errors";
 import type { ActionResult } from "@/types/domain";
+import { ROUTES } from "@/lib/routes";
 
 async function siteUrl() {
   const env = process.env.NEXT_PUBLIC_SITE_URL;
@@ -114,7 +115,7 @@ export async function forgotPasswordAction(email: string): Promise<ActionResult>
   if (!parsed.success) return { ok: false, error: "Informe um e-mail válido.", field: "email" };
   const supabase = await createClient();
   const { error } = await supabase.auth.resetPasswordForEmail(parsed.data, {
-    redirectTo: `${await siteUrl()}/auth/confirm?next=/reset-password`,
+    redirectTo: `${await siteUrl()}/auth/confirm?next=${ROUTES.resetPassword}`,
   });
   // Não revela se a conta existe; só reporta limites de envio
   if (error && errorCode(error).startsWith("over_")) return { ok: false, error: friendlyError(error) };
@@ -144,5 +145,5 @@ export async function updatePasswordAction(input: z.input<typeof resetSchema>): 
 export async function signOutAction() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/login?saiu=1");
+  redirect(`${ROUTES.login}?saiu=1`);
 }

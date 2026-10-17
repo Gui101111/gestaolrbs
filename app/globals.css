@@ -31,6 +31,7 @@
   --gold-2: #c99a3b;
   --gold-light: #f7d898;
   --cyan: #3be3f0;
+  --link: #5ee9f4;
   --azure: #4d7cff;
   --violet: #8b6cff;
   --mint: #4fe3b0;
@@ -97,6 +98,7 @@
   --gold-2: #8f6519;
   --gold-light: #9a6e1e;
   --cyan: #0fb5c6;
+  --link: #07798a;
   --azure: #2f5fe0;
   --violet: #6b4fe0;
   --mint: #12a578;
@@ -183,6 +185,7 @@
   --color-gold-deep: var(--gold-2);
   --color-mist: var(--fg-2);
   --color-ivory: var(--fg);
+  --color-link: var(--link);
 
   --font-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sora), "Sora", ui-sans-serif, system-ui, sans-serif;
@@ -860,6 +863,50 @@ html.theme-switching * {
     transform: translate3d(0, -10px, 0);
   }
 }
+/* Envelope da tela "Confira seu e-mail" */
+.envelope-flap {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  animation: envelope-flap 4.2s var(--ease-luxe) infinite;
+}
+.envelope-letter {
+  animation: envelope-letter 4.2s var(--ease-luxe) infinite;
+}
+@keyframes envelope-flap {
+  0%,
+  10% {
+    transform: scaleY(1);
+  }
+  26%,
+  76% {
+    transform: scaleY(-1);
+  }
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+}
+@keyframes envelope-letter {
+  0%,
+  22% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  44%,
+  64% {
+    transform: translateY(-14px);
+    opacity: 1;
+  }
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
 @keyframes float-soft {
   0%,
   100% {
@@ -991,5 +1038,14 @@ html.lenis body {
   [data-lit-word] {
     opacity: 1 !important;
     filter: none !important;
+  }
+  .envelope-flap {
+    animation: none !important;
+    transform: scaleY(-1);
+  }
+  .envelope-letter {
+    animation: none !important;
+    transform: translateY(-14px);
+    opacity: 1;
   }
 }

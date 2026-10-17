@@ -12,6 +12,7 @@ import { PasswordInput, PasswordStrength } from "@/components/auth/password-inpu
 import { FormAlert } from "@/components/auth/auth-card";
 import { resetSchema } from "@/lib/validations/auth";
 import { updatePasswordAction } from "@/lib/actions/auth";
+import { ROUTES } from "@/lib/routes";
 
 type Values = z.input<typeof resetSchema>;
 
@@ -32,7 +33,7 @@ export function ResetForm() {
         return;
       }
       toast.success("Senha atualizada com sucesso.");
-      router.replace("/app");
+      router.replace(ROUTES.app);
       router.refresh();
     });
   });

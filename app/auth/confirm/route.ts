@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import { ROUTES } from "@/lib/routes";
 
 function safeNext(next: string | null, fallback: string) {
   if (!next || !next.startsWith("/") || next.startsWith("//")) return fallback;
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
   const code = searchParams.get("code");
-  const defaultNext = type === "recovery" ? "/reset-password" : "/onboarding";
+  const defaultNext = type === "recovery" ? ROUTES.resetPassword : "/onboarding";
   const next = safeNext(searchParams.get("next"), defaultNext);
 
   const supabase = await createClient();
@@ -29,6 +30,6 @@ export async function GET(request: NextRequest) {
     if (!error) return NextResponse.redirect(new URL(next, origin));
   }
 
-  const target = type === "recovery" ? "/forgot-password?error=link" : "/login?error=link";
+  const target = type === "recovery" ? `${ROUTES.forgotPassword}?error=link` : `${ROUTES.login}?error=link`;
   return NextResponse.redirect(new URL(target, origin));
 }

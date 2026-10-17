@@ -2,9 +2,10 @@ import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import type { Database } from "@/types/database";
 import { isSupabaseConfigured, supabasePublishableKey, supabaseUrl } from "./env";
+import { ROUTES } from "@/lib/routes";
 
 const PROTECTED = ["/app", "/admin", "/onboarding"];
-const AUTH_ONLY_GUEST = ["/login", "/register", "/forgot-password"];
+const AUTH_ONLY_GUEST: string[] = [ROUTES.login, ROUTES.register, ROUTES.forgotPassword];
 
 /**
  * Renova a sessão do Supabase a cada requisição e faz checagens otimistas de rota.
@@ -36,7 +37,7 @@ export async function updateSession(request: NextRequest) {
   const isProtected = PROTECTED.some((p) => path === p || path.startsWith(`${p}/`));
   if (!user && isProtected) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = ROUTES.login;
     url.search = "";
     url.searchParams.set("next", path + request.nextUrl.search);
     return redirectWithCookies(url, response);

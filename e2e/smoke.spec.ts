@@ -26,15 +26,25 @@ test("abas do Explorar respondem ao hash e ao teclado", async ({ page }) => {
   await expect(page).toHaveURL(/#duvidas$/);
 });
 
+test("rotas antigas de acesso redirecionam para as novas", async ({ page }) => {
+  await page.goto("/login?next=%2Fapp");
+  await expect(page).toHaveURL(/\/entrar\?next=%2Fapp$/);
+  await expect(page.getByRole("button", { name: /Continuar com Google/ })).toBeVisible();
+  await page.goto("/register");
+  await expect(page).toHaveURL(/\/criar-conta$/);
+  await page.goto("/app/perfil");
+  await expect(page).toHaveURL(/\/entrar/);
+});
+
 test("rotas protegidas redirecionam para o login", async ({ page }) => {
   await page.goto("/app/projetos");
-  await expect(page).toHaveURL(/\/login\?next=%2Fapp%2Fprojetos/);
+  await expect(page).toHaveURL(/\/entrar\?next=%2Fapp%2Fprojetos/);
   await page.goto("/admin");
-  await expect(page).toHaveURL(/\/login/);
+  await expect(page).toHaveURL(/\/entrar/);
 });
 
 test("cadastro valida os campos em português", async ({ page }) => {
-  await page.goto("/register");
+  await page.goto("/criar-conta");
   await page.getByRole("button", { name: /Criar conta/ }).click();
   await expect(page.getByText("Informe seu nome completo.")).toBeVisible();
   await expect(page.getByText(/Aceite os Termos de Uso/)).toBeVisible();
@@ -47,4 +57,5 @@ test("páginas legais e 404", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Política de Privacidade" })).toBeVisible();
   const res = await page.goto("/pagina-que-nao-existe");
   expect(res?.status()).toBe(404);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveAccessibleName(/Página fora dos autos/);
 });

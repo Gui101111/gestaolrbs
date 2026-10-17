@@ -1,24 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AuthCard } from "@/components/auth/auth-card";
+import { AuthCard, authLinkClass } from "@/components/auth/auth-card";
 import { RegisterForm } from "@/components/auth/register-form";
+import { authContent } from "@/content/auth";
+import { ROUTES } from "@/lib/routes";
 
 export const metadata: Metadata = { title: "Criar conta" };
 
 export default function RegisterPage() {
   return (
     <AuthCard
-      eyebrow="Criar conta"
-      title={
-        <>
-          Seu primeiro vídeo <span className="text-gold-gradient italic">começa aqui.</span>
-        </>
-      }
-      description="Cadastre-se em menos de um minuto. Sem cartão de crédito para começar."
+      title={authContent.criarConta.title}
+      description={authContent.criarConta.description}
       footer={
         <>
           Já tem conta?{" "}
-          <Link href="/login" className="font-semibold text-gold-light hover:underline">
+          <Link href={ROUTES.login} className={authLinkClass}>
             Entrar
           </Link>
         </>

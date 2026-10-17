@@ -1,11 +1,11 @@
 /** Rotas públicas e do app em um só lugar (os links do site leem daqui). */
 export const ROUTES = {
   home: "/",
-  login: "/login",
-  register: "/register",
-  verifyEmail: "/verify-email",
-  forgotPassword: "/forgot-password",
-  resetPassword: "/reset-password",
+  login: "/entrar",
+  register: "/criar-conta",
+  verifyEmail: "/verificar-email",
+  forgotPassword: "/recuperar-senha",
+  resetPassword: "/nova-senha",
   terms: "/termos",
   privacy: "/privacidade",
 

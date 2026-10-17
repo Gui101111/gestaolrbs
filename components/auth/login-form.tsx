@@ -12,9 +12,10 @@ import { Input } from "@/components/ui/input";
 import { Field } from "@/components/ui/field";
 import { PasswordInput } from "@/components/auth/password-input";
 import { GoogleButton } from "@/components/auth/google-button";
-import { FormAlert, OrDivider } from "@/components/auth/auth-card";
+import { FormAlert, OrDivider, authLinkClass } from "@/components/auth/auth-card";
 import { loginSchema } from "@/lib/validations/auth";
 import { signInAction } from "@/lib/actions/auth";
+import { ROUTES } from "@/lib/routes";
 
 type Values = z.input<typeof loginSchema>;
 
@@ -59,7 +60,7 @@ export function LoginForm({ next, notice }: { next?: string; notice?: string }) 
           {unconfirmedEmail && (
             <>
               {" "}
-              <Link href={`/verify-email?email=${encodeURIComponent(unconfirmedEmail)}`} className="font-semibold text-gold-light underline underline-offset-4">
+              <Link href={`${ROUTES.verifyEmail}?email=${encodeURIComponent(unconfirmedEmail)}`} className={authLinkClass}>
                 Reenviar confirmação
               </Link>
             </>
@@ -78,7 +79,7 @@ export function LoginForm({ next, notice }: { next?: string; notice?: string }) 
           label={
             <span className="flex w-full items-center justify-between">
               Senha
-              <Link href="/forgot-password" className="text-xs font-normal text-gold hover:text-gold-light">
+              <Link href={ROUTES.forgotPassword} className="text-xs font-medium text-link hover:underline">
                 Esqueci minha senha
               </Link>
             </span>

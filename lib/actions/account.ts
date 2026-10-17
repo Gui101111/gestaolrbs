@@ -7,6 +7,7 @@ import { getSessionUser } from "@/lib/auth/dal";
 import { emailSchema, passwordSchema } from "@/lib/validations/common";
 import { friendlyError } from "@/lib/errors";
 import type { ActionResult } from "@/types/domain";
+import { ROUTES } from "@/lib/routes";
 
 export async function changePasswordAction(password: string, confirm: string): Promise<ActionResult> {
   const user = await getSessionUser();
@@ -37,5 +38,5 @@ export async function changeEmailAction(email: string): Promise<ActionResult> {
 export async function signOutEverywhereAction() {
   const supabase = await createClient();
   await supabase.auth.signOut({ scope: "global" });
-  redirect("/login?saiu=1");
+  redirect(`${ROUTES.login}?saiu=1`);
 }

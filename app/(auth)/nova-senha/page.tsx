@@ -3,25 +3,23 @@ import Link from "next/link";
 import { AuthCard, FormAlert } from "@/components/auth/auth-card";
 import { ResetForm } from "@/components/auth/reset-form";
 import { Button } from "@/components/ui/button";
+import { authContent } from "@/content/auth";
 import { getSessionUser } from "@/lib/auth/dal";
+import { ROUTES } from "@/lib/routes";
 
-export const metadata: Metadata = { title: "Redefinir senha" };
+export const metadata: Metadata = { title: "Nova senha" };
 
 export default async function ResetPasswordPage() {
   const user = await getSessionUser();
   return (
-    <AuthCard
-      eyebrow="Segurança"
-      title="Crie uma nova senha."
-      description={user ? `Defina a nova senha de acesso para ${user.email}.` : undefined}
-    >
+    <AuthCard title={authContent.novaSenha.title} description={user ? `Nova senha para ${user.email}.` : undefined}>
       {user ? (
         <ResetForm />
       ) : (
         <div className="space-y-5">
-          <FormAlert>O link de redefinição é inválido ou expirou. Solicite um novo para continuar.</FormAlert>
+          <FormAlert>O link expirou ou é inválido. Peça um novo.</FormAlert>
           <Button asChild variant="gold" size="lg" className="w-full">
-            <Link href="/forgot-password">Solicitar novo link</Link>
+            <Link href={ROUTES.forgotPassword}>Pedir novo link</Link>
           </Button>
         </div>
       )}

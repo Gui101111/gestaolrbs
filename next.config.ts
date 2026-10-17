@@ -29,6 +29,11 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: "/login", destination: "/entrar", permanent: true },
+      { source: "/register", destination: "/criar-conta", permanent: true },
+      { source: "/verify-email", destination: "/verificar-email", permanent: true },
+      { source: "/forgot-password", destination: "/recuperar-senha", permanent: true },
+      { source: "/reset-password", destination: "/nova-senha", permanent: true },
       { source: "/app/biblioteca", destination: "/app/projetos", permanent: true },
       { source: "/app/projetos/novo", destination: "/app/novo", permanent: true },
       { source: "/app/perfil", destination: "/app/configuracoes?aba=conta", permanent: true },

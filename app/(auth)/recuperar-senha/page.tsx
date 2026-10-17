@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AuthCard } from "@/components/auth/auth-card";
+import { AuthCard, authLinkClass } from "@/components/auth/auth-card";
 import { ForgotForm } from "@/components/auth/forgot-form";
+import { authContent } from "@/content/auth";
+import { ROUTES } from "@/lib/routes";
 import { param, type SearchParams } from "@/lib/search-params";
 
 export const metadata: Metadata = { title: "Recuperar senha" };
@@ -10,14 +12,13 @@ export default async function ForgotPasswordPage({ searchParams }: { searchParam
   const sp = await searchParams;
   return (
     <AuthCard
-      eyebrow="Recuperar acesso"
-      title="Esqueceu sua senha?"
-      description="Informe o e-mail da sua conta e enviaremos um link seguro para criar uma nova senha."
+      title={authContent.recuperarSenha.title}
+      description={authContent.recuperarSenha.description}
       footer={
         <>
           Lembrou?{" "}
-          <Link href="/login" className="font-semibold text-gold-light hover:underline">
-            Voltar ao login
+          <Link href={ROUTES.login} className={authLinkClass}>
+            Voltar para entrar
           </Link>
         </>
       }

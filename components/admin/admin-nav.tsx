@@ -19,8 +19,8 @@ export function AdminNav() {
       {ITEMS.map((i) => {
         const active = i.exact ? pathname === i.href : pathname.startsWith(i.href);
         return (
-          <Link key={i.href} href={i.href} className={cn("relative rounded-full px-4 py-2 text-sm whitespace-nowrap transition-colors", active ? "text-gold-light" : "text-mist hover:text-ivory")}>
-            {active && <motion.span layoutId="admin-nav" className="absolute inset-0 rounded-full border border-gold/30 bg-gold/10" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
+          <Link key={i.href} href={i.href} className={cn("relative rounded-full px-4 py-2 text-sm whitespace-nowrap transition-colors", active ? "text-fg" : "text-fg-2 hover:text-fg")}>
+            {active && <motion.span layoutId="admin-nav" className="absolute inset-0 rounded-full bg-surface shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--cyan)_45%,transparent),0_0_18px_-6px_var(--cyan)]" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
             <span className="relative">{i.label}</span>
           </Link>
         );

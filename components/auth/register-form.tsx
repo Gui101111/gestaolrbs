@@ -16,6 +16,7 @@ import { GoogleButton } from "@/components/auth/google-button";
 import { FormAlert, OrDivider } from "@/components/auth/auth-card";
 import { registerSchema } from "@/lib/validations/auth";
 import { signUpAction } from "@/lib/actions/auth";
+import { ROUTES } from "@/lib/routes";
 
 type Values = z.input<typeof registerSchema>;
 
@@ -38,14 +39,14 @@ export function RegisterForm() {
         else setError(res.error);
         return;
       }
-      router.push(`/verify-email?email=${encodeURIComponent(res.data.email)}`);
+      router.push(`${ROUTES.verifyEmail}?email=${encodeURIComponent(res.data.email)}`);
     });
   });
 
   return (
     <div className="space-y-5">
       {error && <FormAlert>{error}</FormAlert>}
-      <GoogleButton label="Cadastrar com Google" next="/onboarding" />
+      <GoogleButton next="/onboarding" />
       <OrDivider />
       <form onSubmit={onSubmit} className="space-y-5" noValidate>
         <Field label="Nome completo" htmlFor="fullName" error={form.formState.errors.fullName?.message}>
@@ -63,7 +64,7 @@ export function RegisterForm() {
           name="terms"
           render={({ field, fieldState }) => (
             <div>
-              <label className="flex cursor-pointer items-start gap-3 text-[0.8125rem] leading-relaxed text-mist">
+              <label className="flex cursor-pointer items-start gap-3 text-[0.8125rem] leading-relaxed text-fg-2">
                 <Checkbox
                   checked={field.value}
                   onCheckedChange={(v) => field.onChange(v === true)}
@@ -72,11 +73,11 @@ export function RegisterForm() {
                 />
                 <span>
                   Li e aceito os{" "}
-                  <Link href="/termos" target="_blank" className="text-gold-light underline-offset-4 hover:underline">
+                  <Link href={ROUTES.terms} target="_blank" className="text-link underline-offset-4 hover:underline">
                     Termos de Uso
                   </Link>{" "}
                   e a{" "}
-                  <Link href="/privacidade" target="_blank" className="text-gold-light underline-offset-4 hover:underline">
+                  <Link href={ROUTES.privacy} target="_blank" className="text-link underline-offset-4 hover:underline">
                     Política de Privacidade
                   </Link>
                   .

@@ -1,46 +1,44 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "motion/react";
 import { Logo } from "@/components/brand/logo";
-import { GoldDust } from "@/components/animations/gold-dust";
-import { WordCycle } from "@/components/animations/marquee";
+import { Aurora } from "@/components/effects/aurora";
+import { accentSegments } from "@/components/shared/accent-text";
+import { authContent } from "@/content/auth";
 
+/** Lado esquerdo das telas de acesso: aurora, estátua recortada e uma frase. */
 export function AuthShowcase() {
   return (
-    <aside className="relative hidden overflow-hidden border-r border-fg/[0.06] bg-ink-2 lg:flex lg:flex-col lg:justify-between lg:p-12">
-      <div aria-hidden className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_20%_0%,rgba(22,38,61,0.9),transparent_60%)]" />
-        <div className="absolute inset-0 bg-gold-lines opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000,transparent_75%)]" />
-        <GoldDust density={0.00006} />
-      </div>
-      <div className="relative">
-        <Logo />
-      </div>
-      <motion.div
-        className="relative mx-auto w-full max-w-[460px]"
-        initial={{ opacity: 0, y: 30, filter: "blur(14px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div aria-hidden className="absolute inset-[12%] rounded-full bg-[radial-gradient(closest-side,rgba(214,158,78,0.22),transparent)] blur-2xl animate-pulse-glow" />
-        <Image
-          src="/media/justica-alpha.webp"
-          alt="Estátua da Justiça"
-          width={1080}
-          height={1056}
-          priority
-          className="relative h-auto w-full animate-float"
-        />
-      </motion.div>
-      <div className="relative">
-        <p className="font-display text-4xl leading-tight text-ivory">
-          Edição jurídica com{" "}
-          <WordCycle wordClassName="text-gold-gradient italic pr-1" words={["precisão.", "autoridade.", "sobriedade.", "inteligência."]} />
-        </p>
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-mist">
-          Envie o vídeo bruto, escolha estilo e formato, e receba um conteúdo pronto para publicar — com a identidade do seu
-          escritório.
+    <aside className="sticky top-0 hidden h-dvh p-3 lg:block">
+      <div className="theme-stage texture-metal relative isolate flex h-full flex-col overflow-hidden rounded-[30px] bg-stage text-fg">
+        <Aurora variant="hero" />
+        <div aria-hidden className="grid-floor opacity-60" />
+
+        <div className="relative z-10 p-8">
+          <Logo />
+        </div>
+
+        <div className="relative flex min-h-0 flex-1 items-center justify-center px-10">
+          <div
+            aria-hidden
+            className="absolute top-1/2 left-1/2 size-[min(38rem,90%)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--gold)_24%,transparent),transparent_75%)] blur-3xl animate-pulse-glow motion-reduce:animate-none"
+          />
+          <div aria-hidden className="absolute bottom-[12%] left-1/2 h-10 w-[46%] -translate-x-1/2 rounded-[50%] bg-black/50 blur-xl" />
+          <Image
+            src="/media/justica-alpha.webp"
+            alt=""
+            width={1080}
+            height={1056}
+            priority
+            sizes="(min-width: 1024px) 40vw, 0px"
+            className="relative h-auto max-h-full w-full max-w-[34rem] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)] animate-float motion-reduce:animate-none"
+          />
+        </div>
+
+        <p className="relative z-10 max-w-md p-10 pt-4 font-display text-4xl leading-[1.08] font-bold tracking-tight text-fg xl:text-5xl">
+          {accentSegments(authContent.phrase).map((s, i) => (
+            <span key={i} className={s.className}>
+              {s.text}
+            </span>
+          ))}
         </p>
       </div>
     </aside>
