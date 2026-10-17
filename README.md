@@ -60,13 +60,14 @@ npm run dev                 # http://localhost:3000
 - Para virar administrador: `update public.profiles set role = 'admin' where email = 'voce@exemplo.com';`
 - Tipos do banco: `npm run db:types`
 
-Scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `db:reset`, `db:types`, `worker`, `test:rls`, `test:e2e`, `claude:setup`, `claude:test`, `assets:setup`, `sandbox:teste`.
+Scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `db:reset`, `db:types`, `worker`, `test:rls`, `test:e2e`, `claude:setup`, `claude:test`, `test:claude`, `assets:setup`, `sandbox:teste`.
 
 ### Testes
 
 - `npm run test:rls` — 69 verificações de isolamento entre usuários (RLS, Storage, RPCs, colunas protegidas, pastas, sessões do agente, entregas em revisão). Só roda contra o Supabase local.
 - `npm run test:e2e` — Playwright (desktop + mobile): landing, rotas novas e antigas, validações, páginas legais, 404, cadastro → confirmação por e-mail (Mailpit) → onboarding → upload TUS → envio, e recuperação de senha. Requer `npm run dev` e o Supabase local. Em ambientes com Chromium próprio, use `PLAYWRIGHT_CHROMIUM_PATH=/caminho/do/chromium`.
 - Edição automática pela interface (`e2e/editing.spec.ts`): envio → agente → liberação no admin → assistir/baixar → ajuste → v2. Rode com `CLAUDE_LOCAL_SANDBOX=1` no `.env.local` e `E2E_ADMIN_EMAIL`/`E2E_ADMIN_PASSWORD` de um admin.
+- `npm run test:claude` — teste de contrato do gateway real contra uma API falsa: rotas, header beta, budget, `initial_events`, toolkit, plano B pela Files API, custo e idempotência (19 verificações).
 - `npm run claude:test -- video.mp4 [--formatos 9:16,1:1] [--estilo dinamico] [--provedor external]` — fluxo de edição completo pelo terminal, com report, tempo e custo. Gere um vídeo de teste com fala, pausas e frases sensíveis: `npm run sandbox:teste -- --saida /tmp/teste --imagem public/media/justica-busto.webp [--vertical]`.
 
 ## Supabase em produção

@@ -17,7 +17,8 @@
     "claude:setup": "tsx --env-file=.env.local scripts/claude-setup.ts",
     "claude:test": "tsx --conditions=react-server --env-file=.env.local scripts/claude-test.ts",
     "assets:setup": "tsx --env-file=.env.local scripts/assets-setup.ts",
-    "sandbox:teste": "python3 sandbox/gerar_video_teste.py"
+    "sandbox:teste": "python3 sandbox/gerar_video_teste.py",
+    "test:claude": "tsx --conditions=react-server --env-file=.env.local scripts/test-claude-contract.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.134.0",
