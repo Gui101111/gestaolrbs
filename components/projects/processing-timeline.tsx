@@ -58,6 +58,8 @@ export function ProcessingTimeline({ projectId, initialJob, projectStatus }: { p
 
     // Rede de segurança caso o Realtime esteja indisponível
     const poll = window.setInterval(async () => {
+      // pede ao servidor para ler a etapa atual da edição automática
+      await fetch(`/api/projects/${projectId}/progress`, { method: "POST" }).catch(() => null);
       const [{ data: j }, { data: p }] = await Promise.all([
         supabase.from("render_jobs").select("id, status, progress, current_step, error_message, kind, updated_at").eq("project_id", projectId).order("created_at", { ascending: false }).limit(1).maybeSingle(),
         supabase.from("projects").select("status").eq("id", projectId).single(),

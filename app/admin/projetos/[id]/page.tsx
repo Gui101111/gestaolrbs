@@ -4,6 +4,9 @@ import { ArrowLeft } from "lucide-react";
 import { StatusBadge } from "@/components/projects/status-badge";
 import { ProjectBriefing } from "@/components/projects/project-briefing";
 import { AdminProjectConsole } from "@/components/admin/admin-project-console";
+import { AgentPanel } from "@/components/admin/agent-panel";
+import { isClaudeConfigured } from "@/services/editing/claude/config";
+import type { SandboxReport } from "@/services/editing/claude/session-lifecycle";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { requireAdmin } from "@/lib/auth/dal";
 import { signedUrl, signedUrlMap } from "@/services/storage";
@@ -25,6 +28,10 @@ export default async function AdminProjectPage({ params }: { params: Promise<{ i
     admin.from("project_notes").select("id, body, created_at").eq("project_id", id).order("created_at", { ascending: false }),
     admin.from("brand_kits").select("*").eq("user_id", project.user_id).maybeSingle(),
   ]);
+
+  const { data: agent } = job ? await admin.from("editing_sessions").select("*").eq("job_id", job.id).maybeSingle() : { data: null };
+  const report = (agent?.report ?? null) as SandboxReport | null;
+  const alerts = Array.isArray(job?.compliance_flags) ? (job.compliance_flags as { tempo: string; frase: string; motivo: string }[]) : [];
 
   const originalUrl = original
     ? await signedUrl(admin, original.bucket, original.storage_path, { expiresIn: 60 * 60, download: `${slugify(project.name) || "original"}-original.${original.file_name.split(".").pop() ?? "mp4"}` })
@@ -48,6 +55,35 @@ export default async function AdminProjectPage({ params }: { params: Promise<{ i
         </p>
       </div>
 
+      {job && (agent || job.review_status !== "none" || alerts.length > 0) && (
+        <AgentPanel
+          jobId={job.id}
+          reviewStatus={job.review_status}
+          alerts={alerts}
+          claudeReady={isClaudeConfigured()}
+          session={
+            agent
+              ? {
+                  provider: agent.provider,
+                  status: agent.status,
+                  version: agent.version,
+                  costCents: agent.cost_cents,
+                  activeSeconds: agent.active_seconds,
+                  followups: agent.followups,
+                  stopReason: agent.stop_reason,
+                  error: agent.error,
+                  startedAt: agent.started_at,
+                  finishedAt: agent.finished_at,
+                  observacoes: report?.observacoes ?? null,
+                  cortes: report?.cortes ?? null,
+                  duracaoOriginal: report?.duracao_original_s ?? null,
+                  duracaoFinal: report?.duracao_final_s ?? null,
+                }
+              : null
+          }
+        />
+      )}
+
       <AdminProjectConsole
         projectId={project.id}
         ownerId={project.user_id}
@@ -55,7 +91,7 @@ export default async function AdminProjectPage({ params }: { params: Promise<{ i
         ratios={project.aspect_ratios}
         originalUrl={originalUrl}
         job={job ? { id: job.id, status: job.status, current_step: job.current_step, progress: job.progress, provider: job.provider, error_message: job.error_message, kind: job.kind } : null}
-        renders={(renders ?? []).map((r) => ({ id: r.id, aspect_ratio: r.aspect_ratio, version: r.version, url: renderUrls.get(r.storage_path) ?? null, file_size: r.file_size, duration_sec: r.duration_sec, created_at: r.created_at }))}
+        renders={(renders ?? []).map((r) => ({ id: r.id, aspect_ratio: r.aspect_ratio, version: r.version, url: renderUrls.get(r.storage_path) ?? null, file_size: r.file_size, duration_sec: r.duration_sec, created_at: r.created_at, published: r.published }))}
         notes={notes ?? []}
       />
 

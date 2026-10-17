@@ -6,6 +6,9 @@ import { StatusBadge } from "@/components/projects/status-badge";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { requireAdmin } from "@/lib/auth/dal";
 import { formatCurrency } from "@/lib/utils";
+import { ProviderSwitch } from "@/components/admin/provider-switch";
+import { getEditingProvider, providerOverride, resolveEditingProvider } from "@/services/editing";
+import { claudeConfig } from "@/services/editing/claude/config";
 
 export default async function AdminOverview() {
   await requireAdmin();
@@ -20,6 +23,13 @@ export default async function AdminOverview() {
     admin.from("projects").select("id, name, status, submitted_at, user_id").in("status", ["queued", "processing", "revision_requested", "failed"]).order("submitted_at", { ascending: true }).limit(8),
   ]);
   const revenue = (paid.data ?? []).reduce((s, p) => s + p.amount_cents, 0);
+  const [active, override, review] = await Promise.all([
+    resolveEditingProvider(),
+    providerOverride().catch(() => null),
+    admin.from("render_jobs").select("project_id, projects(name)").eq("review_status", "pending").order("updated_at", { ascending: true }).limit(10),
+  ]);
+  const claudeStatus = claudeConfig.localSandbox() ? "local" : claudeConfig.apiKey() && claudeConfig.agentId() && claudeConfig.environmentId() ? "api" : "missing";
+  const inReview = (review.data ?? []).map((r) => ({ id: r.project_id, name: (r.projects as { name?: string } | null)?.name ?? "Projeto" }));
   const stats = [
     { label: "Assinantes ativos", value: String(subs.count ?? 0) },
     { label: "Vídeos enviados no mês", value: String(submitted.count ?? 0) },
@@ -30,6 +40,14 @@ export default async function AdminOverview() {
   return (
     <div className="space-y-10">
       <PageHeader eyebrow="Admin" title="Visão geral" description="Operação da plataforma em tempo real." />
+      <ProviderSwitch
+        active={active.name}
+        override={override}
+        envDefault={getEditingProvider().name}
+        claudeStatus={claudeStatus}
+        inReview={inReview}
+        humanReview={claudeConfig.humanReview()}
+      />
       <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
         {stats.map((s) => (
           <div key={s.label} className="rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5">

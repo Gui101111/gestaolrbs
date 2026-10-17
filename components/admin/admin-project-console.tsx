@@ -22,7 +22,7 @@ import { PIPELINE_STEPS, stepIndex } from "@/lib/constants/domain";
 import { formatBytes, formatDateTime, formatDuration, safeFileName } from "@/lib/utils";
 
 type Job = { id: string; status: string; current_step: string; progress: number; provider: string; error_message: string | null; kind: string } | null;
-type RenderRow = { id: string; aspect_ratio: string; version: number; url: string | null; file_size: number | null; duration_sec: number | null; created_at: string };
+type RenderRow = { id: string; aspect_ratio: string; version: number; url: string | null; file_size: number | null; duration_sec: number | null; created_at: string; published?: boolean };
 type Note = { id: string; body: string; created_at: string };
 
 export function AdminProjectConsole({
@@ -138,6 +138,7 @@ export function AdminProjectConsole({
                     <span>
                       <span className="text-ivory">
                         {rd.aspect_ratio} · v{rd.version}
+                        {rd.published === false && <span className="ml-2 rounded-full bg-warning/15 px-2 py-0.5 text-[0.6875rem] font-semibold text-warning">em revisão</span>}
                       </span>
                       <span className="block text-xs text-mist">
                         {formatBytes(rd.file_size)} · {formatDuration(rd.duration_sec)} · {formatDateTime(rd.created_at)}

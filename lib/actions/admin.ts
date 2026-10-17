@@ -7,6 +7,9 @@ import { getProfile, getSessionUser } from "@/lib/auth/dal";
 import { PIPELINE_STEPS } from "@/lib/constants/domain";
 import { addRender, advanceJob, completeProject, failProject } from "@/services/editing/lifecycle";
 import { dispatchJob } from "@/services/editing/dispatch";
+import { PROVIDER_KEYS, SETTING_PROVIDER, clearProviderCache, type ProviderKey } from "@/services/editing";
+import { releaseReview } from "@/services/editing/claude/session-lifecycle";
+import { isClaudeConfigured } from "@/services/editing/claude/config";
 import type { ActionResult } from "@/types/domain";
 
 async function assertAdmin() {
@@ -23,6 +26,8 @@ function err(e: unknown): { ok: false; error: string } {
     no_renders: "Envie ao menos um vídeo editado antes de marcar como pronto.",
     invalid_path: "Caminho de arquivo inválido.",
     job_not_found: "Job não encontrado.",
+    not_in_review: "Este vídeo não está aguardando revisão.",
+    claude_provider_not_configured: "Configure a chave da Anthropic (ANTHROPIC_API_KEY, CLAUDE_AGENT_ID e CLAUDE_ENVIRONMENT_ID) antes de usar o Claude.",
   };
   return { ok: false, error: map[code] ?? "Não foi possível concluir a ação." };
 }
@@ -53,15 +58,17 @@ export async function adminUpdateJobAction(input: { jobId: string; step?: string
   }
 }
 
-export async function adminRedispatchAction(jobId: string): Promise<ActionResult> {
+export async function adminRedispatchAction(jobId: string, provider?: ProviderKey): Promise<ActionResult> {
   try {
     await assertAdmin();
+    if (provider === "claude" && !isClaudeConfigured()) throw new Error("claude_provider_not_configured");
     const admin = createAdminClient();
     const { data: job } = await admin.from("render_jobs").select("*").eq("id", jobId).single();
     if (!job) throw new Error("job_not_found");
     await admin.from("render_jobs").update({ status: "queued", error_code: null, error_message: null }).eq("id", jobId);
     await admin.from("projects").update({ status: "queued" }).eq("id", job.project_id).eq("status", "failed");
-    await dispatchJob({ ...job, status: "queued" });
+    const res = await dispatchJob({ ...job, status: "queued" }, provider ? { provider } : undefined);
+    if (!res.ok) throw new Error(res.code);
     revalidatePath("/admin", "layout");
     return { ok: true };
   } catch (e) {
@@ -228,6 +235,38 @@ export async function adminSetRoleAction(userId: string, role: "user" | "admin")
     const { error } = await createAdminClient().from("profiles").update({ role }).eq("id", userId);
     if (error) return { ok: false, error: "Não foi possível alterar o perfil." };
     revalidatePath("/admin/usuarios");
+    return { ok: true };
+  } catch (e) {
+    return err(e);
+  }
+}
+
+/** Libera ao cliente o vídeo editado pelo agente (HUMAN_REVIEW=true). */
+export async function adminReleaseReviewAction(jobId: string): Promise<ActionResult> {
+  try {
+    await assertAdmin();
+    await releaseReview(z.string().uuid().parse(jobId));
+    revalidatePath("/admin", "layout");
+    return { ok: true };
+  } catch (e) {
+    return err(e);
+  }
+}
+
+/** Troca o provedor de edição sem deploy (vale para os próximos envios). */
+export async function adminSetEditingProviderAction(key: ProviderKey | "env"): Promise<ActionResult> {
+  try {
+    const user = await assertAdmin();
+    const admin = createAdminClient();
+    if (key === "env") {
+      await admin.from("app_settings").delete().eq("key", SETTING_PROVIDER);
+    } else {
+      if (!(PROVIDER_KEYS as readonly string[]).includes(key)) throw new Error("invalid");
+      if (key === "claude" && !isClaudeConfigured()) throw new Error("claude_provider_not_configured");
+      await admin.from("app_settings").upsert({ key: SETTING_PROVIDER, value: key, updated_by: user.id, updated_at: new Date().toISOString() });
+    }
+    clearProviderCache();
+    revalidatePath("/admin", "layout");
     return { ok: true };
   } catch (e) {
     return err(e);

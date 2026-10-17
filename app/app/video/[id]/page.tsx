@@ -6,6 +6,7 @@ import { ProcessingTimeline } from "@/components/projects/processing-timeline";
 import { ProjectResult, type ResultRender } from "@/components/projects/project-result";
 import { StatusBadge } from "@/components/projects/status-badge";
 import { StatusTrack } from "@/components/projects/status-track";
+import { ComplianceAlerts, type ComplianceAlert } from "@/components/projects/compliance-alerts";
 import { ProjectBriefing } from "@/components/projects/project-briefing";
 import { folderPath } from "@/components/folders/folder-colors";
 import { requireOnboardedProfile } from "@/lib/auth/dal";
@@ -37,7 +38,7 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
   const [{ data: job }, { data: renders }, { data: original }, { data: revisions }, { data: sub }, { data: folders }] = await Promise.all([
     supabase
       .from("render_jobs")
-      .select("id, status, progress, current_step, error_message, kind, updated_at")
+      .select("id, status, progress, current_step, error_message, kind, updated_at, compliance_flags")
       .eq("project_id", id)
       .order("created_at", { ascending: false })
       .limit(1)
@@ -87,6 +88,15 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
         styleLabel={labelOf(EDITING_STYLES, project.editing_style)}
       />
     );
+    const alerts = Array.isArray(job?.compliance_flags) ? (job.compliance_flags as unknown as ComplianceAlert[]) : [];
+    if (alerts.length) {
+      content = (
+        <div className="space-y-8">
+          {content}
+          <ComplianceAlerts alerts={alerts} />
+        </div>
+      );
+    }
   } else {
     content = (
       <div className="space-y-8">

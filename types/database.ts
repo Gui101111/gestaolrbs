@@ -23,6 +23,28 @@ export type Database = {
   };
   public: {
     Tables: {
+      app_settings: {
+        Row: {
+          key: string;
+          updated_at: string;
+          updated_by: string | null;
+          value: NonNullable<Json>;
+        };
+        ComputedFields: never;
+        Insert: {
+          key: string;
+          updated_at?: string;
+          updated_by?: string | null;
+          value: NonNullable<Json>;
+        };
+        Update: {
+          key?: string;
+          updated_at?: string;
+          updated_by?: string | null;
+          value?: NonNullable<Json>;
+        };
+        Relationships: [];
+      };
       brand_kits: {
         Row: {
           accent_color: string;
@@ -77,6 +99,88 @@ export type Database = {
           whatsapp?: string | null;
         };
         Relationships: [];
+      };
+      editing_sessions: {
+        Row: {
+          active_seconds: number | null;
+          archived_at: string | null;
+          cost_cents: number | null;
+          created_at: string;
+          error: string | null;
+          finished_at: string | null;
+          followups: number;
+          job_id: string;
+          project_id: string;
+          provider: string;
+          report: Json | null;
+          session_id: string;
+          started_at: string;
+          status: string;
+          stop_reason: string | null;
+          updated_at: string;
+          usage: Json | null;
+          user_id: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          active_seconds?: number | null;
+          archived_at?: string | null;
+          cost_cents?: number | null;
+          created_at?: string;
+          error?: string | null;
+          finished_at?: string | null;
+          followups?: number;
+          job_id: string;
+          project_id: string;
+          provider: string;
+          report?: Json | null;
+          session_id: string;
+          started_at?: string;
+          status?: string;
+          stop_reason?: string | null;
+          updated_at?: string;
+          usage?: Json | null;
+          user_id: string;
+          version: number;
+        };
+        Update: {
+          active_seconds?: number | null;
+          archived_at?: string | null;
+          cost_cents?: number | null;
+          created_at?: string;
+          error?: string | null;
+          finished_at?: string | null;
+          followups?: number;
+          job_id?: string;
+          project_id?: string;
+          provider?: string;
+          report?: Json | null;
+          session_id?: string;
+          started_at?: string;
+          status?: string;
+          stop_reason?: string | null;
+          updated_at?: string;
+          usage?: Json | null;
+          user_id?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "editing_sessions_job_id_fkey";
+            columns: ["job_id"];
+            isOneToOne: true;
+            referencedRelation: "render_jobs";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "editing_sessions_project_id_fkey";
+            columns: ["project_id"];
+            isOneToOne: false;
+            referencedRelation: "projects";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       folders: {
         Row: {
@@ -296,6 +400,25 @@ export type Database = {
           trial_days?: number | null;
           updated_at?: string;
           videos_per_month?: number | null;
+        };
+        Relationships: [];
+      };
+      processed_webhooks: {
+        Row: {
+          id: string;
+          received_at: string;
+          source: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          id: string;
+          received_at?: string;
+          source: string;
+        };
+        Update: {
+          id?: string;
+          received_at?: string;
+          source?: string;
         };
         Relationships: [];
       };
@@ -633,6 +756,7 @@ export type Database = {
           attempts: number;
           brief: Json | null;
           completed_at: string | null;
+          compliance_flags: NonNullable<Json>;
           created_at: string;
           current_step: string;
           edit_plan: Json | null;
@@ -641,9 +765,11 @@ export type Database = {
           external_id: string | null;
           id: string;
           kind: string;
+          output_version: number | null;
           progress: number;
           project_id: string;
           provider: string;
+          review_status: string;
           started_at: string | null;
           status: Database["public"]["Enums"]["job_status"];
           step_history: NonNullable<Json>;
@@ -655,6 +781,7 @@ export type Database = {
           attempts?: number;
           brief?: Json | null;
           completed_at?: string | null;
+          compliance_flags?: NonNullable<Json>;
           created_at?: string;
           current_step?: string;
           edit_plan?: Json | null;
@@ -663,9 +790,11 @@ export type Database = {
           external_id?: string | null;
           id?: string;
           kind?: string;
+          output_version?: number | null;
           progress?: number;
           project_id: string;
           provider?: string;
+          review_status?: string;
           started_at?: string | null;
           status?: Database["public"]["Enums"]["job_status"];
           step_history?: NonNullable<Json>;
@@ -676,6 +805,7 @@ export type Database = {
           attempts?: number;
           brief?: Json | null;
           completed_at?: string | null;
+          compliance_flags?: NonNullable<Json>;
           created_at?: string;
           current_step?: string;
           edit_plan?: Json | null;
@@ -684,9 +814,11 @@ export type Database = {
           external_id?: string | null;
           id?: string;
           kind?: string;
+          output_version?: number | null;
           progress?: number;
           project_id?: string;
           provider?: string;
+          review_status?: string;
           started_at?: string | null;
           status?: Database["public"]["Enums"]["job_status"];
           step_history?: NonNullable<Json>;
@@ -715,6 +847,7 @@ export type Database = {
           id: string;
           job_id: string | null;
           project_id: string;
+          published: boolean;
           resolution: string | null;
           storage_path: string;
           thumbnail_path: string | null;
@@ -735,6 +868,7 @@ export type Database = {
           id?: string;
           job_id?: string | null;
           project_id: string;
+          published?: boolean;
           resolution?: string | null;
           storage_path: string;
           thumbnail_path?: string | null;
@@ -754,6 +888,7 @@ export type Database = {
           id?: string;
           job_id?: string | null;
           project_id?: string;
+          published?: boolean;
           resolution?: string | null;
           storage_path?: string;
           thumbnail_path?: string | null;
@@ -1055,6 +1190,7 @@ export type Database = {
           attempts: number;
           brief: Json | null;
           completed_at: string | null;
+          compliance_flags: NonNullable<Json>;
           created_at: string;
           current_step: string;
           edit_plan: Json | null;
@@ -1063,9 +1199,11 @@ export type Database = {
           external_id: string | null;
           id: string;
           kind: string;
+          output_version: number | null;
           progress: number;
           project_id: string;
           provider: string;
+          review_status: string;
           started_at: string | null;
           status: Database["public"]["Enums"]["job_status"];
           step_history: NonNullable<Json>;

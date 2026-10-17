@@ -18,6 +18,7 @@ import {
   ratiosForPlatforms,
 } from "@/lib/constants/domain";
 import { dispatchJob } from "@/services/editing/dispatch";
+import { archiveProjectSessions } from "@/services/editing/claude/session-lifecycle";
 import { emailTemplates, sendEmail } from "@/services/email";
 import type { ActionResult } from "@/types/domain";
 import type { Json, TablesUpdate } from "@/types/database";
@@ -387,6 +388,8 @@ export async function approveProjectAction(id: string): Promise<ActionResult> {
     const supabase = await createClient();
     const { error } = await supabase.rpc("approve_project", { p_project_id: id });
     if (error) return fail(error);
+    // vídeo aprovado: a sessão do agente não é mais necessária (menos retenção de dados)
+    await archiveProjectSessions(id).catch(() => undefined);
     revalidatePath(`/app/video/${id}`);
     return { ok: true };
   } catch (e) {

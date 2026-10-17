@@ -1,6 +1,6 @@
 import "server-only";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { getEditingProvider } from "./index";
+import { providerByKey, resolveEditingProvider, type ProviderKey } from "./index";
 import { buildEditBrief } from "./brief";
 import type { RenderJob } from "@/types/domain";
 import type { Json } from "@/types/database";
@@ -9,9 +9,9 @@ import type { Json } from "@/types/database";
  * Entrega um job ao provedor configurado. Nunca lança para o usuário:
  * falhas ficam registradas no job (para nova tentativa pelo admin/worker).
  */
-export async function dispatchJob(job: RenderJob) {
+export async function dispatchJob(job: RenderJob, opts?: { provider?: ProviderKey }) {
   const admin = createAdminClient();
-  const provider = getEditingProvider();
+  const provider = opts?.provider ? providerByKey(opts.provider) : await resolveEditingProvider();
   try {
     const brief = await buildEditBrief(job);
     await admin.from("render_jobs").update({ brief: brief as unknown as Json, provider: provider.name }).eq("id", job.id);

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = await params;
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getUser();
-  if (!auth.user) return NextResponse.redirect(new URL(`/login?next=/app/video/${id}`, request.url));
+  if (!auth.user) return NextResponse.redirect(new URL(`/entrar?next=/app/video/${id}`, request.url));
 
   const renderId = request.nextUrl.searchParams.get("render");
   const ratio = request.nextUrl.searchParams.get("ratio");

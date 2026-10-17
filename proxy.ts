@@ -10,6 +10,6 @@ export const config = {
     /*
      * Ignora estáticos, imagens, mídia pública e webhooks/callbacks de máquina.
      */
-    "/((?!_next/static|_next/image|favicon.ico|media/|api/webhooks|api/jobs/callback|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|ico)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|media/|api/webhooks|api/jobs/callback|api/cron|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|ico)$).*)",
   ],
 };

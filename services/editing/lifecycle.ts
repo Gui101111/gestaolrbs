@@ -54,7 +54,22 @@ export async function advanceJob(
 /** Registra um arquivo final (por proporção), versionando automaticamente. */
 export async function addRender(
   projectId: string,
-  output: { aspectRatio: string; bucket?: string; path: string; fileName?: string; width?: number | null; height?: number | null; durationSec?: number | null; sizeBytes?: number | null; thumbnailPath?: string | null; jobId?: string | null },
+  output: {
+    aspectRatio: string;
+    bucket?: string;
+    path: string;
+    fileName?: string;
+    width?: number | null;
+    height?: number | null;
+    durationSec?: number | null;
+    sizeBytes?: number | null;
+    thumbnailPath?: string | null;
+    jobId?: string | null;
+    /** Versão explícita (v<n> do agente); sem ela, a próxima por formato. */
+    version?: number | null;
+    /** false: só aparece ao cliente depois da liberação no /admin. */
+    published?: boolean;
+  },
   admin: Admin = createAdminClient(),
 ) {
   const { data: project } = await admin.from("projects").select("id, user_id").eq("id", projectId).single();
@@ -84,7 +99,8 @@ export async function addRender(
       duration_sec: output.durationSec ?? null,
       file_size: output.sizeBytes ?? null,
       thumbnail_path: output.thumbnailPath ?? null,
-      version: (last?.version ?? 0) + 1,
+      version: output.version ?? (last?.version ?? 0) + 1,
+      published: output.published ?? true,
     })
     .select("id")
     .single();
