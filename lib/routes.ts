@@ -10,13 +10,14 @@ export const ROUTES = {
   privacy: "/privacidade",
 
   app: "/app",
-  projects: "/app/biblioteca",
-  newVideo: "/app/projetos/novo",
+  projects: "/app/projetos",
+  newVideo: "/app/novo",
   examples: "/app/exemplos",
   howTo: "/app/como-fazer",
   brand: "/app/marca",
   billing: "/app/assinatura",
   settings: "/app/configuracoes",
   profile: "/app/perfil",
-  video: (id: string) => `/app/projetos/${id}`,
+  folder: (id: string) => `/app/projetos/${id}`,
+  video: (id: string) => `/app/video/${id}`,
 } as const;

@@ -78,6 +78,48 @@ export type Database = {
         };
         Relationships: [];
       };
+      folders: {
+        Row: {
+          color: string;
+          created_at: string;
+          id: string;
+          name: string;
+          owner_id: string;
+          parent_id: string | null;
+          position: number;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          color?: string;
+          created_at?: string;
+          id?: string;
+          name: string;
+          owner_id: string;
+          parent_id?: string | null;
+          position?: number;
+          updated_at?: string;
+        };
+        Update: {
+          color?: string;
+          created_at?: string;
+          id?: string;
+          name?: string;
+          owner_id?: string;
+          parent_id?: string | null;
+          position?: number;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "folders_parent_id_fkey";
+            columns: ["parent_id"];
+            isOneToOne: false;
+            referencedRelation: "folders";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       notifications: {
         Row: {
           body: string | null;
@@ -277,6 +319,7 @@ export type Database = {
           preferences: NonNullable<Json>;
           role: Database["public"]["Enums"]["user_role"];
           terms_accepted_at: string | null;
+          treatment: string | null;
           updated_at: string;
         };
         ComputedFields: never;
@@ -299,6 +342,7 @@ export type Database = {
           preferences?: NonNullable<Json>;
           role?: Database["public"]["Enums"]["user_role"];
           terms_accepted_at?: string | null;
+          treatment?: string | null;
           updated_at?: string;
         };
         Update: {
@@ -320,6 +364,7 @@ export type Database = {
           preferences?: NonNullable<Json>;
           role?: Database["public"]["Enums"]["user_role"];
           terms_accepted_at?: string | null;
+          treatment?: string | null;
           updated_at?: string;
         };
         Relationships: [];
@@ -478,6 +523,8 @@ export type Database = {
           completed_at: string | null;
           created_at: string;
           editing_style: string | null;
+          first_downloaded_at: string | null;
+          folder_id: string | null;
           id: string;
           instructions: string | null;
           legal_area: string | null;
@@ -508,6 +555,8 @@ export type Database = {
           completed_at?: string | null;
           created_at?: string;
           editing_style?: string | null;
+          first_downloaded_at?: string | null;
+          folder_id?: string | null;
           id?: string;
           instructions?: string | null;
           legal_area?: string | null;
@@ -537,6 +586,8 @@ export type Database = {
           completed_at?: string | null;
           created_at?: string;
           editing_style?: string | null;
+          first_downloaded_at?: string | null;
+          folder_id?: string | null;
           id?: string;
           instructions?: string | null;
           legal_area?: string | null;
@@ -561,6 +612,13 @@ export type Database = {
           wizard_step?: number;
         };
         Relationships: [
+          {
+            foreignKeyName: "projects_folder_id_fkey";
+            columns: ["folder_id"];
+            isOneToOne: false;
+            referencedRelation: "folders";
+            referencedColumns: ["id"];
+          },
           {
             foreignKeyName: "projects_parent_project_id_fkey";
             columns: ["parent_project_id"];
@@ -856,6 +914,8 @@ export type Database = {
           completed_at: string | null;
           created_at: string;
           editing_style: string | null;
+          first_downloaded_at: string | null;
+          folder_id: string | null;
           id: string;
           instructions: string | null;
           legal_area: string | null;
@@ -894,6 +954,8 @@ export type Database = {
           completed_at: string | null;
           created_at: string;
           editing_style: string | null;
+          first_downloaded_at: string | null;
+          folder_id: string | null;
           id: string;
           instructions: string | null;
           legal_area: string | null;
@@ -944,6 +1006,8 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      folder_height: { Args: { p_folder: string }; Returns: number };
+      folder_level: { Args: { p_folder: string }; Returns: number };
       get_my_usage: {
         Args: Record<PropertyKey, never>;
         Returns: {

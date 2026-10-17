@@ -27,8 +27,8 @@ test("abas do Explorar respondem ao hash e ao teclado", async ({ page }) => {
 });
 
 test("rotas protegidas redirecionam para o login", async ({ page }) => {
-  await page.goto("/app/biblioteca");
-  await expect(page).toHaveURL(/\/login\?next=%2Fapp%2Fbiblioteca/);
+  await page.goto("/app/projetos");
+  await expect(page).toHaveURL(/\/login\?next=%2Fapp%2Fprojetos/);
   await page.goto("/admin");
   await expect(page).toHaveURL(/\/login/);
 });

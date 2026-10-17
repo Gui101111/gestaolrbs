@@ -20,7 +20,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
   const supabase = await createClient();
   const { data: project } = await supabase.from("projects").select("*").eq("id", id).maybeSingle();
   if (!project || project.user_id !== user.id) notFound();
-  if (project.status === "draft") redirect(`/app/projetos/novo?id=${id}`);
+  if (project.status === "draft") redirect(`/app/novo?id=${id}`);
 
   const [{ data: job }, { data: renders }, { data: original }, { data: revisions }, { data: sub }] = await Promise.all([
     supabase.from("render_jobs").select("id, status, progress, current_step, error_message, kind, updated_at").eq("project_id", id).order("created_at", { ascending: false }).limit(1).maybeSingle(),
@@ -83,7 +83,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
   return (
     <div className="space-y-12">
       <div className="flex items-center justify-between gap-4">
-        <Link href="/app/biblioteca" className="inline-flex items-center gap-2 text-sm text-mist transition hover:text-ivory">
+        <Link href="/app/projetos" className="inline-flex items-center gap-2 text-sm text-mist transition hover:text-ivory">
           <ArrowLeft className="size-4" /> Biblioteca
         </Link>
         <StatusBadge status={project.status} />

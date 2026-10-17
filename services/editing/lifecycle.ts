@@ -115,7 +115,7 @@ export async function completeProject(projectId: string, jobId: string | null, a
     type: wasRevision ? "revision_done" : "video_ready",
     title: wasRevision ? "Ajuste concluído" : "Seu vídeo está pronto",
     body: `“${project.name}” já pode ser assistido e baixado.`,
-    link: `/app/projetos/${projectId}`,
+    link: `/app/video/${projectId}`,
   });
   const { data: profile } = await admin.from("profiles").select("full_name, email, preferences").eq("id", project.user_id).single();
   const prefs = (profile?.preferences ?? {}) as { email_notifications?: boolean };
@@ -134,6 +134,6 @@ export async function failProject(projectId: string, message: string | undefined
     type: "processing_failed",
     title: "Houve um problema no processamento",
     body: message ?? `Não foi possível concluir “${project.name}”. Nossa equipe já está verificando.`,
-    link: `/app/projetos/${projectId}`,
+    link: `/app/video/${projectId}`,
   });
 }

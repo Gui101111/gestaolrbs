@@ -27,6 +27,12 @@ const nextConfig: NextConfig = {
       bodySizeLimit: "4mb",
     },
   },
+  async redirects() {
+    return [
+      { source: "/app/biblioteca", destination: "/app/projetos", permanent: true },
+      { source: "/app/projetos/novo", destination: "/app/novo", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

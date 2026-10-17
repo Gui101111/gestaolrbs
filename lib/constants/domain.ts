@@ -213,13 +213,16 @@ export function progressForStep(step: string | null | undefined) {
 
 export const PROJECT_STATUSES = {
   draft: { label: "Rascunho", tone: "default" },
-  queued: { label: "Na fila", tone: "info" },
-  processing: { label: "Processando", tone: "gold" },
+  queued: { label: "Na fila", tone: "azure" },
+  processing: { label: "Editando", tone: "cyan" },
   ready: { label: "Pronto", tone: "success" },
-  revision_requested: { label: "Ajuste solicitado", tone: "warning" },
-  completed: { label: "Concluído", tone: "success" },
+  revision_requested: { label: "Em ajuste", tone: "warning" },
+  completed: { label: "Pronto", tone: "success" },
   failed: { label: "Erro", tone: "danger" },
 } as const;
+
+/** Status que contam como "em edição" (linha de varredura e anel de progresso). */
+export const EDITING_STATUSES = ["queued", "processing", "revision_requested"] as const;
 export type ProjectStatus = keyof typeof PROJECT_STATUSES;
 
 export const LIBRARY_FILTERS = [

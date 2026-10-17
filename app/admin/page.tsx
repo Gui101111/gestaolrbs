@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { TimeAgo } from "@/components/shared/time-ago";
 import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
 import { StatusBadge } from "@/components/projects/status-badge";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { requireAdmin } from "@/lib/auth/dal";
-import { formatCurrency, formatRelative } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
 
 export default async function AdminOverview() {
   await requireAdmin();
@@ -51,7 +52,7 @@ export default async function AdminOverview() {
                 <Link href={`/admin/projetos/${p.id}`} className="flex items-center justify-between gap-4 py-3 transition hover:text-gold-light">
                   <span className="min-w-0">
                     <span className="block truncate text-sm text-ivory">{p.name}</span>
-                    <span className="text-xs text-mist">enviado {formatRelative(p.submitted_at)}</span>
+                    <span className="text-xs text-mist">enviado <TimeAgo value={p.submitted_at} /></span>
                   </span>
                   <StatusBadge status={p.status} />
                 </Link>

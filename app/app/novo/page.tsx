@@ -40,8 +40,8 @@ export default async function NewProjectPage({ searchParams }: { searchParams: S
 
   if (id) {
     const { data: project } = await supabase.from("projects").select("*").eq("id", id).maybeSingle();
-    if (!project) redirect("/app/biblioteca");
-    if (project.status !== "draft") redirect(`/app/projetos/${id}`);
+    if (!project) redirect("/app/projetos");
+    if (project.status !== "draft") redirect(`/app/video/${id}`);
     initial = {
       id: project.id,
       name: project.name,

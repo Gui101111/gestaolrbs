@@ -30,6 +30,12 @@ const MESSAGES: Record<string, string> = {
   video_too_long: "O vídeo excede a duração máxima permitida pelo seu plano.",
   project_not_ready: "O vídeo ainda não está pronto para esta ação.",
   revisions_exceeded: "Você já utilizou todos os ajustes disponíveis para este vídeo.",
+  // Pastas
+  folder_depth: "As pastas podem ter no máximo 3 níveis.",
+  folder_cycle: "Uma pasta não pode ficar dentro dela mesma.",
+  folder_parent_invalid: "Pasta de destino não encontrada.",
+  folder_invalid: "Pasta não encontrada.",
+  folder_not_found: "Pasta não encontrada.",
   // Upload
   file_too_large: "O arquivo é maior do que o permitido.",
   invalid_file: "Formato não suportado. Envie um vídeo MP4, MOV ou WEBM.",

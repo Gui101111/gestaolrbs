@@ -356,7 +356,7 @@ export async function requestRevisionAction(id: string, comment: string, timesta
         html: `<p>${user.email} solicitou ajuste no projeto ${id}.</p>`,
       });
     }
-    revalidatePath(`/app/projetos/${id}`);
+    revalidatePath(`/app/video/${id}`);
     return { ok: true };
   } catch (e) {
     return fail(e);
@@ -369,7 +369,7 @@ export async function approveProjectAction(id: string): Promise<ActionResult> {
     const supabase = await createClient();
     const { error } = await supabase.rpc("approve_project", { p_project_id: id });
     if (error) return fail(error);
-    revalidatePath(`/app/projetos/${id}`);
+    revalidatePath(`/app/video/${id}`);
     return { ok: true };
   } catch (e) {
     return fail(e);

@@ -11,7 +11,7 @@ import { cn, formatDate, formatDuration } from "@/lib/utils";
 import type { ProjectListItem } from "@/services/projects/queries";
 
 export function ProjectCard({ project, index = 0 }: { project: ProjectListItem; index?: number }) {
-  const href = project.status === "draft" ? `/app/projetos/novo?id=${project.id}` : `/app/projetos/${project.id}`;
+  const href = project.status === "draft" ? `/app/novo?id=${project.id}` : `/app/video/${project.id}`;
   const inFlight = ["queued", "processing", "revision_requested"].includes(project.status);
   const done = project.status === "ready" || project.status === "completed";
   const step = PIPELINE_STEPS.find((s) => s.value === project.job?.current_step);

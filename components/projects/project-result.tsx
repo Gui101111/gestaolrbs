@@ -254,7 +254,7 @@ export function ProjectResult({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={() => remove(project.id, "/app/biblioteca")}>Excluir definitivamente</AlertDialogAction>
+            <AlertDialogAction onClick={() => remove(project.id, "/app/projetos")}>Excluir definitivamente</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

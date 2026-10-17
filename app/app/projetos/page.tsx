@@ -40,7 +40,7 @@ export default async function LibraryPage({ searchParams }: { searchParams: Sear
         description="Todos os vídeos enviados, em edição e prontos para publicar."
         actions={
           <Button asChild variant="gold">
-            <Link href="/app/projetos/novo">
+            <Link href="/app/novo">
               <Plus /> Novo projeto
             </Link>
           </Button>
@@ -61,7 +61,7 @@ export default async function LibraryPage({ searchParams }: { searchParams: Sear
           description="Envie seu primeiro vídeo bruto e acompanhe a edição por aqui."
           action={
             <Button asChild variant="gold" size="lg">
-              <Link href="/app/projetos/novo">Criar primeiro vídeo</Link>
+              <Link href="/app/novo">Criar primeiro vídeo</Link>
             </Button>
           }
         />

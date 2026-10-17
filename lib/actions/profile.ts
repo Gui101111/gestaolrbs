@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getSessionUser } from "@/lib/auth/dal";
@@ -137,16 +138,46 @@ export async function savePreferencesAction(input: PreferencesInput): Promise<Ac
   if (!parsed.success) return { ok: false, error: "Verifique as preferências." };
   const v = parsed.data;
   const supabase = await createClient();
+  const current = await currentPreferences(user.id);
   const { error } = await supabase
     .from("profiles")
     .update({
       default_editing_style: blank(v.defaultEditingStyle),
       default_platforms: v.defaultPlatforms,
-      preferences: { email_notifications: v.emailNotifications, product_news: v.productNews },
+      preferences: { ...current, email_notifications: v.emailNotifications, product_news: v.productNews },
     })
     .eq("id", user.id);
   if (error) return { ok: false, error: friendlyError(error) };
   revalidatePath("/app/configuracoes");
+  return { ok: true };
+}
+
+async function currentPreferences(userId: string): Promise<Record<string, unknown>> {
+  const supabase = await createClient();
+  const { data } = await supabase.from("profiles").select("preferences").eq("id", userId).maybeSingle();
+  const prefs = data?.preferences;
+  return prefs && typeof prefs === "object" && !Array.isArray(prefs) ? (prefs as Record<string, unknown>) : {};
+}
+
+const uiPrefsSchema = z.object({
+  setup_hidden: z.boolean().optional(),
+  hidden_models: z.array(z.string().max(60)).max(20).optional(),
+});
+
+/** Preferências de interface (ocultar etapas, modelos visíveis no Início). Mescla com as atuais. */
+export async function setUiPreferencesAction(patch: z.input<typeof uiPrefsSchema>): Promise<ActionResult> {
+  const user = await getSessionUser();
+  if (!user) return { ok: false, error: friendlyError("session_expired") };
+  const parsed = uiPrefsSchema.safeParse(patch);
+  if (!parsed.success) return { ok: false, error: "Preferência inválida." };
+  const supabase = await createClient();
+  const current = await currentPreferences(user.id);
+  const { error } = await supabase
+    .from("profiles")
+    .update({ preferences: { ...current, ...parsed.data } })
+    .eq("id", user.id);
+  if (error) return { ok: false, error: friendlyError(error) };
+  revalidatePath("/app");
   return { ok: true };
 }
 

@@ -85,6 +85,16 @@ export function firstName(name: string | null | undefined) {
   return parts[0] ?? "";
 }
 
+/** "Dr. Guilherme", "Dra. Ana" ou só o primeiro nome quando não há tratamento. */
+export function welcomeName(fullName: string | null | undefined, treatment: string | null | undefined) {
+  const first = firstName(fullName);
+  if (!first) return "";
+  if (/^(dr|dra|doutor|doutora)\.?\s/i.test(first)) return first;
+  if (treatment === "dr") return `Dr. ${first}`;
+  if (treatment === "dra") return `Dra. ${first}`;
+  return first;
+}
+
 export function greeting(date = new Date()) {
   const hour = Number(
     new Intl.DateTimeFormat("pt-BR", { hour: "numeric", hour12: false, timeZone: "America/Sao_Paulo" }).format(date),

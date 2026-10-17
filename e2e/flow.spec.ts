@@ -42,7 +42,7 @@ test("cadastro → confirmação → onboarding → novo projeto → envio para 
   await page.getByRole("button", { name: /Concluir/ }).click();
   await expect(page).toHaveURL(/\/app$/);
 
-  await page.goto("/app/projetos/novo");
+  await page.goto("/app/novo");
   await page.fill("#project-name", "Projeto E2E");
   await page.setInputFiles('input[type="file"]', path.join(__dirname, "fixtures/video-teste.mp4"));
   await expect(page.getByText("Envio concluído").first()).toBeVisible({ timeout: 60_000 });

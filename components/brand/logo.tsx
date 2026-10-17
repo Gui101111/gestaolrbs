@@ -1,21 +1,28 @@
+"use client";
+
+import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
 /**
  * Balança em traço neon (ciano → dourado), com um brilho fino.
- * `useId` não é necessário: o gradiente usa userSpaceOnUse e ids estáveis.
+ * Ids únicos por instância: uma cópia escondida (display:none) não pode
+ * "segurar" o degradê das outras.
  */
 export function LogoMark({ className, glow = true }: { className?: string; glow?: boolean }) {
+  const uid = React.useId().replace(/:/g, "");
+  const grad = `tribuna-neon-${uid}`;
+  const blur = `tribuna-glow-${uid}`;
   return (
     <svg viewBox="0 0 40 40" fill="none" aria-hidden className={cn("size-9 overflow-visible", className)}>
       <defs>
-        <linearGradient id="tribuna-neon" x1="6" y1="6" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+        <linearGradient id={grad} x1="6" y1="6" x2="34" y2="34" gradientUnits="userSpaceOnUse">
           <stop style={{ stopColor: "var(--cyan)" }} />
           <stop offset="0.5" stopColor="#7FA8FF" />
           <stop offset="1" style={{ stopColor: "var(--gold)" }} />
         </linearGradient>
-        <filter id="tribuna-glow" x="-30%" y="-30%" width="160%" height="160%">
+        <filter id={blur} x="-30%" y="-30%" width="160%" height="160%">
           <feGaussianBlur stdDeviation="1.4" result="b" />
           <feMerge>
             <feMergeNode in="b" />
@@ -23,7 +30,7 @@ export function LogoMark({ className, glow = true }: { className?: string; glow?
           </feMerge>
         </filter>
       </defs>
-      <g stroke="url(#tribuna-neon)" strokeLinecap="round" strokeLinejoin="round" filter={glow ? "url(#tribuna-glow)" : undefined}>
+      <g stroke={`url(#${grad})`} strokeLinecap="round" strokeLinejoin="round" filter={glow ? `url(#${blur})` : undefined}>
         <path d="M20 8.5v22" strokeWidth="1.6" />
         <path d="M9.5 12.8h21" strokeWidth="1.6" />
         <circle cx="20" cy="8" r="1.4" style={{ fill: "var(--gold)" }} stroke="none" />

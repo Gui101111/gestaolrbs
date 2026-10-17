@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Copy, Download, Eye, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { Copy, Download, Eye, FolderInput, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +26,8 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { deleteProjectAction, duplicateProjectAction, renameProjectAction } from "@/lib/actions/projects";
+import { MoveDialog } from "@/components/folders/move-dialog";
+import { ROUTES } from "@/lib/routes";
 
 export function useProjectMutations() {
   const router = useRouter();
@@ -35,7 +37,7 @@ export function useProjectMutations() {
     start(async () => {
       const res = await renameProjectAction(id, name);
       if (!res.ok) return void toast.error(res.error);
-      toast.success("Projeto renomeado.");
+      toast.success("Vídeo renomeado.");
       done?.();
       router.refresh();
     });
@@ -44,15 +46,15 @@ export function useProjectMutations() {
     start(async () => {
       const res = await duplicateProjectAction(id, asVersion);
       if (!res.ok) return void toast.error(res.error);
-      toast.success(asVersion ? "Nova versão criada. Ajuste as configurações e envie." : "Projeto duplicado como rascunho.");
-      router.push(`/app/projetos/novo?id=${res.data.id}`);
+      toast.success(asVersion ? "Nova versão criada. Ajuste e envie." : "Briefing duplicado como rascunho.");
+      router.push(`${ROUTES.newVideo}?id=${res.data.id}`);
     });
 
   const remove = (id: string, redirectTo?: string) =>
     start(async () => {
       const res = await deleteProjectAction(id);
       if (!res.ok) return void toast.error(res.error);
-      toast.success("Projeto excluído.");
+      toast.success("Vídeo excluído.");
       if (redirectTo) router.replace(redirectTo);
       router.refresh();
     });
@@ -66,18 +68,21 @@ export function ProjectActionsMenu({
   status,
   canDownload,
   triggerClassName,
+  folderId = null,
 }: {
   id: string;
   name: string;
   status: string;
   canDownload: boolean;
   triggerClassName?: string;
+  folderId?: string | null;
 }) {
   const [renameOpen, setRenameOpen] = React.useState(false);
+  const [moveOpen, setMoveOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [value, setValue] = React.useState(name);
   const { pending, rename, duplicate, remove } = useProjectMutations();
-  const href = status === "draft" ? `/app/projetos/novo?id=${id}` : `/app/projetos/${id}`;
+  const href = status === "draft" ? `${ROUTES.newVideo}?id=${id}` : ROUTES.video(id);
 
   return (
     <>
@@ -85,9 +90,9 @@ export function ProjectActionsMenu({
         <DropdownMenuTrigger
           className={
             triggerClassName ??
-            "grid size-9 place-items-center rounded-full border border-fg/10 bg-ink/70 text-ivory backdrop-blur transition hover:border-gold/40"
+            "grid size-8 place-items-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur transition hover:border-cyan/60"
           }
-          aria-label={`Ações do projeto ${name}`}
+          aria-label={`Ações do vídeo ${name}`}
           onClick={(e) => e.stopPropagation()}
         >
           <MoreHorizontal className="size-4" />
@@ -105,9 +110,6 @@ export function ProjectActionsMenu({
               </a>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem onSelect={() => duplicate(id)} disabled={pending}>
-            <Copy /> Duplicar
-          </DropdownMenuItem>
           <DropdownMenuItem
             onSelect={() => {
               setValue(name);
@@ -115,6 +117,12 @@ export function ProjectActionsMenu({
             }}
           >
             <Pencil /> Renomear
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setMoveOpen(true)}>
+            <FolderInput /> Mover para…
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => duplicate(id)} disabled={pending}>
+            <Copy /> Duplicar briefing
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive" onSelect={() => setDeleteOpen(true)}>
@@ -126,8 +134,8 @@ export function ProjectActionsMenu({
       <Dialog open={renameOpen} onOpenChange={setRenameOpen}>
         <DialogContent onClick={(e) => e.stopPropagation()}>
           <DialogHeader>
-            <DialogTitle>Renomear projeto</DialogTitle>
-            <DialogDescription>O novo nome aparece na biblioteca e nos arquivos baixados.</DialogDescription>
+            <DialogTitle>Renomear vídeo</DialogTitle>
+            <DialogDescription>O nome aparece nos projetos e nos arquivos baixados.</DialogDescription>
           </DialogHeader>
           <form
             onSubmit={(e) => {
@@ -136,7 +144,7 @@ export function ProjectActionsMenu({
             }}
             className="space-y-5"
           >
-            <Input value={value} onChange={(e) => setValue(e.target.value)} maxLength={140} autoFocus aria-label="Nome do projeto" />
+            <Input value={value} onChange={(e) => setValue(e.target.value)} maxLength={140} autoFocus aria-label="Nome do vídeo" />
             <DialogFooter>
               <Button type="button" variant="ghost" onClick={() => setRenameOpen(false)}>
                 Cancelar
@@ -149,12 +157,14 @@ export function ProjectActionsMenu({
         </DialogContent>
       </Dialog>
 
+      <MoveDialog open={moveOpen} onOpenChange={setMoveOpen} ids={[id]} currentFolderId={folderId} />
+
       <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
         <AlertDialogContent onClick={(e) => e.stopPropagation()}>
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir “{name}”?</AlertDialogTitle>
             <AlertDialogDescription>
-              O projeto, o vídeo original e as versões editadas serão removidos definitivamente. Esta ação não pode ser desfeita.
+              O vídeo original e as versões editadas serão removidos. Esta ação não pode ser desfeita.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

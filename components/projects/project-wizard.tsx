@@ -159,7 +159,7 @@ export function ProjectWizard({ userId, initial, video: initialVideo, limits, bi
       id = res.data.id;
       idRef.current = id;
       setP((prev) => ({ ...prev, id, name }));
-      window.history.replaceState(null, "", `/app/projetos/novo?id=${id}`);
+      window.history.replaceState(null, "", `/app/novo?id=${id}`);
       await saveDraftAction(id, patchFromState({ ...p, id, name }, 1));
     }
     return `${userId}/${id}/${Date.now()}-${safeFileName(file.name)}`;
@@ -252,7 +252,7 @@ export function ProjectWizard({ userId, initial, video: initialVideo, limits, bi
       return;
     }
     setDone(true);
-    window.setTimeout(() => router.push(`/app/projetos/${id}`), 2400);
+    window.setTimeout(() => router.push(`/app/video/${id}`), 2400);
   };
 
   const current = STEPS[step];

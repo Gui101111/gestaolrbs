@@ -33,7 +33,7 @@ export const emailTemplates = {
       eyebrow: "Conta ativa",
       title: `Olá, ${esc(name || "Dr(a).")}. Sua conta está pronta.`,
       body: "<p>Você já pode enviar seu primeiro vídeo. Grave como sempre gravou — a plataforma cuida dos cortes, legendas e formatos.</p><p>Dica: salve a identidade do seu escritório em <strong>Minha Marca</strong> para aplicá-la automaticamente.</p>",
-      cta: { label: "Criar primeiro projeto", href: url("/app/projetos/novo") },
+      cta: { label: "Criar primeiro projeto", href: url("/app/novo") },
     }),
   }),
   projectReceived: (name: string, projectName: string, projectId: string) => ({
@@ -42,7 +42,7 @@ export const emailTemplates = {
       eyebrow: "Projeto na fila",
       title: "Seu vídeo entrou em edição.",
       body: `<p>${esc(name || "Olá")}, o projeto <strong>${esc(projectName)}</strong> foi recebido e está na fila de processamento. Avisaremos assim que estiver pronto.</p>`,
-      cta: { label: "Acompanhar processamento", href: url(`/app/projetos/${projectId}`) },
+      cta: { label: "Acompanhar processamento", href: url(`/app/video/${projectId}`) },
     }),
   }),
   videoReady: (name: string, projectName: string, projectId: string) => ({
@@ -51,7 +51,7 @@ export const emailTemplates = {
       eyebrow: "Vídeo pronto",
       title: "Seu vídeo está pronto.",
       body: `<p>${esc(name || "Olá")}, a edição de <strong>${esc(projectName)}</strong> foi concluída. Assista, compare com o original e baixe em MP4.</p>`,
-      cta: { label: "Ver vídeo", href: url(`/app/projetos/${projectId}`) },
+      cta: { label: "Ver vídeo", href: url(`/app/video/${projectId}`) },
     }),
   }),
   revisionDone: (name: string, projectName: string, projectId: string) => ({
@@ -60,7 +60,7 @@ export const emailTemplates = {
       eyebrow: "Ajuste concluído",
       title: "O ajuste solicitado foi aplicado.",
       body: `<p>${esc(name || "Olá")}, a nova versão de <strong>${esc(projectName)}</strong> já está disponível.</p>`,
-      cta: { label: "Ver nova versão", href: url(`/app/projetos/${projectId}`) },
+      cta: { label: "Ver nova versão", href: url(`/app/video/${projectId}`) },
     }),
   }),
   paymentConfirmed: (name: string, planName: string) => ({

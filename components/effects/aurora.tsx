@@ -39,10 +39,13 @@ export function Aurora({
   variant = "hero",
   className,
   interactive = true,
+  soft = variant !== "hero",
 }: {
   variant?: keyof typeof VARIANTS;
   className?: string;
   interactive?: boolean;
+  /** Esfuma as bordas do recorte (evita "caixa" visível fora do palco do hero). */
+  soft?: boolean;
 }) {
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -68,7 +71,12 @@ export function Aurora({
   }, [interactive]);
 
   return (
-    <div ref={ref} aria-hidden className={cn("aurora", className)}>
+    <div
+      ref={ref}
+      aria-hidden
+      className={cn("aurora", className)}
+      style={soft ? { maskImage: "radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, transparent 100%)", WebkitMaskImage: "radial-gradient(ellipse 50% 50% at 50% 50%, #000 35%, transparent 100%)" } : undefined}
+    >
       {VARIANTS[variant].map((b, i) => (
         <span
           key={i}
