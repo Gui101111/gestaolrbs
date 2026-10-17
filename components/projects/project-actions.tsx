@@ -29,6 +29,7 @@ import {
 import { MoveDialog } from "@/components/folders/move-dialog";
 import { deleteProjectAction, duplicateProjectAction, renameProjectAction } from "@/lib/actions/projects";
 import { ROUTES } from "@/lib/routes";
+import { startDownload } from "@/lib/download";
 import { cn } from "@/lib/utils";
 
 export function useProjectMutations() {
@@ -213,7 +214,7 @@ export function ProjectContextMenu({ children, ...t }: ActionTarget & { children
                   disabled={it.kind === "action" ? it.disabled : false}
                   onSelect={() => {
                     if (it.kind === "link") {
-                      if (it.download) window.location.assign(it.href);
+                      if (it.download) startDownload(it.href);
                       else router.push(it.href);
                     } else it.onSelect();
                   }}

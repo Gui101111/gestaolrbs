@@ -49,6 +49,7 @@ export function buildPlan(a: Analysis, opts: EditOptions, look: Look): Plan {
       cutsMistakes++;
     }
   }
+  for (const c of opts.extraCuts ?? []) cuts.push({ start: Math.max(0, c.start), end: Math.min(a.duration, c.end) });
   const removed = union(cuts);
   let keep: Interval[] = [];
   let t = 0;

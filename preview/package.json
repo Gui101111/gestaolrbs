@@ -1,10 +1,11 @@
 {
   "name": "tribuna-preview",
   "private": true,
-  "description": "Página inicial estática com o editor de vídeo no navegador (publicada como artifact do claude.ai).",
+  "description": "Página publicada como artifact do claude.ai: o app inteiro rodando no navegador em modo demonstração, com o editor de vídeo local.",
   "type": "module",
   "scripts": {
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "dependencies": {
     "@huggingface/transformers": "3.8.1"

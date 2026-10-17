@@ -37,16 +37,50 @@ const MODEL_FILES = [
   "onnx/decoder_model_merged_quantized.onnx",
 ];
 
+/**
+ * O app de verdade roda no navegador: as páginas e as server actions são as
+ * mesmas do Next; o que é de servidor (Supabase, e-mail, pagamentos, editor do
+ * Claude Managed Agents) troca por versões de demonstração em src/shims.
+ */
+const FIXED = {
+  "next/link": shim("next-link.tsx"),
+  "next/image": shim("next-image.tsx"),
+  "next/navigation": shim("next-navigation.ts"),
+  "next/headers": shim("next-headers.ts"),
+  "next/cache": shim("next-cache.ts"),
+  "server-only": shim("server-only.ts"),
+  "@/lib/supabase/server": shim("supabase-server.ts"),
+  "@/lib/supabase/admin": shim("supabase-admin.ts"),
+  "@/lib/supabase/client": shim("supabase-client.ts"),
+  "@/services/email": shim("email.ts"),
+  "@/services/payments": shim("payments.ts"),
+  "@/services/editing/dispatch": shim("dispatch.ts"),
+  "@/services/editing/claude/session-lifecycle": shim("session-lifecycle.ts"),
+  "@/hooks/use-tus-upload": shim("use-tus-upload.ts"),
+  "@/lib/actions/assistant": shim("assistant.ts"),
+  "@/lib/download": shim("download.ts"),
+};
+const WRAPPED_ACTIONS = /^@\/lib\/actions\/(account|auth|billing|folders|profile|projects|waitlist)$/;
+
 const aliasPlugin = {
   name: "alias",
   setup(b) {
-    const fixed = {
-      "next/link": shim("next-link.tsx"),
-      "next/image": shim("next-image.tsx"),
-      "next/navigation": shim("next-navigation.ts"),
-      "@/lib/actions/waitlist": shim("waitlist.ts"),
-    };
-    b.onResolve({ filter: /^(next\/(link|image|navigation)|@\/lib\/actions\/waitlist)$/ }, (a) => ({ path: fixed[a.path] }));
+    b.onResolve({ filter: /.*/ }, (a) => (FIXED[a.path] ? { path: FIXED[a.path] } : undefined));
+    // server actions reais, embrulhadas para tratar redirect() como navegação
+    b.onResolve({ filter: WRAPPED_ACTIONS }, (a) => ({ path: a.path, namespace: "acoes" }));
+    b.onLoad({ filter: /.*/, namespace: "acoes" }, (a) => {
+      const file = path.join(ROOT, `${a.path.slice(2)}.ts`);
+      const src = fs.readFileSync(file, "utf8");
+      const names = [...src.matchAll(/^export async function (\w+)/gm)].map((m) => m[1]);
+      const lines = [
+        `import * as real from ${JSON.stringify(file)};`,
+        `import { wrapAction } from ${JSON.stringify(path.join(HERE, "src/demo/actions.ts"))};`,
+        ...names.map((n) => `export const ${n} = wrapAction(real.${n});`),
+        `export * from ${JSON.stringify(file)};`,
+      ];
+      // "export *" não sobrescreve os nomes já exportados acima (tipos e constantes passam direto)
+      return { contents: lines.join("\n"), loader: "ts", resolveDir: path.dirname(file) };
+    });
     b.onResolve({ filter: /^@\// }, (a) => {
       const base = path.join(ROOT, a.path.slice(2));
       for (const e of exts) if (fs.existsSync(base + e) && fs.statSync(base + e).isFile()) return { path: base + e };
@@ -115,8 +149,11 @@ const res = await build({
   outfile: path.join(OUT, "app.js"),
   define: {
     "process.env.NODE_ENV": '"production"',
-    "process.env.NEXT_PUBLIC_SITE_URL": '"https://tribuna.app"',
     __WHISPER__: JSON.stringify(manifest),
+  },
+  // variáveis de ambiente que o código do app lê (o resto fica vazio)
+  banner: {
+    js: `var process=globalThis.process||{env:{NODE_ENV:"production",NEXT_PUBLIC_SITE_URL:location.origin,NEXT_PUBLIC_SUPABASE_URL:"https://demo.supabase.local",NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:"demo",HUMAN_REVIEW:"false",VIDEO_EDITING_PROVIDER:"claude"}};`,
   },
   plugins: [aliasPlugin],
   metafile: true,

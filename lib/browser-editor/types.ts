@@ -37,6 +37,12 @@ export interface EditOptions {
   script: string;
   /** Centro do enquadramento escolhido à mão (0 a 1), por formato. */
   framing: Partial<Record<Ratio, { x: number; y: number }>>;
+  /** Trechos que a pessoa pediu para tirar (tempo da fonte). */
+  extraCuts?: Interval[];
+  /** Pedidos livres (observações, "Outro", ajustes) para a revisão com IA. */
+  notes?: string;
+  /** Duração final desejada (s); a IA escolhe o que tirar para caber. */
+  targetSeconds?: number | null;
 }
 
 export interface Interval {

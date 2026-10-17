@@ -1,10 +1,10 @@
 import * as React from "react";
-import { toast } from "sonner";
 import { scrollToId } from "@/components/animations/smooth-scroll";
+import { currentLoc, isInternal, navigate, toHref } from "../demo/router";
 
-type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-  href: string | { pathname?: string; hash?: string };
-  prefetch?: boolean;
+type Props = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
+  href: string | { pathname?: string; hash?: string; query?: Record<string, string> };
+  prefetch?: boolean | null;
   replace?: boolean;
   scroll?: boolean;
   shallow?: boolean;
@@ -14,49 +14,33 @@ type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   ref?: React.Ref<HTMLAnchorElement>;
 };
 
-export const OPEN_EDITOR = "tribuna:editor";
-const openEditor = () => window.dispatchEvent(new Event(OPEN_EDITOR));
-
-/** Rotas que levam a criar um vídeo: na página estática, abrem o editor no navegador. */
-const EDITOR_ROUTES = /^\/(criar-conta|app)(\/|\?|$)/;
-
-/** Na prévia estática não existem as rotas do app: âncoras rolam, criar vídeo abre o editor, o resto avisa. */
-export default function Link({ href, prefetch: _p, replace: _r, scroll: _s, shallow: _sh, passHref: _ph, legacyBehavior: _lb, locale: _l, onClick, ...rest }: Props) {
-  const url = typeof href === "string" ? href : `${href.pathname ?? ""}${href.hash ?? ""}`;
-  const hash = url.startsWith("#") ? url.slice(1) : url.startsWith("/#") ? url.slice(2) : null;
-  const external = /^https?:\/\//.test(url) || url.startsWith("mailto:");
-  const finalHref = hash !== null ? `#${hash}` : external ? url : EDITOR_ROUTES.test(url) ? "#editor" : "#";
+/** Link do Next na página publicada: rotas do app vão para o hash; âncoras da landing rolam. */
+export default function Link({ href, prefetch: _p, replace, scroll, shallow: _sh, passHref: _ph, legacyBehavior: _lb, locale: _l, onClick, ...rest }: Props) {
+  const url =
+    typeof href === "string"
+      ? href
+      : `${href.pathname ?? ""}${href.query ? `?${new URLSearchParams(href.query)}` : ""}${href.hash ?? ""}`;
+  const anchor = url.startsWith("#") ? url.slice(1) : url.startsWith("/#") ? url.slice(2) : null;
+  const internal = anchor === null && isInternal(url);
+  const finalHref = anchor !== null ? `#${anchor}` : internal ? toHref(url) : url;
   return (
     <a
       {...rest}
       href={finalHref}
       onClick={(e) => {
         onClick?.(e);
-        if (e.defaultPrevented || external) return;
+        if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        if (anchor !== null) {
+          e.preventDefault();
+          if (currentLoc().path !== "/") {
+            navigate("/");
+            window.setTimeout(() => scrollToId(anchor), 400);
+          } else scrollToId(anchor);
+          return;
+        }
+        if (!internal) return;
         e.preventDefault();
-        if (hash) {
-          scrollToId(hash);
-          return;
-        }
-        if (url === "/" || url === "") {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-          return;
-        }
-        if (EDITOR_ROUTES.test(url)) {
-          openEditor();
-          return;
-        }
-        if (url.startsWith("/entrar")) {
-          toast("Conta e painel ficam no app publicado", {
-            description: "Aqui você já pode editar um vídeo agora mesmo, sem cadastro.",
-            action: { label: "Editar um vídeo", onClick: openEditor },
-          });
-          return;
-        }
-        toast("Esta página fica no app publicado", {
-          description: "Enquanto isso, edite um vídeo aqui mesmo, sem cadastro.",
-          action: { label: "Editar um vídeo", onClick: openEditor },
-        });
+        navigate(url, { replace, scroll });
       }}
     />
   );
