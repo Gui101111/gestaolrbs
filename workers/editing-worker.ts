@@ -1,27 +1,33 @@
 /**
- * Worker de edição de referência (VIDEO_EDITING_PROVIDER=external).
+ * Worker de edição próprio (VIDEO_EDITING_PROVIDER=external).
  *
- * Recebe o briefing da plataforma, executa o pipeline e reporta o progresso:
- *   download → transcrição (Whisper) → análise (Claude) → plano → FFmpeg por proporção
- *   → upload para o bucket rendered-videos → POST /api/jobs/callback
+ * Roda o mesmo editor de referência do agente (sandbox/tribuna_editor.py) num
+ * servidor seu, sem depender da API da Anthropic: baixa o original pela URL
+ * assinada, analisa (silêncios, rosto, transcrição com faster-whisper se
+ * instalado), aplica o plano automático, renderiza cada formato, sobe para o
+ * bucket rendered-videos e reporta o progresso em POST /api/jobs/callback.
  *
  * Execução:  npm run worker   (porta 8787)
- * Requisitos: FFmpeg no PATH, TRANSCRIPTION_URL, ANTHROPIC_API_KEY, SUPABASE_SECRET_KEY, JOBS_CALLBACK_SECRET.
- * Em produção, rode em uma máquina com CPU/GPU dedicada (Cloud Run, Fly.io, ECS...).
+ * Requisitos: ffmpeg e python3 no PATH (opcional: pip install faster-whisper "opencv-python-headless<5"),
+ *             NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SECRET_KEY, JOBS_CALLBACK_SECRET, EDITING_WORKER_TOKEN.
  */
 import http from "node:http";
 import { spawn } from "node:child_process";
+import { existsSync, readdirSync } from "node:fs";
 import { mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { timingSafeEqual } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
-import { getTranscriptionProvider } from "../services/ai/transcription";
-import { getAnalysisProvider } from "../services/ai/analysis";
-import { OUTPUT_SIZES, buildAssSubtitles, buildFfmpegArgs, keptSegments } from "../services/rendering/ffmpeg";
-import type { EditBrief, EditPlan, JobCallback, Transcript } from "../services/editing/types";
+import type { EditBrief, JobCallback } from "../services/editing/types";
 
 const PORT = Number(process.env.WORKER_PORT ?? 8787);
 const TOKEN = process.env.EDITING_WORKER_TOKEN ?? "";
+const ROOT = process.cwd();
+const EDITOR = path.join(ROOT, "sandbox", "tribuna_editor.py");
+const ASSETS = path.join(ROOT, "supabase", "assets");
+const TOM: Record<string, string> = { institucional: "sobria", cinematografico: "inspiradora" };
+
 const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, (process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY)!, {
   auth: { persistSession: false },
 });
@@ -34,66 +40,123 @@ async function callback(brief: EditBrief, payload: Omit<JobCallback, "jobId">) {
   }).catch((e) => console.error("[worker] callback falhou", e));
 }
 
-function run(cmd: string, args: string[]) {
+const STEPS: [RegExp, JobCallback["step"]][] = [
+  [/baixando|medindo|extraindo/, "analyzing_audio"],
+  [/transcrevendo/, "transcribing"],
+  [/rastreando/, "analyzing_content"],
+  [/planejando/, "planning"],
+  [/renderizando/, "rendering"],
+];
+
+function run(args: string[], onStep: (step: JobCallback["step"]) => void) {
   return new Promise<void>((resolve, reject) => {
-    const p = spawn(cmd, args, { stdio: ["ignore", "ignore", "pipe"] });
-    let err = "";
-    p.stderr.on("data", (d) => (err = (err + d).slice(-4000)));
-    p.on("close", (code) => (code === 0 ? resolve() : reject(new Error(`${cmd} saiu com ${code}: ${err}`))));
+    const p = spawn("python3", [EDITOR, ...args], { stdio: ["ignore", "pipe", "pipe"] });
+    let tail = "";
+    const read = (d: Buffer) => {
+      const text = d.toString();
+      tail = (tail + text).slice(-4000);
+      for (const m of text.matchAll(/ETAPA: ([^\n]+)/g)) {
+        const hit = STEPS.find(([rx]) => rx.test(m[1]));
+        if (hit) onStep(hit[1]);
+      }
+    };
+    p.stdout.on("data", read);
+    p.stderr.on("data", read);
+    p.on("close", (code) => (code === 0 ? resolve() : reject(new Error(tail.split("\n").filter(Boolean).pop() ?? `editor saiu com ${code}`))));
   });
 }
 
-async function download(url: string, to: string) {
-  const res = await fetch(url);
-  if (!res.ok || !res.body) throw new Error(`download_${res.status}`);
-  await writeFile(to, Buffer.from(await res.arrayBuffer()));
+/** EditBrief da plataforma → brief do editor (arquivos de fonte e trilha deste servidor). */
+function toSandboxBrief(brief: EditBrief) {
+  const p = brief.project;
+  const options = (p.options ?? {}) as { answers?: Record<string, string>; answers_text?: Record<string, string> };
+  const font = brief.brand?.font?.replace(/\s+/g, "");
+  const fonts = font ? [`fonts/${font}-Regular.ttf`, `fonts/${font}-Bold.ttf`].map((f) => path.join(ASSETS, f)).filter(existsSync) : [];
+  const toneDir = path.join(ASSETS, "music", TOM[p.editingStyle ?? ""] ?? "neutra");
+  const track = existsSync(toneDir) ? readdirSync(toneDir).find((f) => /\.(m4a|mp3|wav|aac)$/.test(f)) : undefined;
+  const original = brief.sources.find((s) => s.kind === "original") ?? brief.sources[0];
+  return {
+    versao: 1,
+    tipo: p.revisionNotes.length ? "ajuste" : "novo",
+    projeto: {
+      id: p.id,
+      nome: p.name,
+      estilo: p.editingStyle,
+      area: p.legalArea,
+      objetivo: p.objective,
+      formatos: p.aspectRatios,
+      plataformas: p.platforms,
+      respostas: options.answers ?? {},
+      respostas_texto: options.answers_text ?? {},
+      observacoes: p.instructions,
+      revisao_oab: brief.compliance.oabProvimento205,
+    },
+    advogado: { nome: brief.lawyer.name, oab: brief.lawyer.oab, escritorio: brief.lawyer.officeName },
+    marca: brief.brand
+      ? {
+          nome_profissional: brief.brand.professionalName,
+          oab: brief.brand.oabDisplay ?? brief.lawyer.oab,
+          escritorio: brief.brand.officeName ?? brief.lawyer.officeName,
+          fonte: brief.brand.font,
+          cores: { principal: brief.brand.colors.primary, fundo: brief.brand.colors.secondary, texto: brief.brand.colors.accent },
+          site: brief.brand.website,
+          instagram: brief.brand.instagram,
+          whatsapp: brief.brand.whatsapp,
+        }
+      : null,
+    ajustes: p.revisionNotes.map((r) => ({ comentario: r.comment, tempo_s: r.timestampSec })),
+    urls: {
+      original: original?.url,
+      logo: brief.brand?.logoUrl ?? null,
+      fontes: fonts.map((f) => `file://${f}`),
+      musica: track ? `file://${path.join(toneDir, track)}` : null,
+      upload: {},
+    },
+  };
 }
 
 export async function processBrief(brief: EditBrief) {
   const dir = await mkdtemp(path.join(tmpdir(), "tribuna-"));
   try {
-    const source = brief.sources.find((s) => s.kind === "original");
-    if (!source?.url) throw new Error("missing_source");
-    const input = path.join(dir, "input");
+    const sb = toSandboxBrief(brief);
+    if (!sb.urls.original) throw new Error("missing_source");
+    await writeFile(path.join(dir, "brief.json"), JSON.stringify(sb));
     await callback(brief, { status: "running", step: "analyzing_audio" });
-    await download(source.url, input);
+    let last: JobCallback["step"] = "analyzing_audio";
+    const onStep = (step: JobCallback["step"]) => {
+      if (step === last) return;
+      last = step;
+      void callback(brief, { step });
+    };
+    await run(["tudo", "--brief", path.join(dir, "brief.json"), "--work", dir, "--sem-envio"], onStep);
 
-    await callback(brief, { step: "transcribing" });
-    const transcript: Transcript = await getTranscriptionProvider().transcribe({ url: source.url, language: "pt" });
-
-    await callback(brief, { step: "analyzing_content" });
-    const plan: EditPlan = await getAnalysisProvider().plan({ transcript, brief });
-    await callback(brief, { step: "planning", editPlan: plan });
-
-    const width = source.width ?? 1920;
-    const height = source.height ?? 1080;
-    const duration = source.durationSec ?? transcript.durationSec;
-    const kept = keptSegments(duration, plan.cuts);
+    const report = JSON.parse(await readFile(path.join(dir, "saida", "report.json"), "utf8")) as {
+      formatos: { formato: string; arquivo: string; miniatura: string; duracao_s: number; largura: number; altura: number }[];
+    };
+    const plan = JSON.parse(await readFile(path.join(dir, "plano.json"), "utf8")) as unknown;
+    const prefix = `${brief.outputs[0]?.destination.prefix ?? `${brief.project.id}/`}w${Date.now()}`;
     const outputs: NonNullable<JobCallback["outputs"]> = [];
-
-    await callback(brief, { step: "editing" });
-    for (const [i, out] of brief.outputs.entries()) {
-      const ass = path.join(dir, `subs-${i}.ass`);
-      await writeFile(ass, buildAssSubtitles({ transcript, plan, kept, ratio: out.aspectRatio, brandColor: brief.brand?.colors.primary, font: brief.brand?.font }));
-      await callback(brief, { step: i === 0 ? "captioning" : "rendering" });
-      const file = path.join(dir, `final-${out.aspectRatio.replace(":", "x")}.mp4`);
-      await run("ffmpeg", buildFfmpegArgs({ input, output: file, ratio: out.aspectRatio, source: { width, height, durationSec: duration }, plan, brief, subtitlesPath: ass }));
-      const storagePath = `${out.destination.prefix}${out.aspectRatio.replace(":", "x")}-${Date.now()}.mp4`;
-      const { error } = await supabase.storage.from(out.destination.bucket).upload(storagePath, await readFile(file), { contentType: "video/mp4" });
-      if (error) throw new Error(`upload_failed: ${error.message}`);
-      const size = OUTPUT_SIZES[out.aspectRatio];
+    for (const f of report.formatos) {
+      const video = path.join(dir, "saida", f.arquivo);
+      const thumb = path.join(dir, "saida", f.miniatura);
+      const videoPath = `${prefix}/${f.arquivo}`;
+      const thumbPath = `${prefix}/${f.miniatura}`;
+      const up = await supabase.storage.from("rendered-videos").upload(videoPath, await readFile(video), { contentType: "video/mp4", upsert: true });
+      if (up.error) throw new Error(`upload_failed: ${up.error.message}`);
+      await supabase.storage.from("rendered-videos").upload(thumbPath, await readFile(thumb), { contentType: "image/jpeg", upsert: true });
       outputs.push({
-        aspectRatio: out.aspectRatio as "9:16",
-        bucket: out.destination.bucket,
-        path: storagePath,
-        fileName: path.basename(file),
-        width: size.w,
-        height: size.h,
-        durationSec: kept.reduce((s, k) => s + (k.end - k.start), 0),
-        sizeBytes: (await stat(file)).size,
+        aspectRatio: f.formato as "9:16",
+        bucket: "rendered-videos",
+        path: videoPath,
+        fileName: f.arquivo,
+        width: f.largura,
+        height: f.altura,
+        durationSec: f.duracao_s,
+        sizeBytes: (await stat(video)).size,
+        thumbnailPath: thumbPath,
       });
     }
-    await callback(brief, { step: "rendering", progress: 95, outputs });
+    await callback(brief, { step: "rendering", progress: 95, outputs, editPlan: plan });
     await callback(brief, { status: "succeeded", step: "completed", progress: 100 });
   } catch (e) {
     console.error("[worker] falha", e);
@@ -103,10 +166,16 @@ export async function processBrief(brief: EditBrief) {
   }
 }
 
+function authorized(header: string | undefined) {
+  const a = Buffer.from(`Bearer ${TOKEN}`);
+  const b = Buffer.from(header ?? "");
+  return TOKEN.length > 0 && a.length === b.length && timingSafeEqual(a, b);
+}
+
 if (process.argv[1]?.includes("editing-worker")) {
   http
     .createServer(async (req, res) => {
-      if (req.method !== "POST" || req.headers.authorization !== `Bearer ${TOKEN}`) {
+      if (req.method !== "POST" || !authorized(req.headers.authorization)) {
         res.writeHead(401).end();
         return;
       }

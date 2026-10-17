@@ -30,6 +30,7 @@ const flag = (name: string, fallback: string) => {
 const videoPath = argv.find((a) => !a.startsWith("--") && !argv[argv.indexOf(a) - 1]?.startsWith("--"));
 const ratios = flag("formatos", "9:16,16:9").split(",").map((s) => s.trim());
 const style = flag("estilo", "dinamico");
+const provider = flag("provedor", "claude") as "claude" | "external";
 const EMAIL = process.env.CLAUDE_TEST_EMAIL ?? "teste.claude@tribuna.local";
 
 function probe(file: string) {
@@ -56,9 +57,11 @@ async function ensureUser(admin: ReturnType<typeof createAdminClient>) {
 async function main() {
   if (!videoPath || !fs.existsSync(videoPath)) throw new Error("Informe o caminho de um vídeo: npm run claude:test -- video.mp4");
   const admin = createAdminClient();
-  const gw = await getClaudeGateway();
-  if (!gw) throw new Error("Claude não configurado: defina ANTHROPIC_API_KEY, CLAUDE_AGENT_ID e CLAUDE_ENVIRONMENT_ID (ou CLAUDE_LOCAL_SANDBOX=1)");
-  console.log(`Modo: ${gw.name === "claude-local" ? "sandbox local" : "Claude Managed Agents"} · formatos ${ratios.join(", ")} · estilo ${style}`);
+  const gw = provider === "claude" ? await getClaudeGateway() : null;
+  if (provider === "claude" && !gw) throw new Error("Claude não configurado: defina ANTHROPIC_API_KEY, CLAUDE_AGENT_ID e CLAUDE_ENVIRONMENT_ID (ou CLAUDE_LOCAL_SANDBOX=1)");
+  if (provider === "external" && !process.env.EDITING_WORKER_URL) throw new Error("Defina EDITING_WORKER_URL (rode o worker com npm run worker)");
+  const modo = provider === "external" ? "worker próprio" : gw?.name === "claude-local" ? "sandbox local" : "Claude Managed Agents";
+  console.log(`Modo: ${modo} · formatos ${ratios.join(", ")} · estilo ${style}`);
 
   const userId = await ensureUser(admin);
   const info = probe(videoPath);
@@ -106,10 +109,28 @@ async function main() {
   if (!job) throw new Error("não criou o job");
 
   const started = Date.now();
-  const res = await dispatchJob(job, { provider: "claude" });
+  const res = await dispatchJob(job, { provider });
   if (!res.ok) throw new Error(`dispatch falhou: ${res.code}`);
+
+  if (provider === "external") {
+    for (;;) {
+      await new Promise((r) => setTimeout(r, 5_000));
+      const { data: p } = await admin.from("projects").select("status").eq("id", project.id).single();
+      const { data: j } = await admin.from("render_jobs").select("current_step, status, error_code").eq("id", job.id).single();
+      console.log(`  ${Math.round((Date.now() - started) / 1000)}s · ${j?.current_step} · ${j?.status}`);
+      if (p?.status === "ready" || j?.status === "failed") break;
+      if (Date.now() - started > 60 * 60_000) throw new Error("tempo esgotado (60 min)");
+    }
+    const { data: p } = await admin.from("projects").select("status").eq("id", project.id).single();
+    const { data: renders } = await admin.from("renders").select("aspect_ratio, storage_path, duration_sec, thumbnail_path").eq("project_id", project.id);
+    console.log(`\n=== Resultado ===\nStatus do projeto: ${p?.status} · tempo total ${Math.round((Date.now() - started) / 1000)} s`);
+    for (const r of renders ?? []) console.log(`${r.aspect_ratio} (${r.duration_sec}s): ${r.storage_path}${r.thumbnail_path ? " + miniatura" : ""}`);
+    return;
+  }
+
   const { data: es0 } = await admin.from("editing_sessions").select("session_id").eq("job_id", job.id).single();
   console.log(`Sessão ${es0?.session_id} iniciada para o projeto ${project.id}`);
+  const claudeGw = gw!;
 
   let lastStep = "";
   for (;;) {
@@ -117,12 +138,12 @@ async function main() {
     const { data: es } = await admin.from("editing_sessions").select("*").eq("job_id", job.id).single();
     if (!es) throw new Error("sessão sumiu");
     if (["in_review", "delivered", "failed"].includes(es.status)) break;
-    const step = await gw.lastStep(es.session_id).catch(() => null);
+    const step = await claudeGw.lastStep(es.session_id).catch(() => null);
     if (step && step !== lastStep) {
       lastStep = step;
       console.log(`  ${Math.round((Date.now() - started) / 1000)}s · ${step}`);
     }
-    const s = await gw.getSession(es.session_id);
+    const s = await claudeGw.getSession(es.session_id);
     if (s.status === "idle" && es.status === "running") {
       const r = await finalizeSession(es.session_id);
       console.log(`  finalização: ${r.outcome}`);

@@ -188,6 +188,14 @@ export async function finalizeSession(sessionId: string): Promise<{ ok: boolean;
       await recoverFromSessionFiles(gw, admin, sessionId, paths);
       missing = await missingFiles(admin, paths);
     }
+    // o agente já desistiu e explicou: não adianta pedir para concluir
+    const early = missing.includes(paths.report) ? null : await downloadJson<SandboxReport>(admin, paths.report);
+    if (early?.status === "erro") {
+      await recordUsage(gw, admin, es);
+      await admin.from("editing_sessions").update({ report: early as unknown as Json }).eq("job_id", es.job_id);
+      await failToManualQueue(es, `O agente informou erro: ${early.motivo ?? "sem motivo"}`, admin);
+      return { ok: true, outcome: "failed_report" };
+    }
     if (missing.length) {
       if (es.followups < 1 && job.brief) {
         const { sandbox } = await buildSandboxBrief(admin, { brief: job.brief as unknown as EditBrief, userId: es.user_id, version: es.version, kind: "ajuste" });

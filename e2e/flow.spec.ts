@@ -1,21 +1,6 @@
 import path from "node:path";
 import { expect, test } from "@playwright/test";
-
-const MAILPIT = process.env.MAILPIT_URL ?? "http://127.0.0.1:54324";
-
-async function mailLink(email: string, type?: string) {
-  for (let i = 0; i < 30; i++) {
-    const list = (await (await fetch(`${MAILPIT}/api/v1/messages`)).json()) as { messages: { ID: string; To: { Address: string }[] }[] };
-    for (const msg of list.messages.filter((m) => m.To.some((t) => t.Address === email))) {
-      const full = (await (await fetch(`${MAILPIT}/api/v1/message/${msg.ID}`)).json()) as { HTML: string };
-      const m = full.HTML.match(/href="([^"]*auth\/confirm[^"]*)"/);
-      const link = m?.[1].replace(/&amp;/g, "&");
-      if (link && (!type || link.includes(`type=${type}`))) return link;
-    }
-    await new Promise((r) => setTimeout(r, 1000));
-  }
-  throw new Error("E-mail não chegou");
-}
+import { mailLink } from "./helpers";
 
 test("cadastro → confirmação → onboarding → novo vídeo → envio para edição", async ({ page, context }) => {
   await context.addInitScript(() => {

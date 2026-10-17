@@ -182,6 +182,33 @@ check("A não marca download diretamente (só o servidor)", Boolean(eDl), eDl?.m
 const { data: tr, error: eTr } = await A.c.from("profiles").update({ treatment: "dr" }).eq("id", A.id).select("treatment").single();
 check("A define o tratamento Dr./Dra.", !eTr && tr?.treatment === "dr");
 
+// --- Parte 2: edição automática ------------------------------------------
+const { data: jobA } = await admin.from("render_jobs").insert({ project_id: pA.id, user_id: A.id, status: "running", kind: "initial" }).select().single();
+await admin.from("editing_sessions").insert({ job_id: jobA.id, project_id: pA.id, user_id: A.id, provider: "claude", session_id: "sesn_teste_rls", version: 1 });
+const { data: esA } = await A.c.from("editing_sessions").select("session_id");
+check("A não lê editing_sessions (id da sessão fica no servidor)", (esA ?? []).length === 0);
+const { error: esIns } = await A.c.from("editing_sessions").insert({ job_id: jobA.id, project_id: pA.id, user_id: A.id, provider: "claude", session_id: "x", version: 2 });
+check("A não grava editing_sessions", Boolean(esIns));
+const { data: jobRead } = await A.c.from("render_jobs").select("external_id, review_status, compliance_flags").eq("id", jobA.id).single();
+check("Job do cliente não carrega o id da sessão", jobRead && jobRead.external_id === null);
+const hidden = `${A.id}/${pA.id}/v1/9x16.mp4`;
+await admin.from("renders").insert({ project_id: pA.id, user_id: A.id, job_id: jobA.id, aspect_ratio: "9:16", storage_path: hidden, version: 1, published: false });
+const { data: rHidden } = await A.c.from("renders").select("id").eq("project_id", pA.id);
+check("Entrega em revisão fica oculta ao cliente", (rHidden ?? []).length === 0);
+await admin.from("renders").update({ published: true }).eq("storage_path", hidden);
+const { data: rShown } = await A.c.from("renders").select("id").eq("project_id", pA.id);
+check("Entrega liberada aparece ao cliente", (rShown ?? []).length === 1);
+const { data: rB } = await B.c.from("renders").select("id").eq("project_id", pA.id);
+check("B não vê entregas de A", (rB ?? []).length === 0);
+const { data: setA } = await A.c.from("app_settings").select("key");
+const { error: setIns } = await A.c.from("app_settings").upsert({ key: "editing_provider", value: "claude" });
+check("Cliente não lê nem altera app_settings", (setA ?? []).length === 0 && Boolean(setIns), setIns?.message);
+const { data: whA } = await A.c.from("processed_webhooks").select("id");
+const { error: whIns } = await A.c.from("processed_webhooks").insert({ id: "whe_falso", source: "claude" });
+check("Cliente não lê nem grava processed_webhooks", (whA ?? []).length === 0 && Boolean(whIns));
+const { error: assetUp } = await A.c.storage.from("editing-assets").upload("music/neutra/hack.mp3", new Blob(["x"], { type: "audio/mpeg" }));
+check("Cliente não envia arquivos para editing-assets", Boolean(assetUp), assetUp?.message);
+
 // limpeza
 await admin.auth.admin.deleteUser(A.id);
 await admin.auth.admin.deleteUser(B.id);

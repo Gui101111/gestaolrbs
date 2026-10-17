@@ -29,7 +29,12 @@ export async function dispatchJob(job: RenderJob, opts?: { provider?: ProviderKe
       })
       .eq("id", job.id);
     if (result.status === "running") {
-      await admin.from("projects").update({ status: "processing" }).eq("id", job.project_id);
+      // ajuste continua "Em ajuste" (assim, ao concluir, o pedido é resolvido e o cliente avisado)
+      await admin
+        .from("projects")
+        .update({ status: job.kind === "revision" ? "revision_requested" : "processing" })
+        .eq("id", job.project_id)
+        .in("status", ["queued", "processing", "revision_requested"]);
     }
     return { ok: true as const };
   } catch (e) {
