@@ -17,7 +17,7 @@ async function confirmationLink(email: string) {
   throw new Error("E-mail de confirmação não chegou");
 }
 
-test("cadastro → confirmação → onboarding → novo projeto → envio para edição", async ({ page, context }) => {
+test("cadastro → confirmação → onboarding → novo vídeo → envio para edição", async ({ page, context }) => {
   await context.addInitScript(() => {
     try {
       localStorage.setItem("tribuna-cookie-consent", "{}");
@@ -43,19 +43,18 @@ test("cadastro → confirmação → onboarding → novo projeto → envio para 
   await expect(page).toHaveURL(/\/app$/);
 
   await page.goto("/app/novo");
-  await page.fill("#project-name", "Projeto E2E");
   await page.setInputFiles('input[type="file"]', path.join(__dirname, "fixtures/video-teste.mp4"));
   await expect(page.getByText("Envio concluído").first()).toBeVisible({ timeout: 60_000 });
+  await page.fill("#video-name", "Vídeo E2E");
+  await page.getByRole("radio", { name: "Previdenciário" }).click();
   await page.getByRole("button", { name: /Continuar/ }).click();
-  await page.getByRole("radio", { name: /Conteúdo Educacional/ }).click();
+  await page.getByRole("radio", { name: /Institucional/ }).first().click();
+  await page.getByRole("button", { name: /9:16/ }).click();
   await page.getByRole("button", { name: /Continuar/ }).click();
-  await page.getByRole("radio", { name: /Jurídico Institucional/ }).click();
-  await page.getByRole("button", { name: /Continuar/ }).click();
-  await page.getByRole("checkbox", { name: /Instagram Reels/ }).click();
-  await page.getByRole("button", { name: /Continuar/ }).click();
-  await page.getByRole("button", { name: /Continuar/ }).click();
-  await page.getByRole("checkbox").first().click();
-  await page.getByRole("button", { name: /Iniciar edição/ }).click();
-  await expect(page).toHaveURL(/\/app\/projetos\/[0-9a-f-]{36}$/, { timeout: 30_000 });
-  await expect(page.getByText("Upload concluído").first()).toBeVisible();
+  await page.getByRole("button", { name: /Usar recomendado/ }).click();
+  await page.locator("#rights").click();
+  await page.getByRole("button", { name: /Enviar para edição/ }).click();
+  await expect(page.getByText("Enviado para")).toBeVisible({ timeout: 30_000 });
+  await expect(page).toHaveURL(/\/app$/, { timeout: 30_000 });
+  await expect(page.getByText("Vídeo E2E").first()).toBeVisible();
 });

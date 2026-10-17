@@ -39,7 +39,7 @@ function fail(e: unknown): { ok: false; error: string } {
 // ---------------------------------------------------------------------------
 // Rascunho
 // ---------------------------------------------------------------------------
-export async function createDraftAction(input: { name?: string }): Promise<ActionResult<{ id: string }>> {
+export async function createDraftAction(input: { name?: string; folderId?: string | null }): Promise<ActionResult<{ id: string }>> {
   try {
     const user = await requireAuth();
     const profile = await getProfile();
@@ -50,8 +50,9 @@ export async function createDraftAction(input: { name?: string }): Promise<Actio
       .from("projects")
       .insert({
         user_id: user.id,
-        name: (input.name?.trim() || "Novo projeto").slice(0, 140),
+        name: (input.name?.trim() || "Novo vídeo").slice(0, 140),
         status: "draft",
+        folder_id: input.folderId && z.uuid().safeParse(input.folderId).success ? input.folderId : null,
         objective,
         legal_area: profile?.legal_area ?? null,
         editing_style: profile?.default_editing_style ?? null,
@@ -72,7 +73,7 @@ const settingsKeys = EDIT_SETTINGS.map((s) => s.key) as [string, ...string[]];
 
 const draftPatchSchema = z
   .object({
-    name: z.string().trim().min(1, "Dê um nome ao projeto.").max(140),
+    name: z.string().trim().min(1, "Dê um nome ao vídeo.").max(140),
     objective: z.enum(vals(OBJECTIVES)).nullable(),
     legal_area: z.enum(vals(LEGAL_AREAS)).nullable(),
     editing_style: z.enum(vals(EDITING_STYLES)).nullable(),
@@ -89,7 +90,11 @@ const draftPatchSchema = z
       music_tone: z.enum(["sobria", "inspiradora", "neutra"]).optional(),
       cut_ranges: z.array(z.object({ start: z.string().max(8), end: z.string().max(8) })).max(10).optional(),
       reference_url: z.string().url("Informe um link válido.").max(300).optional().or(z.literal("")),
+      answers: z.record(z.string().max(30), z.enum(["sim", "nao", "outro"])).optional(),
+      answers_text: z.record(z.string().max(30), z.string().max(200)).optional(),
+      template: z.string().max(60).optional(),
     }),
+    folder_id: z.uuid().nullable(),
     instructions: z.string().max(1200, "Use no máximo 1.000 caracteres.").nullable(),
     wizard_step: z.number().int().min(1).max(10),
     rights_confirmed: z.boolean(),

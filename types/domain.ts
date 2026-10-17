@@ -28,6 +28,11 @@ export type ProjectOptions = {
   music_tone?: "sobria" | "inspiradora" | "neutra";
   cut_ranges?: { start: string; end: string }[];
   reference_url?: string;
+  /** Respostas do passo Detalhes (Sim / Não / Outro) e textos de "Outro". */
+  answers?: Record<string, "sim" | "nao" | "outro">;
+  answers_text?: Record<string, string>;
+  /** Modelo de origem (config/modelos.ts), quando houver. */
+  template?: string;
 };
 
 export type ActionResult<T = undefined> =

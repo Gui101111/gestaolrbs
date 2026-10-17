@@ -9,6 +9,7 @@ import { inspectVideo, useTusUpload, type UploadState } from "@/hooks/use-tus-up
 import { ACCEPTED_VIDEO_EXT } from "@/lib/constants/domain";
 import { messageFor } from "@/lib/errors";
 import { cn, formatBytes, formatDuration, safeFileName } from "@/lib/utils";
+import { ProgressRing } from "@/components/effects/progress-ring";
 
 export type UploadedVideo = {
   path: string;
@@ -190,43 +191,40 @@ export function VideoUploader({
             onDrop={onDrop}
             disabled={disabled}
             className={cn(
-              "group relative flex w-full flex-col items-center justify-center overflow-hidden rounded-3xl border border-dashed px-6 py-14 text-center transition-all duration-500 md:py-20",
-              dragging ? "border-gold bg-gold/[0.08] shadow-[0_0_60px_-20px_rgba(198,161,91,0.8)]" : "border-gold/30 bg-gold/[0.025] hover:border-gold/60 hover:bg-gold/[0.05]",
+              "group relative flex w-full flex-col items-center justify-center rounded-[26px] px-6 py-14 text-center transition-all duration-500 md:py-20",
+              dragging ? "neon-border scale-[1.01] bg-cyan/[0.07]" : "border border-dashed border-line-strong bg-fg/[0.02] hover:border-cyan/50 hover:bg-cyan/[0.04]",
             )}
           >
-            <span aria-hidden className="pointer-events-none absolute inset-0 bg-gold-lines opacity-40 [mask-image:radial-gradient(ellipse_at_center,#000,transparent_70%)]" />
+            <span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]"><span className="absolute inset-0 bg-gold-lines opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000,transparent_70%)]" /><span className="absolute top-1/2 left-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan/10 blur-3xl" /></span>
             <motion.span
-              className="relative grid size-16 place-items-center rounded-2xl border border-gold/40 bg-gold/10 text-gold-light shadow-[0_0_40px_-10px_rgba(198,161,91,0.9)]"
+              className="relative grid size-16 place-items-center rounded-2xl border border-cyan/40 bg-cyan/10 text-cyan shadow-[var(--glow-cyan)]"
               animate={dragging ? { scale: 1.12, y: -4 } : { scale: 1, y: [0, -5, 0] }}
               transition={dragging ? { type: "spring", stiffness: 300 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
               <UploadCloud className="size-7" />
             </motion.span>
-            <span className="relative mt-6 font-display text-2xl text-ivory md:text-3xl">Arraste seu vídeo ou clique para selecionar.</span>
-            <span className="relative mt-2 text-sm text-mist">
-              MP4, MOV ou WEBM · até {formatBytes(maxBytes, 0)}
+            <span className="relative mt-6 font-display text-2xl text-fg md:text-3xl">Arraste o vídeo aqui</span>
+            <span className="relative mt-2 text-sm text-fg-2">
+              ou clique para escolher · MP4, MOV ou WEBM · até {formatBytes(maxBytes, 0)}
               {maxDurationSec ? ` · até ${formatDuration(maxDurationSec)}` : ""}
             </span>
-            <span className="relative mt-5 inline-flex items-center gap-2 rounded-full border border-fg/10 px-3 py-1 text-[0.6875rem] text-mist">
-              Envio retomável — se a conexão cair, continua de onde parou
+            <span className="relative mt-5 inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-[0.6875rem] text-fg-3">
+              Se a conexão cair, o envio continua de onde parou
             </span>
           </motion.button>
         )}
       </AnimatePresence>
 
       {error && (
-        <p role="alert" className="flex items-start gap-2 rounded-xl border border-destructive/35 bg-destructive/10 px-4 py-3 text-sm text-[#f0a49b]">
+        <p role="alert" className="flex items-start gap-2 rounded-xl border border-destructive/35 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           <AlertTriangle className="mt-0.5 size-4 shrink-0" /> {error}
         </p>
       )}
       {warning && !error && (
-        <p className="flex items-start gap-2 rounded-xl border border-warning/30 bg-warning/[0.07] px-4 py-3 text-sm text-[#f1cf93]">
+        <p className="flex items-start gap-2 rounded-xl border border-warning/30 bg-warning/[0.07] px-4 py-3 text-sm text-warning">
           <AlertTriangle className="mt-0.5 size-4 shrink-0" /> {warning}
         </p>
       )}
-      <p className="text-xs text-mist/70">
-        Arquitetura pronta para múltiplos takes: em breve você poderá enviar várias gravações e a IA escolherá os melhores trechos.
-      </p>
     </div>
   );
 }
@@ -256,9 +254,14 @@ function FileSummary({
 }) {
   const pct = progress && "progress" in progress ? progress.progress : progress?.status === "done" ? 100 : 0;
   return (
-    <div className="panel gold-ring overflow-hidden rounded-3xl">
+    <div className="panel overflow-hidden rounded-[24px]">
       <div className="grid gap-0 md:grid-cols-[minmax(0,0.9fr)_1.1fr]">
         <div className="relative aspect-video bg-black md:aspect-auto md:min-h-64">
+          {progress && progress.status !== "done" && (
+            <div className="absolute top-3 right-3 z-10">
+              <ProgressRing value={pct} size={52} />
+            </div>
+          )}
           {previewUrl ? (
             <video src={previewUrl} poster={thumbnailUrl ?? undefined} controls playsInline preload="metadata" className="absolute inset-0 h-full w-full object-contain" />
           ) : thumbnailUrl ? (
@@ -266,13 +269,13 @@ function FileSummary({
             <img src={thumbnailUrl} alt="" className="absolute inset-0 h-full w-full object-cover" />
           ) : (
             <div className="absolute inset-0 grid place-items-center">
-              <Film className="size-10 text-gold/40" />
+              <Film className="size-10 text-white/30" />
             </div>
           )}
         </div>
         <div className="flex flex-col justify-between gap-5 p-5 md:p-7">
           <div>
-            <p className="truncate font-medium text-ivory" title={name}>
+            <p className="truncate font-semibold text-fg" title={name}>
               {safeFileName(name) === name ? name : name}
             </p>
             <div className="mt-3 grid grid-cols-3 gap-3 text-xs">
@@ -286,7 +289,7 @@ function FileSummary({
               <>
                 <div className="flex items-center justify-between text-xs">
                   {status}
-                  <span className="text-ivory tabular-nums">{Math.round(pct)}%</span>
+                  <span className="text-fg tabular-nums">{Math.round(pct)}%</span>
                 </div>
                 <Progress value={pct} className="h-2" />
               </>
@@ -302,9 +305,9 @@ function FileSummary({
 
 function Meta({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-fg/[0.07] bg-fg/[0.02] px-3 py-2">
-      <p className="text-[0.625rem] tracking-[0.12em] text-mist uppercase">{label}</p>
-      <p className="mt-0.5 font-semibold text-ivory">{value}</p>
+    <div className="rounded-xl border border-line bg-fg/[0.03] px-3 py-2">
+      <p className="text-[0.625rem] tracking-[0.12em] text-fg-3 uppercase">{label}</p>
+      <p className="mt-0.5 font-semibold text-fg">{value}</p>
     </div>
   );
 }
@@ -314,7 +317,7 @@ function UploadStatus({ state, preparing }: { state: UploadState; preparing: boo
   switch (state.status) {
     case "uploading":
       return (
-        <span className="text-xs text-gold-light">
+        <span className="text-xs text-cyan">
           Enviando… {state.total ? `${formatBytes(state.uploaded)} de ${formatBytes(state.total)}` : ""}
           {state.speed > 0 ? ` · ${formatBytes(state.speed)}/s` : ""}
         </span>
@@ -334,7 +337,7 @@ function UploadStatus({ state, preparing }: { state: UploadState; preparing: boo
         </span>
       );
     case "error":
-      return <span className="text-xs text-[#ec8a80]">{messageFor(state.code)}</span>;
+      return <span className="text-xs text-destructive">{messageFor(state.code)}</span>;
     default:
       return null;
   }
