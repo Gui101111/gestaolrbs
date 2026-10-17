@@ -34,7 +34,7 @@ export default async function HomePage() {
       id: "perfil",
       title: "Complete seu perfil",
       text: "OAB, áreas e escritório.",
-      done: Boolean(profile.oab_number && profile.office_name && profile.practice_areas?.length),
+      done: Boolean(profile.oab_number && profile.office_name && (profile.practice_areas?.length || profile.legal_area)),
       unlockAfter: null,
       href: `${ROUTES.settings}?aba=conta`,
       cta: "Completar",

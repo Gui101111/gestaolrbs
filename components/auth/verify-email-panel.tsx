@@ -44,7 +44,7 @@ export function VerifyEmailPanel({ email }: { email?: string }) {
     <div className="space-y-6">
       <div className="panel gold-ring relative overflow-hidden rounded-2xl p-7 text-center">
         <motion.span
-          className="mx-auto grid size-16 place-items-center rounded-full border border-gold/40 bg-gold/10 text-gold-light shadow-[0_0_40px_-10px_rgba(198,161,91,0.9)]"
+          className="mx-auto grid size-16 place-items-center rounded-full border border-gold/40 bg-gold/10 text-gold-light shadow-[0_0_40px_-10px_color-mix(in_oklab,var(--gold)_90%,transparent)]"
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >

@@ -82,7 +82,7 @@ export function RegisterForm() {
                   .
                 </span>
               </label>
-              {fieldState.error && <p className="mt-2 text-[0.8125rem] text-[#ec8a80]">{fieldState.error.message}</p>}
+              {fieldState.error && <p className="mt-2 text-[0.8125rem] text-destructive">{fieldState.error.message}</p>}
             </div>
           )}
         />

@@ -77,8 +77,10 @@ export async function updateProfileAction(input: ProfileInput): Promise<ActionRe
       office_name: blank(v.officeName),
       oab_number: blank(v.oabNumber),
       oab_uf: blank(v.oabUf),
-      legal_area: blank(v.legalArea),
+      legal_area: blank(v.legalArea) ?? v.practiceAreas?.[0] ?? null,
       main_goal: blank(v.mainGoal),
+      treatment: blank(v.treatment) as "dr" | "dra" | null,
+      ...(v.practiceAreas ? { practice_areas: v.practiceAreas } : {}),
     })
     .eq("id", user.id);
   if (error) return { ok: false, error: friendlyError(error) };

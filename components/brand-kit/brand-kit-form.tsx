@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { ImagePlus, Loader2, Save, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 
 const FONTS = ["Manrope", "Cormorant Garamond", "Playfair Display", "Libre Baskerville", "Lora", "Montserrat", "Inter", "Poppins"];
 const PRESETS = [
+  { name: "Dourado neon", primary: "#F2C46D", secondary: "#101216", accent: "#F4F5F7" },
   { name: "Clássico dourado", primary: "#C6A15B", secondary: "#0B1625", accent: "#F5F5F2" },
   { name: "Azul institucional", primary: "#2F5D8C", secondary: "#0B1625", accent: "#F5F5F2" },
   { name: "Vinho e marfim", primary: "#7A2E3A", secondary: "#160C0F", accent: "#F2EBE1" },
@@ -94,16 +95,16 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
   return (
     <div className="grid gap-8 xl:grid-cols-[1fr_22rem]">
       <form onSubmit={submit} className="space-y-6" noValidate>
-        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
-          <h2 className="font-display text-2xl text-ivory">Logotipo</h2>
-          <p className="mt-1 text-sm text-mist">PNG ou SVG com fundo transparente funciona melhor nos vídeos.</p>
+        <section className="glass rounded-[22px] p-5 md:p-6">
+          <h2 className="font-sans text-base font-bold tracking-normal text-fg">Logotipo</h2>
+          <p className="mt-1 text-sm text-fg-3">PNG ou SVG com fundo transparente.</p>
           <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center">
-            <div className="grid size-28 shrink-0 place-items-center overflow-hidden rounded-2xl border border-dashed border-gold/30 bg-[repeating-conic-gradient(#11141a_0_25%,#0b0d11_0_50%)] bg-[length:16px_16px]">
+            <div className="grid size-28 shrink-0 place-items-center overflow-hidden rounded-2xl border border-dashed border-line-strong bg-[repeating-conic-gradient(#11141a_0_25%,#0b0d11_0_50%)] bg-[length:16px_16px]">
               {logoState.url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={logoState.url} alt="Logotipo do escritório" className="max-h-24 max-w-24 object-contain" />
               ) : (
-                <ImagePlus className="size-7 text-gold/50" />
+                <ImagePlus className="size-7 text-white/40" />
               )}
             </div>
             <div className="flex flex-wrap gap-2">
@@ -120,8 +121,8 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
           </div>
         </section>
 
-        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
-          <h2 className="font-display text-2xl text-ivory">Identificação</h2>
+        <section className="glass rounded-[22px] p-5 md:p-6">
+          <h2 className="font-sans text-base font-bold tracking-normal text-fg">Identificação</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <Field label="Nome do escritório" htmlFor="officeName" error={errors.officeName}>
               <Input id="officeName" value={v.officeName} maxLength={120} onChange={(e) => set("officeName", e.target.value)} placeholder="Souza Advocacia" />
@@ -149,15 +150,15 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
           </div>
         </section>
 
-        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
-          <h2 className="font-display text-2xl text-ivory">Cores</h2>
+        <section className="glass rounded-[22px] p-5 md:p-6">
+          <h2 className="font-sans text-base font-bold tracking-normal text-fg">Cores</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             {PRESETS.map((p) => (
               <button
                 key={p.name}
                 type="button"
                 onClick={() => setV((s) => ({ ...s, primaryColor: p.primary, secondaryColor: p.secondary, accentColor: p.accent }))}
-                className="flex items-center gap-2 rounded-full border border-fg/10 px-3 py-1.5 text-xs text-mist transition hover:border-gold/40 hover:text-ivory"
+                className="flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-xs text-fg-2 transition hover:border-cyan/40 hover:text-fg"
               >
                 <span className="flex -space-x-1">
                   {[p.primary, p.secondary, p.accent].map((c) => (
@@ -177,13 +178,13 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
               ] as const
             ).map(([key, label]) => (
               <Field key={key} label={label} error={errors[key]}>
-                <div className="flex items-center gap-2 rounded-xl border border-input bg-fg/[0.03] p-1.5 pr-3">
+                <div className="flex items-center gap-2 rounded-[14px] border border-input bg-raised/60 p-1.5 pr-3">
                   <input type="color" value={v[key]} onChange={(e) => set(key, e.target.value.toUpperCase())} className="size-9 cursor-pointer rounded-lg border-0 bg-transparent p-0" aria-label={`Cor ${label}`} />
                   <input
                     value={v[key]}
                     onChange={(e) => set(key, e.target.value.toUpperCase())}
                     maxLength={7}
-                    className="w-full bg-transparent font-mono text-sm text-ivory outline-none"
+                    className="w-full bg-transparent font-mono text-sm text-fg outline-none"
                     aria-label={`Código da cor ${label}`}
                   />
                 </div>
@@ -192,8 +193,8 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
           </div>
         </section>
 
-        <section className="rounded-3xl border border-fg/[0.07] bg-fg/[0.02] p-6 md:p-7">
-          <h2 className="font-display text-2xl text-ivory">Contatos para CTA</h2>
+        <section className="glass rounded-[22px] p-5 md:p-6">
+          <h2 className="font-sans text-base font-bold tracking-normal text-fg">Contatos para CTA</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-3">
             <Field label="Site" htmlFor="website" error={errors.website} optional>
               <Input id="website" value={v.website} onChange={(e) => set("website", e.target.value)} placeholder="souzaadvocacia.com.br" />
@@ -214,45 +215,160 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
         </div>
       </form>
 
-      <aside className="xl:sticky xl:top-28 xl:self-start">
-        <p className="eyebrow mb-3">Prévia nos vídeos</p>
+      <aside className="xl:sticky xl:top-24 xl:self-start">
         <BrandPreview v={v} logoUrl={logoState.url} />
-        <p className="mt-3 text-xs text-mist">Ilustração de como nome, OAB, logotipo e chamada final podem aparecer.</p>
       </aside>
     </div>
   );
 }
 
+const SCENES = [
+  { id: "lower", label: "Nome e OAB" },
+  { id: "vinheta", label: "Vinheta" },
+  { id: "cta", label: "Chamada" },
+] as const;
+
+/** Prévia animada: lower third (nome + OAB), vinheta com a logo e chamada final. */
 function BrandPreview({ v, logoUrl }: { v: BrandKitValues; logoUrl: string | null }) {
+  const [scene, setScene] = React.useState<(typeof SCENES)[number]["id"]>("lower");
+  const [auto, setAuto] = React.useState(true);
+  const [tick, setTick] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!auto) return;
+    const id = window.setInterval(() => {
+      setScene((s) => SCENES[(SCENES.findIndex((x) => x.id === s) + 1) % SCENES.length].id);
+      setTick((t) => t + 1);
+    }, 3200);
+    return () => window.clearInterval(id);
+  }, [auto]);
+
+  const font = v.font || undefined;
+  const cta = v.instagram ? `Siga @${v.instagram.replace(/^@/, "")}` : v.website ? v.website.replace(/^https?:\/\//, "") : "Fale com o escritório";
+
   return (
-    <div className="relative mx-auto aspect-[9/16] w-full max-w-[18rem] overflow-hidden rounded-[2rem] border border-fg/10 shadow-[0_40px_80px_-30px_rgba(0,0,0,1)]" style={{ background: v.secondaryColor }}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/media/justica-rosto.webp" alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40" />
-      {logoUrl && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={logoUrl} alt="" className="absolute top-5 right-5 h-8 max-w-24 object-contain" />
-      )}
-      <motion.div
-        key={`${v.primaryColor}-${v.professionalName}`}
-        initial={{ opacity: 0, x: -12 }}
-        animate={{ opacity: 1, x: 0 }}
-        className="absolute bottom-24 left-4 flex items-stretch gap-2.5"
-      >
-        <span className="w-1 rounded-full" style={{ background: v.primaryColor }} />
-        <span className="rounded-lg bg-black/55 px-3 py-2 backdrop-blur" style={{ fontFamily: v.font || undefined }}>
-          <span className="block text-sm font-bold" style={{ color: v.accentColor }}>
-            {v.professionalName || "Seu nome profissional"}
-          </span>
-          <span className="block text-[0.6875rem]" style={{ color: v.primaryColor }}>
-            {v.oabDisplay || "OAB/UF 000.000"}
-            {v.officeName ? ` · ${v.officeName}` : ""}
-          </span>
-        </span>
-      </motion.div>
-      <div className={cn("absolute inset-x-5 bottom-6 rounded-full py-2.5 text-center text-xs font-bold tracking-wide")} style={{ background: v.primaryColor, color: v.secondaryColor, fontFamily: v.font || undefined }}>
-        {v.instagram ? `Siga @${v.instagram.replace(/^@/, "")}` : v.website ? v.website.replace(/^https?:\/\//, "") : "Fale com o escritório"}
+    <div>
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <p className="text-sm font-bold text-fg">Prévia animada</p>
+        <div className="flex gap-1 rounded-full border border-line bg-fg/[0.04] p-0.5" role="tablist" aria-label="Cena da prévia">
+          {SCENES.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              role="tab"
+              aria-selected={scene === s.id}
+              onClick={() => {
+                setScene(s.id);
+                setAuto(false);
+                setTick((t) => t + 1);
+              }}
+              className={cn(
+                "rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold transition",
+                scene === s.id ? "bg-cyan text-[#06222a]" : "text-fg-2 hover:text-fg",
+              )}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
       </div>
+      <div
+        className="theme-stage relative mx-auto aspect-[9/16] w-full max-w-[18rem] overflow-hidden rounded-[28px] border border-line shadow-[var(--shadow-pop)]"
+        style={{ background: v.secondaryColor }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/media/justica-rosto.webp" alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/40" />
+        {logoUrl && scene !== "vinheta" && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={logoUrl} alt="" className="absolute top-5 right-5 h-7 max-w-20 object-contain opacity-90" />
+        )}
+
+        <AnimatePresence mode="wait">
+          {scene === "lower" && (
+            <motion.div
+              key={`lower-${tick}`}
+              className="absolute bottom-20 left-4 flex items-stretch gap-2.5"
+              initial="hidden"
+              animate="show"
+              exit={{ opacity: 0, x: -16, transition: { duration: 0.3 } }}
+            >
+              <motion.span
+                className="w-1 origin-bottom rounded-full"
+                style={{ background: v.primaryColor, boxShadow: `0 0 12px ${v.primaryColor}` }}
+                variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } }}
+              />
+              <motion.span
+                className="overflow-hidden rounded-lg bg-black/55 px-3 py-2 backdrop-blur"
+                style={{ fontFamily: font }}
+                variants={{ hidden: { clipPath: "inset(0 100% 0 0)" }, show: { clipPath: "inset(0 0% 0 0)", transition: { duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] } } }}
+              >
+                <span className="block text-sm font-bold" style={{ color: v.accentColor }}>
+                  {v.professionalName || "Seu nome profissional"}
+                </span>
+                <span className="block text-[0.6875rem]" style={{ color: v.primaryColor }}>
+                  {v.oabDisplay || "OAB/UF 000.000"}
+                  {v.officeName ? ` · ${v.officeName}` : ""}
+                </span>
+              </motion.span>
+            </motion.div>
+          )}
+          {scene === "vinheta" && (
+            <motion.div
+              key={`vinheta-${tick}`}
+              className="absolute inset-0 grid place-items-center"
+              style={{ background: v.secondaryColor }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, transition: { duration: 0.3 } }}
+            >
+              <motion.span
+                className="absolute h-px w-2/3"
+                style={{ background: v.primaryColor, boxShadow: `0 0 16px ${v.primaryColor}` }}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: [0, 1, 1], opacity: [1, 1, 0] }}
+                transition={{ duration: 1.4, times: [0, 0.5, 1] }}
+              />
+              <motion.span
+                className="relative text-center"
+                initial={{ opacity: 0, scale: 0.9, filter: "blur(8px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                {logoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={logoUrl} alt="" className="mx-auto h-14 max-w-40 object-contain" />
+                ) : (
+                  <span className="block text-2xl font-bold tracking-[0.2em]" style={{ color: v.primaryColor, fontFamily: font }}>
+                    {(v.officeName || "SEU ESCRITÓRIO").toUpperCase()}
+                  </span>
+                )}
+                <span className="mt-2 block text-[0.6875rem] tracking-[0.3em] uppercase" style={{ color: v.accentColor, fontFamily: font }}>
+                  {v.officeName || "Advocacia"}
+                </span>
+              </motion.span>
+            </motion.div>
+          )}
+          {scene === "cta" && (
+            <motion.div
+              key={`cta-${tick}`}
+              className="absolute inset-x-5 bottom-6"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12, transition: { duration: 0.3 } }}
+              transition={{ type: "spring", stiffness: 220, damping: 18 }}
+            >
+              <span
+                className="block rounded-full py-2.5 text-center text-xs font-bold tracking-wide"
+                style={{ background: v.primaryColor, color: v.secondaryColor, fontFamily: font, boxShadow: `0 0 24px -4px ${v.primaryColor}` }}
+              >
+                {cta}
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <p className="mt-3 text-center text-xs text-fg-3">Assim sua marca aparece nos vídeos.</p>
     </div>
   );
 }

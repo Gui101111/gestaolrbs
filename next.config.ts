@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/app/biblioteca", destination: "/app/projetos", permanent: true },
       { source: "/app/projetos/novo", destination: "/app/novo", permanent: true },
+      { source: "/app/perfil", destination: "/app/configuracoes?aba=conta", permanent: true },
     ];
   },
   async headers() {

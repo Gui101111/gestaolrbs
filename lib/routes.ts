@@ -17,7 +17,6 @@ export const ROUTES = {
   brand: "/app/marca",
   billing: "/app/assinatura",
   settings: "/app/configuracoes",
-  profile: "/app/perfil",
   folder: (id: string) => `/app/projetos/${id}`,
   video: (id: string) => `/app/video/${id}`,
 } as const;

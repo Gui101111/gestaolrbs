@@ -74,6 +74,18 @@ export default async function NewVideoPage({ searchParams }: { searchParams: Sea
     };
   }
 
+  // Vindo de Exemplos: "Usar este estilo"
+  const estilo = param(sp, "estilo");
+  const formato = param(sp, "formato");
+  if (!id && !modelo && estilo && EDITING_STYLES.some((s) => s.value === estilo)) {
+    initial = {
+      ...initial,
+      editing_style: estilo,
+      answers: recommendedFor(estilo),
+      aspect_ratios: formato && ["9:16", "1:1", "4:5", "16:9"].includes(formato) ? [formato] : initial.aspect_ratios,
+    };
+  }
+
   let video: DraftVideo | null = null;
 
   if (id) {

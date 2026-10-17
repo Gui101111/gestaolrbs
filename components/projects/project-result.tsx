@@ -3,11 +3,11 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { CheckCircle2, Columns2, Copy, Download, GitBranch, MessageSquarePlus, Settings2, Trash2 } from "lucide-react";
+import { CheckCircle2, Clock, Columns2, Copy, Download, GitBranch, MessageSquarePlus, Settings2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
   AlertDialog,
@@ -19,9 +19,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Aurora } from "@/components/effects/aurora";
 import { VideoPlayer, type VideoPlayerHandle } from "@/components/video/video-player";
 import { useProjectMutations } from "@/components/projects/project-actions";
+import { StatusTrack } from "@/components/projects/status-track";
 import { approveProjectAction, requestRevisionAction } from "@/lib/actions/projects";
+import { ROUTES } from "@/lib/routes";
 import { cn, formatBytes, formatDate, formatDuration } from "@/lib/utils";
 
 export type ResultRender = {
@@ -36,6 +39,8 @@ export type ResultRender = {
   version: number;
   createdAt: string;
 };
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function ProjectResult({
   project,
@@ -64,6 +69,7 @@ export function ProjectResult({
 
   const latestFor = (r: string) => renders.filter((x) => x.aspectRatio === r).sort((a, b) => b.version - a.version)[0];
   const current = latestFor(ratio);
+  const vertical = ratio === "9:16" || ratio === "4:5";
 
   const openRevision = () => {
     const t = players.current[ratio]?.currentTime() ?? null;
@@ -86,75 +92,61 @@ export function ProjectResult({
     start(async () => {
       const res = await approveProjectAction(project.id);
       if (!res.ok) return void toast.error(res.error);
-      toast.success("Vídeo aprovado. Projeto concluído.");
+      toast.success("Vídeo aprovado.");
       router.refresh();
     });
 
   return (
-    <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between"
-      >
-        <div>
-          <p className="eyebrow flex items-center gap-2">
-            <CheckCircle2 className="size-3.5" /> {project.status === "completed" ? "Projeto concluído" : "Edição finalizada"}
-          </p>
-          <h1 className="mt-3 font-display text-4xl text-ivory md:text-6xl">
-            Seu vídeo <span className="text-gold-gradient italic">está pronto.</span>
-          </h1>
-          <p className="mt-2 text-sm text-mist">{project.name}</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {current && (
-            <Button asChild variant="gold" size="lg" className="glow-gold">
-              <a href={`/api/projects/${project.id}/download?render=${current.id}`}>
-                <Download /> Baixar MP4
-              </a>
-            </Button>
-          )}
-          <Button variant="outline" size="lg" onClick={() => duplicate(project.id, true)} disabled={mutating}>
-            <GitBranch /> Criar nova versão
-          </Button>
-        </div>
+    <div className="space-y-6">
+      <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}>
+        <p className="flex items-center gap-2 text-sm font-semibold text-success">
+          <CheckCircle2 className="size-4" /> {project.status === "completed" ? "Aprovado" : "Edição finalizada"}
+        </p>
+        <h1 className="mt-2 text-4xl text-fg md:text-5xl">
+          Seu vídeo está <em>pronto</em>.
+        </h1>
+        <p className="mt-1 text-sm text-fg-2">{project.name}</p>
       </motion.div>
 
-      <div className="grid gap-6 xl:grid-cols-[1fr_20rem]">
-        <div className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
+      <StatusTrack status={project.status} className="max-w-xl" />
+
+      <div className="grid gap-6 xl:grid-cols-[1fr_19rem]">
+        <div className="glass relative overflow-hidden rounded-[28px] p-3 md:p-4">
+          <Aurora variant="subtle" interactive={false} />
+          <div className="relative mb-3 flex flex-wrap items-center justify-between gap-2">
             {ratios.length > 0 && (
               <Tabs value={ratio} onValueChange={setRatio}>
-                <TabsList>
+                <TabsList aria-label="Formatos">
                   {ratios.map((r) => (
-                    <TabsTrigger key={r} value={r}>
+                    <TabsTrigger key={r} value={r} className="font-mono">
                       {r}
                     </TabsTrigger>
                   ))}
                 </TabsList>
               </Tabs>
             )}
-            <Button variant={compare ? "outline" : "subtle"} size="sm" onClick={() => setCompare((v) => !v)} aria-pressed={compare}>
-              <Columns2 /> {compare ? "Ver só o final" : "Comparar com o original"}
+            <Button variant={compare ? "neon" : "glass"} size="sm" onClick={() => setCompare((v) => !v)} aria-pressed={compare}>
+              <Columns2 /> {compare ? "Só o final" : "Original × final"}
             </Button>
           </div>
 
-          <Tabs value={ratio}>
-            {ratios.map((r) => {
+          {ratios.length === 0 ? (
+            <p className="relative py-16 text-center text-sm text-fg-2">Os arquivos finais ainda estão sendo publicados.</p>
+          ) : (
+            ratios.map((r) => {
               const render = latestFor(r);
-              const vertical = r === "9:16" || r === "4:5";
+              const isVertical = r === "9:16" || r === "4:5";
               return (
-                <TabsContent key={r} value={r} forceMount className={cn(r !== ratio && "hidden")}>
-                  <div className={cn("grid gap-4", compare && "md:grid-cols-2")}>
+                <div key={r} className={cn("relative", r !== ratio && "hidden")}>
+                  <div className={cn("grid items-start gap-4", compare && "md:grid-cols-2")}>
                     {compare && (
                       <div>
-                        <p className="mb-2 text-[0.6875rem] font-semibold tracking-[0.25em] text-mist uppercase">Original</p>
-                        <VideoPlayer src={original.url} poster={original.poster} aspect={original.aspect} label="Vídeo original" className={cn(vertical && !compare && "mx-auto max-w-sm")} />
+                        <p className="mb-2 text-[0.6875rem] font-bold tracking-[0.18em] text-fg-3 uppercase">Original</p>
+                        <VideoPlayer src={original.url} poster={original.poster} aspect={original.aspect} label="Vídeo original" />
                       </div>
                     )}
                     <div>
-                      {compare && <p className="mb-2 text-[0.6875rem] font-semibold tracking-[0.25em] text-gold uppercase">Final</p>}
+                      {compare && <p className="mb-2 text-[0.6875rem] font-bold tracking-[0.18em] text-cyan uppercase">Final</p>}
                       <VideoPlayer
                         ref={(h) => {
                           players.current[r] = h;
@@ -162,57 +154,71 @@ export function ProjectResult({
                         src={render?.url ?? null}
                         aspect={r}
                         label={`Vídeo final ${r}`}
-                        className={cn(vertical && (compare ? "mx-auto max-h-[70vh] w-auto" : "mx-auto max-h-[78vh] w-auto max-w-md"), "glow-gold-soft")}
+                        className={cn(
+                          isVertical && !compare && "mx-auto max-h-[72vh] w-auto max-w-sm",
+                          "shadow-[0_0_0_1px_color-mix(in_oklab,var(--cyan)_20%,transparent),0_30px_80px_-30px_rgb(0_0_0/0.8)]",
+                        )}
                       />
                     </div>
                   </div>
-                </TabsContent>
+                </div>
               );
-            })}
-          </Tabs>
-          {ratios.length === 0 && <p className="text-sm text-mist">Os arquivos finais ainda estão sendo publicados.</p>}
+            })
+          )}
         </div>
 
         <aside className="space-y-4">
-          <div className="rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5">
-            <p className="eyebrow mb-4">Detalhes</p>
-            <dl className="space-y-3 text-sm">
+          <div className="glass grid gap-2 rounded-[22px] p-3">
+            {current && (
+              <Button asChild variant="gold" size="lg" pulse>
+                <a href={`/api/projects/${project.id}/download?render=${current.id}`}>
+                  <Download /> Baixar {ratio}
+                </a>
+              </Button>
+            )}
+            <Button variant="glass" onClick={openRevision} disabled={revisionsLeft === 0}>
+              <MessageSquarePlus /> Solicitar ajuste
+              {revisionsLeft != null && <span className="text-xs text-fg-3">({revisionsLeft})</span>}
+            </Button>
+            {project.status === "ready" && (
+              <Button variant="neon" onClick={approve} loading={pending}>
+                <CheckCircle2 /> Aprovar
+              </Button>
+            )}
+            <div className="my-1 h-px bg-line" />
+            <Button variant="ghost" onClick={() => duplicate(project.id, true)} disabled={mutating} className="justify-start">
+              <GitBranch /> Criar nova versão
+            </Button>
+            <Button variant="ghost" onClick={() => duplicate(project.id, true)} disabled={mutating} className="justify-start">
+              <Settings2 /> Editar configurações
+            </Button>
+            <Button variant="ghost" onClick={() => duplicate(project.id)} disabled={mutating} className="justify-start">
+              <Copy /> Duplicar
+            </Button>
+            <Button variant="ghost" className="justify-start text-destructive hover:text-destructive" onClick={() => setDelOpen(true)}>
+              <Trash2 /> Excluir
+            </Button>
+          </div>
+
+          <div className="glass rounded-[22px] p-5">
+            <dl className="space-y-2.5 text-sm">
               {[
                 ["Duração", formatDuration(current?.durationSec)],
                 ["Formato", ratio],
                 ["Resolução", current?.width && current?.height ? `${current.width}×${current.height}` : (current?.resolution ?? "—")],
                 ["Tamanho", current?.fileSize ? formatBytes(current.fileSize) : "—"],
-                ["Data", formatDate(current?.createdAt ?? project.updatedAt)],
                 ["Estilo", styleLabel],
                 ["Versão", current ? `v${current.version}` : "—"],
+                ["Data", formatDate(current?.createdAt ?? project.updatedAt)],
               ].map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-3">
-                  <dt className="text-mist">{k}</dt>
-                  <dd className="text-right text-ivory">{v}</dd>
+                  <dt className="text-fg-3">{k}</dt>
+                  <dd className="text-right font-medium text-fg">{v}</dd>
                 </div>
               ))}
             </dl>
           </div>
-
-          <div className="grid gap-2 rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-3">
-            {project.status === "ready" && (
-              <Button variant="gold" onClick={approve} loading={pending}>
-                <CheckCircle2 /> Aprovar vídeo
-              </Button>
-            )}
-            <Button variant="subtle" onClick={openRevision} disabled={revisionsLeft === 0}>
-              <MessageSquarePlus /> Solicitar ajuste {revisionsLeft != null && <span className="text-xs text-mist">({revisionsLeft} restantes)</span>}
-            </Button>
-            <Button variant="subtle" onClick={() => duplicate(project.id, true)} disabled={mutating}>
-              <Settings2 /> Editar configurações
-            </Button>
-            <Button variant="subtle" onClick={() => duplicate(project.id)} disabled={mutating}>
-              <Copy /> Duplicar projeto
-            </Button>
-            <Button variant="ghost" className="text-[#ec8a80] hover:text-[#ec8a80]" onClick={() => setDelOpen(true)}>
-              <Trash2 /> Excluir
-            </Button>
-          </div>
+          {vertical && <p className="px-1 text-xs text-fg-3">Dica: publique o 9:16 em Reels, TikTok e Shorts.</p>}
         </aside>
       </div>
 
@@ -220,21 +226,31 @@ export function ProjectResult({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Solicitar ajuste</DialogTitle>
-            <DialogDescription>
-              Descreva o que deseja mudar.{" "}
-              {mark != null ? (
-                <>
-                  Marcamos o momento <span className="font-mono text-gold-light">{formatDuration(mark)}</span> do vídeo.{" "}
-                  <button type="button" className="underline underline-offset-4" onClick={() => setMark(null)}>
-                    remover marcação
-                  </button>
-                </>
-              ) : (
-                "Dica: pause o vídeo no ponto exato antes de abrir esta janela."
-              )}
-            </DialogDescription>
+            <DialogDescription>Diga o que mudar. Pause no ponto exato para marcar o tempo.</DialogDescription>
           </DialogHeader>
-          <Textarea rows={5} value={comment} maxLength={2000} onChange={(e) => setComment(e.target.value)} placeholder="Ex.: remover o trecho em que repito a explicação sobre o prazo e destacar a palavra “decadência”." />
+          <div className="flex flex-wrap items-center gap-2 text-sm">
+            <Clock className="size-4 text-cyan" />
+            {mark != null ? (
+              <>
+                <span className="text-fg-2">Tempo marcado:</span>
+                <span className="rounded-md border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-mono text-cyan">{formatDuration(mark)}</span>
+                <button type="button" className="text-xs text-fg-3 underline underline-offset-4 hover:text-fg" onClick={() => setMark(null)}>
+                  remover
+                </button>
+              </>
+            ) : (
+              <span className="text-fg-3">Sem tempo marcado (vale para o vídeo todo).</span>
+            )}
+          </div>
+          <Textarea
+            id="revision-comment"
+            rows={5}
+            value={comment}
+            maxLength={2000}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Ex.: remover a parte em que repito o prazo e destacar “decadência”."
+            aria-label="Descrição do ajuste"
+          />
           <DialogFooter>
             <Button variant="ghost" onClick={() => setRevOpen(false)}>
               Cancelar
@@ -249,12 +265,12 @@ export function ProjectResult({
       <AlertDialog open={delOpen} onOpenChange={setDelOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Excluir este projeto?</AlertDialogTitle>
-            <AlertDialogDescription>O vídeo original e todas as versões editadas serão removidos definitivamente.</AlertDialogDescription>
+            <AlertDialogTitle>Excluir este vídeo?</AlertDialogTitle>
+            <AlertDialogDescription>O original e todas as versões editadas serão removidos.</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={() => remove(project.id, "/app/projetos")}>Excluir definitivamente</AlertDialogAction>
+            <AlertDialogAction onClick={() => remove(project.id, ROUTES.projects)}>Excluir definitivamente</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

@@ -410,11 +410,13 @@ html.theme-switching * {
     pointer-events: none;
     z-index: 1;
   }
+  /* Brilho só do lado de fora: a máscara recorta a área do próprio elemento. */
   &::after {
     content: "";
     position: absolute;
-    inset: -1px;
-    border-radius: inherit;
+    inset: -16px;
+    padding: 16px;
+    border-radius: calc(var(--neon-radius, 20px) + 16px);
     background: conic-gradient(
       from var(--angle),
       transparent 0deg,
@@ -422,7 +424,12 @@ html.theme-switching * {
       color-mix(in oklab, var(--gold) 40%, transparent) 190deg,
       transparent 260deg
     );
-    filter: blur(14px);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    filter: blur(12px);
     opacity: 0.45;
     animation: spin-angle 4.5s linear infinite;
     pointer-events: none;

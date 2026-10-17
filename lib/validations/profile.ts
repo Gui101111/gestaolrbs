@@ -31,6 +31,8 @@ export const profileSchema = z.object({
   oabUf: z.enum(BRAZIL_UFS).optional().or(z.literal("")),
   legalArea: z.enum(legalAreaValues).optional().or(z.literal("")),
   mainGoal: z.enum(goalValues).optional().or(z.literal("")),
+  treatment: z.enum(["dr", "dra"]).optional().or(z.literal("")),
+  practiceAreas: z.array(z.enum(legalAreaValues)).max(12).optional(),
 });
 export type ProfileInput = z.input<typeof profileSchema>;
 

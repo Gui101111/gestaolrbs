@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/shared/page-header";
 import { SubscriptionView } from "@/components/billing/subscription-view";
+import { AppPageHeader } from "@/components/shared/app-page-header";
 import { requireOnboardedProfile } from "@/lib/auth/dal";
 import { createClient } from "@/lib/supabase/server";
 import { getBillingInfo } from "@/services/projects/queries";
@@ -18,8 +18,8 @@ export default async function SubscriptionPage() {
     supabase.from("payments").select("*").eq("user_id", user.id).order("created_at", { ascending: false }).limit(24),
   ]);
   return (
-    <div className="space-y-8">
-      <PageHeader eyebrow="Assinatura" title="Plano e pagamentos" description="Acompanhe seu uso, troque de plano e consulte faturas." />
+    <div className="space-y-8 pt-2 pb-8">
+      <AppPageHeader title="Assinatura" subtitle="Uso do mês, cobranças e troca de plano." />
       <SubscriptionView
         email={user.email ?? ""}
         subscription={billing.subscription}

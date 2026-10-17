@@ -90,27 +90,27 @@ export function ProcessingTimeline({ projectId, initialJob, projectStatus }: { p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              className="font-display text-3xl text-ivory"
+              className="font-display text-2xl font-bold text-fg md:text-3xl"
             >
               {failed ? "Encontramos um problema" : (PIPELINE_STEPS[current]?.label ?? "Na fila")}
             </motion.p>
           </AnimatePresence>
-          <p className="mx-auto mt-2 max-w-sm text-sm text-mist">
+          <p className="mx-auto mt-2 max-w-sm text-sm text-fg-2">
             {failed
               ? "O processamento foi interrompido. Nossa equipe já foi avisada — você pode aguardar a nova tentativa ou falar com o suporte."
               : status === "queued" && current === 0
                 ? "Seu vídeo está na fila. Você pode fechar esta página — avisaremos por e-mail quando estiver pronto."
                 : (PIPELINE_STEPS[current]?.description ?? "")}
           </p>
-          {job?.kind === "revision" && !failed && <p className="mt-3 text-xs text-gold-light">Aplicando o ajuste solicitado</p>}
+          {job?.kind === "revision" && !failed && <p className="mt-3 text-xs text-cyan">Aplicando o ajuste solicitado</p>}
         </div>
       </div>
 
       <ol className="relative space-y-2" aria-label="Etapas do processamento">
-        <span aria-hidden className="absolute top-6 bottom-6 left-[1.6rem] w-px bg-fg/[0.07]" />
+        <span aria-hidden className="absolute top-6 bottom-6 left-[1.6rem] w-px bg-line" />
         <motion.span
           aria-hidden
-          className="absolute top-6 left-[1.6rem] w-px origin-top bg-gradient-to-b from-gold-light via-gold to-gold/20"
+          className="absolute top-6 left-[1.6rem] w-px origin-top bg-gradient-to-b from-cyan via-azure to-gold shadow-[0_0_10px_var(--cyan)]"
           initial={false}
           animate={{ height: `calc(${(current / (PIPELINE_STEPS.length - 1)) * 100}% - ${(current / (PIPELINE_STEPS.length - 1)) * 3}rem)` }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
@@ -126,24 +126,24 @@ export function ProcessingTimeline({ projectId, initialJob, projectStatus }: { p
               transition={{ delay: i * 0.05, duration: 0.6 }}
               className={cn(
                 "relative flex items-center gap-4 rounded-2xl border px-3 py-3 transition-colors duration-700",
-                state === "active" ? "border-gold/30 bg-gold/[0.05]" : state === "error" ? "border-destructive/40 bg-destructive/[0.06]" : "border-transparent",
+                state === "active" ? "border-cyan/35 bg-cyan/[0.06] shadow-[var(--glow-cyan)]" : state === "error" ? "border-destructive/40 bg-destructive/[0.06]" : "border-transparent",
               )}
             >
               <span
                 className={cn(
                   "relative z-10 grid size-[2.2rem] shrink-0 place-items-center rounded-full border transition-all duration-700",
-                  state === "done" && "border-gold/60 bg-gold text-on-gold",
-                  state === "active" && "border-gold bg-ink text-gold-light shadow-[0_0_24px_-4px_rgba(198,161,91,0.9)]",
-                  state === "pending" && "border-fg/10 bg-ink text-mist/50",
-                  state === "error" && "border-destructive/60 bg-ink text-[#ec8a80]",
+                  state === "done" && "border-cyan bg-cyan text-[#06222a]",
+                  state === "active" && "border-cyan bg-canvas text-cyan shadow-[var(--glow-cyan)]",
+                  state === "pending" && "border-line bg-canvas text-fg-3",
+                  state === "error" && "border-destructive/60 bg-canvas text-destructive",
                 )}
               >
-                {state === "active" && <span className="absolute inset-0 animate-ping rounded-full border border-gold/50" />}
+                {state === "active" && <span className="absolute inset-0 animate-ping rounded-full border border-cyan/50" />}
                 {state === "done" ? <Check className="size-4" strokeWidth={3} /> : state === "error" ? <AlertTriangle className="size-4" /> : <Icon className="size-4" />}
               </span>
               <div className="min-w-0 flex-1">
-                <p className={cn("text-sm font-medium", state === "pending" ? "text-mist/60" : "text-ivory")}>{s.label}</p>
-                <p className="truncate text-xs text-mist/80">{s.description}</p>
+                <p className={cn("text-sm font-semibold", state === "pending" ? "text-fg-3" : "text-fg")}>{s.label}</p>
+                <p className="truncate text-xs text-fg-3">{s.description}</p>
               </div>
               {state === "active" && <StepVisual step={s.value} />}
             </motion.li>
@@ -159,15 +159,15 @@ function ProgressOrb({ value, failed }: { value: number; failed: boolean }) {
   const c = 2 * Math.PI * r;
   return (
     <div className="relative mx-auto size-60">
-      <div aria-hidden className={cn("absolute inset-6 rounded-full blur-3xl", failed ? "bg-destructive/20" : "bg-gold/20 animate-pulse-glow")} />
+      <div aria-hidden className={cn("absolute inset-6 rounded-full blur-3xl", failed ? "bg-destructive/20" : "bg-cyan/20 animate-pulse-glow")} />
       <svg viewBox="0 0 200 200" className="relative size-full -rotate-90">
-        <circle cx="100" cy="100" r={r} stroke="rgba(255,255,255,0.06)" strokeWidth="6" fill="none" />
-        <circle cx="100" cy="100" r={r - 14} stroke="rgba(198,161,91,0.12)" strokeWidth="1" strokeDasharray="2 6" fill="none" />
+        <circle cx="100" cy="100" r={r} style={{ stroke: "color-mix(in oklab, var(--fg) 8%, transparent)" }} strokeWidth="6" fill="none" />
+        <circle cx="100" cy="100" r={r - 14} style={{ stroke: "color-mix(in oklab, var(--cyan) 18%, transparent)" }} strokeWidth="1" strokeDasharray="2 6" fill="none" />
         <motion.circle
           cx="100"
           cy="100"
           r={r}
-          stroke={failed ? "#d0574d" : "url(#orb-gold)"}
+          stroke={failed ? "var(--destructive)" : "url(#orb-gold)"}
           strokeWidth="6"
           strokeLinecap="round"
           fill="none"
@@ -178,19 +178,19 @@ function ProgressOrb({ value, failed }: { value: number; failed: boolean }) {
         />
         <defs>
           <linearGradient id="orb-gold" x1="0" y1="0" x2="1" y2="1">
-            <stop stopColor="#8C6B2F" />
-            <stop offset="0.5" stopColor="#F1D9A3" />
-            <stop offset="1" stopColor="#C6A15B" />
+            <stop style={{ stopColor: "var(--cyan)" }} />
+            <stop offset="0.5" stopColor="#7FA8FF" />
+            <stop offset="1" style={{ stopColor: "var(--gold)" }} />
           </linearGradient>
         </defs>
       </svg>
       <div className="absolute inset-0 grid place-items-center">
         <div className="text-center">
-          <p className="font-display text-6xl text-ivory tabular-nums">
+          <p className="font-display text-6xl font-extrabold text-fg tabular-nums">
             {Math.round(value)}
-            <span className="text-3xl text-gold">%</span>
+            <span className="text-3xl text-cyan">%</span>
           </p>
-          <p className="mt-1 text-[0.625rem] tracking-[0.3em] text-mist uppercase">Processamento</p>
+          <p className="mt-1 text-[0.625rem] font-bold tracking-[0.24em] text-fg-3 uppercase">Edição</p>
         </div>
       </div>
     </div>
@@ -205,7 +205,7 @@ function StepVisual({ step }: { step: string }) {
         {[0.4, 0.9, 0.6, 1, 0.5, 0.8].map((h, i) => (
           <motion.span
             key={i}
-            className="w-[3px] rounded-full bg-gold"
+            className="w-[3px] rounded-full bg-cyan"
             animate={{ height: [`${h * 30}%`, `${h * 100}%`, `${h * 40}%`] }}
             transition={{ duration: 0.9 + i * 0.1, repeat: Infinity, repeatType: "mirror" }}
           />
@@ -216,14 +216,14 @@ function StepVisual({ step }: { step: string }) {
   if (step === "rendering" || step === "editing") {
     return (
       <span className="relative h-1.5 w-16 overflow-hidden rounded-full bg-fg/10" aria-hidden>
-        <motion.span className="absolute inset-y-0 w-1/2 rounded-full bg-gold-gradient" animate={{ x: ["-100%", "200%"] }} transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.span className="absolute inset-y-0 w-1/2 rounded-full bg-brand-gradient" animate={{ x: ["-100%", "200%"] }} transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }} />
       </span>
     );
   }
   return (
     <span className="flex gap-1" aria-hidden>
       {[0, 1, 2].map((i) => (
-        <motion.span key={i} className="size-1.5 rounded-full bg-gold" animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }} />
+        <motion.span key={i} className="size-1.5 rounded-full bg-cyan" animate={{ opacity: [0.2, 1, 0.2] }} transition={{ duration: 1.2, repeat: Infinity, delay: i * 0.2 }} />
       ))}
     </span>
   );

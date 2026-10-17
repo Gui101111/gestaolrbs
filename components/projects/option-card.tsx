@@ -41,7 +41,7 @@ export function OptionCard({
         "group relative flex w-full flex-col items-start gap-2 overflow-hidden rounded-2xl border p-4 text-left transition-all duration-500 ease-[var(--ease-luxe)] outline-none md:p-5",
         "focus-visible:ring-2 focus-visible:ring-gold/50 disabled:cursor-not-allowed disabled:opacity-40",
         selected
-          ? "border-gold/60 bg-gold/[0.07] shadow-[0_0_0_1px_rgba(198,161,91,0.25),0_18px_40px_-24px_rgba(198,161,91,0.7)]"
+          ? "border-gold/60 bg-gold/[0.07] shadow-[0_0_0_1px_color-mix(in_oklab,var(--gold)_25%,transparent),0_18px_40px_-24px_color-mix(in_oklab,var(--gold)_70%,transparent)]"
           : "border-fg/[0.08] bg-fg/[0.02] hover:-translate-y-0.5 hover:border-fg/20 hover:bg-fg/[0.04]",
         className,
       )}

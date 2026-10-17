@@ -49,7 +49,7 @@ function ScaleIllustration({ className }: { className?: string }) {
         </linearGradient>
       </defs>
       <rect x="44" y="30" width="72" height="54" rx="8" stroke="rgba(255,255,255,0.12)" />
-      <path d="M74 50v14l12-7z" fill="rgba(198,161,91,0.5)" />
+      <path d="M74 50v14l12-7z" style={{ fill: "color-mix(in oklab, var(--gold) 50%, transparent)" }} />
       <motion.g
         style={{ originX: "80px", originY: "14px" }}
         animate={{ rotate: [-4, 4, -4] }}

@@ -36,3 +36,14 @@ export type ShellUsage = { planName: string | null; used: number; limit: number 
 export type RecentItem = { id: string; name: string; status: string; updated_at: string };
 
 export type FolderItem = { id: string; name: string; color: string; parent_id: string | null; position: number; count: number };
+
+/** Abas de Configurações (sincronizadas com ?aba=). */
+export const SETTINGS_TABS = [
+  { value: "conta", label: "Conta" },
+  { value: "seguranca", label: "Segurança" },
+  { value: "aparencia", label: "Aparência" },
+  { value: "notificacoes", label: "Notificações" },
+  { value: "excluir", label: "Excluir conta" },
+] as const;
+
+export type SettingsTab = (typeof SETTINGS_TABS)[number]["value"];

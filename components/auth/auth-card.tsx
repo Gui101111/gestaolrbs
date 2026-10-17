@@ -53,7 +53,7 @@ export function FormAlert({ tone = "error", children }: { tone?: "error" | "info
       animate={{ opacity: 1, y: 0 }}
       className={cn(
         "rounded-xl border px-4 py-3 text-[0.8125rem] leading-relaxed",
-        tone === "error" && "border-destructive/35 bg-destructive/10 text-[#f0a49b]",
+        tone === "error" && "border-destructive/35 bg-destructive/10 text-destructive",
         tone === "info" && "border-info/30 bg-info/10 text-[#b8d0ec]",
         tone === "success" && "border-gold/35 bg-gold/10 text-gold-light",
       )}

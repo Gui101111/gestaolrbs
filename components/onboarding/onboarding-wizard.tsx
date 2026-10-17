@@ -174,7 +174,7 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
                 </div>
               )}
               {(errors.legalArea || errors.mainGoal) && (
-                <p role="alert" className="mt-4 text-[0.8125rem] text-[#ec8a80]">
+                <p role="alert" className="mt-4 text-[0.8125rem] text-destructive">
                   {errors.legalArea ?? errors.mainGoal}
                 </p>
               )}

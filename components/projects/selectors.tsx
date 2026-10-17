@@ -85,7 +85,7 @@ export function LegalAreaSelector({ value, onChange }: { value: string | null; o
             className={cn(
               "inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm transition-all duration-400",
               selected
-                ? "border-gold/60 bg-gold/15 text-gold-light shadow-[0_0_24px_-8px_rgba(198,161,91,0.8)]"
+                ? "border-gold/60 bg-gold/15 text-gold-light shadow-[0_0_24px_-8px_color-mix(in_oklab,var(--gold)_80%,transparent)]"
                 : "border-fg/10 bg-fg/[0.02] text-ivory/80 hover:border-fg/25 hover:text-ivory",
             )}
           >
@@ -102,7 +102,7 @@ export function LegalAreaSelector({ value, onChange }: { value: string | null; o
 function StyleSwatch({ style, active }: { style: string; active: boolean }) {
   const bars = { institucional: [1, 1], dinamico: [1, 0.6, 0.9, 0.5], cinematografico: [1, 0.85], performance: [0.9, 0.4, 0.8, 0.3, 0.7], descontraido: [0.8, 0.6, 0.9] }[style] ?? [1];
   return (
-    <div className="relative h-20 w-full overflow-hidden rounded-xl border border-fg/[0.07] bg-gradient-to-br from-navy-deep to-ink">
+    <div className="relative h-20 w-full overflow-hidden rounded-xl border border-fg/[0.07] bg-gradient-to-br from-navy-deep to-black/80">
       {style === "cinematografico" && (
         <>
           <span className="absolute inset-x-0 top-0 h-3 bg-black" />

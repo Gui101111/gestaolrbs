@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ChevronsLeft, FolderPlus, LayoutTemplate, Plus } from "lucide-react";
 import { FolderTree } from "@/components/folders/folder-tree";
 import { FolderDialog } from "@/components/folders/folder-dialog";
-import { sectionOf, type FolderItem, type RecentItem } from "@/components/app-shell/nav";
+import { SETTINGS_TABS, sectionOf, type FolderItem, type RecentItem } from "@/components/app-shell/nav";
 import { StatusBadge } from "@/components/projects/status-badge";
 import { comoFazer } from "@/content/como-fazer";
 import { landing } from "@/content/landing";
@@ -270,14 +270,6 @@ function ExampleFilters({ onNavigate }: { onNavigate?: () => void }) {
     </>
   );
 }
-
-const SETTINGS_TABS = [
-  { value: "conta", label: "Conta" },
-  { value: "seguranca", label: "Segurança" },
-  { value: "aparencia", label: "Aparência" },
-  { value: "notificacoes", label: "Notificações" },
-  { value: "excluir", label: "Excluir conta" },
-];
 
 function SettingsLinks({ onNavigate }: { onNavigate?: () => void }) {
   const params = useSearchParams();

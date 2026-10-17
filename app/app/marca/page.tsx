@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/shared/page-header";
 import { BrandKitForm } from "@/components/brand-kit/brand-kit-form";
+import { AppPageHeader } from "@/components/shared/app-page-header";
 import { requireOnboardedProfile } from "@/lib/auth/dal";
 import { createClient } from "@/lib/supabase/server";
 import { signedUrl } from "@/services/storage";
 import { BUCKETS } from "@/lib/constants/domain";
 
-export const metadata: Metadata = { title: "Minha Marca" };
+export const metadata: Metadata = { title: "Marca" };
 
 export default async function BrandPage() {
   const { user, profile } = await requireOnboardedProfile();
@@ -15,12 +15,8 @@ export default async function BrandPage() {
   const logoUrl = await signedUrl(supabase, BUCKETS.brand, kit?.logo_path, { expiresIn: 60 * 60 * 6 });
 
   return (
-    <div className="space-y-8">
-      <PageHeader
-        eyebrow="Minha Marca"
-        title="Identidade do escritório"
-        description="Salve uma vez. Logotipo, cores, fonte e contatos podem ser aplicados automaticamente em cada vídeo."
-      />
+    <div className="space-y-8 pt-2 pb-8">
+      <AppPageHeader title="Sua *marca*" subtitle="Logo, cores e fonte aplicadas nos seus vídeos." />
       <BrandKitForm
         userId={user.id}
         logo={{ path: kit?.logo_path ?? null, url: logoUrl }}
@@ -28,9 +24,9 @@ export default async function BrandPage() {
           officeName: kit?.office_name ?? profile.office_name ?? "",
           professionalName: kit?.professional_name ?? profile.full_name ?? "",
           oabDisplay: kit?.oab_display ?? (profile.oab_number && profile.oab_uf ? `OAB/${profile.oab_uf} ${profile.oab_number}` : ""),
-          primaryColor: kit?.primary_color ?? "#C6A15B",
-          secondaryColor: kit?.secondary_color ?? "#0B1625",
-          accentColor: kit?.accent_color ?? "#F5F5F2",
+          primaryColor: kit?.primary_color ?? "#F2C46D",
+          secondaryColor: kit?.secondary_color ?? "#101216",
+          accentColor: kit?.accent_color ?? "#F4F5F7",
           font: kit?.font ?? "",
           website: kit?.website ?? "",
           instagram: kit?.instagram ?? "",

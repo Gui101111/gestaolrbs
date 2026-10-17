@@ -84,7 +84,7 @@ export function AdminProjectConsole({
               <p className="mt-2 text-xs text-mist">
                 Job {job.kind} · provedor <span className="text-ivory/80">{job.provider}</span> · status <span className="text-ivory/80">{job.status}</span>
               </p>
-              {job.error_message && <p className="mt-2 text-xs text-[#ec8a80]">{job.error_message}</p>}
+              {job.error_message && <p className="mt-2 text-xs text-destructive">{job.error_message}</p>}
               <div className="mt-5 flex items-center justify-between text-xs">
                 <span className="text-gold-light">{PIPELINE_STEPS[stepIndex(job.current_step)]?.label}</span>
                 <span className="text-mist tabular-nums">{job.progress}%</span>
@@ -199,7 +199,7 @@ export function AdminProjectConsole({
 
         <section className="rounded-3xl border border-destructive/20 bg-destructive/[0.03] p-6">
           <h2 className="flex items-center gap-2 font-display text-2xl text-ivory">
-            <TriangleAlert className="size-5 text-[#ec8a80]" /> Falha no processamento
+            <TriangleAlert className="size-5 text-destructive" /> Falha no processamento
           </h2>
           <Textarea className="mt-4" rows={2} value={failMsg} onChange={(e) => setFailMsg(e.target.value)} placeholder="Mensagem amigável para o cliente (opcional)" />
           <Button className="mt-3" variant="destructive" size="sm" disabled={pending} onClick={() => run(() => adminMarkFailedAction(projectId, failMsg), "Projeto marcado com erro.")}>
@@ -255,7 +255,7 @@ function RenderUploader({ ratio, ownerId, projectId, onDone }: { ratio: string; 
             <Progress value={"progress" in state ? state.progress : 0} className="mt-2" />
           </>
         ) : state.status === "error" ? (
-          <p className="text-xs text-[#ec8a80]">Falha no envio. Tente novamente.</p>
+          <p className="text-xs text-destructive">Falha no envio. Tente novamente.</p>
         ) : (
           <p className="text-sm text-mist">MP4 final na proporção {ratio}</p>
         )}
