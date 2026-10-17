@@ -136,7 +136,7 @@ Sem a chave, `CLAUDE_LOCAL_SANDBOX=1` (só em desenvolvimento) roda o mesmo flux
 Passo a passo para publicar (a ordem importa):
 
 1. **Supabase** (produção): crie o projeto, `npx supabase link --project-ref <ref>` e `npx supabase db push`; siga "Supabase em produção" acima; rode `npm run assets:setup` com as chaves de produção.
-2. **Vercel**: importe o repositório do GitHub, framework Next.js, e configure as variáveis de `.env.example` (produção: `NEXT_PUBLIC_SITE_URL` com o domínio final, chaves do Supabase, `JOBS_CALLBACK_SECRET`, `CRON_SECRET`, Resend, Asaas e, para a Parte 2, as da Anthropic). Faça o deploy e aponte o domínio.
+2. **Vercel**: importe o repositório do GitHub, framework Next.js. A Vercel publica a branch de produção (`main`): faça o merge da branch de desenvolvimento em `main` antes, ou escolha a branch em Settings → Git. Depois, configure as variáveis de `.env.example` (produção: `NEXT_PUBLIC_SITE_URL` com o domínio final, chaves do Supabase, `JOBS_CALLBACK_SECRET`, `CRON_SECRET`, Resend, Asaas e, para a Parte 2, as da Anthropic). Faça o deploy e aponte o domínio.
 3. **Cron**: `vercel.json` agenda `/api/cron/editing` a cada 10 min (exige plano Pro; no Hobby a Vercel só permite 1 execução por dia).
 4. **Webhooks**: Asaas → `/api/webhooks/asaas`; Anthropic → `/api/webhooks/claude`.
 5. **Admin**: cadastre-se e rode `update public.profiles set role = 'admin' where email = 'voce@exemplo.com';` no SQL Editor.
