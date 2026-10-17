@@ -30,7 +30,7 @@ node preview/build.mjs   # saída em preview/dist
 ```
 
 O build baixa o modelo `sts-whisper-base` do npm (Xenova/whisper-base,
-quantizado) para `preview/.cache` e o divide em partes de até 12 MB em
+quantizado) para `preview/.cache` e o divide em partes de até 12 MB (extensão `.wasm`) em
 `dist/modelos/`. O ONNX Runtime vai em `dist/ort/`.
 
 Para testar localmente: `cd preview/dist && python3 -m http.server` e abra
@@ -39,7 +39,7 @@ Para testar localmente: `cd preview/dist && python3 -m http.server` e abra
 ## Publicar como artifact
 
 Publique `dist/index.html` com os demais arquivos de `dist/` em `files`
-(os `.bin` como `application/octet-stream`) e as capacidades
+(as partes vão com extensão `.wasm`, que o artifact serve) e as capacidades
 `{ downloads: true, sample: { images: true } }`. Cada publicação aceita até
 64 MB: mande primeiro a página, os scripts, a mídia, o `ort/` e o encoder, e
 depois as partes do decoder.

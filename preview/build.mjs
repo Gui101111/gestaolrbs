@@ -6,7 +6,8 @@
  *
  * Saída em preview/dist: index.html, app.js (landing + editor), asr.js
  * (transformers.js, carregado só quando precisa), app.css (o CSS do build do
- * Next), media/ e modelos/ (Whisper base em partes de até 12 MB).
+ * Next), media/ e modelos/ (Whisper base em partes de até 12 MB, com extensão
+ * .wasm, um dos tipos que o artifact serve).
  */
 import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
@@ -64,7 +65,7 @@ function split(src, publishedBase) {
   }
   const parts = [];
   for (let i = 0, o = 0; o < buf.length; i++, o += PART) {
-    const rel = `${publishedBase}.${i}.bin`;
+    const rel = `${publishedBase}.${i}.wasm`;
     fs.mkdirSync(path.dirname(path.join(OUT, rel)), { recursive: true });
     fs.writeFileSync(path.join(OUT, rel), buf.subarray(o, o + PART));
     parts.push(rel);
