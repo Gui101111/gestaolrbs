@@ -327,6 +327,19 @@ export async function deleteProjectAction(id: string): Promise<ActionResult> {
   }
 }
 
+/** Exclui vários vídeos (seleção múltipla em Projetos). */
+export async function deleteProjectsAction(ids: string[]): Promise<ActionResult<{ deleted: number }>> {
+  const parsed = z.array(z.uuid()).min(1).max(100).safeParse(ids);
+  if (!parsed.success) return { ok: false, error: "Selecione ao menos um vídeo." };
+  let deleted = 0;
+  for (const id of parsed.data) {
+    const res = await deleteProjectAction(id);
+    if (!res.ok) return { ok: false, error: res.error };
+    deleted++;
+  }
+  return { ok: true, data: { deleted } };
+}
+
 export async function requestRevisionAction(id: string, comment: string, timestampSec: number | null): Promise<ActionResult> {
   try {
     const user = await requireAuth();

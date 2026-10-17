@@ -233,6 +233,21 @@ export const LIBRARY_FILTERS = [
   { value: "failed", label: "Erro", statuses: ["failed"] },
 ] as const;
 
+export const PROJECT_SORTS = [
+  { value: "recentes", label: "Mais recentes" },
+  { value: "antigos", label: "Mais antigos" },
+  { value: "nome", label: "Nome (A–Z)" },
+  { value: "duracao", label: "Duração" },
+] as const;
+
+export const STATUS_GROUPS = [
+  { value: "rascunho", label: "Rascunho", statuses: ["draft"] },
+  { value: "fila", label: "Na fila", statuses: ["queued"] },
+  { value: "editando", label: "Editando", statuses: ["processing", "revision_requested"] },
+  { value: "pronto", label: "Pronto", statuses: ["ready", "completed"] },
+  { value: "erro", label: "Erro", statuses: ["failed"] },
+] as const;
+
 export const BRAZIL_UFS = [
   "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
   "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO",

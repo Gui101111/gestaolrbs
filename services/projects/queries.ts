@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
-import { BUCKETS, LIBRARY_FILTERS } from "@/lib/constants/domain";
+import { BUCKETS, LIBRARY_FILTERS, STATUS_GROUPS } from "@/lib/constants/domain";
 import { signedUrlMap } from "@/services/storage";
 import type { Plan, Project, RenderJob, Subscription, Usage } from "@/types/domain";
 
@@ -35,6 +35,50 @@ export async function listProjects(opts: { filter?: string; q?: string; limit?: 
   if (opts.q) query = query.ilike("name", `%${opts.q.replace(/[%_]/g, "")}%`);
   if (opts.limit) query = query.limit(opts.limit);
   const { data, error } = await query;
+  if (error) throw new Error("projects_list_failed");
+  return withThumbs(data ?? []);
+}
+
+/**
+ * Vídeos de uma pasta (ou da raiz com folderId = null).
+ * Com busca por nome, procura em todas as pastas.
+ */
+export async function listFolderProjects(opts: {
+  userId: string;
+  folderId: string | null;
+  q?: string;
+  status?: string;
+  format?: string;
+  area?: string;
+  sort?: string;
+}) {
+  const supabase = await createClient();
+  let query = supabase.from("projects").select("*").eq("user_id", opts.userId);
+  const q = opts.q?.replace(/[%_,()]/g, "").trim();
+  if (q) query = query.ilike("name", `%${q}%`);
+  else if (opts.folderId) query = query.eq("folder_id", opts.folderId);
+  else query = query.is("folder_id", null);
+
+  const group = STATUS_GROUPS.find((g) => g.value === opts.status);
+  if (group) query = query.in("status", [...group.statuses]);
+  if (opts.format && ["9:16", "1:1", "4:5", "16:9"].includes(opts.format)) query = query.contains("aspect_ratios", [opts.format]);
+  if (opts.area) query = query.eq("legal_area", opts.area);
+
+  switch (opts.sort) {
+    case "antigos":
+      query = query.order("created_at", { ascending: true });
+      break;
+    case "nome":
+      query = query.order("name", { ascending: true });
+      break;
+    case "duracao":
+      query = query.order("source_duration_sec", { ascending: false, nullsFirst: false });
+      break;
+    default:
+      query = query.order("updated_at", { ascending: false });
+  }
+
+  const { data, error } = await query.limit(300);
   if (error) throw new Error("projects_list_failed");
   return withThumbs(data ?? []);
 }

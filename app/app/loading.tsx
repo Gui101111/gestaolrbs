@@ -1,18 +1,18 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProjectCardSkeleton } from "@/components/projects/project-card";
+import { VideoCardSkeleton } from "@/components/projects/video-card";
 
 export default function Loading() {
   return (
-    <div className="space-y-8" aria-busy="true" aria-label="Carregando">
-      <Skeleton className="h-56 rounded-3xl" />
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div className="space-y-10 pt-8" aria-busy="true" aria-label="Carregando">
+      <Skeleton className="mx-auto h-14 w-2/3 max-w-xl rounded-2xl" />
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-36 rounded-2xl" />
+          <Skeleton key={i} className="h-48 rounded-[20px]" />
         ))}
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <ProjectCardSkeleton key={i} />
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <VideoCardSkeleton key={i} />
         ))}
       </div>
     </div>

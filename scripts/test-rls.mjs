@@ -144,6 +144,44 @@ check("B não duplica projeto de A", Boolean(eDupB));
 const { error: eEns } = await A.c.rpc("ensure_usage", { p_user: B.id });
 check("Função interna ensure_usage não é exposta", Boolean(eEns));
 
+// Pastas (v2)
+const { data: fA1, error: eF1 } = await A.c.from("folders").insert({ owner_id: A.id, name: "Nível 1" }).select().single();
+check("A cria pasta própria", !eF1 && fA1);
+const { error: eFForge } = await B.c.from("folders").insert({ owner_id: A.id, name: "Forjada" });
+check("B não cria pasta em nome de A", Boolean(eFForge));
+const { data: bFolders } = await B.c.from("folders").select("id").eq("id", fA1.id);
+check("B não lê pastas de A", bFolders.length === 0);
+const { data: bFUpd } = await B.c.from("folders").update({ name: "hack" }).eq("id", fA1.id).select();
+check("B não renomeia pasta de A", (bFUpd ?? []).length === 0);
+const { data: bFDel } = await B.c.from("folders").delete().eq("id", fA1.id).select();
+check("B não exclui pasta de A", (bFDel ?? []).length === 0);
+const { error: eFOwner } = await A.c.from("folders").update({ owner_id: B.id }).eq("id", fA1.id);
+check("A não transfere a pasta para outro dono", Boolean(eFOwner), eFOwner?.message);
+const { data: fA2 } = await A.c.from("folders").insert({ owner_id: A.id, name: "Nível 2", parent_id: fA1.id }).select().single();
+const { data: fA3, error: eF3 } = await A.c.from("folders").insert({ owner_id: A.id, name: "Nível 3", parent_id: fA2.id }).select().single();
+check("A cria subpastas até o 3º nível", !eF3 && fA3);
+const { error: eF4 } = await A.c.from("folders").insert({ owner_id: A.id, name: "Nível 4", parent_id: fA3.id });
+check("4º nível é bloqueado", eF4?.message === "folder_depth", eF4?.message);
+const { error: eCycle } = await A.c.from("folders").update({ parent_id: fA3.id }).eq("id", fA1.id);
+check("Pasta não entra dentro de si mesma (ciclo)", eCycle?.message === "folder_cycle" || eCycle?.message === "folder_depth", eCycle?.message);
+const { data: fB } = await B.c.from("folders").insert({ owner_id: B.id, name: "Pasta B" }).select().single();
+const { error: eCross } = await A.c.from("folders").insert({ owner_id: A.id, name: "Filha cruzada", parent_id: fB.id });
+check("A não cria subpasta dentro da pasta de B", Boolean(eCross), eCross?.message);
+const { data: pMove, error: eMove } = await A.c.from("projects").update({ folder_id: fA2.id }).eq("id", p2.id).select("folder_id").single();
+check("A move o próprio vídeo para a própria pasta", !eMove && pMove?.folder_id === fA2.id, eMove?.message);
+const { error: eMoveB } = await A.c.from("projects").update({ folder_id: fB.id }).eq("id", p2.id);
+check("A não move vídeo para a pasta de B", eMoveB?.message === "folder_invalid", eMoveB?.message);
+const { data: lockedMove, error: eLockedMove } = await A.c.from("projects").update({ folder_id: fA1.id }).eq("id", pA.id).select("folder_id").single();
+check("Vídeo enviado também pode mudar de pasta", !eLockedMove && lockedMove?.folder_id === fA1.id, eLockedMove?.message);
+await A.c.from("folders").delete().eq("id", fA1.id);
+const { data: afterDel } = await admin.from("projects").select("folder_id").eq("id", p2.id).single();
+const { count: subLeft } = await admin.from("folders").select("id", { count: "exact", head: true }).in("id", [fA2.id, fA3.id]);
+check("Excluir pasta remove subpastas e devolve vídeos à raiz", afterDel.folder_id === null && subLeft === 0);
+const { error: eDl } = await A.c.from("projects").update({ first_downloaded_at: new Date().toISOString() }).eq("id", pA.id);
+check("A não marca download diretamente (só o servidor)", Boolean(eDl), eDl?.message);
+const { data: tr, error: eTr } = await A.c.from("profiles").update({ treatment: "dr" }).eq("id", A.id).select("treatment").single();
+check("A define o tratamento Dr./Dra.", !eTr && tr?.treatment === "dr");
+
 // limpeza
 await admin.auth.admin.deleteUser(A.id);
 await admin.auth.admin.deleteUser(B.id);

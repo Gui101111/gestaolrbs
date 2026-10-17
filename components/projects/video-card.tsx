@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { Check, Clapperboard, Play } from "lucide-react";
 import { StatusBadge } from "@/components/projects/status-badge";
-import { ProjectActionsMenu } from "@/components/projects/project-actions";
+import { ProjectActionsMenu, ProjectContextMenu } from "@/components/projects/project-actions";
 import { onSpotlightMove } from "@/components/effects/spotlight";
 import { EDITING_STATUSES, PIPELINE_STEPS } from "@/lib/constants/domain";
 import { ROUTES } from "@/lib/routes";
@@ -82,6 +82,7 @@ export function VideoCard({
 
   if (layout === "list") {
     return (
+      <ProjectContextMenu id={project.id} name={project.name} status={project.status} canDownload={done} folderId={project.folder_id}>
       <div
         {...dragProps}
         className={cn(
@@ -117,6 +118,7 @@ export function VideoCard({
         </Link>
         <ProjectActionsMenu id={project.id} name={project.name} status={project.status} canDownload={done} folderId={project.folder_id} />
       </div>
+      </ProjectContextMenu>
     );
   }
 
@@ -127,6 +129,7 @@ export function VideoCard({
       transition={{ duration: 0.6, delay: Math.min(index * 0.05, 0.4), ease: [0.22, 1, 0.36, 1] }}
       className="h-full"
     >
+      <ProjectContextMenu id={project.id} name={project.name} status={project.status} canDownload={done} folderId={project.folder_id}>
       <div
         {...dragProps}
         onPointerMove={onSpotlightMove}
@@ -189,6 +192,7 @@ export function VideoCard({
           <ProjectActionsMenu id={project.id} name={project.name} status={project.status} canDownload={done} folderId={project.folder_id} />
         </div>
       </div>
+      </ProjectContextMenu>
     </motion.article>
   );
 }
