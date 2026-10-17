@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Prévia estática (build próprio, ver preview/README.md)
+    "preview/**",
   ]),
 ]);
 
