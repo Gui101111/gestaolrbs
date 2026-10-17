@@ -38,6 +38,8 @@ export type ResultRender = {
   fileSize: number | null;
   version: number;
   createdAt: string;
+  /** Miniatura gerada na edição (capa do player). */
+  poster?: string | null;
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -152,6 +154,7 @@ export function ProjectResult({
                           players.current[r] = h;
                         }}
                         src={render?.url ?? null}
+                        poster={render?.poster ?? null}
                         aspect={r}
                         label={`Vídeo final ${r}`}
                         className={cn(

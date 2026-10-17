@@ -45,6 +45,31 @@ export type Database = {
         };
         Relationships: [];
       };
+      assistant_messages: {
+        Row: {
+          answer: string | null;
+          created_at: string;
+          id: string;
+          question: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          answer?: string | null;
+          created_at?: string;
+          id?: string;
+          question: string;
+          user_id: string;
+        };
+        Update: {
+          answer?: string | null;
+          created_at?: string;
+          id?: string;
+          question?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       brand_kits: {
         Row: {
           accent_color: string;

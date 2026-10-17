@@ -55,7 +55,12 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
   let content: React.ReactNode;
 
   if (done) {
-    const urls = await signedUrlMap(supabase, BUCKETS.renders, (renders ?? []).map((r) => r.storage_path), 60 * 60 * 2);
+    const urls = await signedUrlMap(
+      supabase,
+      BUCKETS.renders,
+      (renders ?? []).flatMap((r) => [r.storage_path, r.thumbnail_path]),
+      60 * 60 * 2,
+    );
     const [originalUrl, poster] = await Promise.all([
       original ? signedUrl(supabase, original.bucket, original.storage_path, { expiresIn: 60 * 60 * 2 }) : null,
       signedUrl(supabase, BUCKETS.thumbnails, project.thumbnail_path),
@@ -76,6 +81,7 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
       fileSize: r.file_size,
       version: r.version,
       createdAt: r.created_at,
+      poster: r.thumbnail_path ? (urls.get(r.thumbnail_path) ?? null) : null,
     }));
     const ow = original?.width ?? project.source_width;
     const oh = original?.height ?? project.source_height;

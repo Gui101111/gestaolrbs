@@ -40,12 +40,13 @@ services/
 hooks/                  upload TUS, media queries
 types/                  tipos gerados do banco + domínio
 supabase/               config.toml, migrations, templates de e-mail
-workers/                worker de edição de referência (pipeline de IA completo)
+workers/                worker de edição próprio (provedor external)
+sandbox/                editor de referência em Python (usado pelo agente e pelo worker)
 ```
 
 ## Rodando localmente
 
-Pré-requisitos: Node 22+, Docker (para o Supabase local) e FFmpeg (apenas para o worker).
+Pré-requisitos: Node 22+, Docker (para o Supabase local) e, para editar vídeos localmente, FFmpeg + Python 3 (`pip install "opencv-python-headless<5"`; opcional `faster-whisper`).
 
 ```bash
 npm install
@@ -59,12 +60,14 @@ npm run dev                 # http://localhost:3000
 - Para virar administrador: `update public.profiles set role = 'admin' where email = 'voce@exemplo.com';`
 - Tipos do banco: `npm run db:types`
 
-Scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `db:reset`, `db:types`, `worker`, `test:rls`, `test:e2e`.
+Scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `db:reset`, `db:types`, `worker`, `test:rls`, `test:e2e`, `claude:setup`, `claude:test`, `assets:setup`, `sandbox:teste`.
 
 ### Testes
 
-- `npm run test:rls` — 44 verificações de isolamento entre usuários (RLS, Storage, RPCs, colunas protegidas). Só roda contra o Supabase local.
-- `npm run test:e2e` — Playwright (desktop + mobile): landing, rotas protegidas, validações, páginas legais e o fluxo completo cadastro → confirmação por e-mail (Mailpit) → onboarding → upload TUS → envio para edição. Requer `npm run dev` e o Supabase local. Em ambientes com Chromium próprio, use `PLAYWRIGHT_CHROMIUM_PATH=/caminho/do/chromium`.
+- `npm run test:rls` — 69 verificações de isolamento entre usuários (RLS, Storage, RPCs, colunas protegidas, pastas, sessões do agente, entregas em revisão). Só roda contra o Supabase local.
+- `npm run test:e2e` — Playwright (desktop + mobile): landing, rotas novas e antigas, validações, páginas legais, 404, cadastro → confirmação por e-mail (Mailpit) → onboarding → upload TUS → envio, e recuperação de senha. Requer `npm run dev` e o Supabase local. Em ambientes com Chromium próprio, use `PLAYWRIGHT_CHROMIUM_PATH=/caminho/do/chromium`.
+- Edição automática pela interface (`e2e/editing.spec.ts`): envio → agente → liberação no admin → assistir/baixar → ajuste → v2. Rode com `CLAUDE_LOCAL_SANDBOX=1` no `.env.local` e `E2E_ADMIN_EMAIL`/`E2E_ADMIN_PASSWORD` de um admin.
+- `npm run claude:test -- video.mp4 [--formatos 9:16,1:1] [--estilo dinamico] [--provedor external]` — fluxo de edição completo pelo terminal, com report, tempo e custo. Gere um vídeo de teste com fala, pausas e frases sensíveis: `npm run sandbox:teste -- --saida /tmp/teste --imagem public/media/justica-busto.webp [--vertical]`.
 
 ## Supabase em produção
 
@@ -95,26 +98,33 @@ Scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `db:reset`, `db:types`, `
 
 ## Motor de edição
 
-O envio de um projeto chama a RPC `submit_project` (valida assinatura, cota e duração, consome a cota e cria o `render_job`) e despacha o job ao provedor definido em `VIDEO_EDITING_PROVIDER`:
+O envio de um projeto chama a RPC `submit_project` (valida assinatura, cota e duração, consome a cota e cria o `render_job`) e despacha o job ao provedor ativo. O admin troca o provedor em `/admin` sem deploy (tabela `app_settings`); o padrão vem de `VIDEO_EDITING_PROVIDER`.
 
 | Provedor | Comportamento |
 | --- | --- |
 | `manual` (padrão) | O job fica na fila; a equipe avança as etapas e envia os MP4 por formato em `/admin/projetos/[id]`. O cliente acompanha em tempo real. |
-| `external` | O briefing JSON é enviado a `EDITING_WORKER_URL`. O worker reporta progresso em `/api/jobs/callback` (Bearer `JOBS_CALLBACK_SECRET`). |
-| `claude` | Esqueleto para Claude Managed Agents (ver `services/editing/providers/claude-agent.ts`). |
+| `claude` | **Claude Managed Agents** edita na sandbox da Anthropic (Parte 2, abaixo). Com `HUMAN_REVIEW=true`, a equipe confere e clica "Liberar para o cliente". |
+| `external` | Worker próprio (`npm run worker`, porta 8787) num servidor com FFmpeg + Python. Usa o mesmo editor de referência, sem IA; reporta em `/api/jobs/callback` (Bearer `JOBS_CALLBACK_SECRET`). |
 
-O worker de referência (`npm run worker`) executa: download → transcrição (`TRANSCRIPTION_URL`, compatível com Whisper) → análise com Claude (`services/ai/analysis.ts`, saída estruturada validada por Zod) → FFmpeg por proporção (cortes, zoom, cor, limpeza de áudio, loudness, legendas ASS com termos jurídicos destacados) → upload → callback.
+O editor de referência (`sandbox/tribuna_editor.py`) analisa (silêncios, rosto com OpenCV, transcrição com faster-whisper), gera o plano e renderiza cada formato (9:16, 1:1, 4:5, 16:9) com legendas palavra a palavra, nome + OAB, título, CTA, vinheta, logo e trilha da marca, reenquadramento pelo rosto, loudness −14 LUFS e miniaturas, e confere tudo com ffprobe. Assets (fontes OFL e trilhas provisórias) ficam em `supabase/assets/` e vão para o bucket `editing-assets` com `npm run assets:setup`.
 
-Contrato do callback:
+### Edição com Claude (Parte 2)
 
-```json
-{ "jobId": "uuid", "status": "running|succeeded|failed", "step": "transcribing", "progress": 30,
-  "outputs": [{ "aspectRatio": "9:16", "path": "<user>/<project>/9x16.mp4", "width": 1080, "height": 1920, "durationSec": 62.4, "sizeBytes": 38211234 }] }
-```
+Fluxo: o servidor cria a sessão do agente com o brief e URLs assinadas e responde na hora. O agente baixa o original direto do Storage, roda o editor de referência, revisa o plano com julgamento (vícios, título, destaques, alertas OAB), renderiza e envia os arquivos de volta pelas URLs assinadas. O webhook `session.status_idled` confere o Storage (plano B: Files API; depois, um pedido para concluir) e registra as entregas. O cron `/api/cron/editing` (a cada 10 min, `vercel.json`) cobre webhooks perdidos e atualiza o progresso. Ajustes vão para a mesma sessão; a aprovação do cliente arquiva a sessão. O id da sessão e o custo ficam só em `editing_sessions` (admin).
+
+1. platform.claude.com → conta de desenvolvedor → créditos → workspace `tribuna` → API key do workspace.
+2. `.env.local` e Vercel: `ANTHROPIC_API_KEY` (nunca com `NEXT_PUBLIC_`).
+3. `npm run claude:setup` (com `NEXT_PUBLIC_SUPABASE_URL` de produção) → copie `CLAUDE_ENVIRONMENT_ID`, `CLAUDE_AGENT_ID` e `CLAUDE_TOOLKIT_FILE_ID`. Alterou o guia (`lib/claude/guia-edicao.ts`) ou o editor? `npm run claude:setup -- --atualizar`.
+4. Depois do deploy: Console → Webhooks (workspace `tribuna`) → `https://SEU-DOMINIO/api/webhooks/claude`, eventos `session.status_idled` e `session.status_terminated` (opcional `session.status_run_started`) → segredo em `ANTHROPIC_WEBHOOK_SIGNING_KEY`.
+5. `/admin` → Motor de edição → Claude. Teste com `npm run claude:test -- video.mp4` e veja o custo em Console → Usage.
+
+Sem a chave, `CLAUDE_LOCAL_SANDBOX=1` (só em desenvolvimento) roda o mesmo fluxo nesta máquina, com webhook assinado de verdade.
+
+"Perguntar à Tribuna" (painel de ajuda) responde com `claude-haiku-5-5` quando `ANTHROPIC_API_KEY` existe, só sobre a plataforma, gravação e regras gerais da OAB (base: `content/como-fazer.ts`), com limite diário (`ASSISTANT_DAILY_LIMIT`, padrão 20).
 
 ## Segurança
 
-- RLS em todas as tabelas; o usuário só lê/edita os próprios dados. Colunas sensíveis (role, status, cota) só mudam por RPC `security definer` ou pelo servidor.
+- RLS em todas as tabelas (inclusive `editing_sessions`, `app_settings` e `processed_webhooks`, só servidor/admin); o usuário só lê/edita os próprios dados. Colunas sensíveis (role, status, cota) só mudam por RPC `security definer` ou pelo servidor.
 - Projetos enviados ficam bloqueados para edição (trigger); “Criar nova versão” gera um novo rascunho.
 - Arquivos sempre privados e entregues por URL assinada de curta duração.
 - `proxy.ts` renova a sessão e faz checagens otimistas; a autorização real acontece nos layouts, actions e no banco.
@@ -122,9 +132,16 @@ Contrato do callback:
 
 ## Deploy
 
-**Vercel**: importe o repositório, configure as variáveis de `.env.example` e faça o deploy.
+Passo a passo para publicar (a ordem importa):
 
-**Docker / EasyPanel**:
+1. **Supabase** (produção): crie o projeto, `npx supabase link --project-ref <ref>` e `npx supabase db push`; siga "Supabase em produção" acima; rode `npm run assets:setup` com as chaves de produção.
+2. **Vercel**: importe o repositório do GitHub, framework Next.js, e configure as variáveis de `.env.example` (produção: `NEXT_PUBLIC_SITE_URL` com o domínio final, chaves do Supabase, `JOBS_CALLBACK_SECRET`, `CRON_SECRET`, Resend, Asaas e, para a Parte 2, as da Anthropic). Faça o deploy e aponte o domínio.
+3. **Cron**: `vercel.json` agenda `/api/cron/editing` a cada 10 min (exige plano Pro; no Hobby a Vercel só permite 1 execução por dia).
+4. **Webhooks**: Asaas → `/api/webhooks/asaas`; Anthropic → `/api/webhooks/claude`.
+5. **Admin**: cadastre-se e rode `update public.profiles set role = 'admin' where email = 'voce@exemplo.com';` no SQL Editor.
+6. Ative o Google (opcional) e teste: cadastro, e-mail de confirmação, envio de um vídeo, liberação no admin, download.
+
+**Docker / EasyPanel** (alternativa à Vercel):
 
 ```bash
 docker build \
