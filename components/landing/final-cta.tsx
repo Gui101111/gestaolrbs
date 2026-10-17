@@ -1,43 +1,44 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { LineReveal } from "@/components/animations/animated-text";
 import { Magnetic } from "@/components/animations/magnetic";
-import { Reveal } from "@/components/animations/reveal";
-import { GoldDust } from "@/components/animations/gold-dust";
+import { AnimatedText } from "@/components/animations/animated-text";
+import { Aurora } from "@/components/effects/aurora";
+import { accentSegments } from "@/components/shared/accent-text";
+import { landing } from "@/content/landing";
+import { ROUTES } from "@/lib/routes";
 
+/** Bloco 4: uma frase e um botão. */
 export function FinalCta({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   return (
-    <section className="relative overflow-hidden px-4 pb-28 md:px-6 md:pb-36">
-      <div className="panel gold-ring relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] px-6 py-24 text-center md:rounded-[2.5rem] md:py-32">
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <Image src="/media/justica-rosto.webp" alt="" fill sizes="100vw" className="object-cover opacity-[0.16] mix-blend-luminosity" />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/80 to-ink" />
-          <div className="absolute top-1/2 left-1/2 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/15 blur-[110px] animate-pulse-glow" />
-          <GoldDust density={0.00005} />
-        </div>
+    <section data-accent="gold" className="relative px-3 pt-6 pb-16 md:px-5 md:pb-24" aria-label="Começar">
+      <div className="theme-stage texture-metal relative mx-auto max-w-6xl overflow-hidden rounded-[28px] bg-stage px-6 py-16 text-center text-fg md:rounded-[34px] md:py-24">
+        <Aurora variant="hero" />
+        <div aria-hidden className="grid-floor opacity-40" />
         <div className="relative">
-          <p className="eyebrow">Comece hoje</p>
-          <h2 className="mx-auto mt-6 max-w-4xl font-display text-4xl leading-[1.08] font-medium text-ivory sm:text-6xl md:text-7xl">
-            <LineReveal lines={["O advogado não precisa editar.", <span key="b" className="text-gold-gradient italic">A inteligência edita para ele.</span>]} />
-          </h2>
-          <Reveal delay={0.4}>
-            <p className="mx-auto mt-8 max-w-xl text-base text-mist md:text-lg">
-              Envie seu primeiro vídeo e veja o resultado com a identidade do seu escritório.
-            </p>
-            <div className="mt-10 flex justify-center">
-              <Magnetic>
-                <Button asChild variant="gold" size="xl" className="glow-gold">
-                  <Link href={isAuthenticated ? "/app/projetos/novo" : "/register"}>
-                    Criar primeiro projeto <ArrowRight />
-                  </Link>
-                </Button>
-              </Magnetic>
-            </div>
-          </Reveal>
+          <AnimatedText
+            as="h2"
+            className="mx-auto max-w-3xl text-4xl leading-[1.05] font-extrabold text-balance md:text-6xl"
+            segments={accentSegments(landing.cta.title)}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-9 flex justify-center"
+          >
+            <Magnetic>
+              <Button asChild variant="gold" size="xl" pulse>
+                <Link href={isAuthenticated ? ROUTES.newVideo : ROUTES.register}>
+                  {landing.cta.button} <ArrowRight className="transition-transform group-hover/btn:translate-x-1" />
+                </Link>
+              </Button>
+            </Magnetic>
+          </motion.div>
         </div>
       </div>
     </section>

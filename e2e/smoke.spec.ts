@@ -10,11 +10,20 @@ test.beforeEach(async ({ context }) => {
 
 test("landing exibe o hero e a estátua interativa", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveAccessibleName(/Transforme vídeos jurídicos/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveAccessibleName(/Vídeos jurídicos editados por IA/);
   await expect(page.locator("canvas.touch-pan-y")).toBeVisible();
-  await expect(page.locator("#topo").getByRole("link", { name: /Criar primeiro projeto/i })).toBeVisible();
+  await expect(page.locator("#topo").getByRole("link", { name: /Criar meu primeiro vídeo/i })).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test("abas do Explorar respondem ao hash e ao teclado", async ({ page }) => {
+  await page.goto("/#planos");
+  await expect(page.getByRole("tab", { name: "Planos" })).toHaveAttribute("aria-selected", "true");
+  await page.getByRole("tab", { name: "Planos" }).focus();
+  await page.keyboard.press("ArrowDown");
+  await expect(page.getByRole("tab", { name: "Dúvidas" })).toHaveAttribute("aria-selected", "true");
+  await expect(page).toHaveURL(/#duvidas$/);
 });
 
 test("rotas protegidas redirecionam para o login", async ({ page }) => {

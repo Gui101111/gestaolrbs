@@ -1,38 +1,43 @@
-"use client";
-
 import { Marquee } from "@/components/animations/marquee";
+import { InstagramIcon, LinkedinIcon, MetaIcon, TiktokIcon, YoutubeIcon } from "@/components/brand/social-icons";
 
-const WORDS = [
-  "Edição Jurídica",
-  "Inteligência Artificial",
-  "Vídeos Profissionais",
-  "Tráfego Pago",
-  "Conteúdo Orgânico",
-  "Automação",
-];
+const ITEMS = [
+  { kind: "icon", Icon: TiktokIcon, label: "TikTok" },
+  { kind: "ratio", ratio: "9:16", w: 9, h: 16 },
+  { kind: "icon", Icon: InstagramIcon, label: "Instagram" },
+  { kind: "ratio", ratio: "1:1", w: 1, h: 1 },
+  { kind: "icon", Icon: YoutubeIcon, label: "YouTube" },
+  { kind: "ratio", ratio: "4:5", w: 4, h: 5 },
+  { kind: "icon", Icon: MetaIcon, label: "Meta" },
+  { kind: "ratio", ratio: "16:9", w: 16, h: 9 },
+  { kind: "icon", Icon: LinkedinIcon, label: "LinkedIn" },
+] as const;
 
+/** Bloco 2: faixa gráfica (ícones de plataformas e chips de formato), sem frases. */
 export function MarqueeBand() {
   return (
-    <section aria-label="Pilares da plataforma" className="relative border-y border-fg/[0.06] bg-ink-2 py-7 md:py-9">
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hairline opacity-60" />
-      <Marquee baseVelocity={-1.6} itemClassName="gap-10 pr-10 md:gap-16 md:pr-16">
-        {WORDS.map((w, i) => (
-          <span key={w} className="flex items-center gap-10 md:gap-16">
-            <span
-              className={
-                i % 2 === 0
-                  ? "font-display text-4xl font-medium tracking-[0.04em] text-ivory uppercase md:text-6xl"
-                  : "font-display text-4xl font-medium tracking-[0.04em] uppercase italic text-stroke-gold md:text-6xl"
-              }
-            >
-              {w}
+    <section aria-label="Plataformas e formatos" className="relative py-8 md:py-10">
+      <div aria-hidden className="hairline absolute inset-x-0 top-0 opacity-60" />
+      <Marquee baseVelocity={-1.4} itemClassName="gap-4 pr-4 md:gap-6 md:pr-6">
+        {ITEMS.map((it, i) =>
+          it.kind === "icon" ? (
+            <span key={i} className="grid size-12 place-items-center rounded-2xl border border-line bg-fg/[0.03] text-fg-2 md:size-14">
+              <it.Icon className="size-5 md:size-6" />
+              <span className="sr-only">{it.label}</span>
             </span>
-            <svg viewBox="0 0 24 24" className="size-5 text-gold md:size-6" aria-hidden>
-              <path d="M12 2 13.8 10.2 22 12l-8.2 1.8L12 22l-1.8-8.2L2 12l8.2-1.8Z" fill="currentColor" opacity="0.85" />
-            </svg>
-          </span>
-        ))}
+          ) : (
+            <span key={i} className="flex h-12 items-center gap-2.5 rounded-2xl border border-cyan/25 bg-cyan/[0.05] px-4 md:h-14 md:px-5">
+              <span
+                aria-hidden
+                className="rounded-[3px] border-[1.5px] border-cyan shadow-[0_0_10px_-2px_var(--cyan)]"
+                style={{ width: it.w >= it.h ? 18 : (18 * it.w) / it.h, height: it.h >= it.w ? 18 : (18 * it.h) / it.w }}
+              />
+              <span className="font-display text-sm font-bold text-fg md:text-base">{it.ratio}</span>
+            </span>
+          ),
+        )}
       </Marquee>
+      <div aria-hidden className="hairline absolute inset-x-0 bottom-0 opacity-60" />
     </section>
   );
 }

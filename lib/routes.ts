@@ -1,0 +1,22 @@
+/** Rotas públicas e do app em um só lugar (os links do site leem daqui). */
+export const ROUTES = {
+  home: "/",
+  login: "/login",
+  register: "/register",
+  verifyEmail: "/verify-email",
+  forgotPassword: "/forgot-password",
+  resetPassword: "/reset-password",
+  terms: "/termos",
+  privacy: "/privacidade",
+
+  app: "/app",
+  projects: "/app/biblioteca",
+  newVideo: "/app/projetos/novo",
+  examples: "/app/exemplos",
+  howTo: "/app/como-fazer",
+  brand: "/app/marca",
+  billing: "/app/assinatura",
+  settings: "/app/configuracoes",
+  profile: "/app/perfil",
+  video: (id: string) => `/app/projetos/${id}`,
+} as const;

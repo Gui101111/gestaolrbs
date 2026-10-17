@@ -2,215 +2,241 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { ArrowRight, Landmark, Lock, Play, Scale, Sparkles } from "lucide-react";
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from "motion/react";
+import { ArrowRight, Landmark, Lock, Play, RectangleVertical, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedText } from "@/components/animations/animated-text";
 import { Magnetic } from "@/components/animations/magnetic";
-import { CountUp } from "@/components/animations/count-up";
 import { GoldDust } from "@/components/animations/gold-dust";
-import { scrollToId } from "@/components/animations/smooth-scroll";
+import { Aurora } from "@/components/effects/aurora";
 import { JusticeScale } from "@/components/landing/justice-scale";
-import { siteConfig } from "@/config/site";
+import { DOCK_START, useStatueDock } from "@/components/landing/statue-dock";
+import { openExploreTab } from "@/components/landing/explore-events";
+import { accentSegments } from "@/components/shared/accent-text";
+import { landing } from "@/content/landing";
+import { ROUTES } from "@/lib/routes";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+const SEAL_ICONS = { landmark: Landmark, lock: Lock, ratio: RectangleVertical } as const;
 
+/**
+ * Bloco 1: palco escuro arredondado com a estátua interativa.
+ * O hero fica fixo enquanto o scroll aproxima a câmera da estátua; no fim,
+ * ela é entregue à estátua acoplada no canto (ver StatueDock).
+ */
 export function Hero({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
-  const ref = React.useRef<HTMLElement>(null);
+  const { heroRef, statueRef, progress } = useStatueDock();
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const statueY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 120]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -60]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, reduce ? 1 : 0]);
-  const bgWordY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 180]);
+  const still = reduce === true;
 
-  const primaryHref = isAuthenticated ? "/app/projetos/novo" : "/register";
+  const textOpacity = useTransform(progress, [0.04, 0.45], [1, still ? 1 : 0]);
+  const textY = useTransform(progress, [0, 0.6], [0, still ? 0 : -70]);
+  const textBlur = useTransform(progress, [0.04, 0.45], ["blur(0px)", still ? "blur(0px)" : "blur(8px)"]);
+  const statueScale = useTransform(progress, [0, DOCK_START], [1, still ? 1 : 1.14]);
+  const statueY = useTransform(progress, [0, DOCK_START], [0, still ? 0 : 28]);
+  const statueOpacity = useTransform(progress, [DOCK_START, DOCK_START + 0.02], [1, still ? 1 : 0]);
+  const stageScale = useTransform(progress, [0, DOCK_START], [1, still ? 1 : 0.985]);
+  const glow = useTransform(progress, [0, DOCK_START], [0.55, still ? 0.55 : 1]);
+
+  const primaryHref = isAuthenticated ? ROUTES.newVideo : ROUTES.register;
+  const h = landing.hero;
 
   return (
-    <section ref={ref} id="topo" className="grain relative isolate min-h-[100svh] overflow-hidden pt-28 pb-10 md:pt-32">
-      {/* Fundo: luz de estúdio, grade dourada e feixes */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_10%_0%,rgba(22,38,61,0.9),transparent_62%),radial-gradient(ellipse_50%_60%_at_25%_85%,rgba(16,29,45,0.75),transparent_70%)]" />
-        <div className="absolute top-[8%] right-[2%] h-[80%] w-[52%] rounded-full bg-[radial-gradient(closest-side,rgba(40,28,12,0.55),transparent)]" />
-        <div className="absolute inset-0 bg-gold-lines [mask-image:radial-gradient(ellipse_70%_60%_at_60%_40%,#000_10%,transparent_75%)]" />
-        <LightBeams />
-        <GoldDust />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-ink" />
-      </div>
-
-      {/* Palavra monumental ao fundo */}
-      <motion.div
-        aria-hidden
-        style={{ y: bgWordY }}
-        className="pointer-events-none absolute top-[16%] right-[-4%] -z-10 hidden select-none font-display text-[19vw] leading-none font-semibold tracking-[0.04em] text-stroke-gold opacity-[0.18] lg:block"
-      >
-        IUSTITIA
-      </motion.div>
-
-      <div className="mx-auto grid max-w-7xl items-center gap-6 px-6 md:px-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-4">
-        <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-10 order-2 lg:order-1">
-          <motion.div
-            initial={{ opacity: 0, y: 16, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 1, ease: EASE, delay: 0.3 }}
-            className="gold-ring inline-flex items-center gap-2.5 rounded-full bg-fg/[0.03] py-1.5 pr-4 pl-1.5 backdrop-blur"
-          >
-            <span className="grid size-7 place-items-center rounded-full bg-gold/15 text-gold-light shadow-[0_0_16px_-2px_rgba(198,161,91,0.6)]">
-              <Scale className="size-3.5" />
-            </span>
-            <span className="text-[0.75rem] font-medium tracking-[0.08em] text-ivory/90">Desenvolvido para advogados</span>
-          </motion.div>
-
-          <AnimatedText
-            as="h1"
-            trigger="mount"
-            delay={0.45}
-            stagger={0.055}
-            className="mt-7 font-display text-[2.75rem] leading-[1.02] font-medium text-ivory sm:text-6xl lg:text-[4.6rem] xl:text-[5.2rem]"
-            segments={[
-              { text: "Transforme vídeos jurídicos em " },
-              { text: "conteúdo profissional", className: "text-gold-gradient italic" },
-              { text: " com IA." },
-            ]}
-          />
-
-          <motion.p
-            initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 1.1, ease: EASE, delay: 1.15 }}
-            className="mt-7 max-w-xl text-base leading-relaxed text-mist md:text-lg"
-          >
-            Envie seu vídeo. Nossa inteligência analisa a fala, estrutura a edição e prepara conteúdos profissionais para
-            redes sociais e anúncios.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: EASE, delay: 1.35 }}
-            className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <Magnetic>
-              <Button asChild variant="gold" size="lg" className="w-full sm:w-auto">
-                <Link href={primaryHref}>
-                  Criar primeiro projeto <ArrowRight className="transition-transform group-hover/btn:translate-x-1" />
-                </Link>
-              </Button>
-            </Magnetic>
-            <Button variant="outline" size="lg" onClick={() => scrollToId("como-funciona")} className="group/watch">
-              <span className="grid size-6 place-items-center rounded-full border border-gold/50 transition-colors group-hover/watch:bg-gold/20">
-                <Play className="size-2.5 fill-current" />
-              </span>
-              Ver como funciona
-            </Button>
-          </motion.div>
-
-          <motion.ul
-            initial="hidden"
-            animate="show"
-            variants={{ show: { transition: { staggerChildren: 0.1, delayChildren: 1.6 } } }}
-            className="mt-12 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-fg/[0.08]"
-          >
-            {[
-              { icon: Landmark, title: "Provimento 205/2021", text: "Sem promessas" },
-              { icon: Lock, title: "Sigilo e LGPD", text: "Arquivos privados" },
-              { icon: Sparkles, title: "Pronto para publicar", text: "Reels, Ads, YouTube" },
-            ].map(({ icon: Icon, title, text }) => (
-              <motion.li
-                key={title}
-                variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }}
-                className="flex items-center gap-3 sm:px-5 sm:first:pl-0"
-              >
-                <span className="grid size-9 shrink-0 place-items-center rounded-xl border border-gold/25 bg-gold/[0.06] text-gold">
-                  <Icon className="size-4" />
-                </span>
-                <span className="leading-tight">
-                  <span className="block text-[0.8125rem] font-semibold whitespace-nowrap text-ivory">{title}</span>
-                  <span className="block text-xs whitespace-nowrap text-mist">{text}</span>
-                </span>
-              </motion.li>
-            ))}
-          </motion.ul>
-        </motion.div>
-
+    <section
+      ref={heroRef}
+      id="topo"
+      data-accent="gold"
+      className="relative h-[175svh] motion-reduce:h-auto"
+      aria-label="Apresentação"
+    >
+      <div className="sticky top-0 h-[100svh] min-h-[620px] p-2 md:p-3 motion-reduce:relative">
         <motion.div
-          style={{ y: statueY }}
-          initial={{ opacity: 0, scale: 0.96, filter: "blur(12px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 1.8, ease: EASE, delay: 0.1 }}
-          className="relative order-1 mx-auto w-full max-w-[min(80vw,330px)] sm:max-w-[440px] lg:order-2 lg:max-w-[640px]"
+          style={{ scale: stageScale }}
+          className="theme-stage texture-metal relative isolate h-full overflow-hidden rounded-[26px] bg-stage text-fg md:rounded-[32px]"
         >
-          <JusticeScale />
+          {/* Fundo: aurora, grade em perspectiva, partículas e vinheta */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+            <Aurora variant="hero" />
+            <div className="grid-floor opacity-70" />
+            <GoldDust density={0.00004} />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_70%_at_50%_45%,transparent_40%,rgb(8_9_12/0.75)_100%)]" />
+          </div>
+
+          <div className="mx-auto grid h-full max-w-7xl grid-rows-[auto_1fr] items-center gap-2 px-5 pt-24 pb-6 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:grid-rows-1 lg:gap-6 lg:pt-20 lg:pb-10">
+            <motion.div
+              style={{ opacity: textOpacity, y: textY, filter: textBlur }}
+              className="relative z-10 order-2 text-center lg:order-1 lg:text-left"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 14, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.9, ease: EASE, delay: 0.25 }}
+                className="glass inline-flex items-center gap-2 rounded-full py-1.5 pr-4 pl-1.5"
+              >
+                <span className="grid size-6 place-items-center rounded-full bg-cyan/15 text-cyan shadow-[0_0_14px_-2px_var(--cyan)]">
+                  <Sparkles className="size-3.5" />
+                </span>
+                <span className="text-xs font-semibold text-fg sm:text-[0.8125rem]">{h.chip}</span>
+              </motion.div>
+
+              <AnimatedText
+                as="h1"
+                trigger="mount"
+                delay={0.4}
+                stagger={0.07}
+                className="mt-5 text-[2.6rem] leading-[1.02] font-extrabold text-balance text-fg sm:text-6xl lg:mt-7 lg:text-[4.5rem] xl:text-[5.1rem]"
+                segments={accentSegments(h.title)}
+              />
+
+              <motion.p
+                initial={{ opacity: 0, y: 14, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 1, ease: EASE, delay: 0.95 }}
+                className="mx-auto mt-4 max-w-md text-[0.9375rem] leading-relaxed text-fg-2 md:text-lg lg:mx-0 lg:mt-6"
+              >
+                {h.subtitle}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease: EASE, delay: 1.15 }}
+                className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:mt-9 lg:justify-start"
+              >
+                <Magnetic>
+                  <Button asChild variant="gold" size="lg" pulse className="w-full sm:w-auto">
+                    <Link href={primaryHref}>
+                      {h.primary} <ArrowRight className="transition-transform group-hover/btn:translate-x-1" />
+                    </Link>
+                  </Button>
+                </Magnetic>
+                <Button variant="glass" size="lg" onClick={() => openExploreTab("exemplos")} className="w-full sm:w-auto">
+                  <span className="grid size-5 place-items-center rounded-full border border-cyan/50 text-cyan">
+                    <Play className="size-2.5 fill-current" />
+                  </span>
+                  {h.secondary}
+                </Button>
+              </motion.div>
+
+              <motion.ul
+                initial="hidden"
+                animate="show"
+                variants={{ show: { transition: { staggerChildren: 0.08, delayChildren: 1.35 } } }}
+                className="mt-6 flex flex-wrap items-center justify-center gap-2 lg:mt-10 lg:justify-start"
+              >
+                {h.seals.map((s) => {
+                  const Icon = SEAL_ICONS[s.icon as keyof typeof SEAL_ICONS];
+                  return (
+                    <motion.li
+                      key={s.label}
+                      variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } }}
+                      className="flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs font-medium text-fg-2"
+                    >
+                      <Icon className="size-3.5 text-gold" />
+                      {s.label}
+                    </motion.li>
+                  );
+                })}
+              </motion.ul>
+            </motion.div>
+
+            <div className="relative order-1 flex h-full min-h-0 items-center justify-center lg:order-2">
+              <motion.div
+                aria-hidden
+                style={{ opacity: glow }}
+                className="pointer-events-none absolute top-1/2 left-1/2 -z-10 size-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--gold)_38%,transparent),color-mix(in_oklab,var(--cyan)_10%,transparent)_60%,transparent)] blur-2xl animate-pulse-glow"
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96, filter: "blur(12px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1.6, ease: EASE, delay: 0.1 }}
+                className="relative mb-3 w-full max-w-[min(60vw,30svh)] sm:max-w-[min(420px,40svh)] lg:mb-0 lg:max-w-[min(600px,72svh)]"
+              >
+                <motion.div style={{ scale: statueScale, y: statueY, opacity: statueOpacity }} className="relative">
+                  <div ref={statueRef} data-hero-statue>
+                    <JusticeScale />
+                  </div>
+                </motion.div>
+                <FloatingChips chips={h.chips} progress={progress} still={still} />
+              </motion.div>
+            </div>
+          </div>
         </motion.div>
       </div>
-
-      {/* Faixa de destaques */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: EASE, delay: 1.8 }}
-        className="relative z-10 mx-auto mt-10 max-w-5xl px-6 md:mt-4 md:px-10"
-      >
-        <div className="panel gold-ring grid grid-cols-2 gap-y-6 rounded-3xl px-4 py-6 md:grid-cols-4 md:divide-x md:divide-fg/[0.07] md:px-2">
-          {siteConfig.highlights.map((h) => (
-            <div key={h.label} className="px-3 text-center md:px-6">
-              <div className="font-display text-4xl font-medium text-gold-gradient md:text-5xl">
-                <CountUp value={h.value} suffix={h.suffix} />
-              </div>
-              <p className="mt-1 text-[0.8125rem] font-semibold text-ivory">{h.label}</p>
-              <p className="mt-0.5 text-[0.6875rem] tracking-wide text-mist">{h.caption}</p>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-
-      <ScrollCue />
     </section>
   );
 }
 
-function ScrollCue() {
+const CHIP_SPOTS = [
+  { className: "top-[14%] -left-[6%] lg:-left-[10%]", depth: 18, spread: [-40, -30], delay: 0 },
+  { className: "top-[30%] -right-[4%] lg:-right-[8%]", depth: -22, spread: [46, -18], delay: 0.8 },
+  { className: "bottom-[24%] -left-[2%] lg:-left-[6%]", depth: 26, spread: [-52, 26], delay: 1.6 },
+  { className: "bottom-[14%] -right-[2%] lg:-right-[4%]", depth: -16, spread: [40, 34], delay: 2.4 },
+];
+
+/** Chips de vidro flutuando ao redor da estátua, com parallax do mouse e do scroll. */
+function FloatingChips({ chips, progress, still }: { chips: readonly string[]; progress: MotionValue<number>; still: boolean }) {
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 60, damping: 18 });
+  const sy = useSpring(my, { stiffness: 60, damping: 18 });
+
+  React.useEffect(() => {
+    if (still || !window.matchMedia("(pointer: fine)").matches) return;
+    const onMove = (e: PointerEvent) => {
+      mx.set((e.clientX / window.innerWidth) * 2 - 1);
+      my.set((e.clientY / window.innerHeight) * 2 - 1);
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    return () => window.removeEventListener("pointermove", onMove);
+  }, [mx, my, still]);
+
   return (
-    <motion.button
-      type="button"
-      onClick={() => scrollToId("produto")}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 2.4, duration: 1 }}
-      className="mx-auto mt-10 hidden flex-col items-center gap-3 text-[0.625rem] font-semibold tracking-[0.35em] text-mist/70 uppercase transition-colors hover:text-gold-light md:flex"
-      aria-label="Rolar para o produto"
-    >
-      Role
-      <span className="relative h-12 w-px overflow-hidden bg-fg/10">
-        <span className="absolute inset-x-0 top-0 h-1/2 animate-[scroll-cue_2.2s_cubic-bezier(0.65,0,0.35,1)_infinite] bg-gradient-to-b from-transparent via-gold to-transparent" />
-      </span>
-    </motion.button>
+    <div aria-hidden className="pointer-events-none absolute inset-0">
+      {chips.map((label, i) => (
+        <Chip key={label} label={label} spot={CHIP_SPOTS[i % CHIP_SPOTS.length]} sx={sx} sy={sy} progress={progress} still={still} index={i} />
+      ))}
+    </div>
   );
 }
 
-/** Feixes de luz dourada diagonais, muito sutis (inspirados em luz de estúdio). */
-function LightBeams() {
+function Chip({
+  label,
+  spot,
+  sx,
+  sy,
+  progress,
+  still,
+  index,
+}: {
+  label: string;
+  spot: (typeof CHIP_SPOTS)[number];
+  sx: MotionValue<number>;
+  sy: MotionValue<number>;
+  progress: MotionValue<number>;
+  still: boolean;
+  index: number;
+}) {
+  const x = useTransform(() => (still ? 0 : sx.get() * spot.depth + progress.get() * spot.spread[0] * 2));
+  const y = useTransform(() => (still ? 0 : sy.get() * spot.depth + progress.get() * spot.spread[1] * 2));
+  const opacity = useTransform(progress, [0.3, 0.7], [1, still ? 1 : 0]);
+  const isCheck = label.includes("✓");
   return (
-    <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 1440 900" aria-hidden>
-      <defs>
-        <linearGradient id="beam" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0" stopColor="#C6A15B" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#E1C487" stopOpacity="0.55" />
-          <stop offset="1" stopColor="#C6A15B" stopOpacity="0" />
-        </linearGradient>
-        <filter id="beam-blur">
-          <feGaussianBlur stdDeviation="1.2" />
-        </filter>
-      </defs>
-      {[
-        { d: "M-100 760 C 300 620, 700 700, 1540 260", w: 1.2, o: 0.5, dur: "14s" },
-        { d: "M-100 820 C 420 700, 860 760, 1540 380", w: 0.8, o: 0.35, dur: "18s" },
-        { d: "M-100 120 C 380 220, 900 80, 1540 160", w: 0.6, o: 0.25, dur: "22s" },
-      ].map((b, i) => (
-        <path key={i} d={b.d} stroke="url(#beam)" strokeWidth={b.w} fill="none" opacity={b.o} filter="url(#beam-blur)" strokeDasharray="600 1400">
-          <animate attributeName="stroke-dashoffset" from="2000" to="0" dur={b.dur} repeatCount="indefinite" />
-        </path>
-      ))}
-    </svg>
+    <motion.span
+      initial={{ opacity: 0, scale: 0.8, filter: "blur(6px)" }}
+      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      transition={{ duration: 0.9, ease: EASE, delay: 1.2 + index * 0.15 }}
+      className={`absolute ${spot.className}`}
+    >
+      <motion.span style={{ x, y, opacity }} className="block">
+        <span
+          className="glass flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.6875rem] font-semibold text-fg shadow-[0_8px_24px_-12px_rgb(0_0_0/0.8)] animate-float-soft sm:px-3 sm:py-1.5 sm:text-xs"
+          style={{ animationDelay: `${spot.delay}s` }}
+        >
+          <span className={`size-1.5 rounded-full ${isCheck ? "bg-success shadow-[0_0_8px_var(--success)]" : "bg-cyan shadow-[0_0_8px_var(--cyan)]"}`} />
+          {label}
+        </span>
+      </motion.span>
+    </motion.span>
   );
 }

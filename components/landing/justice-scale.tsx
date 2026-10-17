@@ -469,8 +469,8 @@ export function JusticeScale({ className, priority = true }: { className?: strin
     >
       {/* Halo e luz de estúdio atrás da estátua */}
       <div aria-hidden className="pointer-events-none absolute inset-[-12%] -z-10">
-        <div className="absolute left-1/2 top-[38%] h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(214,158,78,0.22),rgba(170,110,40,0.07)_55%,transparent)] blur-2xl animate-pulse-glow" />
-        <div className="absolute left-1/2 bottom-[6%] h-[14%] w-[62%] -translate-x-1/2 rounded-[100%] bg-[radial-gradient(closest-side,rgba(225,196,135,0.22),transparent)] blur-xl" />
+        <div className="absolute left-1/2 top-[38%] h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(242,196,109,0.24),rgba(201,154,59,0.08)_55%,transparent)] blur-2xl animate-pulse-glow" />
+        <div className="absolute left-1/2 bottom-[6%] h-[14%] w-[62%] -translate-x-1/2 rounded-[100%] bg-[radial-gradient(closest-side,rgba(59,227,240,0.16),rgba(242,196,109,0.12)_45%,transparent)] blur-xl" />
       </div>
 
       <div
@@ -504,11 +504,11 @@ export function JusticeScale({ className, priority = true }: { className?: strin
       {/* Dica de interação */}
       <div
         className={cn(
-          "pointer-events-none absolute bottom-[3%] left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-gold/25 bg-ink/70 px-3.5 py-1.5 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-gold-light/90 backdrop-blur transition-all duration-700",
+          "glass pointer-events-none absolute bottom-[3%] left-1/2 flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[0.6875rem] font-semibold tracking-[0.04em] text-fg transition-all duration-700",
           touched || failed || !ready ? "translate-y-2 opacity-0" : "opacity-100",
         )}
       >
-        <Hand className="size-3.5 animate-[float_2.6s_ease-in-out_infinite]" />
+        <Hand className="size-3.5 text-cyan animate-[float_2.6s_ease-in-out_infinite]" />
         <span className="hidden md:inline">Mova o cursor para equilibrar</span>
         <span className="md:hidden">Deslize para equilibrar</span>
       </div>

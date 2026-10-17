@@ -39,6 +39,14 @@ export function TiktokIcon(props: IconProps) {
   );
 }
 
+export function MetaIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden {...props}>
+      <path d="M12 12c-1.8-2.6-3.3-4-5-4-2 0-3.5 1.8-3.5 4s1.5 4 3.5 4c1.7 0 3.2-1.4 5-4Zm0 0c1.8 2.6 3.3 4 5 4 2 0 3.5-1.8 3.5-4s-1.5-4-3.5-4c-1.7 0-3.2 1.4-5 4Z" />
+    </svg>
+  );
+}
+
 export function GoogleIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 48 48" aria-hidden {...props}>

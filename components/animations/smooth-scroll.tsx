@@ -19,7 +19,6 @@ export function SmoothScroll() {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 1.2,
-      anchors: { offset: -80 },
     });
     (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
@@ -45,4 +44,11 @@ export function scrollToId(id: string) {
   const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
   if (lenis) lenis.scrollTo(el, { offset: -80, duration: 1.4 });
   else el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/** Volta suavemente ao topo da página. */
+export function scrollToTop() {
+  const lenis = (window as unknown as { __lenis?: Lenis }).__lenis;
+  if (lenis) lenis.scrollTo(0, { duration: 1.6 });
+  else window.scrollTo({ top: 0, behavior: "smooth" });
 }

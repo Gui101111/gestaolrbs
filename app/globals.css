@@ -356,7 +356,6 @@ html.theme-switching * {
   background: var(--glass);
   border: 1px solid var(--line);
   backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
 }
 
 /* Vidro mais opaco, para menus e painéis sobre conteúdo */
@@ -364,7 +363,6 @@ html.theme-switching * {
   background: var(--glass-strong);
   border: 1px solid var(--line);
   backdrop-filter: blur(20px) saturate(1.3);
-  -webkit-backdrop-filter: blur(20px) saturate(1.3);
 }
 
 /* Superfície de metal escovado */
@@ -382,7 +380,6 @@ html.theme-switching * {
   border: 1px solid var(--line);
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
 }
 
 /* Borda neon em degradê girando (item ativo, card de etapa) */
@@ -764,6 +761,59 @@ html.theme-switching * {
   }
   100% {
     top: 100%;
+  }
+}
+@keyframes example-push {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08) translateY(-1.5%);
+  }
+}
+@keyframes example-progress {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+@keyframes punch-zoom {
+  0%,
+  44% {
+    transform: scale(1);
+  }
+  50%,
+  94% {
+    transform: scale(1.14);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes cine-drift {
+  from {
+    transform: scale(1.06) translateX(-2%);
+  }
+  to {
+    transform: scale(1.1) translateX(2%);
+  }
+}
+@keyframes travel {
+  0% {
+    left: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
   }
 }
 @keyframes shimmer {
