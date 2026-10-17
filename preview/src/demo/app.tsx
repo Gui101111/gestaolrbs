@@ -80,7 +80,7 @@ export function DemoApp() {
         console.error("[demo] rota falhou", e);
         setView({
           node: (
-            <div className="grid min-h-dvh place-items-center bg-canvas p-6 text-center">
+            <div className="grid min-h-dvh place-items-center bg-page p-6 text-center">
               <div>
                 <p className="eyebrow">Algo deu errado</p>
                 <p className="mt-3 font-display text-3xl text-fg">Não conseguimos abrir esta tela.</p>
@@ -134,7 +134,7 @@ export function DemoApp() {
           />
         )}
       </AnimatePresence>
-      {view ? <React.Fragment key={view.key}>{view.node}</React.Fragment> : <div className="grid min-h-dvh place-items-center bg-canvas font-display text-2xl tracking-[0.4em] text-gold">TRIBUNA</div>}
+      {view ? <React.Fragment key={view.key}>{view.node}</React.Fragment> : <div className="grid min-h-dvh place-items-center bg-page font-display text-2xl tracking-[0.4em] text-gold">TRIBUNA</div>}
       {loc.path === "/verificar-email" && currentUserId() && <VerifyShortcut />}
       <GesturePrompt />
     </>

@@ -7,7 +7,7 @@ import { ROUTES } from "@/lib/routes";
 
 export default function NotFound() {
   return (
-    <main className="relative isolate flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-canvas px-6 text-center">
+    <main className="relative isolate flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-page px-6 text-center">
       <Aurora variant="subtle" interactive={false} />
       <div className="absolute top-6 md:top-8">
         <Logo />

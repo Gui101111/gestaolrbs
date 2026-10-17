@@ -11,6 +11,7 @@ import { DrawCheck } from "@/components/effects/draw-check";
 import { Aurora } from "@/components/effects/aurora";
 import { setUiPreferencesAction } from "@/lib/actions/profile";
 import { cn } from "@/lib/utils";
+import { CountUp } from "@/components/animations/count-up";
 
 export type SetupStep = {
   id: string;
@@ -48,7 +49,7 @@ export function SetupSteps({ steps }: { steps: SetupStep[] }) {
           Conclua sua configuração
           <span className="text-fg-3">·</span>
           <span className="tabular-nums text-fg-2">
-            {doneCount}/{steps.length}
+            <CountUp value={doneCount} duration={1.2} />/{steps.length}
           </span>
         </h2>
         {all && (

@@ -198,7 +198,7 @@ export function NewVideoFlow({ userId, initial, video: initialVideo, tip, limits
   const missing = !valid[0] ? (!video ? "Envie o vídeo" : !d.legal_area ? "Escolha a área do Direito" : "Dê um título") : !valid[1] ? (!d.editing_style ? "Escolha o estilo" : "Escolha ao menos um formato") : null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-canvas">
+    <div className="fixed inset-0 z-50 flex flex-col bg-page">
       <Aurora variant="subtle" className="opacity-70" />
 
       {/* Topo: fechar, passos e salvamento */}

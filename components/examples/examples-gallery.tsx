@@ -15,6 +15,7 @@ import { landing } from "@/content/landing";
 import { ASPECT_RATIOS, EDITING_STYLES } from "@/lib/constants/domain";
 import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
+import { useTilt } from "@/components/effects/use-tilt";
 
 const RATIO_CLASS: Record<Example["format"], string> = {
   "9:16": "aspect-[9/16]",
@@ -98,6 +99,7 @@ export function ExamplesGallery() {
 
 function ExampleCard({ example, index, onOpen }: { example: Example; index: number; onOpen: () => void }) {
   const [hover, setHover] = React.useState(false);
+  const tilt = useTilt();
   return (
     <motion.button
       type="button"
@@ -106,7 +108,12 @@ function ExampleCard({ example, index, onOpen }: { example: Example; index: numb
       onMouseLeave={() => setHover(false)}
       onFocus={() => setHover(true)}
       onBlur={() => setHover(false)}
-      onPointerMove={onSpotlightMove}
+      onPointerMove={(e) => {
+        onSpotlightMove(e);
+        tilt.onPointerMove(e);
+      }}
+      onPointerLeave={tilt.onPointerLeave}
+      style={tilt.style}
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: Math.min(index * 0.05, 0.4), ease: [0.22, 1, 0.36, 1] }}

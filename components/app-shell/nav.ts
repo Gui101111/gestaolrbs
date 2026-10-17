@@ -2,11 +2,11 @@ import { Clapperboard, FolderClosed, GraduationCap, Home, Palette } from "lucide
 import { ROUTES } from "@/lib/routes";
 
 export const RAIL_ITEMS = [
-  { key: "inicio", href: ROUTES.app, label: "Início", icon: Home },
-  { key: "projetos", href: ROUTES.projects, label: "Projetos", icon: FolderClosed },
-  { key: "exemplos", href: ROUTES.examples, label: "Exemplos", icon: Clapperboard },
-  { key: "marca", href: ROUTES.brand, label: "Marca", icon: Palette },
-  { key: "como-fazer", href: ROUTES.howTo, label: "Como fazer", icon: GraduationCap },
+  { key: "inicio", href: ROUTES.app, label: "Início", hint: "Resumo e próximos passos", icon: Home },
+  { key: "projetos", href: ROUTES.projects, label: "Projetos", hint: "Pastas e vídeos", icon: FolderClosed },
+  { key: "exemplos", href: ROUTES.examples, label: "Exemplos", hint: "Vídeos para se inspirar", icon: Clapperboard },
+  { key: "marca", href: ROUTES.brand, label: "Marca", hint: "Logo, cores e fonte", icon: Palette },
+  { key: "como-fazer", href: ROUTES.howTo, label: "Como fazer", hint: "Dicas para gravar", icon: GraduationCap },
 ] as const;
 
 export type Section = "inicio" | "projetos" | "exemplos" | "marca" | "como-fazer" | "assinatura" | "configuracoes";

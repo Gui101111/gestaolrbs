@@ -1,5 +1,6 @@
 import { Marquee } from "@/components/animations/marquee";
 import { InstagramIcon, LinkedinIcon, MetaIcon, TiktokIcon, YoutubeIcon } from "@/components/brand/social-icons";
+import { NeonDivider } from "@/components/effects/neon-divider";
 
 const ITEMS = [
   { kind: "icon", Icon: TiktokIcon, label: "TikTok" },
@@ -17,7 +18,7 @@ const ITEMS = [
 export function MarqueeBand() {
   return (
     <section aria-label="Plataformas e formatos" className="relative py-8 md:py-10">
-      <div aria-hidden className="hairline absolute inset-x-0 top-0 opacity-60" />
+      <NeonDivider className="absolute inset-x-0 top-0 opacity-70" />
       <Marquee baseVelocity={-1.4} itemClassName="gap-4 pr-4 md:gap-6 md:pr-6">
         {ITEMS.map((it, i) =>
           it.kind === "icon" ? (
@@ -37,7 +38,7 @@ export function MarqueeBand() {
           ),
         )}
       </Marquee>
-      <div aria-hidden className="hairline absolute inset-x-0 bottom-0 opacity-60" />
+      <NeonDivider className="absolute inset-x-0 bottom-0 opacity-70" />
     </section>
   );
 }

@@ -27,6 +27,7 @@ import { joinWaitlist } from "@/lib/actions/waitlist";
 import { formatCpfCnpj, isValidCpfCnpj } from "@/lib/validations/document";
 import { cn, formatCurrency, formatDate } from "@/lib/utils";
 import type { Payment, Plan, Subscription, Usage } from "@/types/domain";
+import { CountUp } from "@/components/animations/count-up";
 
 const SUB_STATUS: Record<string, { label: string; tone: "success" | "warning" | "danger" | "info" | "default" | "gold" }> = {
   trialing: { label: "Avaliação", tone: "gold" },
@@ -284,7 +285,7 @@ function UsageRing({ used, limit }: { used: number; limit: number | null }) {
       </svg>
       <div className="relative text-center">
         <p className="font-display text-3xl font-extrabold text-fg tabular-nums">
-          {used}
+          <CountUp value={used} duration={1.4} />
           {limit != null && <span className="text-base font-semibold text-fg-3">/{limit}</span>}
         </p>
         <p className="text-[0.625rem] font-bold tracking-[0.14em] text-fg-3 uppercase">vídeos no mês</p>
@@ -300,7 +301,7 @@ function Meter({ label, used, limit, unit }: { label: string; used: number; limi
       <div className="mb-2 flex items-center justify-between text-sm">
         <span className="text-fg-2">{label}</span>
         <span className="font-semibold text-fg tabular-nums">
-          {used.toLocaleString("pt-BR", { maximumFractionDigits: 1 })}
+          <CountUp value={used} decimals={Number.isInteger(used) ? 0 : 1} duration={1.4} />
           {unit}
           {limit != null && <span className="font-normal text-fg-3"> / {limit}{unit}</span>}
         </span>

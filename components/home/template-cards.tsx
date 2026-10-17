@@ -14,6 +14,7 @@ import { modelos, type Modelo } from "@/config/modelos";
 import { setUiPreferencesAction } from "@/lib/actions/profile";
 import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
+import { useTilt } from "@/components/effects/use-tilt";
 
 const ICONS: Record<Modelo["icon"], React.ComponentType<{ className?: string }>> = {
   "message-circle-question": MessageCircleQuestion,
@@ -80,12 +81,18 @@ export function TemplateCards({ hidden }: { hidden: string[] }) {
 function TemplateCard({ modelo, index }: { modelo: Modelo; index: number }) {
   const Icon = ICONS[modelo.icon];
   const hue = HUES[modelo.hue];
+  const tilt = useTilt();
   return (
     <motion.article
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      onPointerMove={onSpotlightMove}
+      onPointerMove={(e) => {
+        onSpotlightMove(e);
+        tilt.onPointerMove(e);
+      }}
+      onPointerLeave={tilt.onPointerLeave}
+      style={tilt.style}
       className="spotlight sheen group relative aspect-[16/10] w-[82%] shrink-0 snap-start overflow-hidden rounded-[22px] bg-[#111317] sm:w-[360px] lg:w-[calc((100%-2rem)/3)]"
     >
       <span aria-hidden className="sheen-layer" />

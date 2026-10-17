@@ -7,7 +7,7 @@ import { ROUTES } from "@/lib/routes";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative min-h-dvh bg-canvas lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+    <div className="relative min-h-dvh bg-page lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
       <AuthShowcase />
       <div className="relative isolate flex min-h-dvh flex-col overflow-hidden">
         <Aurora variant="subtle" className="lg:hidden" interactive={false} />

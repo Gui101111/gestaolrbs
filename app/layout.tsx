@@ -79,7 +79,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
-      <body className="min-h-dvh bg-canvas">
+      <body className="min-h-dvh bg-page">
         <MotionProvider>
           <TooltipProvider delayDuration={250}>{children}</TooltipProvider>
           <Toaster />

@@ -192,9 +192,31 @@ export function VideoUploader({
             disabled={disabled}
             className={cn(
               "group relative flex w-full flex-col items-center justify-center rounded-[26px] px-6 py-14 text-center transition-all duration-500 md:py-20",
-              dragging ? "neon-border scale-[1.01] bg-cyan/[0.07]" : "border border-dashed border-line-strong bg-fg/[0.02] hover:border-cyan/50 hover:bg-cyan/[0.04]",
+              dragging ? "neon-border scale-[1.01] bg-cyan/[0.07]" : "bg-fg/[0.02] hover:bg-cyan/[0.04]",
             )}
           >
+            {!dragging && (
+              <svg aria-hidden className="pointer-events-none absolute inset-0 size-full overflow-visible">
+                <defs>
+                  <linearGradient id="dropzone-neon" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="var(--cyan)" />
+                    <stop offset="0.55" stopColor="var(--azure)" />
+                    <stop offset="1" stopColor="var(--gold)" />
+                  </linearGradient>
+                </defs>
+                <rect
+                  x="0.75"
+                  y="0.75"
+                  rx="25"
+                  fill="none"
+                  stroke="url(#dropzone-neon)"
+                  strokeWidth="1.5"
+                  strokeDasharray="10 8"
+                  style={{ width: "calc(100% - 1.5px)", height: "calc(100% - 1.5px)", animation: "dash-march 1.8s linear infinite" }}
+                  className="opacity-55 transition-opacity duration-500 group-hover:opacity-100"
+                />
+              </svg>
+            )}
             <span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]"><span className="absolute inset-0 bg-gold-lines opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000,transparent_70%)]" /><span className="absolute top-1/2 left-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan/10 blur-3xl" /></span>
             <motion.span
               className="relative grid size-16 place-items-center rounded-2xl border border-cyan/40 bg-cyan/10 text-cyan shadow-[var(--glow-cyan)]"

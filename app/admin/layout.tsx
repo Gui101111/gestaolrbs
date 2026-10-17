@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: { default: "Admin", template: "%s · 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const { profile } = await requireAdmin();
   return (
-    <div className="min-h-dvh bg-canvas">
+    <div className="min-h-dvh bg-page">
       <header className="glass-strong sticky top-0 z-30 border-x-0 border-t-0">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 md:px-8">
           <div className="flex items-center justify-between gap-4">

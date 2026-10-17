@@ -13,6 +13,7 @@ import { EDITING_STATUSES, PIPELINE_STEPS } from "@/lib/constants/domain";
 import { ROUTES } from "@/lib/routes";
 import { cn, formatDuration } from "@/lib/utils";
 import type { ProjectListItem } from "@/services/projects/queries";
+import { useTilt } from "@/components/effects/use-tilt";
 
 export const DRAG_MIME = "application/x-tribuna-videos";
 
@@ -39,6 +40,7 @@ export function VideoCard({
   const href = project.status === "draft" ? `${ROUTES.newVideo}?id=${project.id}` : ROUTES.video(project.id);
   const editing = (EDITING_STATUSES as readonly string[]).includes(project.status);
   const done = project.status === "ready" || project.status === "completed";
+  const tilt = useTilt();
   const step = PIPELINE_STEPS.find((s) => s.value === project.job?.current_step);
   const progress = project.job?.progress ?? 0;
 
@@ -100,6 +102,9 @@ export function VideoCard({
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: Math.min(index * 0.05, 0.4), ease: [0.22, 1, 0.36, 1] }}
+      style={tilt.style}
+      onPointerMove={tilt.onPointerMove}
+      onPointerLeave={tilt.onPointerLeave}
       className="h-full"
     >
       <ProjectContextMenu id={project.id} name={project.name} status={project.status} canDownload={done} folderId={project.folder_id}>

@@ -10,6 +10,7 @@ import { UserMenu } from "@/components/app-shell/user-menu";
 import { RAIL_ITEMS, sectionOf, type ShellUsage, type ShellUser } from "@/components/app-shell/nav";
 import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
+import { NeonDivider } from "@/components/effects/neon-divider";
 
 /** Barra de ícones (72px) com rótulo embaixo e pílula ativa que desliza. */
 export function Rail({ user, usage }: { user: ShellUser; usage: ShellUsage }) {
@@ -29,36 +30,42 @@ export function Rail({ user, usage }: { user: ShellUser; usage: ShellUsage }) {
           const active = section === item.key;
           const Icon = item.icon;
           return (
-            <Link
-              key={item.key}
-              href={item.href}
-              aria-current={active ? "page" : undefined}
-              className={cn(
-                "group/rail relative flex w-full flex-col items-center gap-1 rounded-2xl py-2.5 text-[0.625rem] font-semibold transition-colors duration-300",
-                active ? "text-fg" : "text-fg-3 hover:text-fg",
-              )}
-            >
-              {active && (
-                <motion.span
-                  layoutId="rail-active"
-                  transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                  className="absolute inset-0 rounded-2xl border border-cyan/30 bg-cyan/[0.08] shadow-[0_0_20px_-8px_var(--cyan)]"
-                />
-              )}
-              <Icon
-                className={cn(
-                  "relative size-5 transition-transform duration-500 ease-[var(--ease-luxe)] group-hover/rail:-translate-y-0.5 group-hover/rail:scale-110",
-                  active && "text-cyan drop-shadow-[0_0_6px_var(--cyan)]",
-                )}
-              />
-              <span className="relative leading-none">{item.label}</span>
-            </Link>
+            <Tooltip key={item.key}>
+              <TooltipTrigger asChild>
+                <Link
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "group/rail relative flex w-full flex-col items-center gap-1 rounded-2xl py-2.5 text-[0.625rem] font-semibold transition-colors duration-300",
+                    active ? "text-fg" : "text-fg-3 hover:text-fg",
+                  )}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="rail-active"
+                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                      className="absolute inset-0 rounded-2xl bg-cyan/[0.08]"
+                    >
+                      <span aria-hidden className="neon-border block size-full rounded-[inherit] [--neon-radius:16px]" />
+                    </motion.span>
+                  )}
+                  <Icon
+                    className={cn(
+                      "relative size-5 transition-transform duration-500 ease-[var(--ease-luxe)] group-hover/rail:-translate-y-0.5 group-hover/rail:scale-110",
+                      active && "text-cyan drop-shadow-[0_0_6px_var(--cyan)]",
+                    )}
+                  />
+                  <span className="relative leading-none">{item.label}</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">{item.hint}</TooltipContent>
+            </Tooltip>
           );
         })}
       </nav>
 
       <div className="flex flex-col items-center gap-3">
-        <span aria-hidden className="h-px w-8 bg-line" />
+        <NeonDivider className="w-8" />
         <Tooltip>
           <TooltipTrigger asChild>
             <Link

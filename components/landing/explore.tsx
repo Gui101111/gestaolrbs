@@ -139,8 +139,10 @@ export function Explore({ plans, isAuthenticated = false }: { plans: Plan[]; isA
                       <motion.span
                         layoutId="explore-indicator"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                        className="absolute inset-0 rounded-[inherit] border border-cyan/45 bg-cyan/[0.08] shadow-[0_0_0_1px_color-mix(in_oklab,var(--cyan)_14%,transparent),0_0_22px_-6px_var(--cyan)]"
-                      />
+                        className="absolute inset-0 rounded-[inherit] bg-cyan/[0.08]"
+                      >
+                        <span aria-hidden className="neon-border block size-full rounded-[inherit] [--neon-radius:16px]" />
+                      </motion.span>
                     )}
                     <Icon className={cn("relative size-4", selected ? "text-cyan" : "text-fg-3")} />
                     <span className="relative">{t.label}</span>

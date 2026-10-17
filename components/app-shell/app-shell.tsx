@@ -49,7 +49,7 @@ export function AppShell({
 
   return (
     <FoldersProvider folders={folders}>
-    <div className="texture-metal relative min-h-dvh bg-canvas" data-panel={collapsed ? "closed" : "open"}>
+    <div className="texture-metal relative min-h-dvh bg-page" data-panel={collapsed ? "closed" : "open"}>
       <Rail user={user} usage={usage} />
 
       {/* Painel secundário (desktop) */}

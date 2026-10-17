@@ -14,7 +14,7 @@ export default async function OnboardingPage() {
   if (profile?.onboarding_completed_at) redirect(ROUTES.app);
 
   return (
-    <div className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-canvas">
+    <div className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-page">
       <Aurora variant="app" />
       <header className="relative flex justify-center px-6 pt-8">
         <Logo />

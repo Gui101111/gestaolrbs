@@ -50,6 +50,7 @@
   --shadow-pop: 0 30px 80px -30px rgb(0 0 0 / 0.85);
   --aurora-strength: 1;
   --grain-opacity: 0.05;
+  --page-bg: var(--canvas);
 
   --destructive: #f06a5e;
   --success: #4fd39a;
@@ -114,6 +115,7 @@
   --shadow-pop: 0 30px 70px -30px rgb(20 23 28 / 0.35);
   --aurora-strength: 0.55;
   --grain-opacity: 0.035;
+  --page-bg: linear-gradient(180deg, #eef0f3 0%, #dadde2 100%);
 
   --destructive: #d04437;
   --success: #12935e;
@@ -221,6 +223,8 @@
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     background-color: var(--canvas);
+    background-image: var(--page-bg);
+    background-attachment: fixed;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
@@ -279,7 +283,7 @@
   }
   /* Ícones Lucide com traço 1.5 */
   .lucide {
-    stroke-width: 1.6;
+    stroke-width: 1.5;
   }
 }
 
@@ -352,6 +356,40 @@ html.theme-switching * {
 @utility hairline-v {
   background: linear-gradient(180deg, transparent, color-mix(in oklab, var(--cyan) 45%, transparent), transparent);
   width: 1px;
+}
+
+/* Divisor neon (desenhado pelo <NeonDivider/>) */
+@utility neon-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--cyan) 75%, transparent) 30%,
+    color-mix(in oklab, var(--azure) 60%, transparent) 55%,
+    color-mix(in oklab, var(--gold) 65%, transparent) 75%,
+    transparent
+  );
+  box-shadow: 0 0 10px 0 color-mix(in oklab, var(--cyan) 30%, transparent);
+  transform-origin: center;
+}
+
+@utility neon-line-v {
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in oklab, var(--cyan) 70%, transparent) 35%,
+    color-mix(in oklab, var(--gold) 60%, transparent) 70%,
+    transparent
+  );
+  box-shadow: 0 0 10px 0 color-mix(in oklab, var(--cyan) 30%, transparent);
+  transform-origin: center;
+}
+
+/* Fundo de página: grafite liso; no tema Claro, metal claro em degradê */
+@utility bg-page {
+  background: var(--page-bg);
+  background-attachment: fixed;
 }
 
 /* Vidro fosco */
@@ -927,6 +965,11 @@ html.theme-switching * {
 @keyframes dash {
   to {
     stroke-dashoffset: 0;
+  }
+}
+@keyframes dash-march {
+  to {
+    stroke-dashoffset: -36;
   }
 }
 @keyframes blink-dot {
