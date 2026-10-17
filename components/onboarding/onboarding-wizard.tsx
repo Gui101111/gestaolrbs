@@ -23,6 +23,7 @@ const STEPS = [
 ];
 
 type State = {
+  treatment: "" | "dr" | "dra";
   fullName: string;
   officeName: string;
   oabNumber: string;
@@ -38,6 +39,7 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
   const [pending, start] = React.useTransition();
   const [errors, setErrors] = React.useState<Partial<Record<keyof State, string>>>({});
   const [state, setState] = React.useState<State>({
+    treatment: defaults.treatment ?? "",
     fullName: defaults.fullName ?? "",
     officeName: defaults.officeName ?? "",
     oabNumber: defaults.oabNumber ?? "",
@@ -133,8 +135,34 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
             <div className="mt-8">
               {step === 0 && (
                 <div className="grid gap-5 md:grid-cols-2">
+                  <div className="md:col-span-2">
+                    <p className="mb-2 text-sm font-medium text-fg">Tratamento</p>
+                    <div className="flex gap-2" role="radiogroup" aria-label="Tratamento">
+                      {(
+                        [
+                          ["dr", "Dr."],
+                          ["dra", "Dra."],
+                          ["", "Prefiro não usar"],
+                        ] as const
+                      ).map(([value, label]) => (
+                        <button
+                          key={value || "none"}
+                          type="button"
+                          role="radio"
+                          aria-checked={state.treatment === value}
+                          onClick={() => set("treatment", value)}
+                          className={cn(
+                            "rounded-full border px-4 py-2 text-sm font-semibold transition",
+                            state.treatment === value ? "border-cyan/60 bg-cyan/10 text-fg" : "border-line text-fg-2 hover:border-line-strong hover:text-fg",
+                          )}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   <Field label="Nome completo" htmlFor="fullName" error={errors.fullName} className="md:col-span-2">
-                    <Input id="fullName" value={state.fullName} onChange={(e) => set("fullName", e.target.value)} placeholder="Dra. Ana Souza" autoComplete="name" aria-invalid={!!errors.fullName} />
+                    <Input id="fullName" value={state.fullName} onChange={(e) => set("fullName", e.target.value)} placeholder="Ana Souza" autoComplete="name" aria-invalid={!!errors.fullName} />
                   </Field>
                   <Field label="Nome do escritório" htmlFor="officeName" optional className="md:col-span-2">
                     <Input id="officeName" value={state.officeName} onChange={(e) => set("officeName", e.target.value)} placeholder="Souza Advocacia" autoComplete="organization" />

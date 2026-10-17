@@ -6,6 +6,7 @@ const legalAreaValues = LEGAL_AREAS.map((a) => a.value) as [string, ...string[]]
 const goalValues = PROFILE_GOALS.map((g) => g.value) as [string, ...string[]];
 
 export const onboardingSchema = z.object({
+  treatment: z.enum(["dr", "dra"]).optional().or(z.literal("")),
   fullName: nameSchema,
   officeName: z.string().trim().max(120, "Nome muito longo.").optional().or(z.literal("")),
   oabNumber: z

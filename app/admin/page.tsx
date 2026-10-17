@@ -23,11 +23,14 @@ export default async function AdminOverview() {
     admin.from("projects").select("id, name, status, submitted_at, user_id").in("status", ["queued", "processing", "revision_requested", "failed"]).order("submitted_at", { ascending: true }).limit(8),
   ]);
   const revenue = (paid.data ?? []).reduce((s, p) => s + p.amount_cents, 0);
-  const [active, override, review] = await Promise.all([
+  const [active, override, review, agentCost] = await Promise.all([
     resolveEditingProvider(),
     providerOverride().catch(() => null),
     admin.from("render_jobs").select("project_id, projects(name)").eq("review_status", "pending").order("updated_at", { ascending: true }).limit(10),
+    admin.from("editing_sessions").select("cost_cents").eq("provider", "claude").gte("started_at", monthStart).not("cost_cents", "is", null),
   ]);
+  const costs = (agentCost.data ?? []).map((r) => r.cost_cents ?? 0);
+  const avgCost = costs.length ? costs.reduce((a, b) => a + b, 0) / costs.length / 100 : null;
   const claudeStatus = claudeConfig.localSandbox() ? "local" : claudeConfig.apiKey() && claudeConfig.agentId() && claudeConfig.environmentId() ? "api" : "missing";
   const inReview = (review.data ?? []).map((r) => ({ id: r.project_id, name: (r.projects as { name?: string } | null)?.name ?? "Projeto" }));
   const stats = [
@@ -36,6 +39,7 @@ export default async function AdminOverview() {
     { label: "Na fila / em edição", value: String(queue.count ?? 0) },
     { label: "Receita confirmada no mês", value: formatCurrency(revenue) },
     { label: "Lista de espera", value: String(waitlist.count ?? 0) },
+    { label: "Custo médio por vídeo (Claude, mês)", value: avgCost == null ? "—" : `US$ ${avgCost.toFixed(2)}` },
   ];
   return (
     <div className="space-y-10">
@@ -48,7 +52,7 @@ export default async function AdminOverview() {
         inReview={inReview}
         humanReview={claudeConfig.humanReview()}
       />
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         {stats.map((s) => (
           <div key={s.label} className="rounded-2xl border border-fg/[0.07] bg-fg/[0.02] p-5">
             <p className="text-xs text-mist">{s.label}</p>

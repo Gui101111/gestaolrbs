@@ -74,7 +74,7 @@ export default async function HomePage() {
     <div className="space-y-12 pt-2 pb-8 md:space-y-14">
       <section className="relative pt-6 text-center md:pt-10">
         <Aurora variant="app" className="-inset-x-24 -top-28 -bottom-10" />
-        <WelcomeTitle name={name} feminine={profile.treatment === "dra"} />
+        <WelcomeTitle name={name} feminine={profile.treatment === "dra" || (!profile.treatment && /^(dra|doutora)\.?\s/i.test(profile.full_name ?? ""))} />
       </section>
 
       {!prefs.setup_hidden && <SetupSteps steps={steps} />}

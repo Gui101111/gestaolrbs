@@ -26,10 +26,16 @@ export async function completeOnboardingAction(input: OnboardingInput): Promise<
   const supabase = await createClient();
   const { data: current } = await supabase.from("profiles").select("onboarding_completed_at, terms_accepted_at").eq("id", user.id).single();
 
+  // tratamento escolhido; sem escolha, deduz do nome ("Dra. Ana Souza")
+  const prefix = /^(dra|doutora)\.?\s/i.test(v.fullName) ? "dra" : /^(dr|doutor)\.?\s/i.test(v.fullName) ? "dr" : null;
+  const treatment = v.treatment || prefix;
+  const professionalName = treatment && !prefix ? `${treatment === "dra" ? "Dra." : "Dr."} ${v.fullName}` : v.fullName;
+
   const { error } = await supabase
     .from("profiles")
     .update({
       full_name: v.fullName,
+      treatment,
       office_name: blank(v.officeName),
       oab_number: blank(v.oabNumber),
       oab_uf: blank(v.oabUf),
@@ -47,7 +53,7 @@ export async function completeOnboardingAction(input: OnboardingInput): Promise<
   await supabase
     .from("brand_kits")
     .upsert(
-      { user_id: user.id, office_name: blank(v.officeName), professional_name: v.fullName, oab_display: oabDisplay },
+      { user_id: user.id, office_name: blank(v.officeName), professional_name: professionalName, oab_display: oabDisplay },
       { onConflict: "user_id" },
     );
 
