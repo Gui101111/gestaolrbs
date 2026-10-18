@@ -5,7 +5,7 @@ import { Check, Lock } from "lucide-react";
 import { StylePreview } from "@/components/examples/style-preview";
 import { InstagramIcon, LinkedinIcon, MetaIcon, TiktokIcon, YoutubeIcon } from "@/components/brand/social-icons";
 import { landing } from "@/content/landing";
-import { ASPECT_RATIOS, EDITING_STYLES, TARGET_DURATIONS } from "@/lib/constants/domain";
+import { ASPECT_RATIOS, EDITING_STYLES } from "@/lib/constants/domain";
 import { cn } from "@/lib/utils";
 import type { Draft, DraftVideo } from "@/components/new-video/types";
 
@@ -27,7 +27,6 @@ export function StepStyle({
   video: DraftVideo | null;
   allowedRatios: string[];
 }) {
-  const [hover, setHover] = React.useState<string | null>(null);
   const toggleRatio = (r: string) =>
     update({ aspect_ratios: d.aspect_ratios.includes(r) ? d.aspect_ratios.filter((x) => x !== r) : ASPECT_RATIOS.map((a) => a.value).filter((v) => v === r || d.aspect_ratios.includes(v)) });
 
@@ -47,14 +46,12 @@ export function StepStyle({
                 role="radio"
                 aria-checked={active}
                 onClick={() => update({ editing_style: s.value })}
-                onMouseEnter={() => setHover(s.value)}
-                onMouseLeave={() => setHover(null)}
                 className={cn(
                   "group relative rounded-[20px] p-2 text-left transition-all duration-500 ease-[var(--ease-luxe)]",
                   active ? "neon-border bg-surface" : "border border-line bg-fg/[0.02] hover:-translate-y-1 hover:border-line-strong",
                 )}
               >
-                <StylePreview style={s.value} playing={active || hover === s.value} className="rounded-[14px] shadow-none" />
+                <StylePreview style={s.value} className="rounded-[14px] shadow-none" />
                 <span className="flex items-center justify-between gap-2 px-1.5 pt-2.5">
                   <span className="font-display text-sm font-bold text-fg">{landing.styleNames[s.value]}</span>
                   {active && (
@@ -123,31 +120,6 @@ export function StepStyle({
         {allowedRatios.length < 4 && <p className="mt-3 text-xs text-fg-3">Alguns formatos não estão no seu plano.</p>}
       </section>
 
-      <section aria-labelledby="duracao-titulo">
-        <h2 id="duracao-titulo" className="mb-4 font-sans text-base font-bold tracking-normal text-fg">
-          Duração final
-        </h2>
-        <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Duração final">
-          {TARGET_DURATIONS.map((t) => {
-            const active = d.duration === t.value;
-            return (
-              <button
-                key={t.value}
-                type="button"
-                role="radio"
-                aria-checked={active}
-                onClick={() => update({ duration: t.value })}
-                className={cn(
-                  "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300",
-                  active ? "border-cyan/60 bg-cyan/10 text-cyan shadow-[var(--glow-cyan)]" : "border-line text-fg-2 hover:border-line-strong hover:text-fg",
-                )}
-              >
-                {t.label}
-              </button>
-            );
-          })}
-        </div>
-      </section>
     </div>
   );
 }

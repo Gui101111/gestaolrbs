@@ -1,7 +1,7 @@
 import { ArrayBufferTarget, Muxer } from "mp4-muxer";
 import { outputSize, seek } from "@/lib/browser-editor/framing";
-import { abortError, bookends, loadFonts, stage, voiceChain, waitVisible, type RenderParams } from "@/lib/browser-editor/render";
-import type { Interval, Ratio, RenderOutput } from "@/lib/browser-editor/types";
+import { abortError, bookends, loadFonts, renderAudio, soundtrackFor, stage, waitVisible, type RenderParams } from "@/lib/browser-editor/render";
+import type { Ratio, RenderOutput } from "@/lib/browser-editor/types";
 
 /**
  * Exportação quadro a quadro com WebCodecs: cada quadro de saída (30 fps)
@@ -65,38 +65,6 @@ export async function encodeSupport(ratios: Ratio[], audioRate: number | null): 
   return null;
 }
 
-/** Trilha editada: só os trechos que ficam, com microdesvanecimento nas emendas e o filtro de voz. */
-async function renderAudio(pcm: { data: Float32Array; rate: number }, keep: Interval[], introDur: number, outroDur: number, enhance: boolean, speechDb: number | null) {
-  const body = keep.reduce((s, k) => s + (k.end - k.start), 0);
-  const total = introDur + body + outroDur;
-  const ctx = new OfflineAudioContext(1, Math.max(1, Math.ceil(total * pcm.rate)), pcm.rate);
-  const src = ctx.createBuffer(1, pcm.data.length, pcm.rate);
-  src.copyToChannel(pcm.data as Float32Array<ArrayBuffer>, 0);
-  let input: AudioNode = ctx.destination;
-  if (enhance) {
-    const chain = voiceChain(ctx, speechDb);
-    chain.output.connect(ctx.destination);
-    input = chain.input;
-  }
-  const FADE = 0.008;
-  let at = introDur;
-  for (const k of keep) {
-    const len = k.end - k.start;
-    const node = ctx.createBufferSource();
-    node.buffer = src;
-    const g = ctx.createGain();
-    g.gain.setValueAtTime(0, at);
-    g.gain.linearRampToValueAtTime(1, at + FADE);
-    g.gain.setValueAtTime(1, Math.max(at + FADE, at + len - FADE));
-    g.gain.linearRampToValueAtTime(0, at + len);
-    node.connect(g);
-    g.connect(input);
-    node.start(at, k.start, len);
-    at += len;
-  }
-  return ctx.startRendering();
-}
-
 /** Espera o próximo quadro apresentado pelo vídeo (ou desiste em 600 ms). */
 function nextVideoFrame(video: HTMLVideoElement): Promise<number> {
   return new Promise((resolve) => {
@@ -123,8 +91,11 @@ export async function encode(p: RenderParams, plan: EncodePlan): Promise<RenderO
 
   // 1) Áudio: montado e codificado antes do vídeo (rápido, não depende de tocar nada)
   const audioChunks: { chunk: EncodedAudioChunk; meta?: EncodedAudioChunkMetadata }[] = [];
-  if (plan.audio && a.pcm) {
-    const rendered = await renderAudio(a.pcm, cut.keep, introDur, outroDur, opts.enhanceAudio, a.speechDb);
+  const sound = soundtrackFor(p);
+  const hasAudio = Boolean(plan.audio && (a.pcm || sound.music || sound.sfxLevel > 0));
+  const audioRate = a.pcm?.rate ?? 48_000;
+  if (plan.audio && hasAudio) {
+    const rendered = await renderAudio(a.pcm, cut.keep, opts.enhanceAudio, a.speechDb, sound);
     if (signal.aborted) throw abortError();
     const enc = new AudioEncoder({ output: (chunk, meta) => audioChunks.push({ chunk, meta }), error: (e) => console.error("[audio]", e) });
     enc.configure({ codec: plan.audio.codec, sampleRate: rendered.sampleRate, numberOfChannels: 1, bitrate: 128_000 });
@@ -146,7 +117,7 @@ export async function encode(p: RenderParams, plan: EncodePlan): Promise<RenderO
     const muxer = new Muxer({
       target: new ArrayBufferTarget(),
       video: { codec: plan.video.mux, width: st.width, height: st.height, frameRate: FPS },
-      audio: plan.audio && a.pcm ? { codec: plan.audio.mux, numberOfChannels: 1, sampleRate: a.pcm.rate } : undefined,
+      audio: plan.audio && hasAudio ? { codec: plan.audio.mux, numberOfChannels: 1, sampleRate: audioRate } : undefined,
       fastStart: "in-memory",
       firstTimestampBehavior: "offset",
     });

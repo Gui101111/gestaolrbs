@@ -2,7 +2,9 @@ import { faceWithClaude, isSampleError, localReview, reviewWithClaude, type Samp
 import { decodeAudio, detectSpeech, frameEnergy, to16k } from "@/lib/browser-editor/audio";
 import { RATIO_VALUE, faceWithDetector, grabFrames, loadVideo } from "@/lib/browser-editor/framing";
 import { lookFor, type Look } from "@/lib/browser-editor/looks";
-import { buildPlan, markKeywords, segmentsFromScript, wordsFromSegments, wordsToOut } from "@/lib/browser-editor/timeline";
+import { localMoments, placeMoments, planMotion, type MotionPlan } from "@/lib/browser-editor/motion";
+import { bookends } from "@/lib/browser-editor/render";
+import { buildPlan, markKeywords, segmentsFromScript, toOut, wordsFromSegments, wordsToOut } from "@/lib/browser-editor/timeline";
 import { loadWhisper, type TransformersLike, type WhisperManifest } from "@/lib/browser-editor/transcribe";
 import type { Analysis, EditOptions, Face, Plan, Progress, Segment, Word } from "@/lib/browser-editor/types";
 
@@ -14,7 +16,7 @@ export interface EditorDeps {
 const CENTER: Face = { x: 0.5, y: 0.42, by: "centro" };
 
 function needsTranscript(o: EditOptions) {
-  return o.captions || o.removeMistakes || (o.hook && !o.hookText.trim()) || o.oabReview || (o.cta && !o.ctaText.trim());
+  return o.captions || o.removeMistakes || o.effects || (o.hook && !o.hookText.trim()) || o.oabReview || (o.cta && !o.ctaText.trim());
 }
 
 function sampleNote(e: unknown, what: string) {
@@ -96,7 +98,7 @@ export async function analyze(file: Blob, url: string, opts: EditOptions, deps: 
 
   let review = segments.length ? localReview(segments) : null;
   if (segments.length && deps.sample) {
-    onProgress({ step: "revisar", detail: "Claude revisando o texto, os cortes e as regras da OAB" });
+    onProgress({ step: "revisar", detail: "Claude revisando o texto, os cortes e os grafismos" });
     try {
       review = await reviewWithClaude(deps.sample, segments, opts, signal);
     } catch (e) {
@@ -106,6 +108,7 @@ export async function analyze(file: Blob, url: string, opts: EditOptions, deps: 
     }
   }
 
+  if (review && !opts.oabReview) review = { ...review, alerts: [] };
   const face = await framing;
   probe.removeAttribute("src");
   probe.load();
@@ -133,6 +136,7 @@ export interface RenderInputs {
   words: Word[];
   title: string;
   cta: string;
+  motion: MotionPlan;
 }
 
 export function renderInputs(a: Analysis, opts: EditOptions): RenderInputs {
@@ -141,13 +145,25 @@ export function renderInputs(a: Analysis, opts: EditOptions): RenderInputs {
   const raw = markKeywords(wordsFromSegments(a.segments, a.speech), a.review?.keywords ?? []);
   const cut = new Set(opts.removeMistakes ? (a.review?.cutIds ?? []) : []);
   const kept = cut.size ? raw.filter((w) => !a.segments.some((s) => cut.has(s.id) && w.start >= s.start - 0.01 && w.start < s.end)) : raw;
-  return {
+  const words = wordsToOut(kept, plan.keep);
+  const title = opts.hookText.trim() || a.review?.title || "";
+  const cta = opts.ctaText.trim() || a.review?.cta || "Siga para mais conteúdos";
+  const fromAi = a.review?.moments?.length ? placeMoments(a.review.moments, kept, a.segments, (t) => toOut(plan.keep, t)) : [];
+  const moments = fromAi.length >= 2 ? fromAi : [...fromAi, ...localMoments(words)].sort((x, y) => x.at - y.at);
+  const { introDur, outroDur } = bookends(opts, title, cta);
+  const motion = planMotion({
+    words,
+    moments,
+    keep: plan.keep,
+    bodyDur: plan.bodyDuration,
+    introDur,
+    outroDur,
     look,
-    plan,
-    words: wordsToOut(kept, plan.keep),
-    title: opts.hookText.trim() || a.review?.title || "",
-    cta: opts.ctaText.trim() || a.review?.cta || "Siga para mais conteúdos",
-  };
+    opts,
+    hasTitle: opts.hook && Boolean(title),
+    ctaInBody: opts.cta && Boolean(cta) && !(opts.vignette && outroDur > 0),
+  });
+  return { look, plan, words, title, cta, motion };
 }
 
 export async function loadLogo(blob: Blob | null): Promise<CanvasImageSource | null> {

@@ -1,6 +1,12 @@
+import type { Mood, Sfx } from "@/lib/browser-editor/sound";
 import type { CaptionStyle, EditOptions, StyleId } from "@/lib/browser-editor/types";
 
-/** Como cada estilo de edição aparece no vídeo final. */
+export type TransitionKind = "cut" | "fade" | "dip" | "flash" | "whip" | "zoom";
+export type CaptionAnim = "fade" | "pop" | "reveal" | "box" | "bounce";
+export type CalloutKind = "glass" | "solid" | "minimal" | "badge" | "sticker";
+export type TitleKind = "classic" | "stagger" | "cinema" | "slam" | "sticker";
+
+/** Como cada estilo de edição aparece (e soa) no vídeo final. */
 export interface Look {
   /** Pausa mínima que vale cortar (s). */
   minPause: number;
@@ -13,6 +19,8 @@ export interface Look {
   zoomAmount: number;
   progressBar: boolean;
   accent: string;
+  /** Cor de contraste do acento (texto sobre o acento). */
+  ink: string;
   captions: {
     font: string;
     weight: number;
@@ -27,8 +35,31 @@ export interface Look {
     /** "pill": caixa atrás da linha; "word": caixa só na palavra falada; "none": contorno. */
     box: "pill" | "word" | "none";
     pop: boolean;
+    anim: CaptionAnim;
   };
   titleFont: string;
+  motion: {
+    /** Segundos entre grafismos (antes do ajuste pela duração do vídeo). */
+    spacing: number;
+    /** Cartões em tela cheia (estilo B-roll animado). */
+    cards: boolean;
+    callout: CalloutKind;
+    title: TitleKind;
+    transition: TransitionKind;
+    /** Distância mínima entre transições (s). */
+    transitionGap: number;
+    grain: number;
+    leaks: boolean;
+    /** Faixas pretas (fração da altura). */
+    letterbox: number;
+    frame: boolean;
+    sparkles: boolean;
+    mood: Mood;
+    sfxLevel: number;
+    titleSfx: Sfx[];
+    beatSfx: Sfx;
+    riser: boolean;
+  };
 }
 
 const GOLD = "#f2c46d";
@@ -41,11 +72,30 @@ export const LOOKS: Record<StyleId, Look> = {
     grade: "contrast(1.05) saturate(0.92) brightness(1.02)",
     vignette: 0.22,
     zoom: "push",
-    zoomAmount: 0.04,
+    zoomAmount: 0.05,
     progressBar: false,
     accent: GOLD,
-    captions: { font: "Manrope", weight: 700, italic: false, upper: false, maxWords: 6, size: 0.05, color: "#ffffff", active: null, box: "pill", pop: false },
+    ink: "#17130a",
+    captions: { font: "Manrope", weight: 700, italic: false, upper: false, maxWords: 6, size: 0.06, color: "#ffffff", active: null, box: "pill", pop: false, anim: "fade" },
     titleFont: "Instrument Serif",
+    motion: {
+      spacing: 7,
+      cards: true,
+      callout: "glass",
+      title: "classic",
+      transition: "fade",
+      transitionGap: 5,
+      grain: 0,
+      leaks: false,
+      letterbox: 0,
+      frame: false,
+      sparkles: false,
+      mood: "sobria",
+      sfxLevel: 0.28,
+      titleSfx: ["swish"],
+      beatSfx: "swish",
+      riser: false,
+    },
   },
   dinamico: {
     minPause: 0.35,
@@ -56,20 +106,58 @@ export const LOOKS: Record<StyleId, Look> = {
     zoomAmount: 0.12,
     progressBar: true,
     accent: CYAN,
-    captions: { font: "Sora", weight: 800, italic: false, upper: true, maxWords: 3, size: 0.066, color: "#ffffff", active: CYAN, box: "none", pop: true },
+    ink: "#04191c",
+    captions: { font: "Sora", weight: 800, italic: false, upper: true, maxWords: 3, size: 0.07, color: "#ffffff", active: CYAN, box: "none", pop: true, anim: "pop" },
     titleFont: "Sora",
+    motion: {
+      spacing: 3.6,
+      cards: true,
+      callout: "solid",
+      title: "stagger",
+      transition: "zoom",
+      transitionGap: 2.4,
+      grain: 0,
+      leaks: false,
+      letterbox: 0,
+      frame: false,
+      sparkles: false,
+      mood: "neutra",
+      sfxLevel: 0.42,
+      titleSfx: ["whoosh", "pop"],
+      beatSfx: "pop",
+      riser: true,
+    },
   },
   cinematografico: {
     minPause: 0.8,
     pad: 0.16,
-    grade: "contrast(1.1) saturate(0.82) sepia(0.12) brightness(0.98)",
-    vignette: 0.38,
+    grade: "contrast(1.12) saturate(0.82) sepia(0.12) brightness(0.97)",
+    vignette: 0.4,
     zoom: "push",
-    zoomAmount: 0.06,
+    zoomAmount: 0.07,
     progressBar: false,
     accent: GOLD,
-    captions: { font: "Instrument Serif", weight: 400, italic: true, upper: false, maxWords: 5, size: 0.068, color: "#fbf3e2", active: GOLD, box: "none", pop: false },
+    ink: "#17130a",
+    captions: { font: "Instrument Serif", weight: 400, italic: true, upper: false, maxWords: 5, size: 0.086, color: "#fbf3e2", active: GOLD, box: "none", pop: false, anim: "reveal" },
     titleFont: "Instrument Serif",
+    motion: {
+      spacing: 6,
+      cards: true,
+      callout: "minimal",
+      title: "cinema",
+      transition: "dip",
+      transitionGap: 4,
+      grain: 0.07,
+      leaks: true,
+      letterbox: 0.06,
+      frame: false,
+      sparkles: false,
+      mood: "inspiradora",
+      sfxLevel: 0.4,
+      titleSfx: ["impact"],
+      beatSfx: "swish",
+      riser: false,
+    },
   },
   performance: {
     minPause: 0.3,
@@ -79,9 +167,28 @@ export const LOOKS: Record<StyleId, Look> = {
     zoom: "punch",
     zoomAmount: 0.15,
     progressBar: true,
-    accent: GOLD,
-    captions: { font: "Sora", weight: 800, italic: false, upper: true, maxWords: 2, size: 0.078, color: "#ffffff", active: "#141414", box: "word", pop: true },
+    accent: "#ffd23f",
+    ink: "#141414",
+    captions: { font: "Sora", weight: 800, italic: false, upper: true, maxWords: 2, size: 0.085, color: "#ffffff", active: "#141414", box: "word", pop: true, anim: "box" },
     titleFont: "Sora",
+    motion: {
+      spacing: 3,
+      cards: true,
+      callout: "badge",
+      title: "slam",
+      transition: "flash",
+      transitionGap: 2,
+      grain: 0,
+      leaks: false,
+      letterbox: 0,
+      frame: true,
+      sparkles: false,
+      mood: "energica",
+      sfxLevel: 0.48,
+      titleSfx: ["impact", "whoosh"],
+      beatSfx: "pop",
+      riser: true,
+    },
   },
   descontraido: {
     minPause: 0.5,
@@ -92,36 +199,73 @@ export const LOOKS: Record<StyleId, Look> = {
     zoomAmount: 0.08,
     progressBar: false,
     accent: "#ffd166",
-    captions: { font: "Manrope", weight: 800, italic: false, upper: false, maxWords: 4, size: 0.06, color: "#ffffff", active: "#ffd166", box: "pill", pop: true },
+    ink: "#2a1d00",
+    captions: { font: "Manrope", weight: 800, italic: false, upper: false, maxWords: 4, size: 0.074, color: "#ffffff", active: "#ffd166", box: "pill", pop: true, anim: "bounce" },
     titleFont: "Manrope",
+    motion: {
+      spacing: 4,
+      cards: true,
+      callout: "sticker",
+      title: "sticker",
+      transition: "whip",
+      transitionGap: 3,
+      grain: 0,
+      leaks: true,
+      letterbox: 0,
+      frame: false,
+      sparkles: true,
+      mood: "leve",
+      sfxLevel: 0.4,
+      titleSfx: ["pop", "sparkle"],
+      beatSfx: "pop",
+      riser: false,
+    },
   },
 };
 
-/** O estilo de legenda escolhido no formulário ajusta o padrão do estilo. */
-export function lookFor(opts: Pick<EditOptions, "style" | "captionStyle">): Look {
+const HEX = /^#([0-9a-f]{6})$/i;
+
+/** Cor da marca usável como acento (descarta tons muito escuros ou muito claros). */
+export function usableAccent(color: string | null | undefined): string | null {
+  const m = color?.trim().match(HEX);
+  if (!m) return null;
+  const n = parseInt(m[1], 16);
+  const r = (n >> 16) & 255;
+  const g = (n >> 8) & 255;
+  const b = n & 255;
+  const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  return lum < 0.28 || lum > 0.93 ? null : color!.trim();
+}
+
+/** O estilo de legenda escolhido e a cor da marca ajustam o padrão do estilo. */
+export function lookFor(opts: Pick<EditOptions, "style" | "captionStyle"> & { accentColor?: string | null }): Look {
   const base = LOOKS[opts.style] ?? LOOKS.institucional;
   const c = { ...base.captions };
   const s: CaptionStyle = opts.captionStyle;
-  if (s === "discreta") Object.assign(c, { upper: false, maxWords: Math.max(c.maxWords, 6), size: Math.min(c.size, 0.05), box: "pill", pop: false, active: null });
+  if (s === "discreta") Object.assign(c, { upper: false, maxWords: Math.max(c.maxWords, 6), size: Math.min(c.size, 0.06), box: "pill", pop: false, active: null, anim: "fade" });
   if (s === "palavra" && !c.active) c.active = base.accent;
   if (s === "caixa_alta") Object.assign(c, { upper: true, weight: Math.max(c.weight, 800), font: c.font === "Instrument Serif" ? "Sora" : c.font, italic: false });
-  return { ...base, captions: c };
+  const accent = usableAccent(opts.accentColor) ?? base.accent;
+  if (accent !== base.accent && c.active === base.accent) c.active = accent;
+  return { ...base, accent, captions: c };
 }
 
 /** Respostas recomendadas por estilo (iguais às do Novo vídeo do app). */
-export function defaultsFor(style: StyleId): Pick<EditOptions, "cutPauses" | "removeMistakes" | "captions" | "lowerThird" | "hook" | "cta" | "vignette" | "zoom" | "enhanceAudio" | "oabReview" | "captionStyle"> {
+export function defaultsFor(style: StyleId): Pick<EditOptions, "cutPauses" | "removeMistakes" | "captions" | "lowerThird" | "hook" | "cta" | "vignette" | "zoom" | "effects" | "music" | "enhanceAudio" | "oabReview" | "captionStyle"> {
   const on = (styles: StyleId[]) => styles.includes(style);
   return {
     cutPauses: true,
     removeMistakes: true,
     captions: true,
-    captionStyle: on(["institucional", "cinematografico"]) ? "discreta" : on(["performance"]) ? "caixa_alta" : "palavra",
-    lowerThird: !on(["performance"]),
-    hook: on(["dinamico", "performance"]),
-    cta: on(["dinamico", "performance"]),
+    captionStyle: on(["institucional"]) ? "discreta" : on(["performance"]) ? "caixa_alta" : "palavra",
+    lowerThird: false,
+    hook: true,
+    cta: on(["dinamico", "performance", "descontraido"]),
     vignette: on(["institucional", "cinematografico"]),
-    zoom: !on(["institucional"]),
+    zoom: true,
+    effects: true,
+    music: true,
     enhanceAudio: true,
-    oabReview: true,
+    oabReview: false,
   };
 }

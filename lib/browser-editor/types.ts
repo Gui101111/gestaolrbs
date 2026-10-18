@@ -21,6 +21,9 @@ export interface EditOptions {
   captionStyle: CaptionStyle;
   lowerThird: boolean;
   name: string;
+  /** Nome do escritório (vinheta e encerramento). */
+  office?: string;
+  /** Não exibido mais (mantido para projetos antigos). */
   oab: string;
   hook: boolean;
   /** Vazio: a IA sugere pela fala. */
@@ -29,6 +32,14 @@ export interface EditOptions {
   ctaText: string;
   vignette: boolean;
   zoom: boolean;
+  /** Grafismos animados, transições e efeitos sonoros. */
+  effects: boolean;
+  /** Trilha instrumental por baixo da voz. */
+  music: boolean;
+  /** Clima da trilha; "auto" segue o estilo. */
+  musicMood?: "auto" | "sobria" | "inspiradora" | "neutra" | "energica" | "leve";
+  /** Cor principal da marca (vira o acento dos grafismos). */
+  accentColor?: string | null;
   enhanceAudio: boolean;
   /** Revisão OAB das falas (alertas, nunca corta sozinha). */
   oabReview: boolean;
@@ -70,6 +81,19 @@ export interface OabAlert {
   tempo: number | null;
 }
 
+/** Grafismo sugerido pela IA num ponto da fala. */
+export interface Moment {
+  segmentId: number | null;
+  /** Palavra (ou início da expressão) em que o grafismo entra. */
+  word: string;
+  kind: "icone" | "numero" | "cartao";
+  /** Texto curto do grafismo (até 5 palavras). */
+  text: string;
+  icon: string | null;
+  /** Número em destaque ("R$ 10 MIL") ou subtítulo do cartão. */
+  value?: string;
+}
+
 /** O que a IA (Claude) devolve ao revisar a fala. */
 export interface Review {
   segments: Segment[];
@@ -78,6 +102,7 @@ export interface Review {
   keywords: string[];
   alerts: OabAlert[];
   cta: string;
+  moments: Moment[];
   by: "claude" | "local";
 }
 

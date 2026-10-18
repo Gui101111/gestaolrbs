@@ -7,7 +7,7 @@ import { folderColor } from "@/components/folders/folder-colors";
 import { useFolders } from "@/components/folders/folders-context";
 import { landing } from "@/content/landing";
 import { modeloById } from "@/config/modelos";
-import { LEGAL_AREAS, TARGET_DURATIONS, labelOf } from "@/lib/constants/domain";
+import { LEGAL_AREAS, labelOf } from "@/lib/constants/domain";
 import { DETAIL_QUESTIONS } from "@/lib/constants/questions";
 import { cn, formatDuration } from "@/lib/utils";
 import type { Draft, DraftVideo } from "@/components/new-video/types";
@@ -63,13 +63,10 @@ export function SummaryPanel({ d, video, className }: { d: Draft; video: DraftVi
             <Empty />
           )}
         </Row>
-        <Row label="Duração">{labelOf(TARGET_DURATIONS, d.duration)}</Row>
+        <Row label="Duração">Automática</Row>
         <Row label="Detalhes">
           {Object.keys(d.answers).length ? `${yes.length} de ${DETAIL_QUESTIONS.length} ativados` : <Empty />}
         </Row>
-        {d.cut_ranges.filter((r) => r.start || r.end).length > 0 && (
-          <Row label="Cortes">{d.cut_ranges.filter((r) => r.start || r.end).length} trecho(s)</Row>
-        )}
         {modelo && <Row label="Modelo">{modelo.title}</Row>}
       </dl>
       {d.instructions && <p className="border-t border-line px-4 py-3 text-xs leading-relaxed text-fg-2 line-clamp-3">“{d.instructions}”</p>}

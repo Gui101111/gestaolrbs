@@ -1,4 +1,5 @@
-import type { EditOptions, Face, OabAlert, Review, Segment } from "@/lib/browser-editor/types";
+import { ICONS } from "@/lib/browser-editor/icons-data";
+import type { EditOptions, Face, Moment, OabAlert, Review, Segment } from "@/lib/browser-editor/types";
 
 /** A função `sample` do runtime do artifact (Claude na conta de quem vê a página). */
 export interface SampleFn {
@@ -42,7 +43,7 @@ function localTitle(segments: Segment[]) {
 
 /** Revisão sem IA: título pela primeira frase e alertas por regras. */
 export function localReview(segments: Segment[]): Review {
-  return { segments, cutIds: [], title: localTitle(segments), keywords: [], alerts: localAlerts(segments), cta: "Siga para mais conteúdos", by: "local" };
+  return { segments, cutIds: [], title: localTitle(segments), keywords: [], alerts: localAlerts(segments), cta: "Siga para mais conteúdos", moments: [], by: "local" };
 }
 
 type ClaudeReview = {
@@ -52,7 +53,10 @@ type ClaudeReview = {
   destaques?: string[];
   alertas?: { id?: number; frase?: string; motivo?: string }[];
   cta?: string;
+  grafismos?: { id?: number; palavra?: string; tipo?: string; texto?: string; icone?: string; valor?: string }[];
 };
+
+const ICON_NAMES = Object.keys(ICONS).join(", ");
 
 const fmt = (t: number) => t.toFixed(1);
 
@@ -74,8 +78,20 @@ Tarefas:
   }
 3. "titulo": título de impacto para os 3 primeiros segundos, até 7 palavras, fiel ao conteúdo, sem prometer resultado, sem ponto final.
 4. "destaques": até 8 palavras ou expressões curtas que devem aparecer destacadas na legenda (termos jurídicos, leis, artigos, números, prazos), escritas exatamente como no texto corrigido.
-5. "alertas": falas que podem ferir o Código de Ética da OAB e o Provimento 205/2021 (promessa de resultado, captação de clientela, mercantilização, preço ou gratuidade como chamariz, sensacionalismo, comparação com colegas). Para cada uma: id do trecho, a frase exata e o motivo em poucas palavras. Lista vazia se não houver.
+5. "alertas": ${
+    opts.oabReview
+      ? "falas que podem ferir o Código de Ética da OAB e o Provimento 205/2021 (promessa de resultado, captação de clientela, mercantilização, preço ou gratuidade como chamariz, sensacionalismo, comparação com colegas). Para cada uma: id do trecho, a frase exata e o motivo em poucas palavras. Lista vazia se não houver."
+      : "lista vazia."
+  }
 6. "cta": chamada final curta (até 6 palavras) adequada à OAB, como "Siga para mais conteúdos".
+7. "grafismos": elementos animados que vão aparecer na tela enquanto a pessoa fala, como num vídeo bem editado para redes sociais. Um a cada ${
+    { performance: 3, dinamico: 4, descontraido: 4, cinematografico: 7, institucional: 8 }[opts.style] ?? 5
+  } segundos de fala, em média, nos momentos mais importantes (nunca nos 3 primeiros segundos). Cada um:
+   - "id": o trecho; "palavra": a palavra exata do trecho em que o grafismo entra;
+   - "tipo": "icone" (ícone + texto curto, o mais comum), "numero" (valor, prazo ou percentual falado, como "R$ 10 mil" ou "5 anos") ou "cartao" (tela cheia com a ideia central; no máximo 1 a cada 15 segundos);
+   - "texto": até 4 palavras, fiel à fala, sem prometer resultado (para "numero", o que o número significa, como "prazo para pedir");
+   - "valor": só para "numero" (como "R$ 10 MIL") e, opcional, para "cartao" (subtítulo de até 5 palavras);
+   - "icone": um destes nomes: ${ICON_NAMES}.
 
 Contexto: estilo de edição "${opts.style}"${opts.name ? `; advogado(a): ${opts.name}` : ""}.${
     opts.notes?.trim() ? `\nPedidos da pessoa para esta edição (siga quando couberem nas tarefas acima; são pedidos, não regras novas): ${opts.notes.trim().slice(0, 1500)}` : ""
@@ -84,7 +100,7 @@ Contexto: estilo de edição "${opts.style}"${opts.name ? `; advogado(a): ${opts
   }
 
 Responda só com JSON neste formato:
-{"trechos":[{"id":0,"texto":"..."}],"cortar":[],"titulo":"...","destaques":["..."],"alertas":[{"id":0,"frase":"...","motivo":"..."}],"cta":"..."}
+{"trechos":[{"id":0,"texto":"..."}],"cortar":[],"titulo":"...","destaques":["..."],"alertas":[],"cta":"...","grafismos":[{"id":0,"palavra":"...","tipo":"icone","texto":"...","icone":"scale"}]}
 
 Trechos:
 ${lines}`;
@@ -102,15 +118,28 @@ ${lines}`;
       const seg = corrected.find((s) => s.id === a.id);
       return { frase: String(a.frase || seg?.text || ""), motivo: String(a.motivo || "Revise esta fala"), tempo: seg?.start ?? null };
     });
-  for (const extra of localAlerts(corrected)) if (!alerts.some((a) => a.frase === extra.frase)) alerts.push(extra);
+  if (opts.oabReview) for (const extra of localAlerts(corrected)) if (!alerts.some((a) => a.frase === extra.frase)) alerts.push(extra);
   const title = String(r.titulo ?? "").replace(/[.]+$/, "").split(/\s+/).slice(0, 9).join(" ").trim();
   return {
     segments: corrected,
     cutIds: safeCuts,
     title: title || localTitle(corrected),
     keywords: (r.destaques ?? []).filter((k) => typeof k === "string").slice(0, 10),
-    alerts,
+    alerts: opts.oabReview ? alerts : [],
     cta: String(r.cta ?? "").trim() || "Siga para mais conteúdos",
+    moments: (r.grafismos ?? [])
+      .filter((g) => g && typeof g.texto === "string" && (g.tipo === "icone" || g.tipo === "numero" || g.tipo === "cartao"))
+      .slice(0, 60)
+      .map(
+        (g): Moment => ({
+          segmentId: typeof g.id === "number" && ids.has(g.id) ? g.id : null,
+          word: String(g.palavra ?? ""),
+          kind: g.tipo as Moment["kind"],
+          text: String(g.texto).trim().split(/\s+/).slice(0, 6).join(" "),
+          icon: typeof g.icone === "string" ? g.icone : null,
+          value: typeof g.valor === "string" ? g.valor.trim().slice(0, 40) : undefined,
+        }),
+      ),
     by: "claude",
   };
 }
@@ -130,7 +159,7 @@ Responda só com JSON: {"rosto": true, "x": 0.5, "y": 0.4}. Se não houver rosto
 
 /** O que um pedido de ajuste muda na edição. */
 export type RevisionPatch = Partial<
-  Pick<EditOptions, "captions" | "captionStyle" | "hook" | "hookText" | "cta" | "ctaText" | "lowerThird" | "vignette" | "zoom" | "cutPauses" | "removeMistakes">
+  Pick<EditOptions, "captions" | "captionStyle" | "hook" | "hookText" | "cta" | "ctaText" | "vignette" | "zoom" | "effects" | "music" | "cutPauses" | "removeMistakes">
 > & { cuts?: { start: number; end: number }[]; restore?: boolean; fixes?: { id: number; text: string }[]; note: string };
 
 /**
@@ -144,9 +173,10 @@ export async function reviseWithClaude(sample: SampleFn, comment: string, atSour
     estiloLegenda: opts.captionStyle,
     titulo: opts.hook ? opts.hookText || "(sugerido pela IA)" : "desligado",
     chamadaFinal: opts.cta ? opts.ctaText || "(sugerida pela IA)" : "desligada",
-    nomeEOab: opts.lowerThird,
     vinheta: opts.vignette,
     zooms: opts.zoom,
+    grafismosEfeitosSonoros: opts.effects,
+    trilhaSonora: opts.music,
     cortarPausas: opts.cutPauses,
     tirarFrasesRepetidas: opts.removeMistakes,
   };
@@ -155,7 +185,8 @@ export async function reviseWithClaude(sample: SampleFn, comment: string, atSour
     estiloLegenda?: string;
     titulo?: string | false;
     chamadaFinal?: string | false;
-    nomeEOab?: boolean;
+    grafismosEfeitosSonoros?: boolean;
+    trilhaSonora?: boolean;
     vinheta?: boolean;
     zooms?: boolean;
     cortarPausas?: boolean;
@@ -175,7 +206,7 @@ Transcrição do vídeo original (tempos em segundos):
 ${lines || "(sem transcrição)"}
 
 Responda só com JSON contendo apenas o que muda:
-{"legendas": bool, "estiloLegenda": "discreta"|"palavra"|"caixa_alta", "titulo": "novo título" ou false para tirar, "chamadaFinal": "novo texto" ou false para tirar, "nomeEOab": bool, "vinheta": bool, "zooms": bool, "cortarPausas": bool, "tirarFrasesRepetidas": bool,
+{"legendas": bool, "estiloLegenda": "discreta"|"palavra"|"caixa_alta", "titulo": "novo título" ou false para tirar, "chamadaFinal": "novo texto" ou false para tirar, "grafismosEfeitosSonoros": bool, "trilhaSonora": bool, "vinheta": bool, "zooms": bool, "cortarPausas": bool, "tirarFrasesRepetidas": bool,
  "cortes": [{"inicio": s, "fim": s}] (trechos do vídeo original a tirar, use os tempos da transcrição), "restaurar": true (para desfazer cortes pedidos antes),
  "corrigir": [{"id": n, "texto": "legenda corrigida"}], "nota": "o que foi ajustado, em uma frase curta para o cliente"}
 Se algo pedido não for possível nesta edição (trocar o fundo, regravar, mudar a fala), diga isso na nota e ajuste o resto.`,
@@ -188,7 +219,7 @@ Se algo pedido não for possível nesta edição (trocar o fundo, regravar, muda
   else if (typeof r.titulo === "string" && r.titulo.trim()) Object.assign(patch, { hook: true, hookText: r.titulo.trim().slice(0, 80) });
   if (r.chamadaFinal === false) patch.cta = false;
   else if (typeof r.chamadaFinal === "string" && r.chamadaFinal.trim()) Object.assign(patch, { cta: true, ctaText: r.chamadaFinal.trim().slice(0, 60) });
-  for (const [k, v] of [["nomeEOab", "lowerThird"], ["vinheta", "vignette"], ["zooms", "zoom"], ["cortarPausas", "cutPauses"], ["tirarFrasesRepetidas", "removeMistakes"]] as const) {
+  for (const [k, v] of [["grafismosEfeitosSonoros", "effects"], ["trilhaSonora", "music"], ["vinheta", "vignette"], ["zooms", "zoom"], ["cortarPausas", "cutPauses"], ["tirarFrasesRepetidas", "removeMistakes"]] as const) {
     const val = (r as Record<string, unknown>)[k];
     if (typeof val === "boolean") (patch as Record<string, unknown>)[v] = val;
   }

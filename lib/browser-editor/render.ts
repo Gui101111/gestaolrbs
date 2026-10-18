@@ -1,7 +1,11 @@
 import { createPainter, type Painter, type Scene } from "@/lib/browser-editor/draw";
+import { loadFonts as loadFamilies } from "@/lib/browser-editor/fonts";
 import { outputSize, seek } from "@/lib/browser-editor/framing";
 import type { Look } from "@/lib/browser-editor/looks";
-import type { Analysis, EditOptions, Plan, Ratio, RenderOutput, Word } from "@/lib/browser-editor/types";
+import type { MotionPlan } from "@/lib/browser-editor/motion";
+import { scheduleSoundtrack, STYLE_MOOD, type Mood, type SoundtrackPlan } from "@/lib/browser-editor/sound";
+import { toOut } from "@/lib/browser-editor/timeline";
+import type { Analysis, EditOptions, Interval, Plan, Ratio, RenderOutput, Word } from "@/lib/browser-editor/types";
 import { fixWebmDuration } from "@/lib/browser-editor/webm-duration";
 
 const FPS = 30;
@@ -122,13 +126,98 @@ function setupChain(ac: AudioContext, g: Graph, enhance: boolean, speechDb: numb
 export function bookends(opts: EditOptions, title: string, cta: string) {
   const introText = opts.name.trim() || (opts.hook ? title : "");
   return {
-    introDur: opts.vignette && introText ? 1.7 : 0,
-    outroDur: opts.vignette && (opts.name.trim() || (opts.cta && cta)) ? 2.6 : 0,
+    introDur: opts.vignette && introText ? 2 : 0,
+    outroDur: opts.vignette && (opts.name.trim() || (opts.cta && cta)) ? 3 : 0,
   };
 }
 
+/** Onde há voz no arquivo final (para a trilha abaixar). */
+export function voiceRegions(speech: Interval[], keep: Interval[], introDur: number): Interval[] {
+  const out: Interval[] = [];
+  for (const r of speech) {
+    for (const k of keep) {
+      const s = Math.max(r.start, k.start);
+      const e = Math.min(r.end, k.end);
+      if (e <= s) continue;
+      const os = toOut(keep, s);
+      const oe = toOut(keep, e);
+      if (os !== null && oe !== null) out.push({ start: introDur + os, end: introDur + oe });
+    }
+  }
+  return out;
+}
+
+/** Trilha, efeitos e onde há voz, para a mixagem final. */
+export function soundtrackFor(p: Pick<RenderParams, "analysis" | "plan" | "opts" | "look" | "motion" | "title" | "cta">): SoundtrackPlan {
+  const { introDur, outroDur } = bookends(p.opts, p.title, p.cta);
+  const mood: Mood = p.opts.musicMood && p.opts.musicMood !== "auto" ? p.opts.musicMood : (STYLE_MOOD[p.opts.style] ?? p.look.motion.mood);
+  return {
+    music: p.opts.music ? { mood, seed: Math.round(p.plan.bodyDuration * 10) + 1 } : null,
+    cues: p.motion.cues,
+    sfxLevel: p.opts.effects ? p.look.motion.sfxLevel : 0,
+    voice: voiceRegions(p.analysis.speech, p.plan.keep, introDur),
+    introDur,
+    outroDur,
+    total: introDur + p.plan.bodyDuration + outroDur,
+  };
+}
+
+/**
+ * Mixagem final: só os trechos que ficam da voz (com microdesvanecimento
+ * nas emendas e o filtro de voz), a trilha com ducking e os efeitos
+ * sonoros, com um limitador no fim.
+ */
+export async function renderAudio(
+  pcm: { data: Float32Array; rate: number } | null,
+  keep: Interval[],
+  enhance: boolean,
+  speechDb: number | null,
+  sound: SoundtrackPlan,
+): Promise<AudioBuffer> {
+  const rate = pcm?.rate ?? 48_000;
+  const ctx = new OfflineAudioContext(1, Math.max(1, Math.ceil(sound.total * rate)), rate);
+  const limiter = ctx.createDynamicsCompressor();
+  limiter.threshold.value = -2.5;
+  limiter.knee.value = 0;
+  limiter.ratio.value = 20;
+  limiter.attack.value = 0.002;
+  limiter.release.value = 0.1;
+  const ceiling = ctx.createGain();
+  ceiling.gain.value = 0.94;
+  limiter.connect(ceiling);
+  ceiling.connect(ctx.destination);
+  if (pcm) {
+    const src = ctx.createBuffer(1, pcm.data.length, pcm.rate);
+    src.copyToChannel(pcm.data as Float32Array<ArrayBuffer>, 0);
+    let input: AudioNode = limiter;
+    if (enhance) {
+      const chain = voiceChain(ctx, speechDb);
+      chain.output.connect(limiter);
+      input = chain.input;
+    }
+    const FADE = 0.008;
+    let at = sound.introDur;
+    for (const k of keep) {
+      const len = k.end - k.start;
+      const node = ctx.createBufferSource();
+      node.buffer = src;
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0, at);
+      g.gain.linearRampToValueAtTime(1, at + FADE);
+      g.gain.setValueAtTime(1, Math.max(at + FADE, at + len - FADE));
+      g.gain.linearRampToValueAtTime(0, at + len);
+      node.connect(g);
+      g.connect(input);
+      node.start(at, k.start, len);
+      at += len;
+    }
+  }
+  scheduleSoundtrack(ctx, limiter, sound);
+  return ctx.startRendering();
+}
+
 /** Canvas e desenhista de um formato de saída. */
-export function stage(p: Pick<RenderParams, "analysis" | "plan" | "opts" | "look" | "words" | "title" | "cta" | "logo">, ratio: Ratio) {
+export function stage(p: Pick<RenderParams, "analysis" | "plan" | "opts" | "look" | "words" | "title" | "cta" | "logo" | "motion">, ratio: Ratio) {
   const { analysis: a, plan, opts } = p;
   const { introDur, outroDur } = bookends(opts, p.title, p.cta);
   const { width, height } = outputSize(ratio, opts.ratios.length);
@@ -152,7 +241,8 @@ export function stage(p: Pick<RenderParams, "analysis" | "plan" | "opts" | "look
     introDur,
     outroDur,
     bodyDur: plan.bodyDuration,
-    zoomCuts: zoomCuts(plan, p.words),
+    zoomCuts: [...new Set([...zoomCuts(plan, p.words), ...p.motion.punches])].sort((a, b) => a - b),
+    motion: p.motion,
   };
   const painter: Painter = createPainter(scene);
   return { canvas, ctx, painter, width, height };
@@ -170,6 +260,8 @@ export interface RenderParams {
   title: string;
   cta: string;
   logo: CanvasImageSource | null;
+  /** Grafismos, transições e efeitos sonoros. */
+  motion: MotionPlan;
   signal: AbortSignal;
   onCanvas?: (canvas: HTMLCanvasElement, ratio: Ratio) => void;
   onProgress: (fraction: number) => void;
@@ -191,14 +283,7 @@ export async function waitVisible(signal: AbortSignal) {
 }
 
 export async function loadFonts(look: Look) {
-  const fams = new Set([look.captions.font, look.titleFont, "Sora", "Manrope", "Instrument Serif"]);
-  try {
-    await Promise.all(
-      [...fams].flatMap((f) => [document.fonts.load(`800 48px "${f}"`), document.fonts.load(`italic 400 48px "${f}"`), document.fonts.load(`700 48px "${f}"`)]),
-    );
-  } catch {
-    // sem a fonte, o navegador usa a substituta
-  }
+  await loadFamilies([look.captions.font, look.titleFont]);
 }
 
 /** Instantes em que o zoom muda: início de cada trecho e, em trechos longos, a cada ~5 s numa pausa entre palavras. */
@@ -230,16 +315,44 @@ export async function render(p: RenderParams): Promise<RenderOutput[]> {
   const { video, ac, analysis: a, plan, opts, look, signal } = p;
   const g = graphs.get(video);
   if (!g) throw new Error("vídeo não preparado");
-  setupChain(ac, g, opts.enhanceAudio, a.speechDb);
   await loadFonts(look);
 
   const { introDur, outroDur } = bookends(opts, p.title, p.cta);
   const total = introDur + plan.bodyDuration + outroDur;
 
+  // Som: a mixagem final (voz cortada + trilha + efeitos) é feita antes e
+  // tocada em sincronia com os quadros; sem áudio decodificado, a voz vem ao vivo.
+  const sound = soundtrackFor(p);
+  const mix = a.pcm || sound.music || sound.sfxLevel > 0 ? await renderAudio(a.pcm, plan.keep, opts.enhanceAudio, a.speechDb, sound).catch(() => null) : null;
+  const mixDest = mix ? ac.createMediaStreamDestination() : null;
+  const liveVoice = !mix || !a.pcm;
+  if (liveVoice) setupChain(ac, g, opts.enhanceAudio, a.speechDb);
+  if (liveVoice && mixDest) g.fade.connect(mixDest);
+  let mixSrc: AudioBufferSourceNode | null = null;
+  const stopMix = () => {
+    if (!mixSrc) return;
+    try {
+      mixSrc.stop();
+    } catch {
+      // já parou
+    }
+    mixSrc.disconnect();
+    mixSrc = null;
+  };
+  const playMix = (at: number) => {
+    if (!mix || !mixDest) return;
+    stopMix();
+    const src = ac.createBufferSource();
+    src.buffer = mix;
+    src.connect(mixDest);
+    src.start(0, Math.min(Math.max(0, at), mix.duration));
+    mixSrc = src;
+  };
+
   const outs = opts.ratios.map((ratio) => {
     const { canvas, ctx, painter, width, height } = stage(p, ratio);
     const stream = canvas.captureStream(FPS);
-    const track = g.dest.stream.getAudioTracks()[0];
+    const track = (mixDest ?? g.dest).stream.getAudioTracks()[0];
     if (track) stream.addTrack(track.clone());
     const bits = Math.round(Math.min(9_000_000, Math.max(2_500_000, width * height * FPS * 0.13)));
     const rec = new MediaRecorder(stream, { mimeType: picked.mime, videoBitsPerSecond: bits, audioBitsPerSecond: 160_000 });
@@ -277,18 +390,22 @@ export async function render(p: RenderParams): Promise<RenderOutput[]> {
 
   /** Quadros parados (vinheta e encerramento) por `dur` segundos. */
   async function hold(dur: number, base: number, draw: (o: (typeof outs)[number], t: number) => void) {
+    if (ac.state !== "running") await ac.resume().catch(() => {});
     for (const o of outs) draw(o, 0);
     await nextFrame();
     resumeAll();
+    playMix(base);
     let start = performance.now();
     for (;;) {
       if (signal.aborted) throw abortError();
       if (document.hidden) {
         const pausedAt = performance.now();
         pauseAll();
+        stopMix();
         await waitVisible(signal);
         resumeAll();
         start += performance.now() - pausedAt;
+        playMix(base + (performance.now() - start) / 1000);
       }
       const t = Math.min(dur, (performance.now() - start) / 1000);
       for (const o of outs) draw(o, t);
@@ -296,6 +413,7 @@ export async function render(p: RenderParams): Promise<RenderOutput[]> {
       if (t >= dur) {
         await nextFrame();
         pauseAll();
+        stopMix();
         return;
       }
       await nextFrame();
@@ -325,22 +443,25 @@ export async function render(p: RenderParams): Promise<RenderOutput[]> {
       for (const o of outs) o.painter.body(o.ctx, video, bodyAt);
       await ensurePlaying();
       resumeAll();
-      fadeTo(1, 0.012);
+      playMix(introDur + bodyAt + Math.max(0, video.currentTime - seg.start));
+      if (liveVoice) fadeTo(1, 0.012);
       let faded = false;
       for (;;) {
         if (signal.aborted) throw abortError();
         if (document.hidden) {
           video.pause();
           pauseAll();
+          stopMix();
           await waitVisible(signal);
           await ensurePlaying();
           resumeAll();
+          playMix(introDur + bodyAt + Math.max(0, video.currentTime - seg.start));
         }
         const ct = video.currentTime;
         const t = bodyAt + Math.max(0, Math.min(seg.end, ct) - seg.start);
         for (const o of outs) o.painter.body(o.ctx, video, t);
         p.onProgress((introDur + t) / total);
-        if (!faded && ct >= seg.end - 0.035) {
+        if (!faded && liveVoice && ct >= seg.end - 0.035) {
           fadeTo(0, 0.008);
           faded = true;
         }
@@ -348,6 +469,7 @@ export async function render(p: RenderParams): Promise<RenderOutput[]> {
         await nextFrame();
       }
       pauseAll();
+      stopMix();
       video.pause();
       fadeTo(0, 0.005);
       bodyAt += seg.end - seg.start;
@@ -356,6 +478,7 @@ export async function render(p: RenderParams): Promise<RenderOutput[]> {
     if (outroDur) await hold(outroDur, introDur + plan.bodyDuration, (o, t) => o.painter.outro(o.ctx, video, t));
   } catch (e) {
     video.pause();
+    stopMix();
     for (const o of outs) if (o.rec.state !== "inactive") o.rec.stop();
     for (const o of outs) o.stream.getTracks().forEach((t) => t.stop());
     throw e;

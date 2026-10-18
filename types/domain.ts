@@ -25,7 +25,7 @@ export type ProjectOptions = {
   target_duration?: "completo" | "60s" | "90s" | "3min" | "cortes";
   audience?: string;
   hook_text?: string;
-  music_tone?: "sobria" | "inspiradora" | "neutra";
+  music_tone?: "auto" | "sobria" | "inspiradora" | "neutra" | "energica" | "leve";
   cut_ranges?: { start: string; end: string }[];
   reference_url?: string;
   /** Respostas do passo Detalhes (Sim / Não / Outro) e textos de "Outro". */

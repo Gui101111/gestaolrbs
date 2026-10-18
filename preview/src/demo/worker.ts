@@ -6,7 +6,7 @@
  */
 import { localReview, reviseWithClaude } from "@/lib/browser-editor/ai";
 import { encode, encodeSupport } from "@/lib/browser-editor/encode";
-import { defaultsFor } from "@/lib/browser-editor/looks";
+import { defaultsFor, usableAccent } from "@/lib/browser-editor/looks";
 import { analyze, loadLogo, renderInputs } from "@/lib/browser-editor/pipeline";
 import { newAudioContext, primeVideo, render, type RenderParams } from "@/lib/browser-editor/render";
 import { toSource } from "@/lib/browser-editor/timeline";
@@ -51,7 +51,7 @@ export function optionsFor(project: Row, brand: Row | undefined, profile: Row | 
     cta_text?: string;
     hook_text?: string;
     cut_ranges?: { start: string; end: string }[];
-    target_duration?: string;
+    music_tone?: string;
   };
   const style = (STYLES.includes(project.editing_style as StyleId) ? project.editing_style : "institucional") as StyleId;
   const base = defaultsFor(style);
@@ -61,8 +61,12 @@ export function optionsFor(project: Row, brand: Row | undefined, profile: Row | 
   const treatment = profile?.treatment === "dra" ? "Dra. " : profile?.treatment === "dr" ? "Dr. " : "";
   const fullName = String(profile?.full_name ?? "").trim();
   const name = String(brand?.professional_name ?? "").trim() || (fullName ? `${/^(dra?\.?)\s/i.test(fullName) ? "" : treatment}${fullName}` : "");
-  const oab = String(brand?.oab_display ?? "").trim() || (profile?.oab_number && profile?.oab_uf ? `OAB/${profile.oab_uf} ${profile.oab_number}` : "");
-  const target = { "60s": 60, "90s": 90, "3min": 180 }[o.target_duration ?? ""] ?? null;
+  const office = String(brand?.office_name ?? profile?.office_name ?? "").trim();
+  const useBrand = yes("brand", true);
+  const primary = String(brand?.primary_color ?? "");
+  const accentColor = useBrand && primary.toUpperCase() !== "#C6A15B" ? usableAccent(primary) : null;
+  const moods = ["sobria", "inspiradora", "neutra", "energica", "leve"] as const;
+  const musicMood = moods.find((m) => m === o.music_tone) ?? "auto";
   const notes = [String(project.instructions ?? ""), ...Object.entries(o.answers_text ?? {}).map(([k, v]) => `${k}: ${v}`)].filter((s) => s.trim()).join(" · ");
   return {
     style,
@@ -71,25 +75,30 @@ export function optionsFor(project: Row, brand: Row | undefined, profile: Row | 
     removeMistakes: yes("pauses", base.removeMistakes),
     captions: yes("captions", base.captions),
     captionStyle: o.caption_style ?? base.captionStyle,
-    lowerThird: yes("lower_third", base.lowerThird) && Boolean(name),
+    lowerThird: false,
     name,
-    oab,
+    office,
+    oab: "",
     hook: yes("hook", base.hook),
     hookText: o.hook_text ?? "",
     cta: yes("cta", base.cta),
     ctaText: ctaFor(o.cta_type, o.cta_text, brand),
     vignette: yes("vignette", base.vignette) && Boolean(name),
     zoom: yes("effects", base.zoom),
+    effects: yes("effects", base.effects),
+    music: yes("music", base.music),
+    musicMood,
+    accentColor,
     enhanceAudio: true,
-    oabReview: yes("oab", true),
-    logo: yes("brand", true) ? logo : null,
+    oabReview: false,
+    logo: useBrand ? logo : null,
     script: "",
     framing: {},
     extraCuts: (o.cut_ranges ?? [])
       .map((r) => ({ start: parseTime(r.start), end: parseTime(r.end) }))
       .filter((r): r is Interval => r.start !== null && r.end !== null && r.end > r.start),
     notes,
-    targetSeconds: target,
+    targetSeconds: null,
   };
 }
 
@@ -117,7 +126,8 @@ function localRevision(comment: string): { patch: Partial<EditOptions>; note: st
   flag(/vinheta/, "vignette", "vinheta");
   flag(/zoom/, "zoom", "zooms");
   flag(/chamada|cta/, "cta", "chamada final");
-  flag(/\b(nome|oab)\b/, "lowerThird", "nome e OAB");
+  flag(/trilha|m[úu]sica/, "music", "trilha sonora");
+  flag(/efeito|grafismo|anima[çc]/, "effects", "grafismos e efeitos");
   const quoted = comment.match(/[“"']([^”"']{3,80})[”"']/);
   if (/t[íi]tulo/.test(c)) {
     if (quoted) {
@@ -287,6 +297,7 @@ async function process(jobId: string) {
       title: inputs.title,
       cta: inputs.cta,
       logo,
+      motion: inputs.motion,
       signal,
       onProgress: (f) => {
         const s = stepFor({ step: "montar", value: f });
@@ -295,7 +306,7 @@ async function process(jobId: string) {
       requestGesture,
     };
     let outs: RenderOutput[] | null = null;
-    const support = await encodeSupport(opts.ratios, analysis.pcm?.rate ?? null).catch(() => null);
+    const support = await encodeSupport(opts.ratios, analysis.pcm?.rate ?? (opts.music || opts.effects ? 48_000 : null)).catch(() => null);
     if (support) {
       try {
         outs = await encode(params, support);

@@ -11,8 +11,6 @@ import { FolderDialog } from "@/components/folders/folder-dialog";
 import { SETTINGS_TABS, sectionOf, type FolderItem, type RecentItem } from "@/components/app-shell/nav";
 import { StatusBadge } from "@/components/projects/status-badge";
 import { comoFazer } from "@/content/como-fazer";
-import { landing } from "@/content/landing";
-import { ASPECT_RATIOS, EDITING_STYLES, LEGAL_AREAS } from "@/lib/constants/domain";
 import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +36,7 @@ export function SidePanel({
   const currentFolder = pathname.startsWith("/app/projetos/") ? pathname.split("/")[3] : null;
   const newVideoHref = currentFolder ? `${ROUTES.newVideo}?pasta=${currentFolder}` : ROUTES.newVideo;
 
-  const showCreate = section !== "exemplos" && section !== "como-fazer" && section !== "configuracoes";
+  const showCreate = section !== "como-fazer" && section !== "configuracoes";
 
   return (
     <div className={cn("flex h-full flex-col", className)}>
@@ -116,11 +114,6 @@ export function SidePanel({
               </PanelGroup>
             )}
 
-            {section === "exemplos" && (
-              <React.Suspense>
-                <ExampleFilters onNavigate={onNavigate} />
-              </React.Suspense>
-            )}
 
             {section === "como-fazer" && (
               <PanelGroup title="Tópicos">
@@ -221,53 +214,6 @@ function PanelLink({
       )}
       {children}
     </Link>
-  );
-}
-
-function ExampleFilters({ onNavigate }: { onNavigate?: () => void }) {
-  const params = useSearchParams();
-  const href = (key: string, value: string | null) => {
-    const next = new URLSearchParams(params.toString());
-    if (value === null || next.get(key) === value) next.delete(key);
-    else next.set(key, value);
-    const qs = next.toString();
-    return `${ROUTES.examples}${qs ? `?${qs}` : ""}`;
-  };
-  const groups = [
-    { key: "estilo", title: "Estilo", items: EDITING_STYLES.map((s) => ({ value: s.value, label: landing.styleNames[s.value] ?? s.label })) },
-    { key: "formato", title: "Formato", items: ASPECT_RATIOS.map((r) => ({ value: r.value, label: r.value })) },
-    {
-      key: "area",
-      title: "Área do Direito",
-      items: LEGAL_AREAS.filter((a) => a.value !== "outro").map((a) => ({ value: a.value, label: a.label })),
-    },
-  ];
-  return (
-    <>
-      {groups.map((g) => (
-        <PanelGroup key={g.key} title={g.title}>
-          <div className="flex flex-wrap gap-1.5 px-2">
-            {g.items.map((it) => {
-              const active = params.get(g.key) === it.value;
-              return (
-                <Link
-                  key={it.value}
-                  href={href(g.key, it.value)}
-                  onClick={onNavigate}
-                  scroll={false}
-                  className={cn(
-                    "rounded-full border px-2.5 py-1 text-xs font-medium transition",
-                    active ? "border-cyan/50 bg-cyan/10 text-cyan" : "border-line text-fg-2 hover:border-line-strong hover:text-fg",
-                  )}
-                >
-                  {it.label}
-                </Link>
-              );
-            })}
-          </div>
-        </PanelGroup>
-      ))}
-    </>
   );
 }
 

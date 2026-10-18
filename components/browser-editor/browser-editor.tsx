@@ -227,6 +227,7 @@ export function BrowserEditor({ open, onClose, deps }: { open: boolean; onClose:
         title: inputs.title,
         cta: inputs.cta,
         logo,
+        motion: inputs.motion,
         signal: ctl.signal,
         onCanvas: (canvas) => {
           if (previewHost.current && !previewHost.current.firstChild) previewHost.current.appendChild(canvas);
@@ -249,7 +250,7 @@ export function BrowserEditor({ open, onClose, deps }: { open: boolean; onClose:
           }),
       };
       // MP4 quadro a quadro (WebCodecs) quando dá; senão grava em tempo real (MediaRecorder)
-      const support = await encodeSupport(opts.ratios, a.pcm?.rate ?? null).catch(() => null);
+      const support = await encodeSupport(opts.ratios, a.pcm?.rate ?? (opts.music || opts.effects ? 48_000 : null)).catch(() => null);
       let outs: RenderOutput[] | null = null;
       if (support) {
         try {

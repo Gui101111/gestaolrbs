@@ -18,7 +18,6 @@ import {
   WalletCards,
 } from "lucide-react";
 import { Aurora } from "@/components/effects/aurora";
-import { BeforeAfter } from "@/components/examples/before-after";
 import { StylePreview } from "@/components/examples/style-preview";
 import { FormatMorph } from "@/components/examples/format-morph";
 import { WaitlistForm } from "@/components/landing/waitlist-form";
@@ -27,7 +26,9 @@ import { AccentText } from "@/components/shared/accent-text";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { landing, type ExploreTabId } from "@/content/landing";
-import { exemplos } from "@/content/exemplos";
+import { exemplos, type Example } from "@/content/exemplos";
+import { ExampleCard } from "@/components/examples/example-card";
+import { ExampleDialog } from "@/components/examples/examples-gallery";
 import { duvidas } from "@/content/como-fazer";
 import { EDITING_STYLES } from "@/lib/constants/domain";
 import { ROUTES } from "@/lib/routes";
@@ -191,7 +192,7 @@ export function Explore({ plans, isAuthenticated = false }: { plans: Plan[]; isA
 
 function ExamplesTab() {
   const scroller = React.useRef<HTMLDivElement>(null);
-  const items = exemplos.filter((e) => e.format === "9:16");
+  const [open, setOpen] = React.useState<Example | null>(null);
   const scrollBy = (dir: 1 | -1) => scroller.current?.scrollBy({ left: dir * 240, behavior: "smooth" });
 
   return (
@@ -205,26 +206,19 @@ function ExamplesTab() {
         </Button>
       </div>
       <div ref={scroller} className="no-scrollbar -mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-2">
-        {items.map((ex, i) => (
-          <motion.article
+        {exemplos.map((ex, i) => (
+          <motion.div
             key={ex.id}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE, delay: 0.08 * i }}
-            className="w-[200px] shrink-0 snap-start md:w-[218px]"
+            className="w-[190px] shrink-0 snap-start md:w-[210px]"
           >
-            <BeforeAfter example={ex} className="aspect-[9/16] rounded-[20px] border border-line" hint={i === 0} />
-            <div className="mt-3 flex items-center gap-2">
-              <span className="rounded-full border border-cyan/35 bg-cyan/10 px-2 py-0.5 text-[0.625rem] font-bold tracking-[0.08em] text-cyan uppercase">
-                {ex.styleLabel}
-              </span>
-              <span className="text-xs text-fg-3">{ex.duration}</span>
-            </div>
-            <p className="mt-1.5 text-sm font-semibold text-fg">{ex.title}</p>
-            <p className="text-xs text-fg-3">{ex.areaLabel}</p>
-          </motion.article>
+            <ExampleCard example={ex} onOpen={() => setOpen(ex)} />
+          </motion.div>
         ))}
       </div>
+      <ExampleDialog example={open} onClose={() => setOpen(null)} />
     </div>
   );
 }

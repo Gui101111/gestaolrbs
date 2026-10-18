@@ -183,6 +183,8 @@ fs.writeFileSync(path.join(OUT, "app.css"), css);
 
 const used = new Set([...(js + css).matchAll(/media\/([\w.-]+\.(?:webp|mp4|png|jpg))/g)].map((m) => m[1]));
 for (const f of used) fs.copyFileSync(path.join(ROOT, "public/media", f), path.join(OUT, "media", f));
+// vídeos da página Exemplos (caminhos montados em tempo de execução)
+fs.cpSync(path.join(ROOT, "public/media/exemplos"), path.join(OUT, "media/exemplos"), { recursive: true });
 
 const kb = (f) => (fs.statSync(path.join(OUT, f)).size / 1024).toFixed(0);
 console.log(`app.js ${kb("app.js")} KB · asr.js ${kb("asr.js")} KB · app.css ${kb("app.css")} KB · media ${[...used].join(", ")}`);

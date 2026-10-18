@@ -48,11 +48,11 @@ export const landing = {
   } as Record<string, string>,
   /** Descrição curta (até 8 palavras) por estilo de edição. */
   styles: {
-    institucional: "Sóbrio, poucos movimentos, legendas elegantes.",
-    dinamico: "Ritmo de rede com zooms e destaques.",
-    cinematografico: "Cor sofisticada e movimentos suaves.",
-    performance: "Gancho forte, cortes rápidos, CTA claro.",
-    descontraido: "Leve e humano, sem perder o rigor.",
+    institucional: "Trilha calma, cartões elegantes e transições suaves.",
+    dinamico: "Zooms, ícones animados, trilha leve e efeitos.",
+    cinematografico: "Cor de cinema, granulação e trilha épica.",
+    performance: "Gancho forte, números grandes e batida.",
+    descontraido: "Adesivos animados, trilha alegre, legenda que pula.",
   } as Record<string, string>,
   formats: [
     { ratio: "9:16", platforms: ["tiktok", "instagram", "youtube"], label: "Reels, TikTok, Shorts" },

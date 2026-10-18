@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
-import { Plus, Sparkles, Trash2 } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -33,7 +33,6 @@ export function StepDetails({
     setFlash(true);
     window.setTimeout(() => setFlash(false), 900);
   };
-  const ranges = d.cut_ranges;
 
   return (
     <div className="space-y-8">
@@ -81,11 +80,14 @@ export function StepDetails({
                   <Inline key="music">
                     <Chips
                       options={[
+                        { value: "auto", label: "Do estilo" },
                         { value: "sobria", label: "Sóbria" },
-                        { value: "inspiradora", label: "Inspiradora" },
-                        { value: "neutra", label: "Neutra" },
+                        { value: "inspiradora", label: "Épica" },
+                        { value: "neutra", label: "Leve" },
+                        { value: "energica", label: "Animada" },
+                        { value: "leve", label: "Alegre" },
                       ] as const}
-                      value={d.music_tone}
+                      value={d.music_tone ?? "auto"}
                       onChange={(v) => update({ music_tone: v })}
                     />
                   </Inline>
@@ -146,42 +148,6 @@ export function StepDetails({
       </ul>
 
       <div className="grid gap-6 rounded-[22px] border border-line bg-fg/[0.02] p-5 md:p-6">
-        <Field label="Trechos para remover" optional hint="Minutos:segundos, como 01:20 a 01:35.">
-          <div className="space-y-2">
-            {ranges.map((r, i) => (
-              <div key={i} className="flex items-center gap-2">
-                <Input
-                  className="h-10 w-24 text-center font-mono text-sm"
-                  value={r.start}
-                  maxLength={8}
-                  placeholder="00:00"
-                  aria-label="Início"
-                  onChange={(e) => update({ cut_ranges: ranges.map((x, j) => (j === i ? { ...x, start: e.target.value } : x)) })}
-                />
-                <span className="text-xs text-fg-3">a</span>
-                <Input
-                  className="h-10 w-24 text-center font-mono text-sm"
-                  value={r.end}
-                  maxLength={8}
-                  placeholder="00:00"
-                  aria-label="Fim"
-                  onChange={(e) => update({ cut_ranges: ranges.map((x, j) => (j === i ? { ...x, end: e.target.value } : x)) })}
-                />
-                <Button variant="ghost" size="icon-sm" onClick={() => update({ cut_ranges: ranges.filter((_, j) => j !== i) })} aria-label="Remover trecho">
-                  <Trash2 />
-                </Button>
-              </div>
-            ))}
-            {ranges.length < 10 && (
-              <Button variant="subtle" size="sm" onClick={() => update({ cut_ranges: [...ranges, { start: "", end: "" }] })}>
-                <Plus /> Adicionar trecho
-              </Button>
-            )}
-          </div>
-        </Field>
-        <Field label="Vídeo de referência" htmlFor="reference" optional hint="Link de um vídeo com o estilo que você gosta.">
-          <Input id="reference" type="url" value={d.reference_url} maxLength={300} onChange={(e) => update({ reference_url: e.target.value })} placeholder="https://" />
-        </Field>
         <Field
           label="Observações"
           htmlFor="instructions"

@@ -15,7 +15,7 @@ import { createClient } from "@/lib/supabase/client";
 import { deleteAccountAction, updateAvatarAction, updateProfileAction } from "@/lib/actions/profile";
 import { changeEmailAction, changePasswordAction, signOutEverywhereAction } from "@/lib/actions/account";
 import { signOutAction } from "@/lib/actions/auth";
-import { BRAZIL_UFS, LEGAL_AREAS, PROFILE_GOALS } from "@/lib/constants/domain";
+import { LEGAL_AREAS, PROFILE_GOALS } from "@/lib/constants/domain";
 import type { ProfileInput } from "@/lib/validations/profile";
 import { cn, initials } from "@/lib/utils";
 
@@ -34,7 +34,7 @@ export type ProfileValues = {
 export const panelClass = "glass rounded-[22px] p-5 md:p-6";
 export const panelTitle = "font-sans text-base font-bold tracking-normal text-fg";
 
-/** Conta: foto, nome, tratamento (Dr./Dra.), OAB, escritório e áreas de atuação. */
+/** Conta: foto, nome, tratamento (Dr./Dra.), escritório e áreas de atuação. */
 export function ProfileForm({
   userId,
   email,
@@ -136,25 +136,6 @@ export function ProfileForm({
         <Field label="Nome do escritório" htmlFor="officeName">
           <Input id="officeName" value={v.officeName} onChange={(e) => set("officeName", e.target.value)} maxLength={120} />
         </Field>
-        <div className="grid grid-cols-[1fr_7rem] gap-3">
-          <Field label="Número da OAB" htmlFor="oab">
-            <Input id="oab" value={v.oabNumber} onChange={(e) => set("oabNumber", e.target.value)} maxLength={20} />
-          </Field>
-          <Field label="UF">
-            <Select value={v.oabUf || undefined} onValueChange={(val) => set("oabUf", val)}>
-              <SelectTrigger aria-label="Seccional">
-                <SelectValue placeholder="UF" />
-              </SelectTrigger>
-              <SelectContent>
-                {BRAZIL_UFS.map((uf) => (
-                  <SelectItem key={uf} value={uf}>
-                    {uf}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </Field>
-        </div>
         <Field label="Telefone / WhatsApp" htmlFor="phone" optional>
           <Input id="phone" inputMode="tel" value={v.phone} onChange={(e) => set("phone", e.target.value)} placeholder="(11) 99999-9999" />
         </Field>

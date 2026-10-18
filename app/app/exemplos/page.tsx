@@ -10,7 +10,7 @@ export default async function ExamplesPage() {
   await requireOnboardedProfile();
   return (
     <div className="space-y-6 pt-2 pb-8">
-      <AppPageHeader title="Exemplos" subtitle="Antes e depois. Passe o mouse para ver." />
+      <AppPageHeader title="Exemplos" subtitle="Vídeos editados pela TRIBUNA. Toque para ver com som." />
       <Suspense>
         <ExamplesGallery />
       </Suspense>

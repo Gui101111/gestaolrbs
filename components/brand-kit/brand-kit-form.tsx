@@ -130,9 +130,6 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
             <Field label="Nome profissional" htmlFor="professionalName" error={errors.professionalName}>
               <Input id="professionalName" value={v.professionalName} maxLength={120} onChange={(e) => set("professionalName", e.target.value)} placeholder="Dra. Ana Souza" />
             </Field>
-            <Field label="OAB exibida no vídeo" htmlFor="oabDisplay" error={errors.oabDisplay} optional>
-              <Input id="oabDisplay" value={v.oabDisplay} maxLength={60} onChange={(e) => set("oabDisplay", e.target.value)} placeholder="OAB/SP 123.456" />
-            </Field>
             <Field label="Fonte preferida" optional>
               <Select value={v.font || undefined} onValueChange={(val) => set("font", val)}>
                 <SelectTrigger aria-label="Fonte preferida">
@@ -223,12 +220,12 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
 }
 
 const SCENES = [
-  { id: "lower", label: "Nome e OAB" },
+  { id: "lower", label: "Nome" },
   { id: "vinheta", label: "Vinheta" },
   { id: "cta", label: "Chamada" },
 ] as const;
 
-/** Prévia animada: lower third (nome + OAB), vinheta com a logo e chamada final. */
+/** Prévia animada: nome e escritório, vinheta com a logo e chamada final. */
 function BrandPreview({ v, logoUrl }: { v: BrandKitValues; logoUrl: string | null }) {
   const [scene, setScene] = React.useState<(typeof SCENES)[number]["id"]>("lower");
   const [auto, setAuto] = React.useState(true);
@@ -307,8 +304,7 @@ function BrandPreview({ v, logoUrl }: { v: BrandKitValues; logoUrl: string | nul
                   {v.professionalName || "Seu nome profissional"}
                 </span>
                 <span className="block text-[0.6875rem]" style={{ color: v.primaryColor }}>
-                  {v.oabDisplay || "OAB/UF 000.000"}
-                  {v.officeName ? ` · ${v.officeName}` : ""}
+                  {v.officeName || "Nome do escritório"}
                 </span>
               </motion.span>
             </motion.div>

@@ -8,9 +8,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field } from "@/components/ui/field";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { OptionCard } from "@/components/projects/option-card";
-import { BRAZIL_UFS, LEGAL_AREAS, PROFILE_GOALS } from "@/lib/constants/domain";
+import { LEGAL_AREAS, PROFILE_GOALS } from "@/lib/constants/domain";
 import { completeOnboardingAction } from "@/lib/actions/profile";
 import type { OnboardingInput } from "@/lib/validations/profile";
 import { cn } from "@/lib/utils";
@@ -55,10 +54,6 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
   const validate = () => {
     if (step === 0 && state.fullName.trim().length < 2) {
       setErrors({ fullName: "Informe seu nome completo." });
-      return false;
-    }
-    if (step === 0 && state.oabNumber && !state.oabUf) {
-      setErrors({ oabUf: "Selecione a seccional." });
       return false;
     }
     if (step === 1 && !state.legalArea) {
@@ -166,23 +161,6 @@ export function OnboardingWizard({ defaults }: { defaults: Partial<State> }) {
                   </Field>
                   <Field label="Nome do escritório" htmlFor="officeName" optional className="md:col-span-2">
                     <Input id="officeName" value={state.officeName} onChange={(e) => set("officeName", e.target.value)} placeholder="Souza Advocacia" autoComplete="organization" />
-                  </Field>
-                  <Field label="Número da OAB" htmlFor="oab" optional>
-                    <Input id="oab" inputMode="numeric" value={state.oabNumber} onChange={(e) => set("oabNumber", e.target.value)} placeholder="123.456" />
-                  </Field>
-                  <Field label="Seccional" error={errors.oabUf} optional={!state.oabNumber}>
-                    <Select value={state.oabUf} onValueChange={(v) => set("oabUf", v)}>
-                      <SelectTrigger aria-invalid={!!errors.oabUf} aria-label="Seccional da OAB">
-                        <SelectValue placeholder="UF" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {BRAZIL_UFS.map((uf) => (
-                          <SelectItem key={uf} value={uf}>
-                            {uf}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
                   </Field>
                 </div>
               )}

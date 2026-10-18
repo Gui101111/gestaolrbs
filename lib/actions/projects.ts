@@ -88,7 +88,7 @@ const draftPatchSchema = z
       target_duration: z.enum(["completo", "60s", "90s", "3min", "cortes"]).optional(),
       audience: z.string().max(200).optional(),
       hook_text: z.string().max(140).optional(),
-      music_tone: z.enum(["sobria", "inspiradora", "neutra"]).optional(),
+      music_tone: z.enum(["auto", "sobria", "inspiradora", "neutra", "energica", "leve"]).optional(),
       cut_ranges: z.array(z.object({ start: z.string().max(8), end: z.string().max(8) })).max(10).optional(),
       reference_url: z.string().url("Informe um link válido.").max(300).optional().or(z.literal("")),
       answers: z.record(z.string().max(30), z.enum(["sim", "nao", "outro"])).optional(),
