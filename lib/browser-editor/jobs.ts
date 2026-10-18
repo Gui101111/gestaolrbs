@@ -2,6 +2,7 @@
  * Peças da edição no navegador usadas pelo app e pela demonstração:
  * etapas de progresso, ajustes sem IA e capa do vídeo.
  */
+import { bookends } from "@/lib/browser-editor/render";
 import type { EditOptions, Progress, RenderOutput } from "@/lib/browser-editor/types";
 
 /**
@@ -68,8 +69,14 @@ export function stepFor(p: Progress): { step: string; progress: number } {
   }
 }
 
+/** Momento da capa: com o título de impacto já montado na tela. */
+export function posterAt(opts: EditOptions, title: string, cta: string, duration: number) {
+  const { introDur } = bookends(opts, title, cta);
+  return Math.min(duration / 2, introDur + (opts.hook && title ? 1.6 : 2.2));
+}
+
 /** Quadro do vídeo editado (720 px no lado maior) para a capa. */
-export async function posterFor(out: RenderOutput): Promise<Blob | null> {
+export async function posterFor(out: RenderOutput, at = Math.min(out.duration / 3, 2.2)): Promise<Blob | null> {
   try {
     const v = document.createElement("video");
     v.muted = true;
@@ -80,7 +87,7 @@ export async function posterFor(out: RenderOutput): Promise<Blob | null> {
       v.onerror = () => reject(new Error("poster"));
       window.setTimeout(resolve, 5000);
     });
-    v.currentTime = Math.min(out.duration / 3, 2.2);
+    v.currentTime = at;
     await new Promise<void>((resolve) => {
       v.onseeked = () => resolve();
       window.setTimeout(resolve, 4000);

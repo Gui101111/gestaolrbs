@@ -855,16 +855,18 @@ export function createPainter(scene: Scene) {
     } else if (kind === "stagger") {
       const size = Math.round(0.078 * S);
       ctx.font = font(800, size, "Sora");
-      const lines = wrapText(ctx, scene.title.toLocaleUpperCase("pt-BR"), L.textW * 0.9);
+      const lines = wrapText(ctx, scene.title.toLocaleUpperCase("pt-BR"), L.textW * 0.84);
       const lh = size * 1.12;
       const y0 = L.titleY - (lines.length * lh) / 2;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       let wi = 0;
       const longest = lines.flatMap((l) => l.split(" ")).reduce((p, c) => (c.length > p.length ? c : p), "");
+      // espaço folgado: as palavras crescem um pouco ao entrar e a de destaque tem fundo
+      const gap = ctx.measureText(" ").width * 1.6;
       lines.forEach((l, i) => {
         const parts = l.split(" ");
-        const total = ctx.measureText(l).width;
+        const total = parts.reduce((sum, p) => sum + ctx.measureText(p).width, 0) + gap * (parts.length - 1);
         let x = W / 2 - total / 2;
         const y = y0 + lh * (i + 0.5);
         for (const p of parts) {
@@ -890,7 +892,7 @@ export function createPainter(scene: Scene) {
             ctx.fillText(p, 0, size * 0.04);
           }
           ctx.restore();
-          x += pw + ctx.measureText(" ").width;
+          x += pw + gap;
           wi++;
         }
       });

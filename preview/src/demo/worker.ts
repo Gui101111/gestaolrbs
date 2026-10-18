@@ -7,7 +7,7 @@
 import { localReview, reviseWithClaude } from "@/lib/browser-editor/ai";
 import { encode, encodeSupport } from "@/lib/browser-editor/encode";
 import { analyze, loadLogo, renderInputs } from "@/lib/browser-editor/pipeline";
-import { localRevision, posterFor, stepFor } from "@/lib/browser-editor/jobs";
+import { localRevision, posterAt, posterFor, stepFor } from "@/lib/browser-editor/jobs";
 import { optionsFor } from "@/lib/browser-editor/project-options";
 import { newAudioContext, primeVideo, render, type RenderParams } from "@/lib/browser-editor/render";
 import { toSource } from "@/lib/browser-editor/timeline";
@@ -159,7 +159,7 @@ async function process(jobId: string) {
     for (const out of outs) {
       const base = `${uid}/${project.id}/v${version}/${out.ratio.replace(":", "x")}`;
       await putFile(`rendered-videos/${base}.${out.ext}`, out.blob);
-      const poster = await posterFor(out);
+      const poster = await posterFor(out, posterAt(opts, inputs.title, inputs.cta, out.duration));
       if (poster) await putFile(`rendered-videos/${base}.jpg`, poster);
       db.insert("renders", {
         project_id: project.id,

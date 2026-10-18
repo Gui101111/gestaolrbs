@@ -8,7 +8,7 @@ import { browserProgressAction, browserUploadTargetsAction, claimBrowserJobActio
 import { localReview, reviseWithClaude, type SampleFn } from "@/lib/browser-editor/ai";
 import { decodeAudio, to16k } from "@/lib/browser-editor/audio";
 import { encode, encodeSupport } from "@/lib/browser-editor/encode";
-import { localRevision, posterFor, stepFor } from "@/lib/browser-editor/jobs";
+import { localRevision, posterAt, posterFor, stepFor } from "@/lib/browser-editor/jobs";
 import { localFile } from "@/lib/browser-editor/local-files";
 import { analyze, loadLogo, renderInputs, type EditorDeps } from "@/lib/browser-editor/pipeline";
 import { optionsFor } from "@/lib/browser-editor/project-options";
@@ -369,7 +369,7 @@ async function processJob(
       const t = targets.data!.find((x) => x.ratio === o.ratio)!;
       const up = await supabase.storage.from(BUCKETS.renders).uploadToSignedUrl(t.path, t.token, o.blob, { contentType: o.mime });
       if (up.error) throw new Error("Falha ao salvar o vídeo editado. Verifique a conexão e tente de novo.");
-      const poster = await posterFor(o);
+      const poster = await posterFor(o, posterAt(opts, inputs.title, inputs.cta, o.duration));
       let posterPath: string | null = null;
       if (poster) {
         const pu = await supabase.storage.from(BUCKETS.renders).uploadToSignedUrl(t.posterPath, t.posterToken, poster, { contentType: "image/jpeg" });
