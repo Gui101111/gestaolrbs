@@ -100,7 +100,7 @@ export function UsersTable({ users, plans }: { users: AdminUserRow[]; plans: { i
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Conceder plano</DialogTitle>
-            <DialogDescription>Ativa um plano manualmente para {target?.email} (cortesia, parceria ou cobrança fora do gateway).</DialogDescription>
+            <DialogDescription>Ativa um plano manualmente para {target?.email} (cortesia, parceria ou cobrança fora da plataforma de pagamento).</DialogDescription>
           </DialogHeader>
           <Field label="Plano">
             <Select value={planId} onValueChange={setPlanId}>

@@ -191,7 +191,7 @@ export function BrandKitForm({ userId, initial, logo }: { userId: string; initia
         </section>
 
         <section className="glass rounded-[22px] p-5 md:p-6">
-          <h2 className="font-sans text-base font-bold tracking-normal text-fg">Contatos para CTA</h2>
+          <h2 className="font-sans text-base font-bold tracking-normal text-fg">Contatos para a chamada final</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-3">
             <Field label="Site" htmlFor="website" error={errors.website} optional>
               <Input id="website" value={v.website} onChange={(e) => set("website", e.target.value)} placeholder="souzaadvocacia.com.br" />

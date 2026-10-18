@@ -37,7 +37,8 @@ interface Page {
 interface LaidLine {
   y: number;
   width: number;
-  words: { w: Word; x: number; width: number; text: string }[];
+  /** width: espaço reservado (palavra de destaque é maior); tw: largura do texto. */
+  words: { w: Word; x: number; width: number; tw: number; text: string }[];
 }
 
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -69,10 +70,14 @@ function withAlpha(hex: string, a: number) {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 }
 
+/** Altura do centro da legenda (fração da tela): bem embaixo, longe do rosto. */
+export const CAPTION_Y: Record<Ratio, number> = { "9:16": 0.81, "4:5": 0.87, "1:1": 0.87, "16:9": 0.88 };
+
 function layoutFor(ratio: Ratio, W: number, H: number) {
-  if (ratio === "9:16") return { capY: 0.7 * H, titleY: 0.19 * H, slotY: 0.2 * H, slotX: W / 2, margin: 0.07 * W, textW: 0.84 * W, scale: 1, side: false };
-  if (ratio === "16:9") return { capY: 0.85 * H, titleY: 0.2 * H, slotY: 0.3 * H, slotX: 0.77 * W, margin: 0.05 * W, textW: 0.72 * W, scale: 0.82, side: true };
-  return { capY: 0.8 * H, titleY: 0.15 * H, slotY: 0.16 * H, slotX: W / 2, margin: 0.06 * W, textW: 0.86 * W, scale: 0.92, side: false };
+  const capY = CAPTION_Y[ratio] * H;
+  if (ratio === "9:16") return { capY, titleY: 0.19 * H, slotY: 0.2 * H, slotX: W / 2, margin: 0.07 * W, textW: 0.84 * W, scale: 1, side: false };
+  if (ratio === "16:9") return { capY, titleY: 0.2 * H, slotY: 0.3 * H, slotX: 0.77 * W, margin: 0.05 * W, textW: 0.72 * W, scale: 0.82, side: true };
+  return { capY, titleY: 0.15 * H, slotY: 0.16 * H, slotX: W / 2, margin: 0.06 * W, textW: 0.86 * W, scale: 0.92, side: false };
 }
 
 export function paginate(words: Word[], maxWords: number): Page[] {
@@ -152,11 +157,14 @@ export function createPainter(scene: Scene) {
   const M = look.motion;
   const m = Math.min(W, H);
   const L = layoutFor(scene.ratio, W, H);
+  if (opts.captionShift) L.capY = clamp(CAPTION_Y[scene.ratio] + opts.captionShift, 0.5, 0.9) * H;
   const S = m * L.scale;
   const accent = look.accent;
   const cap = look.captions;
   const capSize = Math.round(cap.size * S);
   const capFont = font(cap.weight, capSize, cap.font, cap.italic);
+  /** Palavra de destaque: maior (mais ainda nos estilos agitados). */
+  const keyScale = cap.anim === "fade" || cap.anim === "reveal" ? 1.07 : 1.16;
   const pages = opts.captions ? paginate(scene.words, cap.maxWords) : [];
   const laid = new Map<number, LaidLine[]>();
   let vignette: CanvasGradient | null = null;
@@ -190,6 +198,13 @@ export function createPainter(scene: Scene) {
       let n = 0;
       for (const c of scene.zoomCuts) if (c <= t) n++;
       z = n % 2 === 0 ? 1 : 1 + look.zoomAmount;
+    }
+    // pulso nas palavras de destaque: entra rápido e assenta
+    const pulse = look.zoom === "push" ? 0.03 : 0.055;
+    for (const at of opts.zoom ? (scene.motion.pulses ?? []) : []) {
+      const d = t - at;
+      if (d < -0.08 || d > 0.5) continue;
+      z *= 1 + pulse * (d < 0 ? easeOut((d + 0.08) / 0.08) : 1 - easeInOut(d / 0.5));
     }
     for (const tr of transitions) {
       const d = t - tr.at;
@@ -673,14 +688,16 @@ export function createPainter(scene: Scene) {
     let width = 0;
     for (const w of page.words) {
       const text = cap.upper ? w.text.toLocaleUpperCase("pt-BR") : w.text;
-      const ww = ctx.measureText(text).width;
+      const tw = ctx.measureText(text).width;
+      // folga para o fundo colorido e para o "soco" da entrada não encostarem na vizinha
+      const ww = w.key ? tw * keyScale + capSize * (cap.anim === "bounce" || cap.box === "word" ? 0.36 : 0.16) : tw;
       const line = lines[lines.length - 1];
       if (line.length && width + space + ww > L.textW) {
         lines.push([]);
         width = 0;
       }
       const cur = lines[lines.length - 1];
-      cur.push({ w, x: width + (cur.length ? space : 0), width: ww, text });
+      cur.push({ w, x: width + (cur.length ? space : 0), width: ww, tw, text });
       width += (cur.length > 1 ? space : 0) + ww;
     }
     const lh = capSize * 1.22;
@@ -746,36 +763,51 @@ export function createPainter(scene: Scene) {
           dy = (1 - easeOut(k)) * capSize * 0.35;
         } else if (anim === "pop" && active) scale = 1.05;
         if (alpha <= 0) continue;
+        // destaque: maior, com um "soco" ao ser falado (cresce, gira de leve e assenta)
+        const key = Boolean(it.w.key);
+        let amp = 0;
+        let tilt = 0;
+        if (key) {
+          scale *= keyScale;
+          const k = (t - it.w.start + 0.04) / 0.38;
+          if (k >= 0 && k < 1) {
+            amp = k < 0.22 ? easeOut(k / 0.22) : 1 - easeInOut((k - 0.22) / 0.78);
+            scale *= 1 + (anim === "fade" || anim === "reveal" ? 0.07 : 0.15) * amp;
+            if (cap.pop || anim === "bounce") tilt = (Math.round(it.w.start * 10) % 2 ? 0.07 : -0.07) * amp;
+          }
+        }
         const cx = it.x + it.width / 2;
+        const tx = it.x + (it.width - it.tw) / 2;
         ctx.save();
         ctx.globalAlpha *= alpha;
-        if (scale !== 1 || dy) {
+        if (scale !== 1 || dy || tilt) {
           ctx.translate(cx, line.y + dy);
+          ctx.rotate(tilt);
           ctx.scale(scale, scale);
           ctx.translate(-cx, -line.y);
         }
-        if (anim === "bounce" && cap.box === "pill" && !it.w.key) {
+        if (anim === "bounce" && cap.box === "pill" && !key) {
           ctx.fillStyle = "rgba(10,12,16,0.7)";
-          rr(ctx, it.x - capSize * 0.2, line.y - capSize * 0.6, it.width + capSize * 0.4, capSize * 1.2, capSize * 0.3);
+          rr(ctx, tx - capSize * 0.2, line.y - capSize * 0.6, it.tw + capSize * 0.4, capSize * 1.2, capSize * 0.3);
           ctx.fill();
         }
-        if (anim === "bounce" && it.w.key) {
+        if (anim === "bounce" && key) {
           ctx.fillStyle = withAlpha(accent, 0.9);
           ctx.save();
           ctx.translate(cx, line.y);
           ctx.rotate(-0.03);
-          rr(ctx, -it.width / 2 - capSize * 0.14, -capSize * 0.5, it.width + capSize * 0.28, capSize * 1.0, capSize * 0.2);
+          rr(ctx, -it.tw / 2 - capSize * 0.14, -capSize * 0.5, it.tw + capSize * 0.28, capSize * 1.0, capSize * 0.2);
           ctx.fill();
           ctx.restore();
         }
         if (cap.box === "word" && active) {
           ctx.fillStyle = accent;
-          rr(ctx, it.x - capSize * 0.16, line.y - capSize * 0.6, it.width + capSize * 0.32, capSize * 1.2, capSize * 0.22);
+          rr(ctx, tx - capSize * 0.16, line.y - capSize * 0.6, it.tw + capSize * 0.32, capSize * 1.2, capSize * 0.22);
           ctx.fill();
         }
         let color = cap.color;
-        if (it.w.key) color = anim === "bounce" ? look.ink : accent;
-        if (active && cap.active && !(anim === "bounce" && it.w.key)) color = cap.active;
+        if (key) color = anim === "bounce" ? look.ink : accent;
+        if (active && cap.active && !(anim === "bounce" && key) && !(key && cap.box !== "word")) color = cap.active;
         if (cap.box === "none" || (cap.box === "word" && !active)) {
           ctx.lineJoin = "round";
           ctx.lineWidth = Math.max(4, capSize * (anim === "reveal" ? 0.1 : 0.17));
@@ -784,15 +816,27 @@ export function createPainter(scene: Scene) {
             ctx.shadowColor = "rgba(0,0,0,0.85)";
             ctx.shadowBlur = capSize * 0.35;
           }
-          ctx.strokeText(it.text, it.x, line.y);
+          ctx.strokeText(it.text, tx, line.y);
           ctx.shadowBlur = 0;
         }
         if (anim === "pop" && active && cap.active) {
           ctx.shadowColor = withAlpha(cap.active.startsWith("#") ? cap.active : accent, 0.7);
           ctx.shadowBlur = capSize * 0.4;
         }
+        if (key && anim !== "bounce" && !(cap.box === "word" && active)) {
+          ctx.shadowColor = withAlpha(accent, 0.75);
+          ctx.shadowBlur = capSize * (0.3 + 0.5 * amp);
+        }
         ctx.fillStyle = color;
-        ctx.fillText(it.text, it.x, line.y);
+        ctx.fillText(it.text, tx, line.y);
+        ctx.shadowBlur = 0;
+        // estilos sóbrios: sublinhado que corre embaixo da palavra de destaque
+        if (key && (anim === "fade" || anim === "reveal") && started) {
+          const u = easeOut(clamp((t - it.w.start + 0.04) / 0.35));
+          ctx.fillStyle = accent;
+          rr(ctx, tx, line.y + capSize * 0.5, it.tw * u, Math.max(3, capSize * 0.085), capSize * 0.04);
+          ctx.fill();
+        }
         ctx.restore();
       }
     }

@@ -54,6 +54,27 @@ export interface EditOptions {
   notes?: string;
   /** Duração final desejada (s); a IA escolhe o que tirar para caber. */
   targetSeconds?: number | null;
+  /* Ajustes pedidos nas observações ou em "Solicitar ajuste". */
+  /** Desloca a legenda (fração da altura; negativo sobe). */
+  captionShift?: number;
+  /** Multiplica o tamanho da legenda. */
+  captionScale?: number;
+  /** Cor do texto da legenda. */
+  captionColor?: string | null;
+  /** Palavras que a pessoa pediu para destacar. */
+  extraKeywords?: string[];
+  /** Quantidade de animação (1 = padrão do estilo). */
+  energy?: number;
+  /** Efeitos sonoros (padrão: ligados junto com os grafismos). */
+  sfx?: boolean;
+  /** Volume da trilha (1 = padrão). */
+  musicVolume?: number;
+  /** Troca a trilha por outra do mesmo clima. */
+  musicSeed?: number;
+  /** Tira a logo da marca do vídeo. */
+  hideLogo?: boolean;
+  /** Trocas de palavras na legenda pedidas pela pessoa. */
+  replacements?: { from: string; to: string }[];
 }
 
 export interface Interval {
@@ -160,4 +181,30 @@ export interface Progress {
   /** 0 a 1 dentro da etapa, quando mensurável. */
   value?: number;
   detail?: string;
+}
+
+/**
+ * O que um pedido da pessoa (observação ou ajuste) muda na edição, já
+ * entendido (pela IA ou pelo leitor de frases comuns).
+ */
+export interface Intent {
+  /** Mudanças diretas nas opções (ligar/desligar, textos, estilo, cores). */
+  set: Partial<EditOptions>;
+  captionPos?: "baixo" | "cima" | "meio" | "padrao";
+  captionSize?: "maior" | "menor";
+  musicVolume?: "alta" | "baixa";
+  newMusic?: boolean;
+  animation?: "mais" | "menos";
+  keywords?: string[];
+  replace?: { from: string; to: string }[];
+  /** Trechos a tirar, no tempo do vídeo final (como a pessoa vê no player). */
+  cutsOut?: Interval[];
+  /** Trechos a tirar, no tempo do vídeo original. */
+  cutsSource?: Interval[];
+  trimStart?: number;
+  trimEnd?: number;
+  restore?: boolean;
+  shorter?: boolean;
+  /** O que foi entendido, em frases curtas para a nota. */
+  done: string[];
 }

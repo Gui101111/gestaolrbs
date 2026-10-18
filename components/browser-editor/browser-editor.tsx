@@ -282,7 +282,7 @@ export function BrowserEditor({ open, onClose, deps }: { open: boolean; onClose:
     const filename = `${base || "video"}-tribuna-${o.ratio.replace(":", "x")}.${o.ext}`;
     const r = await saveVideo(o.blob, filename);
     if (r === "saved") toast.success("Vídeo salvo.", { description: filename });
-    else if (r === "fallback") toast.success("Download iniciado.", { description: filename });
+    else if (r === "fallback") toast.success("Baixando o vídeo.", { description: filename });
     else if (typeof r === "object") toast.error(r.error);
   }
 

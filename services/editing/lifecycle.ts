@@ -9,7 +9,7 @@ type Admin = ReturnType<typeof createAdminClient>;
 /** Atualiza etapa/progresso/status de um job e reflete no projeto. */
 export async function advanceJob(
   jobId: string,
-  patch: { step?: PipelineStep; progress?: number; status?: "queued" | "running" | "succeeded" | "failed" | "canceled"; externalId?: string; errorCode?: string; errorMessage?: string; editPlan?: unknown },
+  patch: { step?: PipelineStep; progress?: number; status?: "queued" | "running" | "succeeded" | "failed" | "canceled"; externalId?: string; errorCode?: string; errorMessage?: string; editPlan?: unknown; note?: string },
   admin: Admin = createAdminClient(),
 ) {
   const { data: job } = await admin.from("render_jobs").select("*").eq("id", jobId).single();
@@ -47,7 +47,7 @@ export async function advanceJob(
     await admin.from("projects").update({ status: job.kind === "revision" ? "revision_requested" : "processing" }).eq("id", job.project_id).in("status", ["queued", "processing", "revision_requested"]);
   }
   if (patch.status === "failed" && job.status !== "failed") await failProject(job.project_id, patch.errorMessage, admin);
-  if (finishing) await completeProject(job.project_id, jobId, admin);
+  if (finishing) await completeProject(job.project_id, jobId, admin, patch.note);
   return job;
 }
 
@@ -108,8 +108,8 @@ export async function addRender(
   return data.id;
 }
 
-/** Marca o projeto como pronto: job concluído, ajustes resolvidos, notificação e e-mail. */
-export async function completeProject(projectId: string, jobId: string | null, admin: Admin = createAdminClient()) {
+/** Marca o projeto como pronto: job concluído, ajustes resolvidos, notificação e e-mail. `note`: o que o ajuste mudou. */
+export async function completeProject(projectId: string, jobId: string | null, admin: Admin = createAdminClient(), note?: string) {
   const { data: project } = await admin.from("projects").select("id, user_id, name, status").eq("id", projectId).single();
   if (!project) throw new Error("project_not_found");
   const { count } = await admin.from("renders").select("id", { count: "exact", head: true }).eq("project_id", projectId);
@@ -130,7 +130,7 @@ export async function completeProject(projectId: string, jobId: string | null, a
     user_id: project.user_id,
     type: wasRevision ? "revision_done" : "video_ready",
     title: wasRevision ? "Ajuste concluído" : "Seu vídeo está pronto",
-    body: `“${project.name}” já pode ser assistido e baixado.`,
+    body: note ? `“${project.name}”: ${note}` : `“${project.name}” já pode ser assistido e baixado.`,
     link: `/app/video/${projectId}`,
   });
   const { data: profile } = await admin.from("profiles").select("full_name, email, preferences").eq("id", project.user_id).single();

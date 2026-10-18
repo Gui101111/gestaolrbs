@@ -39,6 +39,8 @@ const EMPTY: PlanInput = {
 
 const num = (v: string) => (v.trim() === "" ? null : Number(v));
 
+const RENDER_PRIORITY: Record<string, string> = { standard: "Padrão", priority: "Prioritária", express: "Expressa" };
+
 export function PlansManager({ plans }: { plans: Plan[] }) {
   const router = useRouter();
   const [editing, setEditing] = React.useState<PlanInput | null>(null);
@@ -115,8 +117,8 @@ export function PlansManager({ plans }: { plans: Plan[] }) {
             </div>
             <ul className="mt-4 space-y-1 text-xs text-mist">
               <li>{p.videos_per_month ?? "∞"} vídeos/mês · {p.minutes_per_month ?? "∞"} min</li>
-              <li>Até {p.max_video_duration_sec ? Math.round(p.max_video_duration_sec / 60) : "∞"} min por vídeo · upload {p.max_upload_mb} MB</li>
-              <li>{p.revisions_per_video} ajustes · {p.max_resolution} · {p.render_priority}</li>
+              <li>Até {p.max_video_duration_sec ? Math.round(p.max_video_duration_sec / 60) : "∞"} min por vídeo · envio até {p.max_upload_mb} MB</li>
+              <li>{p.revisions_per_video} ajustes · {p.max_resolution} · {RENDER_PRIORITY[p.render_priority] ?? p.render_priority}</li>
             </ul>
           </div>
         ))}
@@ -126,7 +128,7 @@ export function PlansManager({ plans }: { plans: Plan[] }) {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editing?.id ? "Editar plano" : "Novo plano"}</DialogTitle>
-            <DialogDescription>Deixe o preço vazio para exibir “Valor em breve” e desabilitar o checkout.</DialogDescription>
+            <DialogDescription>Deixe o preço vazio para exibir “Valor em breve” e desabilitar a contratação.</DialogDescription>
           </DialogHeader>
           {editing && (
             <div className="grid gap-4 sm:grid-cols-2">
@@ -154,7 +156,7 @@ export function PlansManager({ plans }: { plans: Plan[] }) {
               <Field label="Duração máxima por vídeo (s)">
                 <Input inputMode="numeric" value={editing.max_video_duration_sec ?? ""} onChange={(e) => set("max_video_duration_sec", num(e.target.value))} />
               </Field>
-              <Field label="Upload máximo (MB)">
+              <Field label="Envio máximo (MB)">
                 <Input inputMode="numeric" value={editing.max_upload_mb} onChange={(e) => set("max_upload_mb", Number(e.target.value) || 1)} />
               </Field>
               <Field label="Ajustes por vídeo">
@@ -199,7 +201,7 @@ export function PlansManager({ plans }: { plans: Plan[] }) {
                 {(
                   [
                     ["is_active", "Ativo"],
-                    ["is_public", "Visível na landing"],
+                    ["is_public", "Visível no site"],
                     ["is_featured", "Destaque"],
                   ] as const
                 ).map(([k, label]) => (

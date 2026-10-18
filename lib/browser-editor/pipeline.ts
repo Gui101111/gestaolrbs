@@ -1,5 +1,6 @@
 import { faceWithClaude, isSampleError, localReview, reviewWithClaude, type SampleFn } from "@/lib/browser-editor/ai";
 import { decodeAudio, detectSpeech, frameEnergy, to16k } from "@/lib/browser-editor/audio";
+import { applyReplacements, emphasize, replaceIn } from "@/lib/browser-editor/emphasis";
 import { RATIO_VALUE, faceWithDetector, grabFrames, loadVideo } from "@/lib/browser-editor/framing";
 import { lookFor, type Look } from "@/lib/browser-editor/looks";
 import { localMoments, placeMoments, planMotion, type MotionPlan } from "@/lib/browser-editor/motion";
@@ -139,15 +140,17 @@ export interface RenderInputs {
   motion: MotionPlan;
 }
 
-export function renderInputs(a: Analysis, opts: EditOptions): RenderInputs {
+export function renderInputs(analysis: Analysis, opts: EditOptions): RenderInputs {
+  const a = opts.replacements?.length ? { ...analysis, segments: applyReplacements(analysis.segments, opts.replacements) } : analysis;
   const look = lookFor(opts);
   const plan = buildPlan(a, opts, look);
-  const raw = markKeywords(wordsFromSegments(a.segments, a.speech), a.review?.keywords ?? []);
+  const raw = markKeywords(wordsFromSegments(a.segments, a.speech), [...(a.review?.keywords ?? []), ...(opts.extraKeywords ?? [])]);
   const cut = new Set(opts.removeMistakes ? (a.review?.cutIds ?? []) : []);
   const kept = cut.size ? raw.filter((w) => !a.segments.some((s) => cut.has(s.id) && w.start >= s.start - 0.01 && w.start < s.end)) : raw;
-  const words = wordsToOut(kept, plan.keep);
-  const title = opts.hookText.trim() || a.review?.title || "";
-  const cta = opts.ctaText.trim() || a.review?.cta || "Siga para mais conteúdos";
+  // destaque automático nas palavras mais fortes, sem precisar pedir
+  const words = emphasize(wordsToOut(kept, plan.keep), opts.energy ?? 1);
+  const title = opts.hookText.trim() || replaceIn(a.review?.title ?? "", opts.replacements);
+  const cta = opts.ctaText.trim() || replaceIn(a.review?.cta ?? "", opts.replacements) || "Siga para mais conteúdos";
   const fromAi = a.review?.moments?.length ? placeMoments(a.review.moments, kept, a.segments, (t) => toOut(plan.keep, t)) : [];
   const moments = fromAi.length >= 2 ? fromAi : [...fromAi, ...localMoments(words)].sort((x, y) => x.at - y.at);
   const { introDur, outroDur } = bookends(opts, title, cta);

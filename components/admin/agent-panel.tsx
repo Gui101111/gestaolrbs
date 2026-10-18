@@ -81,7 +81,7 @@ export function AgentPanel({
           <div>
             <h2 className="font-sans text-base font-bold tracking-normal text-fg">Edição automática</h2>
             <p className="text-xs text-fg-3">
-              {session ? `${session.provider === "claude-local" ? "Sandbox local" : "Claude Managed Agents"} · versão v${session.version}` : "Este job ainda não passou pelo agente."}
+              {session ? `${session.provider === "claude-local" ? "Sandbox local" : "Claude Managed Agents"} · versão v${session.version}` : "Esta tarefa ainda não passou pelo agente."}
             </p>
           </div>
         </div>
@@ -139,7 +139,7 @@ export function AgentPanel({
         >
           <RefreshCw /> Reprocessar com Claude
         </Button>
-        <Button variant="ghost" disabled={pending} onClick={() => run(() => adminRedispatchAction(jobId, "manual"), "Job movido para a fila manual.")}>
+        <Button variant="ghost" disabled={pending} onClick={() => run(() => adminRedispatchAction(jobId, "manual"), "Tarefa movida para a fila manual.")}>
           <Send /> Mover para fila manual
         </Button>
       </div>

@@ -21,6 +21,8 @@ export interface MotionPlan {
   transitions: { at: number; kind: TransitionKind }[];
   /** Instantes de ênfase (zoom de impacto). */
   punches: number[];
+  /** Palavras de destaque: um pulso curto de zoom em cada uma. */
+  pulses?: number[];
   cues: Cue[];
 }
 
@@ -120,7 +122,9 @@ export function localMoments(words: Word[]): PlannedMoment[] {
   for (let i = 0; i < words.length; i++) {
     const w = norm(clean(words[i].text));
     if (w.length < 3 || STOP.has(w)) continue;
-    const icon = iconFor(`${words[i].text} ${words[i + 1]?.text ?? ""}`);
+    let icon = iconFor(`${words[i].text} ${words[i + 1]?.text ?? ""}`);
+    // palavra de destaque sem ícone próprio também vira grafismo
+    if ((!icon || icon === "circle-check" || icon === "lightbulb") && words[i].key && w.length >= 4 && !/\d/.test(w)) icon = "sparkles";
     if (!icon || icon === "circle-check" || icon === "lightbulb") continue;
     const text = phraseAt(words, i);
     if (text.length < 4) continue;
@@ -157,7 +161,7 @@ export function planMotion(p: {
   const cues: Cue[] = [];
   const at = (t: number) => p.introDur + t;
 
-  const lengthFactor = bodyDur < 30 ? 0.8 : bodyDur < 90 ? 1 : bodyDur < 240 ? 1.25 : 1.5;
+  const lengthFactor = bodyDur < 30 ? 0.8 : bodyDur < 90 ? 1 : bodyDur < 240 ? 1.15 : 1.3;
   const gap = m.spacing * lengthFactor;
   const startAfter = p.hasTitle ? 3.3 : 1.2;
   const endBefore = bodyDur - (p.ctaInBody ? 3.8 : 1.2);
@@ -197,7 +201,7 @@ export function planMotion(p: {
       for (let i = 0; i < p.keep.length - 1; i++) {
         acc += p.keep[i].end - p.keep[i].start;
         const removed = p.keep[i + 1].start - p.keep[i].end;
-        if (removed < 0.45 || acc - lastT < m.transitionGap) continue;
+        if (removed < 0.3 || acc - lastT < m.transitionGap) continue;
         if (beats.some((b) => b.kind === "card" && acc > b.at - 0.2 && acc < b.at + b.dur + 0.2)) continue;
         if (acc < 0.6 || acc > bodyDur - 0.6) continue;
         transitions.push({ at: acc, kind: m.transition });
@@ -235,7 +239,25 @@ export function planMotion(p: {
   }
 
   const punches = look.zoom === "punch" ? beats.filter((b) => b.kind !== "card").map((b) => b.at) : [];
-  return { beats, transitions, punches, cues: cues.sort((a, b) => a.at - b.at) };
+
+  // palavras de destaque: pulso de zoom e um toque sutil de som
+  const pulses: number[] = [];
+  if (opts.zoom || opts.effects) {
+    const minGap = 1.2 / Math.min(2, Math.max(0.5, opts.energy ?? 1));
+    let lastSfx = -Infinity;
+    for (const w of p.words) {
+      if (!w.key || w.start < (p.hasTitle ? 3.1 : 0.3) || w.start > bodyDur - 0.4) continue;
+      if (pulses.length && w.start - pulses[pulses.length - 1] < minGap) continue;
+      if (beats.some((b) => b.kind === "card" && w.start > b.at - 0.2 && w.start < b.at + b.dur)) continue;
+      pulses.push(w.start);
+      const nearBeat = beats.some((b) => Math.abs(b.at - w.start) < 0.8);
+      if (opts.effects && !nearBeat && w.start - lastSfx > 2.4) {
+        cues.push({ at: at(w.start), sfx: m.beatSfx === "pop" ? "click" : "tick", gain: 0.32 });
+        lastSfx = w.start;
+      }
+    }
+  }
+  return { beats, transitions, punches, pulses, cues: cues.sort((a, b) => a.at - b.at) };
 }
 
 /** Momentos da IA (trecho + palavra) → tempo do corpo. */

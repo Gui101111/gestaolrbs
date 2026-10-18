@@ -6,8 +6,8 @@ const MESSAGES: Record<string, string> = {
   // Auth
   invalid_credentials: "E-mail ou senha incorretos.",
   email_not_confirmed: "Confirme seu e-mail para entrar. Enviamos um link para a sua caixa de entrada.",
-  user_already_exists: "Este e-mail já possui uma conta. Faça login ou recupere sua senha.",
-  email_exists: "Este e-mail já possui uma conta. Faça login ou recupere sua senha.",
+  user_already_exists: "Este e-mail já possui uma conta. Entre com ela ou recupere sua senha.",
+  email_exists: "Este e-mail já possui uma conta. Entre com ela ou recupere sua senha.",
   weak_password: "Escolha uma senha mais forte, com pelo menos 8 caracteres, letras e números.",
   same_password: "A nova senha precisa ser diferente da atual.",
   over_email_send_rate_limit: "Muitos e-mails enviados em pouco tempo. Aguarde um minuto e tente novamente.",

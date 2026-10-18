@@ -14,7 +14,7 @@ const OPTIONS: { key: Key; label: string; text: string; icon: React.ComponentTyp
   { key: "navegador", label: "No navegador", text: "O app edita no aparelho de quem enviou.", icon: MonitorPlay },
   { key: "manual", label: "Manual", text: "A equipe edita e entrega pelo painel.", icon: Hand },
   { key: "claude", label: "Claude", text: "O agente edita; a equipe revisa.", icon: Bot },
-  { key: "external", label: "Worker externo", text: "Servidor próprio com FFmpeg.", icon: Server },
+  { key: "external", label: "Servidor externo", text: "Servidor próprio com FFmpeg.", icon: Server },
 ];
 
 /** Motor de edição dos próximos envios, trocável sem deploy. */

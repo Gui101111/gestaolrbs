@@ -79,12 +79,12 @@ export const LOOKS: Record<StyleId, Look> = {
     captions: { font: "Manrope", weight: 700, italic: false, upper: false, maxWords: 6, size: 0.06, color: "#ffffff", active: null, box: "pill", pop: false, anim: "fade" },
     titleFont: "Instrument Serif",
     motion: {
-      spacing: 7,
+      spacing: 5,
       cards: true,
       callout: "glass",
       title: "classic",
       transition: "fade",
-      transitionGap: 5,
+      transitionGap: 4,
       grain: 0,
       leaks: false,
       letterbox: 0,
@@ -110,12 +110,12 @@ export const LOOKS: Record<StyleId, Look> = {
     captions: { font: "Sora", weight: 800, italic: false, upper: true, maxWords: 3, size: 0.07, color: "#ffffff", active: CYAN, box: "none", pop: true, anim: "pop" },
     titleFont: "Sora",
     motion: {
-      spacing: 3.6,
+      spacing: 2.6,
       cards: true,
       callout: "solid",
       title: "stagger",
       transition: "zoom",
-      transitionGap: 2.4,
+      transitionGap: 1.8,
       grain: 0,
       leaks: false,
       letterbox: 0,
@@ -141,12 +141,12 @@ export const LOOKS: Record<StyleId, Look> = {
     captions: { font: "Instrument Serif", weight: 400, italic: true, upper: false, maxWords: 5, size: 0.086, color: "#fbf3e2", active: GOLD, box: "none", pop: false, anim: "reveal" },
     titleFont: "Instrument Serif",
     motion: {
-      spacing: 6,
+      spacing: 4.4,
       cards: true,
       callout: "minimal",
       title: "cinema",
       transition: "dip",
-      transitionGap: 4,
+      transitionGap: 3.2,
       grain: 0.07,
       leaks: true,
       letterbox: 0.06,
@@ -172,12 +172,12 @@ export const LOOKS: Record<StyleId, Look> = {
     captions: { font: "Sora", weight: 800, italic: false, upper: true, maxWords: 2, size: 0.085, color: "#ffffff", active: "#141414", box: "word", pop: true, anim: "box" },
     titleFont: "Sora",
     motion: {
-      spacing: 3,
+      spacing: 2.2,
       cards: true,
       callout: "badge",
       title: "slam",
       transition: "flash",
-      transitionGap: 2,
+      transitionGap: 1.5,
       grain: 0,
       leaks: false,
       letterbox: 0,
@@ -203,12 +203,12 @@ export const LOOKS: Record<StyleId, Look> = {
     captions: { font: "Manrope", weight: 800, italic: false, upper: false, maxWords: 4, size: 0.074, color: "#ffffff", active: "#ffd166", box: "pill", pop: true, anim: "bounce" },
     titleFont: "Manrope",
     motion: {
-      spacing: 4,
+      spacing: 2.8,
       cards: true,
       callout: "sticker",
       title: "sticker",
       transition: "whip",
-      transitionGap: 3,
+      transitionGap: 2.2,
       grain: 0,
       leaks: true,
       letterbox: 0,
@@ -237,8 +237,8 @@ export function usableAccent(color: string | null | undefined): string | null {
   return lum < 0.28 || lum > 0.93 ? null : color!.trim();
 }
 
-/** O estilo de legenda escolhido e a cor da marca ajustam o padrão do estilo. */
-export function lookFor(opts: Pick<EditOptions, "style" | "captionStyle"> & { accentColor?: string | null }): Look {
+/** O estilo de legenda escolhido, a cor da marca e os ajustes pedidos mudam o padrão do estilo. */
+export function lookFor(opts: Pick<EditOptions, "style" | "captionStyle" | "accentColor" | "captionScale" | "captionColor" | "energy">): Look {
   const base = LOOKS[opts.style] ?? LOOKS.institucional;
   const c = { ...base.captions };
   const s: CaptionStyle = opts.captionStyle;
@@ -247,7 +247,13 @@ export function lookFor(opts: Pick<EditOptions, "style" | "captionStyle"> & { ac
   if (s === "caixa_alta") Object.assign(c, { upper: true, weight: Math.max(c.weight, 800), font: c.font === "Instrument Serif" ? "Sora" : c.font, italic: false });
   const accent = usableAccent(opts.accentColor) ?? base.accent;
   if (accent !== base.accent && c.active === base.accent) c.active = accent;
-  return { ...base, accent, captions: c };
+  if (opts.captionScale) c.size *= Math.min(1.7, Math.max(0.6, opts.captionScale));
+  if (opts.captionColor && HEX.test(opts.captionColor)) c.color = opts.captionColor;
+  // mais (ou menos) animação: grafismos e transições mais próximos, zoom mais forte
+  const e = Math.min(2.2, Math.max(0.4, opts.energy ?? 1));
+  const motion = e === 1 ? base.motion : { ...base.motion, spacing: base.motion.spacing / e, transitionGap: base.motion.transitionGap / e };
+  const zoomAmount = e === 1 ? base.zoomAmount : Math.min(0.22, base.zoomAmount * (0.6 + 0.4 * e));
+  return { ...base, accent, zoomAmount, motion, captions: c };
 }
 
 /** Respostas recomendadas por estilo (iguais às do Novo vídeo do app). */

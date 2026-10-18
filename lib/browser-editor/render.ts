@@ -152,9 +152,9 @@ export function soundtrackFor(p: Pick<RenderParams, "analysis" | "plan" | "opts"
   const { introDur, outroDur } = bookends(p.opts, p.title, p.cta);
   const mood: Mood = p.opts.musicMood && p.opts.musicMood !== "auto" ? p.opts.musicMood : (STYLE_MOOD[p.opts.style] ?? p.look.motion.mood);
   return {
-    music: p.opts.music ? { mood, seed: Math.round(p.plan.bodyDuration * 10) + 1 } : null,
+    music: p.opts.music ? { mood, seed: Math.round(p.plan.bodyDuration * 10) + 1 + (p.opts.musicSeed ?? 0) * 7919, gain: p.opts.musicVolume ?? 1 } : null,
     cues: p.motion.cues,
-    sfxLevel: p.opts.effects ? p.look.motion.sfxLevel : 0,
+    sfxLevel: p.opts.effects && p.opts.sfx !== false ? p.look.motion.sfxLevel : 0,
     voice: voiceRegions(p.analysis.speech, p.plan.keep, introDur),
     introDur,
     outroDur,

@@ -17,7 +17,7 @@ import { ROUTES } from "@/lib/routes";
 
 const STEPS = [
   { title: "Como devemos chamar você?", subtitle: "Esses dados aparecem nos seus vídeos quando você quiser.", icon: Briefcase },
-  { title: "Qual é a sua área principal?", subtitle: "Usamos isso para contextualizar B-roll, termos e destaques.", icon: Sparkles },
+  { title: "Qual é a sua área principal?", subtitle: "Usamos isso para escolher imagens de apoio, termos e destaques.", icon: Sparkles },
   { title: "Para que serão seus vídeos?", subtitle: "Isso define os padrões sugeridos em cada novo projeto.", icon: Megaphone },
 ];
 

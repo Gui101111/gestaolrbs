@@ -97,6 +97,7 @@ export async function completeBrowserJobAction(
   version: number,
   outputs: z.infer<typeof Output>[],
   editPlan: unknown,
+  note?: string,
 ): Promise<ActionResult> {
   try {
     const { job, admin } = await ownJob(z.uuid().parse(jobId));
@@ -124,7 +125,8 @@ export async function completeBrowserJobAction(
       );
     }
     const plan = JSON.stringify(editPlan ?? null);
-    await advanceJob(job.id, { status: "succeeded", editPlan: plan.length < 400_000 ? (JSON.parse(plan) as Json) : undefined }, admin);
+    const msg = note ? z.string().max(400).parse(note) : undefined;
+    await advanceJob(job.id, { status: "succeeded", editPlan: plan.length < 400_000 ? (JSON.parse(plan) as Json) : undefined, note: msg }, admin);
     return { ok: true };
   } catch (e) {
     return fail(e);

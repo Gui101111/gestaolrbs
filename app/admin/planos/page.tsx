@@ -10,7 +10,7 @@ export default async function AdminPlans() {
   const { data: plans } = await createAdminClient().from("plans").select("*").order("sort_order");
   return (
     <div className="space-y-8">
-      <PageHeader eyebrow="Admin" title="Planos" description="Preços, limites e visibilidade. Alterações refletem na landing e no checkout." />
+      <PageHeader eyebrow="Admin" title="Planos" description="Preços, limites e visibilidade. Alterações refletem no site e na contratação." />
       <PlansManager plans={plans ?? []} />
     </div>
   );

@@ -4,19 +4,19 @@
  * os MP4 como "renders" do projeto, com as mesmas etapas, notificações e
  * alertas da OAB do app de verdade.
  */
-import { localReview, reviseWithClaude } from "@/lib/browser-editor/ai";
+import { localReview } from "@/lib/browser-editor/ai";
 import { encode, encodeSupport } from "@/lib/browser-editor/encode";
 import { analyze, loadLogo, renderInputs } from "@/lib/browser-editor/pipeline";
-import { localRevision, posterAt, posterFor, stepFor } from "@/lib/browser-editor/jobs";
+import { posterAt, posterFor, stepFor } from "@/lib/browser-editor/jobs";
 import { optionsFor } from "@/lib/browser-editor/project-options";
 import { newAudioContext, primeVideo, render, type RenderParams } from "@/lib/browser-editor/render";
-import { toSource } from "@/lib/browser-editor/timeline";
-import type { Analysis, EditOptions, Plan, Progress, RenderOutput } from "@/lib/browser-editor/types";
+import { applyRequest, savedOptions } from "@/lib/browser-editor/requests";
+import type { Analysis, EditOptions, Progress, RenderOutput } from "@/lib/browser-editor/types";
 import { db, getFile, putFile, type Row } from "./db";
 import { getEditorDeps, requestGesture } from "./deps";
 
 /** Análise e opções guardadas por projeto (ajustes não reprocessam a fala). */
-const memory = new Map<string, { analysis: Analysis; opts: EditOptions; plan: Plan; introDur: number }>();
+const memory = new Map<string, { analysis: Analysis; opts: EditOptions }>();
 const queue: string[] = [];
 let running = false;
 
@@ -65,45 +65,44 @@ async function process(jobId: string) {
     let analysis: Analysis;
     let note: string | null = null;
 
-    if (job.kind === "revision" && cached) {
-      update("planning", 45, true);
-      analysis = cached.analysis;
-      opts = { ...opts, ...cached.opts, logo: opts.logo, name: opts.name, oab: opts.oab, framing: cached.opts.framing };
-      const rev = db
-        .rows("project_revisions")
-        .filter((r) => r.project_id === project.id && r.status === "open")
-        .sort((x, y) => String(y.created_at).localeCompare(String(x.created_at)))[0];
-      if (rev && deps.sample) {
-        const at = rev.timestamp_sec != null ? toSource(cached.plan.keep, Math.max(0, Number(rev.timestamp_sec) - cached.introDur)).t : null;
-        const patch = await reviseWithClaude(deps.sample, String(rev.comment), at, opts, analysis.segments).catch(() => null);
-        if (patch) {
-          const { cuts, restore, fixes, note: n, ...rest } = patch;
-          note = n;
-          opts = { ...opts, ...rest, extraCuts: restore ? [] : [...(opts.extraCuts ?? []), ...(cuts ?? [])] };
-          if (fixes?.length) {
-            const segs = analysis.segments.map((s) => {
-              const f = fixes.find((x) => x.id === s.id);
-              return f ? { ...s, text: f.text } : s;
-            });
-            analysis = { ...analysis, segments: segs, review: analysis.review ? { ...analysis.review, segments: segs } : null };
-          }
-        }
-      } else if (rev) {
-        const local = localRevision(String(rev.comment));
-        opts = { ...opts, ...local.patch };
-        note = local.note;
-      }
-    } else {
+    if (cached) analysis = cached.analysis;
+    else {
       analysis = await analyze(blob, url, opts, deps, (p) => {
         const s = stepFor(p);
         update(s.step, s.progress);
       }, signal);
       if (!analysis.review && analysis.segments.length) analysis = { ...analysis, review: localReview(analysis.segments) };
     }
+    if (job.kind === "revision") {
+      // ajuste: parte das escolhas da última edição (da memória ou do que ficou salvo)
+      const last = db
+        .rows("render_jobs")
+        .filter((j) => j.project_id === project.id && j.status === "completed" && j.id !== jobId)
+        .sort((x, y) => String(y.completed_at).localeCompare(String(x.completed_at)))[0];
+      const prev = cached?.opts ?? ((last?.edit_plan as { opcoes?: Partial<EditOptions> } | null)?.opcoes ?? null);
+      if (prev) opts = { ...opts, ...prev, logo: opts.logo, name: opts.name, office: opts.office, oab: opts.oab, framing: prev.framing ?? opts.framing };
+      else if (opts.notes?.trim()) ({ opts, analysis } = await applyRequest({ kind: "observacoes", text: opts.notes, atOut: null, sample: deps.sample, opts, analysis, signal }));
+      const rev = db
+        .rows("project_revisions")
+        .filter((r) => r.project_id === project.id && r.status === "open")
+        .sort((x, y) => String(y.created_at).localeCompare(String(x.created_at)))[0];
+      if (rev) {
+        update("planning", 45, true);
+        const r = await applyRequest({ kind: "ajuste", text: String(rev.comment), atOut: rev.timestamp_sec != null ? Number(rev.timestamp_sec) : null, sample: deps.sample, opts, analysis, signal });
+        ({ opts, analysis } = r);
+        note = r.note;
+      }
+    } else if (opts.notes?.trim()) {
+      // observações do Novo vídeo também mudam a edição (não só o texto)
+      update("planning", 50, true);
+      const r = await applyRequest({ kind: "observacoes", text: opts.notes, atOut: null, sample: deps.sample, opts, analysis, signal });
+      ({ opts, analysis } = r);
+      note = r.note;
+    }
 
     update("editing", 56, true);
     const inputs = renderInputs(analysis, opts);
-    const logo = await loadLogo(opts.logo);
+    const logo = await loadLogo(opts.hideLogo ? null : opts.logo);
     const video = document.createElement("video");
     video.playsInline = true;
     video.muted = true;
@@ -178,7 +177,7 @@ async function process(jobId: string) {
         published: true,
       });
     }
-    memory.set(String(project.id), { analysis, opts, plan: inputs.plan, introDur: Math.max(0, outs[0].duration - inputs.plan.bodyDuration - (opts.vignette ? 2.6 : 0)) });
+    memory.set(String(project.id), { analysis, opts });
 
     const alerts = (analysis.review?.alerts ?? []).map((al) => ({ tempo: al.tempo !== null ? mmss(al.tempo) : "", tempoSec: al.tempo, frase: al.frase, motivo: al.motivo }));
     const report = {
@@ -188,6 +187,7 @@ async function process(jobId: string) {
       duracao_final_s: Math.round(outs[0].duration * 10) / 10,
       revisado_por: analysis.review?.by ?? "local",
       observacoes: [note, ...analysis.notes].filter(Boolean).join(" "),
+      opcoes: savedOptions(opts),
     };
     const done = new Date().toISOString();
     db.update("render_jobs", (j) => j.id === jobId, {

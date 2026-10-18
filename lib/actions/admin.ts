@@ -25,7 +25,7 @@ function err(e: unknown): { ok: false; error: string } {
     forbidden: "Acesso restrito à equipe.",
     no_renders: "Envie ao menos um vídeo editado antes de marcar como pronto.",
     invalid_path: "Caminho de arquivo inválido.",
-    job_not_found: "Job não encontrado.",
+    job_not_found: "Tarefa não encontrada.",
     not_in_review: "Este vídeo não está aguardando revisão.",
     claude_provider_not_configured: "Configure a chave da Anthropic (ANTHROPIC_API_KEY, CLAUDE_AGENT_ID e CLAUDE_ENVIRONMENT_ID) antes de usar o Claude.",
   };

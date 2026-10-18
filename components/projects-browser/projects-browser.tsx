@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronRight, Clapperboard, FolderInput, FolderOpen, FolderPlus, Plus, SearchX, Trash2, X } from "lucide-react";
+import { ChevronRight, Clapperboard, FolderInput, FolderOpen, FolderPlus, MoreHorizontal, Palette, Plus, SearchX, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,12 +17,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Aurora } from "@/components/effects/aurora";
 import { FolderDialog } from "@/components/folders/folder-dialog";
 import { MoveDialog } from "@/components/folders/move-dialog";
 import { folderColor } from "@/components/folders/folder-colors";
 import { BrowserToolbar } from "@/components/projects-browser/browser-toolbar";
-import { FolderCard, useDropTarget, type FolderCardData } from "@/components/projects-browser/folder-card";
+import { FolderCard, FolderDeleteDialog, useDropTarget, type FolderCardData } from "@/components/projects-browser/folder-card";
 import { VideoCard } from "@/components/projects/video-card";
 import { deleteProjectsAction } from "@/lib/actions/projects";
 import { ROUTES } from "@/lib/routes";
@@ -93,6 +94,12 @@ export function ProjectsBrowser({
           )}
           <span className="truncate">{folder?.name ?? "Projetos"}</span>
         </h1>
+        {folder && (
+          <FolderHeaderMenu
+            folder={{ ...folder, subfolders: subfolders.length }}
+            parentHref={path.length > 1 ? ROUTES.folder(path[path.length - 2].id) : ROUTES.projects}
+          />
+        )}
       </div>
 
       <BrowserToolbar folderId={folder?.id ?? null} canCreateFolder={canCreateFolder} onNewFolder={() => setNewFolder(true)} view={view} />
@@ -175,10 +182,10 @@ export function ProjectsBrowser({
               {visibleSelected.length} {visibleSelected.length === 1 ? "selecionado" : "selecionados"}
             </span>
             <div className="ml-auto flex items-center gap-1">
-              <Button variant="neon" size="sm" onClick={() => setMoveOpen(true)}>
+              <Button variant="neon" size="sm" onClick={() => setMoveOpen(true)} aria-label="Mover para…">
                 <FolderInput /> <span className="hidden sm:inline">Mover para…</span>
               </Button>
-              <Button variant="destructive" size="sm" onClick={() => setDeleteOpen(true)}>
+              <Button variant="destructive" size="sm" onClick={() => setDeleteOpen(true)} aria-label="Excluir selecionados">
                 <Trash2 /> <span className="hidden sm:inline">Excluir</span>
               </Button>
               <Button variant="ghost" size="icon-sm" onClick={clear} aria-label="Limpar seleção">
@@ -208,6 +215,34 @@ export function ProjectsBrowser({
         </AlertDialogContent>
       </AlertDialog>
     </div>
+  );
+}
+
+/** Ações da pasta aberta (renomear, excluir), ao lado do título. */
+function FolderHeaderMenu({ folder, parentHref }: { folder: { id: string; name: string; color: string; subfolders: number }; parentHref: string }) {
+  const [edit, setEdit] = React.useState(false);
+  const [del, setDel] = React.useState(false);
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" aria-label={`Ações da pasta ${folder.name}`} className="data-[state=open]:bg-fg/[0.06] data-[state=open]:text-fg">
+            <MoreHorizontal />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          <DropdownMenuItem onSelect={() => setEdit(true)}>
+            <Palette /> Renomear e cor
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem variant="destructive" onSelect={() => setDel(true)}>
+            <Trash2 /> Excluir pasta
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <FolderDialog key={`${folder.name}-${folder.color}`} open={edit} onOpenChange={setEdit} folder={folder} />
+      <FolderDeleteDialog folder={folder} open={del} onOpenChange={setDel} redirectTo={parentHref} />
+    </>
   );
 }
 

@@ -7,6 +7,7 @@
 import { ArrayBufferTarget, Muxer } from "mp4-muxer";
 import { ADVOGADOS, exemplos } from "@/content/exemplos";
 import { createPainter } from "@/lib/browser-editor/draw";
+import { emphasize } from "@/lib/browser-editor/emphasis";
 import { loadFonts } from "@/lib/browser-editor/fonts";
 import { defaultsFor, lookFor } from "@/lib/browser-editor/looks";
 import { planMotion, type PlannedMoment } from "@/lib/browser-editor/motion";
@@ -44,7 +45,7 @@ async function compor(id: string) {
   const vignette = style === "institucional" || style === "cinematografico";
   const outroDur = vignette ? 2.8 : 0;
   const bodyDur = TOTAL - outroDur;
-  const words = markKeywords(timeline(ex.fala, 0.4), ex.destaques);
+  const words = emphasize(markKeywords(timeline(ex.fala, 0.4), ex.destaques));
   const opts: EditOptions = {
     ...base,
     style,

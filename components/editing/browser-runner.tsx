@@ -5,15 +5,15 @@ import { AnimatePresence, motion } from "motion/react";
 import { Hand, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { browserProgressAction, browserUploadTargetsAction, claimBrowserJobAction, completeBrowserJobAction, failBrowserJobAction } from "@/lib/actions/browser-editing";
-import { localReview, reviseWithClaude, type SampleFn } from "@/lib/browser-editor/ai";
+import { localReview, type SampleFn } from "@/lib/browser-editor/ai";
 import { decodeAudio, to16k } from "@/lib/browser-editor/audio";
 import { encode, encodeSupport } from "@/lib/browser-editor/encode";
-import { localRevision, posterAt, posterFor, stepFor } from "@/lib/browser-editor/jobs";
+import { posterAt, posterFor, stepFor } from "@/lib/browser-editor/jobs";
 import { localFile } from "@/lib/browser-editor/local-files";
 import { analyze, loadLogo, renderInputs, type EditorDeps } from "@/lib/browser-editor/pipeline";
 import { optionsFor } from "@/lib/browser-editor/project-options";
-import { bookends, newAudioContext, primeVideo, render, type RenderParams } from "@/lib/browser-editor/render";
-import { toSource } from "@/lib/browser-editor/timeline";
+import { newAudioContext, primeVideo, render, type RenderParams } from "@/lib/browser-editor/render";
+import { applyRequest, savedOptions } from "@/lib/browser-editor/requests";
 import type { TransformersLike } from "@/lib/browser-editor/transcribe";
 import type { Analysis, EditOptions, RenderOutput } from "@/lib/browser-editor/types";
 import { BUCKETS } from "@/lib/constants/domain";
@@ -266,8 +266,10 @@ async function processJob(
 
   try {
     let analysis: Analysis | null = null;
+    let saved: SavedPlan | null = null;
+    let note: string | undefined;
     if (job.kind === "revision") {
-      // ajuste: reaproveita a transcrição salva no job anterior
+      // ajuste: reaproveita a transcrição e as escolhas salvas no job anterior
       const { data: prev } = await supabase
         .from("render_jobs")
         .select("edit_plan")
@@ -276,31 +278,10 @@ async function processJob(
         .order("completed_at", { ascending: false })
         .limit(1)
         .maybeSingle();
-      const saved = (prev?.edit_plan ?? null) as SavedPlan | null;
+      saved = (prev?.edit_plan ?? null) as SavedPlan | null;
       if (saved?.segments) {
         const pcm = await decodeAudio(blob).catch(() => null);
         analysis = { ...saved, audio: pcm ? to16k(pcm) : null, pcm, frameDb: null, silences: [], notes: [] };
-        opts = { ...opts, ...saved.opts, logo: opts.logo, name: opts.name, office: opts.office, accentColor: opts.accentColor };
-        const { data: rev } = await supabase.from("project_revisions").select("comment, timestamp_sec").eq("project_id", job.project_id).eq("status", "open").order("created_at", { ascending: false }).limit(1).maybeSingle();
-        if (rev) {
-          report("planning", 40, "Aplicando o seu pedido de ajuste");
-          const intro = bookends(opts, analysis.review?.title ?? "", analysis.review?.cta ?? "").introDur;
-          const plan0 = renderInputs(analysis, opts).plan;
-          const at = rev.timestamp_sec != null ? toSource(plan0.keep, Math.max(0, Number(rev.timestamp_sec) - intro)).t : null;
-          const patch = d.sample ? await reviseWithClaude(d.sample, rev.comment, at, opts, analysis.segments).catch(() => null) : null;
-          if (patch) {
-            const { cuts, restore, fixes, ...rest } = patch;
-            delete (rest as { note?: string }).note;
-            opts = { ...opts, ...rest, extraCuts: restore ? [] : [...(opts.extraCuts ?? []), ...(cuts ?? [])] };
-            if (fixes?.length) {
-              const segs = analysis.segments.map((s) => {
-                const f = fixes.find((x) => x.id === s.id);
-                return f ? { ...s, text: f.text } : s;
-              });
-              analysis = { ...analysis, segments: segs, review: analysis.review ? { ...analysis.review, segments: segs } : null };
-            }
-          } else opts = { ...opts, ...localRevision(rev.comment).patch };
-        }
       }
     }
     if (!analysis) {
@@ -310,10 +291,26 @@ async function processJob(
       }, signal);
       if (!analysis.review && analysis.segments.length) analysis = { ...analysis, review: localReview(analysis.segments) };
     }
+    if (job.kind === "revision") {
+      if (saved?.opts) opts = { ...opts, ...saved.opts, logo: opts.logo, name: opts.name, office: opts.office };
+      const { data: rev } = await supabase.from("project_revisions").select("comment, timestamp_sec").eq("project_id", job.project_id).eq("status", "open").order("created_at", { ascending: false }).limit(1).maybeSingle();
+      if (rev) {
+        report("planning", 45, "Aplicando o seu pedido de ajuste");
+        const r = await applyRequest({ kind: "ajuste", text: rev.comment, atOut: rev.timestamp_sec != null ? Number(rev.timestamp_sec) : null, sample: d.sample, opts, analysis, signal });
+        ({ opts, analysis } = r);
+        note = r.note;
+      }
+    } else if (opts.notes?.trim()) {
+      // observações do Novo vídeo também mudam a edição (não só o texto)
+      report("planning", 50, "Aplicando as suas observações");
+      const r = await applyRequest({ kind: "observacoes", text: opts.notes, atOut: null, sample: d.sample, opts, analysis, signal });
+      ({ opts, analysis } = r);
+      note = r.note;
+    }
 
     report("editing", 56, "Montando a edição");
     const inputs = renderInputs(analysis, opts);
-    const logo = await loadLogo(opts.logo);
+    const logo = await loadLogo(opts.hideLogo ? null : opts.logo);
     const video = document.createElement("video");
     video.playsInline = true;
     video.muted = true;
@@ -388,9 +385,9 @@ async function processJob(
       height: analysis.height,
       speechDb: analysis.speechDb,
       transcriptBy: analysis.transcriptBy,
-      opts: { ...opts, logo: null },
+      opts: savedOptions(opts),
     };
-    const done = await completeBrowserJobAction(job.id, version, delivered, plan);
+    const done = await completeBrowserJobAction(job.id, version, delivered, plan, note);
     if (!done.ok) throw new Error(done.error);
   } finally {
     URL.revokeObjectURL(url);

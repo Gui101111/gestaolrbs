@@ -26,7 +26,7 @@ export async function startDownload(href: string) {
   const fileName = `${slugify(String(project?.name ?? "video")) || "video"}_${String(r.aspect_ratio).replace(":", "x")}_v${r.version}.${ext}`;
   const res = await saveVideo(blob, fileName);
   if (res === "saved" || res === "fallback") {
-    toast.success(res === "saved" ? "Vídeo salvo." : "Download iniciado.", { description: fileName });
+    toast.success(res === "saved" ? "Vídeo salvo." : "Baixando o vídeo.", { description: fileName });
     db.update("projects", (p) => p.id === id && !p.first_downloaded_at, { first_downloaded_at: new Date().toISOString() });
   } else if (typeof res === "object") toast.error(res.error);
 }

@@ -23,7 +23,7 @@ export const OBJECTIVES = [
   {
     value: "trafego_pago",
     label: "Tráfego Pago",
-    description: "Anúncios no Meta Ads e YouTube, com gancho forte e CTA claro.",
+    description: "Anúncios no Meta Ads e YouTube, com gancho forte e chamada para ação clara.",
   },
   {
     value: "conteudo_organico",
@@ -73,8 +73,8 @@ export const EDITING_STYLES = [
     index: "02",
     label: "Profissional Dinâmico",
     tagline: "Ritmo de rede, linguagem de escritório.",
-    description: "Ritmo maior, zooms leves, palavras destacadas e B-roll contextual.",
-    traits: ["Zooms leves", "Palavras destacadas", "B-roll contextual"],
+    description: "Ritmo maior, zooms leves, palavras destacadas e imagens de apoio ligadas ao tema.",
+    traits: ["Zooms leves", "Palavras destacadas", "Imagens de apoio"],
     idealFor: "Instagram, Reels e conteúdo orgânico",
     pace: 3,
   },
@@ -84,7 +84,7 @@ export const EDITING_STYLES = [
     label: "Premium Cinematográfico",
     tagline: "Luz, cor e silêncio a seu favor.",
     description: "Correção visual sofisticada, movimentos suaves, textos minimalistas e transições discretas.",
-    traits: ["Color grading", "Movimentos suaves", "Tipografia minimalista"],
+    traits: ["Correção de cor", "Movimentos suaves", "Tipografia minimalista"],
     idealFor: "Posicionamento premium e marca pessoal",
     pace: 2,
   },
@@ -93,8 +93,8 @@ export const EDITING_STYLES = [
     index: "04",
     label: "Performance / Meta Ads",
     tagline: "Os primeiros segundos decidem.",
-    description: "Gancho visual, legendas fortes, cortes rápidos, elementos contextualizados e CTA destacado.",
-    traits: ["Gancho nos 3s iniciais", "Legendas fortes", "CTA destacado"],
+    description: "Gancho visual, legendas fortes, cortes rápidos, elementos contextualizados e chamada para ação destacada.",
+    traits: ["Gancho nos 3s iniciais", "Legendas fortes", "Chamada final destacada"],
     idealFor: "Campanhas de tráfego pago",
     pace: 4,
   },
@@ -144,7 +144,7 @@ export function ratiosForPlatforms(platforms: readonly string[]): AspectRatio[] 
 export const EDIT_SETTINGS = [
   { key: "captions", label: "Legendas automáticas", description: "Legendas sincronizadas palavra a palavra.", default: true, group: "Texto" },
   { key: "highlight_keywords", label: "Destaque de palavras importantes", description: "Termos jurídicos e palavras-chave em evidência.", default: true, group: "Texto" },
-  { key: "broll", label: "B-roll contextual", description: "Imagens de apoio coerentes com o tema.", default: true, group: "Visual" },
+  { key: "broll", label: "Imagens de apoio", description: "Imagens de apoio coerentes com o tema.", default: true, group: "Visual" },
   { key: "auto_zoom", label: "Zooms automáticos", description: "Aproximações suaves nos momentos de ênfase.", default: true, group: "Visual" },
   { key: "cut_silences", label: "Cortar silêncios", description: "Remove pausas longas e respirações.", default: true, group: "Ritmo" },
   { key: "remove_mistakes", label: "Remover erros de gravação", description: "Elimina repetições, tropeços e vícios de linguagem.", default: true, group: "Ritmo" },
@@ -153,10 +153,10 @@ export const EDIT_SETTINGS = [
   { key: "enhance_voice", label: "Realçar voz", description: "Equalização e presença vocal.", default: true, group: "Áudio" },
   { key: "graphics", label: "Elementos gráficos", description: "Ícones, setas e destaques visuais discretos.", default: true, group: "Visual" },
   { key: "transitions", label: "Transições", description: "Transições discretas entre trechos.", default: true, group: "Visual" },
-  { key: "cta", label: "CTA final", description: "Chamada para ação no encerramento.", default: false, group: "Marca" },
-  { key: "logo", label: "Logotipo do escritório", description: "Aplica sua marca salva em Minha Marca.", default: false, group: "Marca" },
+  { key: "cta", label: "Chamada final", description: "Chamada para ação no encerramento.", default: false, group: "Marca" },
+  { key: "logo", label: "Logotipo do escritório", description: "Aplica o logotipo salvo em Marca.", default: false, group: "Marca" },
   { key: "background_music", label: "Trilha sonora", description: "Trilha discreta, sem competir com a voz.", default: false, group: "Áudio" },
-  { key: "lower_third", label: "Nome e OAB na tela", description: "Identificação profissional em lettering.", default: true, group: "Marca" },
+  { key: "lower_third", label: "Nome e OAB na tela", description: "Identificação profissional em texto elegante.", default: true, group: "Marca" },
   { key: "compliance_review", label: "Revisão de conformidade OAB", description: "Sinaliza falas com promessa de resultado ou captação indevida (Provimento 205/2021).", default: true, group: "Conformidade" },
 ] as const;
 export type EditSettingKey = (typeof EDIT_SETTINGS)[number]["key"];
@@ -187,11 +187,11 @@ export const TARGET_DURATIONS = [
 
 /** Etapas do pipeline de processamento (render_jobs.current_step). */
 export const PIPELINE_STEPS = [
-  { value: "upload_completed", label: "Upload concluído", description: "Arquivo recebido com segurança." },
+  { value: "upload_completed", label: "Envio concluído", description: "Arquivo recebido com segurança." },
   { value: "analyzing_audio", label: "Analisando áudio", description: "Níveis, ruído e trechos de fala." },
   { value: "transcribing", label: "Transcrevendo", description: "Fala convertida em texto, palavra a palavra." },
   { value: "analyzing_content", label: "Analisando conteúdo", description: "Tema, termos jurídicos e momentos-chave." },
-  { value: "planning", label: "Criando plano de edição", description: "Cortes, zooms, destaques e B-roll." },
+  { value: "planning", label: "Criando plano de edição", description: "Cortes, zooms, destaques e imagens de apoio." },
   { value: "editing", label: "Editando vídeo", description: "Montagem, ritmo e correções." },
   { value: "captioning", label: "Criando legendas", description: "Legendas sincronizadas e destaques." },
   { value: "adding_elements", label: "Adicionando elementos", description: "Grafismos, marca e chamadas." },

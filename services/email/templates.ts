@@ -32,7 +32,7 @@ export const emailTemplates = {
     html: layout({
       eyebrow: "Conta ativa",
       title: `Olá, ${esc(name || "Dr(a).")}. Sua conta está pronta.`,
-      body: "<p>Você já pode enviar seu primeiro vídeo. Grave como sempre gravou — a plataforma cuida dos cortes, legendas e formatos.</p><p>Dica: salve a identidade do seu escritório em <strong>Minha Marca</strong> para aplicá-la automaticamente.</p>",
+      body: "<p>Você já pode enviar seu primeiro vídeo. Grave como sempre gravou — a plataforma cuida dos cortes, legendas e formatos.</p><p>Dica: salve a identidade visual do seu escritório em <strong>Marca</strong> para aplicá-la automaticamente.</p>",
       cta: { label: "Criar primeiro projeto", href: url("/app/novo") },
     }),
   }),

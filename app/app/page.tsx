@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Clapperboard, Plus } from "lucide-react";
+import { ArrowRight, Clapperboard, FolderClosed, Plus } from "lucide-react";
 import { Aurora } from "@/components/effects/aurora";
 import { Button } from "@/components/ui/button";
 import { SetupSteps, type SetupStep } from "@/components/home/setup-steps";
 import { TemplateCards } from "@/components/home/template-cards";
 import { WelcomeTitle } from "@/components/home/welcome-title";
 import { VideoCard } from "@/components/projects/video-card";
+import { FolderCard, type FolderCardData } from "@/components/projects-browser/folder-card";
 import { requireOnboardedProfile } from "@/lib/auth/dal";
 import { createClient } from "@/lib/supabase/server";
 import { ROUTES } from "@/lib/routes";
@@ -18,12 +19,31 @@ export const metadata: Metadata = { title: "Início" };
 export default async function HomePage() {
   const { user, profile } = await requireOnboardedProfile();
   const supabase = await createClient();
-  const [videos, { data: brand }, { count: submitted }, { count: downloaded }] = await Promise.all([
+  const [videos, { data: brand }, { count: submitted }, { count: downloaded }, { data: folders }, { data: folderRefs }] = await Promise.all([
     listProjects({ userId: user.id, limit: 8 }),
     supabase.from("brand_kits").select("logo_path").eq("user_id", user.id).maybeSingle(),
     supabase.from("projects").select("id", { count: "exact", head: true }).eq("user_id", user.id).neq("status", "draft"),
     supabase.from("projects").select("id", { count: "exact", head: true }).eq("user_id", user.id).not("first_downloaded_at", "is", null),
+    supabase.from("folders").select("id, name, color, parent_id, position").eq("owner_id", user.id),
+    supabase.from("projects").select("folder_id").eq("user_id", user.id).not("folder_id", "is", null),
   ]);
+
+  // Pastas da raiz (como em Projetos), com o menu de ações de cada uma
+  const counts = new Map<string, number>();
+  folderRefs?.forEach((r) => r.folder_id && counts.set(r.folder_id, (counts.get(r.folder_id) ?? 0) + 1));
+  const allFolders = folders ?? [];
+  const rootFolders: FolderCardData[] = allFolders
+    .filter((f) => !f.parent_id)
+    .sort((a, b) => a.position - b.position || a.name.localeCompare(b.name, "pt-BR"))
+    .slice(0, 8)
+    .map((f) => ({
+      id: f.id,
+      name: f.name,
+      color: f.color,
+      videos: counts.get(f.id) ?? 0,
+      subfolders: allFolders.filter((x) => x.parent_id === f.id).length,
+      depth: 1,
+    }));
 
   const prefs = (profile.preferences && typeof profile.preferences === "object" && !Array.isArray(profile.preferences)
     ? profile.preferences
@@ -123,6 +143,24 @@ export default async function HomePage() {
           </div>
         )}
       </section>
+
+      {rootFolders.length > 0 && (
+        <section aria-labelledby="pastas-title">
+          <div className="mb-4 flex items-center justify-between gap-3 px-1">
+            <h2 id="pastas-title" className="flex items-center gap-2 font-sans text-[0.9375rem] font-bold tracking-normal text-fg">
+              <FolderClosed className="size-4 text-gold" /> Suas pastas
+            </h2>
+            <Link href={ROUTES.projects} className="text-sm font-semibold text-fg-2 underline-offset-4 transition hover:text-cyan hover:underline">
+              Ver todas ›
+            </Link>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4 max-sm:[&>*:nth-child(n+5)]:hidden">
+            {rootFolders.map((f, i) => (
+              <FolderCard key={f.id} folder={f} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

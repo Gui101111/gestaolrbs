@@ -156,7 +156,7 @@ export function ProjectActionsMenu({ triggerClassName, ...t }: ActionTarget & { 
         <DropdownMenuTrigger
           className={
             triggerClassName ??
-            "grid size-8 place-items-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur transition hover:border-cyan/60"
+            "relative grid size-9 place-items-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur transition after:absolute after:-inset-0.5 after:content-[''] hover:border-cyan/60 data-[state=open]:border-cyan/60"
           }
           aria-label={`Ações do vídeo ${t.name}`}
           onClick={(e) => e.stopPropagation()}

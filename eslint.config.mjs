@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Prévia estática (build próprio, ver preview/README.md)
     "preview/**",
+    // Transcrição no navegador gerada por scripts/preparar-asr.mjs
+    "public/vendor/**",
   ]),
 ]);
 

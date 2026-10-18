@@ -617,7 +617,7 @@ export const STYLE_MOOD: Record<string, Mood> = {
 };
 
 export interface SoundtrackPlan {
-  music: { mood: Mood; seed: number } | null;
+  music: { mood: Mood; seed: number; gain?: number } | null;
   cues: Cue[];
   /** Ganho das trilhas e efeitos (0 a 1). */
   sfxLevel: number;
@@ -645,9 +645,10 @@ export function scheduleSoundtrack(ctx: BaseAudioContext, out: AudioNode, plan: 
     src.buffer = toBuffer(ctx, loop.data, loop.rate);
     src.loop = true;
     const g = ctx.createGain();
-    const LOUD = 0.24;
-    const UNDER = 0.075;
-    const GAP = 0.15;
+    const k = Math.min(2.2, Math.max(0.2, plan.music.gain ?? 1));
+    const LOUD = 0.24 * k;
+    const UNDER = 0.075 * k;
+    const GAP = 0.15 * k;
     const p = g.gain;
     p.setValueAtTime(0, 0);
     p.linearRampToValueAtTime(plan.introDur > 0 ? LOUD * 1.15 : GAP, 0.25);

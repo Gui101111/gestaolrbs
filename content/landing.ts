@@ -12,7 +12,7 @@ export const landing = {
   hero: {
     chip: "Edição de vídeo com IA para advogados",
     title: "Vídeos jurídicos *editados* por IA.",
-    subtitle: "Envie a gravação. Receba pronta para Reels, TikTok, YouTube e Ads.",
+    subtitle: "Envie a gravação. Receba pronta para Reels, TikTok, YouTube e anúncios.",
     primary: "Criar meu primeiro vídeo",
     secondary: "Ver exemplos",
     seals: [

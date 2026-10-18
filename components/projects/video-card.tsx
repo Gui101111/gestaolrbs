@@ -165,8 +165,9 @@ export function VideoCard({
             <p className="mt-1 truncate text-xs text-fg-3">{editing && step ? step.label : <TimeAgo value={project.updated_at} />}</p>
           </div>
         </Link>
-        {selectable && <SelectBox selected={selected} onToggle={(add) => onToggleSelect?.(project.id, add)} className="absolute top-3 right-12" />}
-        <div className="absolute top-3 right-3 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100 md:focus-within:opacity-100">
+        {selectable && <SelectBox selected={selected} onToggle={(add) => onToggleSelect?.(project.id, add)} className="absolute top-4 right-14" />}
+        {/* Sempre visível: no toque não existe hover, e o menu é o caminho para Excluir */}
+        <div className="absolute top-3 right-3">
           <ProjectActionsMenu id={project.id} name={project.name} status={project.status} canDownload={done} folderId={project.folder_id} />
         </div>
       </div>
@@ -191,7 +192,7 @@ function SelectBox({ selected, onToggle, className }: { selected: boolean; onTog
         "z-10 grid size-7 place-items-center rounded-lg border transition-all duration-300",
         selected
           ? "border-cyan bg-cyan text-[#06222a] shadow-[var(--glow-cyan)]"
-          : "border-white/50 bg-black/35 text-transparent backdrop-blur md:opacity-0 md:group-hover:opacity-100",
+          : "border-white/50 bg-black/35 text-transparent backdrop-blur pointer-fine:md:opacity-0 pointer-fine:md:group-hover:opacity-100 pointer-fine:md:focus-visible:opacity-100",
         className,
       )}
     >

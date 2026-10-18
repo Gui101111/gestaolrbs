@@ -72,17 +72,8 @@ export function FolderCard({ folder, index, onMoved }: { folder: FolderCardData;
   const [edit, setEdit] = React.useState(false);
   const [sub, setSub] = React.useState(false);
   const [del, setDel] = React.useState(false);
-  const [pending, start] = React.useTransition();
   const color = folderColor(folder.color);
   const canNest = folder.depth < 3;
-
-  const remove = () =>
-    start(async () => {
-      const res = await deleteFolderAction(folder.id);
-      if (!res.ok) return void toast.error(res.error);
-      toast.success("Pasta excluída. Os vídeos voltaram para Projetos.");
-      router.refresh();
-    });
 
   const items = [
     { label: "Abrir", icon: FolderOpen, onSelect: () => router.push(ROUTES.folder(folder.id)) },
@@ -104,7 +95,7 @@ export function FolderCard({ folder, index, onMoved }: { folder: FolderCardData;
               over ? "scale-[1.03] border-cyan shadow-[0_0_0_1px_var(--cyan),0_0_32px_-6px_var(--cyan)]" : "border-line hover:-translate-y-0.5 hover:border-line-strong",
             )}
           >
-            <Link href={ROUTES.folder(folder.id)} className="flex items-center gap-3 p-4 pr-12">
+            <Link href={ROUTES.folder(folder.id)} className="flex items-center gap-3 p-4 pr-14">
               <span className="relative grid size-11 shrink-0 place-items-center rounded-2xl" style={{ background: `color-mix(in oklab, ${color} 14%, transparent)` }}>
                 {over ? <FolderOpen className="size-5" style={{ color }} /> : <Folder className="size-5" style={{ color }} />}
                 <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full" style={{ background: color, boxShadow: `0 0 10px ${color}` }} />
@@ -119,7 +110,7 @@ export function FolderCard({ folder, index, onMoved }: { folder: FolderCardData;
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger
-                className="absolute top-1/2 right-3 grid size-8 -translate-y-1/2 place-items-center rounded-full text-fg-3 transition hover:bg-fg/[0.08] hover:text-fg md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100"
+                className="absolute top-1/2 right-2 grid size-10 -translate-y-1/2 place-items-center rounded-full text-fg-3 transition hover:bg-fg/[0.08] hover:text-fg data-[state=open]:bg-fg/[0.08] data-[state=open]:text-fg"
                 aria-label={`Ações da pasta ${folder.name}`}
               >
                 <MoreHorizontal className="size-4" />
@@ -162,20 +153,61 @@ export function FolderCard({ folder, index, onMoved }: { folder: FolderCardData;
 
       <FolderDialog open={edit} onOpenChange={setEdit} folder={folder} />
       <FolderDialog open={sub} onOpenChange={setSub} parentId={folder.id} navigate={false} />
-      <AlertDialog open={del} onOpenChange={setDel}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Excluir a pasta “{folder.name}”?</AlertDialogTitle>
-            <AlertDialogDescription>As subpastas também serão excluídas. Os vídeos não são apagados: voltam para Projetos.</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={remove} disabled={pending}>
-              Excluir pasta
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <FolderDeleteDialog folder={folder} open={del} onOpenChange={setDel} />
     </>
+  );
+}
+
+/**
+ * Confirmação para excluir uma pasta. O banco apaga as subpastas junto;
+ * os vídeos não são apagados: ficam sem pasta e voltam para a raiz de Projetos.
+ */
+export function FolderDeleteDialog({
+  folder,
+  open,
+  onOpenChange,
+  redirectTo,
+}: {
+  folder: { id: string; name: string; subfolders?: number };
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+  /** Para excluir a pasta aberta: sai dela antes (a navegação entra na fila antes da exclusão). */
+  redirectTo?: string;
+}) {
+  const router = useRouter();
+  const [pending, start] = React.useTransition();
+  const subfolders = folder.subfolders ?? null;
+
+  const remove = () =>
+    start(async () => {
+      if (redirectTo) router.replace(redirectTo);
+      const res = await deleteFolderAction(folder.id);
+      if (!res.ok) return void toast.error(res.error);
+      toast.success("Pasta excluída. Os vídeos voltaram para Projetos.");
+      router.refresh();
+    });
+
+  return (
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Excluir a pasta “{folder.name}”?</AlertDialogTitle>
+          <AlertDialogDescription>
+            {subfolders === null
+              ? "As subpastas dentro dela também serão excluídas. "
+              : subfolders > 0
+                ? `${subfolders === 1 ? "A subpasta dentro dela também será excluída" : `As ${subfolders} subpastas dentro dela também serão excluídas`}. `
+                : ""}
+            Nenhum vídeo é apagado: os vídeos que estavam dentro dela voltam para Projetos, sem pasta.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogAction onClick={remove} disabled={pending}>
+            Excluir pasta
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

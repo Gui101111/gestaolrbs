@@ -82,7 +82,7 @@ export function AdminProjectConsole({
           {job ? (
             <>
               <p className="mt-2 text-xs text-mist">
-                Job {job.kind} · provedor <span className="text-ivory/80">{job.provider}</span> · status <span className="text-ivory/80">{job.status}</span>
+                Tarefa {job.kind} · provedor <span className="text-ivory/80">{job.provider}</span> · status <span className="text-ivory/80">{job.status}</span>
               </p>
               {job.error_message && <p className="mt-2 text-xs text-destructive">{job.error_message}</p>}
               <div className="mt-5 flex items-center justify-between text-xs">
@@ -111,13 +111,13 @@ export function AdminProjectConsole({
                 <Button variant="outline" size="sm" onClick={nextStep} disabled={pending}>
                   <SkipForward /> Próxima etapa
                 </Button>
-                <Button variant="ghost" size="sm" onClick={() => run(() => adminRedispatchAction(job.id), "Job reenviado ao processador.")} disabled={pending}>
+                <Button variant="ghost" size="sm" onClick={() => run(() => adminRedispatchAction(job.id), "Tarefa reenviada ao processador.")} disabled={pending}>
                   <RefreshCw /> Reenviar ao processador
                 </Button>
               </div>
             </>
           ) : (
-            <p className="mt-3 text-sm text-mist">Nenhum job encontrado.</p>
+            <p className="mt-3 text-sm text-mist">Nenhuma tarefa encontrada.</p>
           )}
         </section>
 

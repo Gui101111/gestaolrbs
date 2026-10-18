@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useReducedMotion } from "motion/react";
-import { createPainter } from "@/lib/browser-editor/draw";
+import { CAPTION_Y, createPainter } from "@/lib/browser-editor/draw";
 import { loadFonts } from "@/lib/browser-editor/fonts";
 import { defaultsFor, lookFor } from "@/lib/browser-editor/looks";
 import type { EditOptions, StyleId, Word } from "@/lib/browser-editor/types";
@@ -90,7 +90,7 @@ export function StylePreview({ style, playing = true, className }: { style: stri
       ctx.fillStyle = "#000";
       ctx.fillRect(0, 0, W, H);
       ctx.save();
-      ctx.translate(0, H * -0.2);
+      ctx.translate(0, H * (0.5 - CAPTION_Y["9:16"]));
       painter.captionsOnly(ctx, t);
       ctx.restore();
     };
