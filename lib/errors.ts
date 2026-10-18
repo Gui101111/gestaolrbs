@@ -37,8 +37,8 @@ const MESSAGES: Record<string, string> = {
   folder_invalid: "Pasta não encontrada.",
   folder_not_found: "Pasta não encontrada.",
   // Upload
-  file_too_large: "O arquivo é maior do que o permitido.",
-  invalid_file: "Formato não suportado. Envie um vídeo MP4, MOV ou WEBM.",
+  file_too_large: "O arquivo é maior do que o limite de envio. Grave um trecho menor ou exporte em resolução menor.",
+  invalid_file: "Este arquivo não parece ser um vídeo. Escolha um vídeo da galeria (MP4, MOV ou WEBM).",
   upload_interrupted: "O envio foi interrompido. Verifique sua conexão — você pode retomar de onde parou.",
   // Geral
   network: "Sem conexão com a internet. Verifique sua rede e tente novamente.",

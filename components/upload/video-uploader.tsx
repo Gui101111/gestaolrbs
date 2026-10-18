@@ -23,12 +23,21 @@ export type UploadedVideo = {
   thumbnail: Blob | null;
 };
 
-const MIME_BY_EXT: Record<string, UploadedVideo["mimeType"]> = { mp4: "video/mp4", mov: "video/quicktime", webm: "video/webm" };
+const MIME_BY_EXT: Record<string, UploadedVideo["mimeType"]> = { mp4: "video/mp4", m4v: "video/mp4", "3gp": "video/mp4", mov: "video/quicktime", qt: "video/quicktime", webm: "video/webm", mkv: "video/webm" };
 
-function detectMime(file: File): UploadedVideo["mimeType"] | null {
+/**
+ * Tipo do vídeo. Celulares mandam de tudo: sem extensão e sem tipo (galeria
+ * do Android), 3GP, M4V... Qualquer `video/*` passa (o navegador confere se
+ * abre); o tipo salvo é o mais próximo entre MP4, MOV e WEBM.
+ */
+function detectMime(file: File): UploadedVideo["mimeType"] | "talvez" | null {
   if (file.type === "video/mp4" || file.type === "video/quicktime" || file.type === "video/webm") return file.type;
-  const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
-  return MIME_BY_EXT[ext] ?? null;
+  const ext = file.name.includes(".") ? (file.name.split(".").pop()?.toLowerCase() ?? "") : "";
+  if (MIME_BY_EXT[ext]) return MIME_BY_EXT[ext];
+  if (file.type.startsWith("video/")) return file.type.includes("webm") || file.type.includes("matroska") ? "video/webm" : file.type.includes("quicktime") ? "video/quicktime" : "video/mp4";
+  // sem tipo (ou tipo genérico): o navegador confere se abre como vídeo
+  if (!file.type || file.type === "application/octet-stream") return "talvez";
+  return null;
 }
 
 /**
@@ -53,6 +62,7 @@ export function VideoUploader({
   disabled?: boolean;
 }) {
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const inputId = React.useId();
   const [dragging, setDragging] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [warning, setWarning] = React.useState<string | null>(null);
@@ -64,13 +74,21 @@ export function VideoUploader({
     if (!file || disabled) return;
     setError(null);
     setWarning(null);
-    const mime = detectMime(file);
-    if (!mime) return setError(messageFor("invalid_file"));
+    const detected = detectMime(file);
+    if (!detected) return setError(messageFor("invalid_file"));
     if (file.size > maxBytes) return setError(`O arquivo tem ${formatBytes(file.size)}. O limite do seu plano é ${formatBytes(maxBytes)}.`);
 
     setPreparing(true);
     const meta = await inspectVideo(file);
-    if (meta.duration == null) setWarning("Não foi possível pré-visualizar este arquivo no navegador, mas o envio funciona normalmente.");
+    // sem tipo nem extensão: só segue se o navegador conseguiu ler como vídeo
+    if (detected === "talvez" && meta.duration == null) {
+      setPreparing(false);
+      URL.revokeObjectURL(meta.previewUrl);
+      return setError(messageFor("invalid_file"));
+    }
+    const mime: UploadedVideo["mimeType"] = detected === "talvez" ? "video/mp4" : detected;
+    if (meta.duration == null)
+      setWarning("Este navegador não conseguiu abrir o vídeo para pré-visualizar. O envio continua; se a edição falhar, use o Chrome ou o Safari atualizados ou exporte o vídeo em MP4.");
     else if (maxDurationSec && meta.duration > maxDurationSec)
       setWarning(`Este vídeo tem ${formatDuration(meta.duration)}. Seu plano permite até ${formatDuration(maxDurationSec)} por vídeo.`);
 
@@ -95,6 +113,7 @@ export function VideoUploader({
     await start(file, {
       bucket: "original-videos",
       path,
+      contentType: mime,
       onDone: async (p) => {
         const { file: _f, ...rest } = info;
         void _f;
@@ -124,8 +143,9 @@ export function VideoUploader({
     <div className="space-y-4">
       <input
         ref={inputRef}
+        id={inputId}
         type="file"
-        accept={`video/mp4,video/quicktime,video/webm,${ACCEPTED_VIDEO_EXT.join(",")}`}
+        accept={`video/*,${ACCEPTED_VIDEO_EXT.join(",")}`}
         className="sr-only"
         onChange={(e) => {
           void pick(e.target.files?.[0]);
@@ -176,22 +196,30 @@ export function VideoUploader({
             />
           </motion.div>
         ) : (
-          <motion.button
+          <motion.label
             key="drop"
-            type="button"
+            htmlFor={disabled ? undefined : inputId}
+            role="button"
+            tabIndex={disabled ? -1 : 0}
+            aria-disabled={disabled}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                inputRef.current?.click();
+              }
+            }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            onClick={() => inputRef.current?.click()}
             onDragOver={(e) => {
               e.preventDefault();
               setDragging(true);
             }}
             onDragLeave={() => setDragging(false)}
             onDrop={onDrop}
-            disabled={disabled}
             className={cn(
-              "group relative flex w-full flex-col items-center justify-center rounded-[26px] px-6 py-14 text-center transition-all duration-500 md:py-20",
+              "group relative flex w-full cursor-pointer flex-col items-center justify-center rounded-[26px] px-6 py-14 text-center transition-all duration-500 md:py-20",
+              disabled && "pointer-events-none opacity-60",
               dragging ? "neon-border scale-[1.01] bg-cyan/[0.07]" : "bg-fg/[0.02] hover:bg-cyan/[0.04]",
             )}
           >
@@ -225,15 +253,18 @@ export function VideoUploader({
             >
               <UploadCloud className="size-7" />
             </motion.span>
-            <span className="relative mt-6 font-display text-2xl text-fg md:text-3xl">Arraste o vídeo aqui</span>
+            <span className="relative mt-6 font-display text-2xl text-fg md:text-3xl">
+              <span className="hidden md:inline">Arraste o vídeo aqui</span>
+              <span className="md:hidden">Toque para escolher o vídeo</span>
+            </span>
             <span className="relative mt-2 text-sm text-fg-2">
-              ou clique para escolher · MP4, MOV ou WEBM · até {formatBytes(maxBytes, 0)}
+              <span className="hidden md:inline">ou clique para escolher · </span>vídeo do celular ou da câmera · até {formatBytes(maxBytes, 0)}
               {maxDurationSec ? ` · até ${formatDuration(maxDurationSec)}` : ""}
             </span>
             <span className="relative mt-5 inline-flex items-center gap-2 rounded-full border border-line px-3 py-1 text-[0.6875rem] text-fg-3">
               Se a conexão cair, o envio continua de onde parou
             </span>
-          </motion.button>
+          </motion.label>
         )}
       </AnimatePresence>
 

@@ -131,6 +131,10 @@ Sem a chave, `CLAUDE_LOCAL_SANDBOX=1` (só em desenvolvimento) roda o mesmo flux
 - `proxy.ts` renova a sessão e faz checagens otimistas; a autorização real acontece nos layouts, actions e no banco.
 - Exclusão de conta (LGPD) remove arquivos de todos os buckets e o usuário.
 
+## Publicar com um comando
+
+Com `SUPABASE_ACCESS_TOKEN` (supabase.com/dashboard/account/tokens), `VERCEL_TOKEN` (vercel.com/account/tokens) e, para o Google, `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`, rode `npm run publicar`: cria o projeto no Supabase, aplica as migrations, cria o projeto na Vercel com as variáveis, publica a branch atual e liga o login com Google. No fim, ele mostra o endereço do app e o URI de redirecionamento para colar no Google Cloud (`https://<ref>.supabase.co/auth/v1/callback`). A conta da Vercel precisa estar ligada ao GitHub com acesso a este repositório.
+
 ## Publicar (Vercel + Supabase, sem terminal)
 
 O jeito mais curto, todo pelo navegador. A edição dos vídeos roda no navegador de quem envia (provedor `navegador`, o padrão), então não há servidor de vídeo para configurar.

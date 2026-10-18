@@ -38,7 +38,8 @@ export default async function NewVideoPage({ searchParams }: { searchParams: Sea
     folder_id: pasta && UUID.test(pasta) ? pasta : null,
     legal_area: profile.legal_area,
     editing_style: defaultStyle,
-    aspect_ratios: [],
+    // vertical já marcado: é o formato de Reels, TikTok e Shorts
+    aspect_ratios: ["9:16"],
     duration: "completo",
     answers: recommendedFor(defaultStyle),
     answers_text: {},

@@ -18,22 +18,28 @@ export function useTusUpload() {
   const [state, setState] = React.useState<UploadState>({ status: "idle" });
   const ctl = React.useRef<{ paused: boolean; cancelled: boolean; resume?: () => void }>({ paused: false, cancelled: false });
 
-  const start = React.useCallback(async (file: File, opts: { bucket: string; path: string; onDone?: (path: string) => void }) => {
+  const start = React.useCallback(async (file: File, opts: { bucket: string; path: string; contentType?: string; onDone?: (path: string) => void }) => {
     ctl.current = { paused: false, cancelled: false };
     const total = file.size;
-    const chunk = 8 * 1024 * 1024;
+    const chunk = 16 * 1024 * 1024;
     const t0 = performance.now();
     for (let off = 0; off < total; off += chunk) {
       if (ctl.current.cancelled) return;
       if (ctl.current.paused) await new Promise<void>((r) => (ctl.current.resume = r));
-      await file.slice(off, Math.min(total, off + chunk)).arrayBuffer();
+      try {
+        await file.slice(off, Math.min(total, off + chunk)).arrayBuffer();
+      } catch {
+        // arquivo que o celular não deixou ler (ex.: vídeo do iCloud ainda não baixado)
+        setState({ status: "error", code: "invalid_file", progress: (off / total) * 100 });
+        return;
+      }
       const uploaded = Math.min(total, off + chunk);
       const dt = (performance.now() - t0) / 1000;
       setState({ status: "uploading", progress: (uploaded / total) * 100, uploaded, total, speed: dt > 0 ? uploaded / dt : 0 });
-      await new Promise((r) => setTimeout(r, 40));
+      await new Promise((r) => setTimeout(r, 15));
     }
     await putFile(`${opts.bucket}/${opts.path}`, file);
-    db.insert("storage_objects", { bucket: opts.bucket, name: opts.path, size: file.size, mime: file.type });
+    db.insert("storage_objects", { bucket: opts.bucket, name: opts.path, size: file.size, mime: opts.contentType ?? file.type });
     setState({ status: "done", path: opts.path, total });
     opts.onDone?.(opts.path);
   }, []);

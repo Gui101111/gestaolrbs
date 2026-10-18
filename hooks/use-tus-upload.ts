@@ -31,7 +31,7 @@ export function useTusUpload() {
   const lastTick = React.useRef<{ t: number; bytes: number }>({ t: 0, bytes: 0 });
   const speedRef = React.useRef(0);
 
-  const start = React.useCallback(async (file: File, opts: { bucket: string; path: string; onDone?: (path: string) => void }) => {
+  const start = React.useCallback(async (file: File, opts: { bucket: string; path: string; contentType?: string; onDone?: (path: string) => void }) => {
     const supabase = createClient();
     const { data } = await supabase.auth.getSession();
     if (!data.session) {
@@ -54,7 +54,7 @@ export function useTusUpload() {
       metadata: {
         bucketName: opts.bucket,
         objectName: opts.path,
-        contentType: file.type || "video/mp4",
+        contentType: opts.contentType ?? (file.type || "video/mp4"),
         cacheControl: "3600",
       },
       onBeforeRequest: async (req) => {
@@ -160,6 +160,7 @@ export async function inspectVideo(file: File): Promise<{ duration: number | nul
   video.muted = true;
   video.playsInline = true;
   video.src = previewUrl;
+  video.load();
 
   const meta = await new Promise<boolean>((resolve) => {
     const t = window.setTimeout(() => resolve(false), 8000);

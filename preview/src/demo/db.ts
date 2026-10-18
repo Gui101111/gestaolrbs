@@ -194,8 +194,10 @@ const files = new Map<string, Blob>();
 const urls = new Map<string, string>();
 let idb: Promise<IDBDatabase | null> | null = null;
 
+/** Alguns navegadores (iPhone dentro de outro app) travam o IndexedDB: desiste em 3 s. */
 function openIdb(): Promise<IDBDatabase | null> {
   idb ??= new Promise((resolve) => {
+    window.setTimeout(() => resolve(null), 3000);
     try {
       const req = indexedDB.open("tribuna-demo", 1);
       req.onupgradeneeded = () => req.result.createObjectStore("files");
@@ -208,20 +210,37 @@ function openIdb(): Promise<IDBDatabase | null> {
   return idb;
 }
 
+/** Até este tamanho o arquivo também fica salvo para depois de recarregar a página. */
+const PERSIST_MAX = 400 * 1024 * 1024;
+
+/**
+ * Guarda o arquivo na memória (na hora) e, em segundo plano, no IndexedDB.
+ * O envio nunca espera o IndexedDB: em alguns celulares ele trava ou recusa
+ * arquivos grandes.
+ */
 export async function putFile(key: string, blob: Blob) {
   files.set(key, blob);
-  const d = await openIdb();
-  if (!d) return;
-  await new Promise<void>((resolve) => {
-    try {
-      const tx = d.transaction("files", "readwrite");
-      tx.objectStore("files").put(blob, key);
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => resolve();
-    } catch {
-      resolve();
-    }
-  });
+  if (blob.size > PERSIST_MAX) return;
+  void (async () => {
+    const d = await openIdb();
+    if (!d) return;
+    await new Promise<void>((resolve) => {
+      const t = window.setTimeout(resolve, 20_000);
+      const done = () => {
+        window.clearTimeout(t);
+        resolve();
+      };
+      try {
+        const tx = d.transaction("files", "readwrite");
+        tx.objectStore("files").put(blob, key);
+        tx.oncomplete = done;
+        tx.onerror = done;
+        tx.onabort = done;
+      } catch {
+        done();
+      }
+    });
+  })();
 }
 
 export async function getFile(key: string): Promise<Blob | null> {
@@ -230,6 +249,7 @@ export async function getFile(key: string): Promise<Blob | null> {
   const d = await openIdb();
   if (!d) return null;
   return new Promise((resolve) => {
+    window.setTimeout(() => resolve(null), 10_000);
     try {
       const req = d.transaction("files").objectStore("files").get(key);
       req.onsuccess = () => {

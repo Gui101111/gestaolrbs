@@ -97,19 +97,19 @@ export function StylePreview({ style, playing = true, className }: { style: stri
     let raf = 0;
     let cancelled = false;
     const still = words[Math.min(words.length - 1, 4)]?.start ?? 1;
+    // desenha já (com a fonte substituta) e redesenha quando a fonte do estilo chegar
     void loadFonts([look.captions.font]).then(() => {
-      if (cancelled) return;
-      if (!playing || reduce || !visible) {
-        draw(still + 0.3);
-        return;
-      }
+      if (!cancelled && (!playing || reduce || !visible)) draw(still + 0.3);
+    });
+    if (!playing || reduce || !visible) draw(still + 0.3);
+    else {
       const t0 = performance.now();
       const loop = () => {
         draw(((performance.now() - t0) / 1000) % total);
         raf = requestAnimationFrame(loop);
       };
       loop();
-    });
+    }
     return () => {
       cancelled = true;
       cancelAnimationFrame(raf);
