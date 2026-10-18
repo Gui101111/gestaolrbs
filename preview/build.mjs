@@ -59,6 +59,7 @@ const FIXED = {
   "@/hooks/use-tus-upload": shim("use-tus-upload.ts"),
   "@/lib/actions/assistant": shim("assistant.ts"),
   "@/lib/download": shim("download.ts"),
+  "@/components/editing/browser-runner": shim("browser-runner.tsx"),
 };
 const WRAPPED_ACTIONS = /^@\/lib\/actions\/(account|auth|billing|folders|profile|projects|waitlist)$/;
 

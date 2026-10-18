@@ -132,7 +132,7 @@ export function BrowserEditor({ open, onClose, deps }: { open: boolean; onClose:
       setVideo({ file, url, duration: info.duration, width: info.width, height: info.height });
       setThumb(info.thumb);
       // já baixa o reconhecimento de fala enquanto a pessoa escolhe estilo e detalhes
-      void (depsRef.current ??= deps()).then((d) => (d.whisper ? loadWhisper(d.whisper.manifest, d.whisper.importTransformers) : null)).catch(() => {});
+      void (depsRef.current ??= deps()).then((d) => (d.whisper && "manifest" in d.whisper ? loadWhisper(d.whisper.manifest, d.whisper.importTransformers) : null)).catch(() => {});
       if (info.duration > 600) toast.warning("Vídeo longo: a edição no navegador leva mais ou menos o tempo do vídeo. Até 3 minutos é o ideal.");
     } catch {
       URL.revokeObjectURL(url);

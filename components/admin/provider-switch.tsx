@@ -3,14 +3,15 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Bot, Hand, Server } from "lucide-react";
+import { Bot, Hand, MonitorPlay, Server } from "lucide-react";
 import { toast } from "sonner";
 import { adminSetEditingProviderAction } from "@/lib/actions/admin";
 import { cn } from "@/lib/utils";
 
-type Key = "manual" | "claude" | "external";
+type Key = "navegador" | "manual" | "claude" | "external";
 
 const OPTIONS: { key: Key; label: string; text: string; icon: React.ComponentType<{ className?: string }> }[] = [
+  { key: "navegador", label: "No navegador", text: "O app edita no aparelho de quem enviou.", icon: MonitorPlay },
   { key: "manual", label: "Manual", text: "A equipe edita e entrega pelo painel.", icon: Hand },
   { key: "claude", label: "Claude", text: "O agente edita; a equipe revisa.", icon: Bot },
   { key: "external", label: "Worker externo", text: "Servidor próprio com FFmpeg.", icon: Server },
@@ -58,7 +59,7 @@ export function ProviderSwitch({
           )}
         </p>
       </div>
-      <div className="mt-4 grid gap-3 sm:grid-cols-3" role="radiogroup" aria-label="Motor de edição">
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4" role="radiogroup" aria-label="Motor de edição">
         {OPTIONS.map((o) => {
           const on = active === o.key;
           const disabled = pending || (o.key === "claude" && claudeStatus === "missing");

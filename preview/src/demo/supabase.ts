@@ -6,6 +6,8 @@
  */
 import { db, fileUrl, getFile, putFile, removeFile, uuid, type Change, type Row } from "./db";
 import { rpc } from "./rpc";
+import { askGoogleDemo } from "./notice";
+import { currentLoc } from "./router";
 
 type Result = { data: unknown; error: { message: string; code?: string } | null; count?: number | null };
 type Pred = (r: Row) => boolean;
@@ -445,6 +447,8 @@ const authApi = {
     return { data: { user: authUser(u.id), session: { access_token: "demo" } }, error: null };
   },
   async signInWithOAuth({ options }: { provider: string; options?: { redirectTo?: string } }) {
+    // "Voltar": continua na mesma tela, sem erro
+    if (!(await askGoogleDemo())) return { data: { url: `${currentLoc().path}${currentLoc().search}`, provider: "google" }, error: null };
     // Google de demonstração: entra (ou cria) a conta do Guilherme
     let u = db.rows("auth_users").find((x) => x.email === "guilherme@demo.tribuna");
     if (!u) u = createUser("guilherme@demo.tribuna", uuid(), { full_name: "Guilherme", terms_accepted: true }, "google");

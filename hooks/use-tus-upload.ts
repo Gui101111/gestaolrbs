@@ -4,6 +4,7 @@ import * as React from "react";
 import * as tus from "tus-js-client";
 import { createClient } from "@/lib/supabase/client";
 import { supabasePublishableKey, supabaseUrl } from "@/lib/supabase/env";
+import { rememberLocalFile } from "@/lib/browser-editor/local-files";
 
 export type UploadState =
   | { status: "idle" }
@@ -95,6 +96,7 @@ export function useTusUpload() {
         setState((s) => ({ status: "error", code, progress: "progress" in s ? s.progress : 0 }));
       },
       onSuccess: () => {
+        rememberLocalFile(opts.path, file);
         setState({ status: "done", path: opts.path, total: file.size });
         opts.onDone?.(opts.path);
       },

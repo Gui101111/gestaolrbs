@@ -15,6 +15,7 @@ import { NotificationsMenu } from "@/components/app-shell/notifications-menu";
 import { UserMenu } from "@/components/app-shell/user-menu";
 import { usePanelCollapsed } from "@/components/app-shell/panel-store";
 import { FoldersProvider } from "@/components/folders/folders-context";
+import { BrowserEditingRunner } from "@/components/editing/browser-runner";
 import type { FolderItem, RecentItem, ShellUsage, ShellUser } from "@/components/app-shell/nav";
 import type { Notification } from "@/types/domain";
 import { ROUTES } from "@/lib/routes";
@@ -135,6 +136,7 @@ export function AppShell({
 
       <HelpPanel open={help} onOpenChange={setHelp} />
     </div>
+      <BrowserEditingRunner userId={user.id} />
     </FoldersProvider>
   );
 }

@@ -7,8 +7,12 @@ const securityHeaders = [
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
 ];
 
+/** Na Vercel, sem NEXT_PUBLIC_SITE_URL, usa o domínio de produção do projeto. */
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined);
+
 const nextConfig: NextConfig = {
   output: process.env.NEXT_OUTPUT === "standalone" ? "standalone" : undefined,
+  env: siteUrl ? { NEXT_PUBLIC_SITE_URL: siteUrl } : {},
   poweredByHeader: false,
   devIndicators: false,
   turbopack: {
@@ -45,6 +49,10 @@ const nextConfig: NextConfig = {
       {
         source: "/media/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/vendor/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=604800" }],
       },
     ];
   },

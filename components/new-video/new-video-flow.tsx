@@ -27,6 +27,7 @@ import {
 import { createClient } from "@/lib/supabase/client";
 import { ROUTES } from "@/lib/routes";
 import { cn, safeFileName } from "@/lib/utils";
+import { notifyEditingQueued } from "@/components/editing/browser-runner";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -189,6 +190,7 @@ export function NewVideoFlow({ userId, initial, video: initialVideo, tip, limits
       return;
     }
     setDone(true);
+    notifyEditingQueued();
     window.setTimeout(() => {
       router.push(ROUTES.app);
       router.refresh();

@@ -24,6 +24,7 @@ import { VideoPlayer, type VideoPlayerHandle } from "@/components/video/video-pl
 import { useProjectMutations } from "@/components/projects/project-actions";
 import { StatusTrack } from "@/components/projects/status-track";
 import { approveProjectAction, requestRevisionAction } from "@/lib/actions/projects";
+import { notifyEditingQueued } from "@/components/editing/browser-runner";
 import { ROUTES } from "@/lib/routes";
 import { cn, formatBytes, formatDate, formatDuration } from "@/lib/utils";
 
@@ -85,6 +86,7 @@ export function ProjectResult({
       const res = await requestRevisionAction(project.id, comment, mark);
       if (!res.ok) return void toast.error(res.error);
       toast.success("Ajuste solicitado. Avisaremos quando a nova versão estiver pronta.");
+      notifyEditingQueued();
       setRevOpen(false);
       setComment("");
       router.refresh();

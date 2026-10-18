@@ -49,3 +49,6 @@ next-env.d.ts
 # Python
 __pycache__/
 *.pyc
+
+# gerados no build
+/public/vendor/

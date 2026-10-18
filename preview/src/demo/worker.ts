@@ -6,16 +6,14 @@
  */
 import { localReview, reviseWithClaude } from "@/lib/browser-editor/ai";
 import { encode, encodeSupport } from "@/lib/browser-editor/encode";
-import { defaultsFor, usableAccent } from "@/lib/browser-editor/looks";
 import { analyze, loadLogo, renderInputs } from "@/lib/browser-editor/pipeline";
+import { localRevision, posterFor, stepFor } from "@/lib/browser-editor/jobs";
+import { optionsFor } from "@/lib/browser-editor/project-options";
 import { newAudioContext, primeVideo, render, type RenderParams } from "@/lib/browser-editor/render";
 import { toSource } from "@/lib/browser-editor/timeline";
-import type { Analysis, CaptionStyle, EditOptions, Interval, Plan, Progress, Ratio, RenderOutput, StyleId } from "@/lib/browser-editor/types";
+import type { Analysis, EditOptions, Plan, Progress, RenderOutput } from "@/lib/browser-editor/types";
 import { db, getFile, putFile, type Row } from "./db";
 import { getEditorDeps, requestGesture } from "./deps";
-
-const STYLES: StyleId[] = ["institucional", "dinamico", "cinematografico", "performance", "descontraido"];
-const RATIOS: Ratio[] = ["9:16", "1:1", "4:5", "16:9"];
 
 /** Análise e opções guardadas por projeto (ajustes não reprocessam a fala). */
 const memory = new Map<string, { analysis: Analysis; opts: EditOptions; plan: Plan; introDur: number }>();
@@ -23,148 +21,6 @@ const queue: string[] = [];
 let running = false;
 
 const mmss = (t: number) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
-
-function parseTime(v: string): number | null {
-  const parts = v.trim().split(":").map(Number);
-  if (!parts.length || parts.some((n) => !Number.isFinite(n))) return null;
-  return parts.reduce((acc, n) => acc * 60 + n, 0);
-}
-
-function ctaFor(type: string | undefined, text: string | undefined, brand: Row | undefined) {
-  if (text?.trim()) return text.trim();
-  const ig = String(brand?.instagram ?? "").trim();
-  const site = String(brand?.website ?? "").trim();
-  const zap = String(brand?.whatsapp ?? "").trim();
-  if (type === "seguir" && ig) return `Siga ${ig.startsWith("@") ? ig : `@${ig}`}`;
-  if (type === "site" && site) return `Acesse ${site.replace(/^https?:\/\//, "")}`;
-  if (type === "whatsapp" && zap) return `WhatsApp ${zap}`;
-  return "";
-}
-
-/** Projeto + marca + perfil → opções do motor (as mesmas perguntas do Novo vídeo). */
-export function optionsFor(project: Row, brand: Row | undefined, profile: Row | undefined, logo: Blob | null): EditOptions {
-  const o = (project.options ?? {}) as {
-    answers?: Record<string, string>;
-    answers_text?: Record<string, string>;
-    caption_style?: CaptionStyle;
-    cta_type?: string;
-    cta_text?: string;
-    hook_text?: string;
-    cut_ranges?: { start: string; end: string }[];
-    music_tone?: string;
-  };
-  const style = (STYLES.includes(project.editing_style as StyleId) ? project.editing_style : "institucional") as StyleId;
-  const base = defaultsFor(style);
-  const a = o.answers ?? {};
-  const yes = (k: string, fallback: boolean) => (a[k] ? a[k] !== "nao" : fallback);
-  const ratios = ((project.aspect_ratios as string[]) ?? []).filter((r): r is Ratio => RATIOS.includes(r as Ratio));
-  const treatment = profile?.treatment === "dra" ? "Dra. " : profile?.treatment === "dr" ? "Dr. " : "";
-  const fullName = String(profile?.full_name ?? "").trim();
-  const name = String(brand?.professional_name ?? "").trim() || (fullName ? `${/^(dra?\.?)\s/i.test(fullName) ? "" : treatment}${fullName}` : "");
-  const office = String(brand?.office_name ?? profile?.office_name ?? "").trim();
-  const useBrand = yes("brand", true);
-  const primary = String(brand?.primary_color ?? "");
-  const accentColor = useBrand && primary.toUpperCase() !== "#C6A15B" ? usableAccent(primary) : null;
-  const moods = ["sobria", "inspiradora", "neutra", "energica", "leve"] as const;
-  const musicMood = moods.find((m) => m === o.music_tone) ?? "auto";
-  const notes = [String(project.instructions ?? ""), ...Object.entries(o.answers_text ?? {}).map(([k, v]) => `${k}: ${v}`)].filter((s) => s.trim()).join(" · ");
-  return {
-    style,
-    ratios: ratios.length ? ratios : ["9:16"],
-    cutPauses: yes("pauses", base.cutPauses),
-    removeMistakes: yes("pauses", base.removeMistakes),
-    captions: yes("captions", base.captions),
-    captionStyle: o.caption_style ?? base.captionStyle,
-    lowerThird: false,
-    name,
-    office,
-    oab: "",
-    hook: yes("hook", base.hook),
-    hookText: o.hook_text ?? "",
-    cta: yes("cta", base.cta),
-    ctaText: ctaFor(o.cta_type, o.cta_text, brand),
-    vignette: yes("vignette", base.vignette) && Boolean(name),
-    zoom: yes("effects", base.zoom),
-    effects: yes("effects", base.effects),
-    music: yes("music", base.music),
-    musicMood,
-    accentColor,
-    enhanceAudio: true,
-    oabReview: false,
-    logo: useBrand ? logo : null,
-    script: "",
-    framing: {},
-    extraCuts: (o.cut_ranges ?? [])
-      .map((r) => ({ start: parseTime(r.start), end: parseTime(r.end) }))
-      .filter((r): r is Interval => r.start !== null && r.end !== null && r.end > r.start),
-    notes,
-    targetSeconds: null,
-  };
-}
-
-/**
- * Sem a IA (página aberta fora do claude.ai): entende os pedidos de ajuste
- * mais comuns por palavras-chave.
- */
-function localRevision(comment: string): { patch: Partial<EditOptions>; note: string } {
-  const c = comment.toLocaleLowerCase("pt-BR");
-  const off = /\b(tira|tirar|tire|remove|remover|sem|retira|retirar|esconde|desliga|apaga)\b/.test(c);
-  const on = /\b(coloca|colocar|coloque|adiciona|adicionar|põe|poe|inclui|incluir|liga|quero)\b/.test(c);
-  const patch: Partial<EditOptions> = {};
-  const done: string[] = [];
-  const flag = (re: RegExp, key: keyof EditOptions, label: string) => {
-    if (!re.test(c)) return;
-    if (off) {
-      (patch as Record<string, unknown>)[key] = false;
-      done.push(`sem ${label}`);
-    } else if (on) {
-      (patch as Record<string, unknown>)[key] = true;
-      done.push(`com ${label}`);
-    }
-  };
-  flag(/legenda/, "captions", "legendas");
-  flag(/vinheta/, "vignette", "vinheta");
-  flag(/zoom/, "zoom", "zooms");
-  flag(/chamada|cta/, "cta", "chamada final");
-  flag(/trilha|m[úu]sica/, "music", "trilha sonora");
-  flag(/efeito|grafismo|anima[çc]/, "effects", "grafismos e efeitos");
-  const quoted = comment.match(/[“"']([^”"']{3,80})[”"']/);
-  if (/t[íi]tulo/.test(c)) {
-    if (quoted) {
-      Object.assign(patch, { hook: true, hookText: quoted[1].trim() });
-      done.push(`título “${quoted[1].trim()}”`);
-    } else flag(/t[íi]tulo/, "hook", "título");
-  }
-  if (/pausa|sil[êe]ncio/.test(c) && !off) {
-    patch.cutPauses = true;
-    done.push("pausas cortadas");
-  }
-  return {
-    patch,
-    note: done.length ? `Ajuste aplicado: ${done.join(", ")}.` : "Sem a IA nesta página, refizemos a edição com as mesmas escolhas. Abra no claude.ai para pedidos livres.",
-  };
-}
-
-/** Etapas do motor → etapas do app (PIPELINE_STEPS). */
-function stepFor(p: Progress): { step: string; progress: number } {
-  switch (p.step) {
-    case "ler":
-      return { step: "analyzing_audio", progress: 6 };
-    case "audio":
-      return { step: "analyzing_audio", progress: 12 };
-    case "transcrever":
-      return { step: "transcribing", progress: Math.round(16 + 26 * (p.value ?? 0)) };
-    case "revisar":
-      return { step: "analyzing_content", progress: 46 };
-    case "enquadrar":
-      return { step: "planning", progress: 52 };
-    default: {
-      const f = p.value ?? 0;
-      const step = f < 0.3 ? "editing" : f < 0.6 ? "captioning" : f < 0.85 ? "adding_elements" : "rendering";
-      return { step, progress: Math.round(56 + 42 * f) };
-    }
-  }
-}
 
 function jobUpdater(jobId: string) {
   let last = 0;
@@ -181,33 +37,6 @@ function jobUpdater(jobId: string) {
     lastStep = step;
     db.update("render_jobs", (j) => j.id === jobId, patch);
   };
-}
-
-async function posterFor(out: RenderOutput): Promise<Blob | null> {
-  try {
-    const v = document.createElement("video");
-    v.muted = true;
-    v.playsInline = true;
-    v.src = out.url;
-    await new Promise<void>((resolve, reject) => {
-      v.onloadeddata = () => resolve();
-      v.onerror = () => reject(new Error("poster"));
-      window.setTimeout(resolve, 5000);
-    });
-    v.currentTime = Math.min(out.duration / 3, 2.2);
-    await new Promise<void>((resolve) => {
-      v.onseeked = () => resolve();
-      window.setTimeout(resolve, 4000);
-    });
-    const c = document.createElement("canvas");
-    const k = 720 / Math.max(out.width, out.height);
-    c.width = Math.round(out.width * k);
-    c.height = Math.round(out.height * k);
-    c.getContext("2d")!.drawImage(v, 0, 0, c.width, c.height);
-    return await new Promise<Blob | null>((r) => c.toBlob(r, "image/jpeg", 0.82));
-  } catch {
-    return null;
-  }
 }
 
 async function process(jobId: string) {

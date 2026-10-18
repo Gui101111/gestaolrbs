@@ -131,16 +131,26 @@ Sem a chave, `CLAUDE_LOCAL_SANDBOX=1` (só em desenvolvimento) roda o mesmo flux
 - `proxy.ts` renova a sessão e faz checagens otimistas; a autorização real acontece nos layouts, actions e no banco.
 - Exclusão de conta (LGPD) remove arquivos de todos os buckets e o usuário.
 
-## Deploy
+## Publicar (Vercel + Supabase, sem terminal)
 
-Passo a passo para publicar (a ordem importa):
+O jeito mais curto, todo pelo navegador. A edição dos vídeos roda no navegador de quem envia (provedor `navegador`, o padrão), então não há servidor de vídeo para configurar.
 
-1. **Supabase** (produção): crie o projeto, `npx supabase link --project-ref <ref>` e `npx supabase db push`; siga "Supabase em produção" acima; rode `npm run assets:setup` com as chaves de produção.
-2. **Vercel**: importe o repositório do GitHub, framework Next.js. A Vercel publica a branch de produção (`main`): faça o merge da branch de desenvolvimento em `main` antes, ou escolha a branch em Settings → Git. Depois, configure as variáveis de `.env.example` (produção: `NEXT_PUBLIC_SITE_URL` com o domínio final, chaves do Supabase, `JOBS_CALLBACK_SECRET`, `CRON_SECRET`, Resend, Asaas e, para a Parte 2, as da Anthropic). Faça o deploy e aponte o domínio.
-3. **Cron**: `vercel.json` agenda `/api/cron/editing` a cada 10 min (exige plano Pro; no Hobby a Vercel só permite 1 execução por dia).
-4. **Webhooks**: Asaas → `/api/webhooks/asaas`; Anthropic → `/api/webhooks/claude`.
-5. **Admin**: cadastre-se e rode `update public.profiles set role = 'admin' where email = 'voce@exemplo.com';` no SQL Editor.
-6. Ative o Google (opcional) e teste: cadastro, e-mail de confirmação, envio de um vídeo, liberação no admin, download.
+1. **Vercel**: entre em [vercel.com/new](https://vercel.com/new) com a conta do GitHub e importe `gestaolrbs` (framework Next.js). Em **Settings → Git → Production Branch**, escolha a branch publicada (por exemplo `claude/legal-video-editing-saas-vwovpz`) ou faça o merge dela em `main`.
+2. **Banco**: no projeto da Vercel, aba **Storage → Create Database → Supabase**. A integração cria o projeto no Supabase e as variáveis (`NEXT_PUBLIC_SUPABASE_URL`, chaves e `POSTGRES_URL_NON_POOLING`). Faça **Redeploy**: o build roda `scripts/migrar.mjs`, que cria tabelas, regras de segurança e buckets.
+3. **Endereço**: no Supabase, **Authentication → URL Configuration**: *Site URL* = `https://<seu-app>.vercel.app` e, em *Redirect URLs*, `https://<seu-app>.vercel.app/**`.
+4. **Login com Google**: veja "Login com Google" acima (Google Cloud → OAuth client → colar Client ID e Secret em Supabase → Authentication → Providers → Google). O endereço de retorno do Google é `https://<ref>.supabase.co/auth/v1/callback`.
+5. **Admin**: cadastre-se no app e rode `update public.profiles set role = 'admin' where email = 'voce@exemplo.com';` no SQL Editor do Supabase.
+6. Opcional: `ANTHROPIC_API_KEY` na Vercel liga a revisão com Claude (texto, cortes, título e grafismos) e o "Perguntar à Tribuna"; sem ela, o editor usa a revisão local. Resend e Asaas como em `.env.example`.
+
+Limite de upload: no plano gratuito do Supabase cada arquivo pode ter até 50 MB. Para vídeos maiores, use um plano pago e ajuste **Settings → Storage → Upload file size limit** (≥ 2 GB).
+
+`NEXT_PUBLIC_SITE_URL` é opcional na Vercel (sem ela, vale o domínio de produção do projeto). O cron de `vercel.json` roda uma vez por dia (limite do plano Hobby); com Claude Managed Agents no plano Pro, mude para `*/10 * * * *`.
+
+## Deploy (avançado)
+
+1. **Supabase**: `npx supabase link --project-ref <ref>` e `npx supabase db push` (ou `SUPABASE_DB_URL=postgres://... node scripts/migrar.mjs`); siga "Supabase em produção" acima; para o provedor Claude, `npm run assets:setup` com as chaves de produção.
+2. **Vercel**: variáveis de `.env.example` (`NEXT_PUBLIC_SITE_URL` com o domínio final, chaves do Supabase, `JOBS_CALLBACK_SECRET`, `CRON_SECRET`, Resend, Asaas e, para a Parte 2, as da Anthropic). Motor de edição: `VIDEO_EDITING_PROVIDER` (`navegador`, `claude`, `external` ou `manual`), trocável depois em `/admin`.
+3. **Webhooks**: Asaas → `/api/webhooks/asaas`; Anthropic → `/api/webhooks/claude`.
 
 **Docker / EasyPanel** (alternativa à Vercel):
 

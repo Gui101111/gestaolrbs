@@ -143,6 +143,54 @@ export function loadWhisper(manifest: WhisperManifest, importTransformers: () =>
   return p;
 }
 
+/**
+ * No app (fora da página publicada): transformers.js servido pelo próprio
+ * site e o modelo baixado do Hugging Face, com cache do navegador.
+ */
+export function loadWhisperRemote(modelId: string, wasmPaths: string, importTransformers: () => Promise<TransformersLike>, onProgress?: LoadProgress): Promise<Whisper> {
+  if (onProgress) {
+    listeners.add(onProgress);
+    if (lastProgress) onProgress(...lastProgress);
+  }
+  if (!loading) {
+    loading = (async () => {
+      const T = await importTransformers();
+      const wasm = T.env.backends.onnx.wasm;
+      if (wasm) {
+        wasm.wasmPaths = wasmPaths;
+        wasm.numThreads = 1;
+        wasm.proxy = false;
+      }
+      Object.assign(T.env, { allowLocalModels: false, allowRemoteModels: true, useBrowserCache: true, useCustomCache: false });
+      const files = new Map<string, [number, number]>();
+      const pipe = (await T.pipeline("automatic-speech-recognition", modelId, {
+        dtype: "q8",
+        device: "wasm",
+        progress_callback: (p: { file?: string; loaded?: number; total?: number }) => {
+          if (!p.file || !p.total) return;
+          files.set(p.file, [p.loaded ?? 0, p.total]);
+          let l = 0;
+          let t = 0;
+          for (const [a, b] of files.values()) {
+            l += a;
+            t += b;
+          }
+          lastProgress = [l, t];
+          listeners.forEach((fn) => fn(l, t));
+        },
+      })) as AsrPipe;
+      return { transcribe: (audio, speech, p, s) => runWindows(pipe, audio, speech, p, s) };
+    })();
+    loading.catch(() => {
+      loading = null;
+      lastProgress = null;
+    });
+  }
+  const p = loading;
+  if (onProgress) void p.finally(() => listeners.delete(onProgress)).catch(() => {});
+  return p;
+}
+
 const MAX_WINDOW = 28;
 
 /** Janelas de até 28 s que começam e terminam em pausas (o Whisper lê 30 s por vez). */

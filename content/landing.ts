@@ -25,7 +25,7 @@ export const landing = {
   explore: {
     eyebrow: "Explorar",
     tabs: [
-      { id: "exemplos", label: "Exemplos", title: "Antes e *depois*.", accent: "cyan" },
+      { id: "exemplos", label: "Exemplos", title: "Feitos com a *TRIBUNA*.", accent: "cyan" },
       { id: "como-funciona", label: "Como funciona", title: "Três *passos*.", accent: "cyan" },
       { id: "estilos", label: "Estilos", title: "Um tom para cada *vídeo*.", accent: "violet" },
       { id: "formatos", label: "Formatos", title: "Um vídeo. Todas as *telas*.", accent: "blue" },

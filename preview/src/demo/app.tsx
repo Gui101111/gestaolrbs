@@ -1,10 +1,12 @@
 import * as React from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Hand, MailCheck } from "lucide-react";
+import { GoogleIcon } from "@/components/brand/social-icons";
 import { Button } from "@/components/ui/button";
 import { NotFoundSignal, RedirectSignal } from "../shims/next-navigation";
 import { startDownload } from "../shims/download";
 import { onGesture } from "./deps";
+import { onGoogleNotice } from "./notice";
 import { navigate, refresh, useLoc } from "./router";
 import { loadRoute, NotFoundPage, RouteRedirect } from "./routes";
 import { currentUserId } from "./supabase";
@@ -23,6 +25,34 @@ function GesturePrompt() {
         <p className="mt-1 text-sm text-fg-2">Este navegador pede um toque para tocar o vídeo enquanto gravamos a edição.</p>
         <Button variant="gold" size="lg" className="mt-5 w-full" onClick={() => fn()}>
           Continuar a edição
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+/** "Continuar com Google" na prévia: explica que aqui o login é simulado. */
+function GoogleNotice() {
+  const [answer, setAnswer] = React.useState<((go: boolean) => void) | null>(null);
+  React.useEffect(() => onGoogleNotice((f) => setAnswer(() => f)), []);
+  if (!answer) return null;
+  return (
+    <div className="fixed inset-0 z-[95] grid place-items-center bg-black/70 p-6 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="google-demo-title">
+      <div className="max-w-sm rounded-[26px] border border-line bg-surface p-6 text-center shadow-[var(--shadow-pop)]">
+        <span className="mx-auto grid size-12 place-items-center rounded-full bg-white">
+          <GoogleIcon className="size-6" />
+        </span>
+        <p id="google-demo-title" className="mt-4 font-display text-lg font-bold text-fg">
+          Login com Google na prévia
+        </p>
+        <p className="mt-2 text-sm text-fg-2">
+          Esta página é uma demonstração sem servidor: aqui o login é simulado e os projetos ficam só neste navegador. No app publicado, o Google abre a escolha da sua conta e os projetos ficam salvos nela.
+        </p>
+        <Button variant="gold" size="lg" className="mt-5 w-full" onClick={() => answer(true)}>
+          Entrar na demonstração
+        </Button>
+        <Button variant="ghost" className="mt-2 w-full" onClick={() => answer(false)}>
+          Voltar
         </Button>
       </div>
     </div>
@@ -137,6 +167,7 @@ export function DemoApp() {
       {view ? <React.Fragment key={view.key}>{view.node}</React.Fragment> : <div className="grid min-h-dvh place-items-center bg-page font-display text-2xl tracking-[0.4em] text-gold">TRIBUNA</div>}
       {loc.path === "/verificar-email" && currentUserId() && <VerifyShortcut />}
       <GesturePrompt />
+      <GoogleNotice />
     </>
   );
 }
