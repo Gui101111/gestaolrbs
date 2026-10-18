@@ -54,7 +54,7 @@ export function SuccessOverlay() {
           Enviado para <em>edição</em>.
         </motion.h2>
         <motion.p className="mt-3 text-fg-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}>
-          Você acompanha tudo pelo Início.
+          Abrindo o acompanhamento da edição…
         </motion.p>
       </div>
     </motion.div>

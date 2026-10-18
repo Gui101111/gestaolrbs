@@ -62,6 +62,7 @@ export function NewVideoFlow({ userId, initial, video: initialVideo, tip, limits
   const [showSummary, setShowSummary] = React.useState(false);
   const idRef = React.useRef<string | null>(initial.id);
   const debounce = React.useRef<number | null>(null);
+  const leave = React.useRef<number | null>(null);
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
   const persist = React.useCallback(async (draft: Draft, wizardStep?: number) => {
@@ -87,6 +88,7 @@ export function NewVideoFlow({ userId, initial, video: initialVideo, tip, limits
   React.useEffect(
     () => () => {
       if (debounce.current) window.clearTimeout(debounce.current);
+      if (leave.current) window.clearTimeout(leave.current);
     },
     [],
   );
@@ -191,8 +193,8 @@ export function NewVideoFlow({ userId, initial, video: initialVideo, tip, limits
     }
     setDone(true);
     notifyEditingQueued();
-    window.setTimeout(() => {
-      router.push(ROUTES.app);
+    leave.current = window.setTimeout(() => {
+      router.push(ROUTES.video(id));
       router.refresh();
     }, 2300);
   };
