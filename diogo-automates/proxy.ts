@@ -7,7 +7,17 @@ import { ACCESS_COOKIE, accessPassword, accessToken, safeEqual } from "@/lib/acc
  */
 export function proxy(req: NextRequest) {
   const password = accessPassword();
-  if (!password) return NextResponse.next();
+  if (!password) {
+    // Set by render.yaml: a public deploy must never run open, since anyone could
+    // spend the account's Higgsfield balance.
+    if (process.env.REQUIRE_APP_PASSWORD) {
+      return new NextResponse(
+        "Defina a senha de acesso (APP_PASSWORD) nas variáveis de ambiente do servidor.",
+        { status: 503, headers: { "Content-Type": "text/plain; charset=utf-8" } },
+      );
+    }
+    return NextResponse.next();
+  }
 
   const cookie = req.cookies.get(ACCESS_COOKIE)?.value ?? "";
   if (safeEqual(cookie, accessToken(password))) return NextResponse.next();

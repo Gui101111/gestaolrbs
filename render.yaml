@@ -1,0 +1,26 @@
+# One-click deploy to Render: see "Hospedar na nuvem" in README.md.
+services:
+  - type: web
+    name: diogo-automates
+    runtime: node
+    rootDir: diogo-automates
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    # Instances created from the deploy button shouldn't redeploy on every push here.
+    autoDeploy: false
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      - key: REQUIRE_APP_PASSWORD
+        value: "1"
+      # Asked for in the Render form when the service is created.
+      - key: APP_PASSWORD
+        sync: false
+      - key: HF_API_KEY_ID
+        sync: false
+      - key: HF_API_KEY_SECRET
+        sync: false

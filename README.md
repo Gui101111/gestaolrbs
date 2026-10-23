@@ -20,10 +20,41 @@ chave de API do Higgsfield.
 No Windows, depois de `npm ci` e `npm run build`, você também pode usar `Iniciar-app.cmd`
 e `Reiniciar-app.cmd`. Mais detalhes em `LEIA-ME-PT-BR.md` e `ATUALIZACOES.md`.
 
-## Acessar pelo celular
+## Abrir no celular sem depender do computador (nuvem)
 
-O app roda no seu computador; o celular só abre a página dele. O computador precisa
-estar ligado com o app aberto.
+O app fica hospedado no [Render](https://render.com) e ganha um endereço fixo
+`https://....onrender.com`, que abre em qualquer celular, a qualquer hora. Dá para fazer
+tudo pelo próprio celular:
+
+1. Abra este link:
+   **https://render.com/deploy?repo=https://github.com/Gui101111/gestaolrbs/tree/ccr-e5e77e39-p8tww0**
+2. Crie uma conta no Render ou entre com GitHub ou Google.
+3. O formulário pede três valores:
+   - `APP_PASSWORD`: a senha que você vai digitar para abrir o app (mínimo 8 letras ou números);
+   - `HF_API_KEY_ID` e `HF_API_KEY_SECRET`: as duas partes da sua chave de API do Higgsfield.
+4. Confirme (**Deploy Blueprint**) e aguarde a compilação, que leva alguns minutos.
+5. Abra o endereço `https://diogo-automates-....onrender.com` que aparece no painel e
+   digite a senha. No navegador do celular, use "Adicionar à tela inicial" para abrir como app.
+
+O plano gratuito tem limites:
+
+- O app "dorme" após 15 minutos sem uso. O primeiro acesso depois disso demora cerca de
+  um minuto.
+- Ao dormir ou reiniciar, a biblioteca local é apagada. Baixe no celular os resultados que
+  quiser guardar e mantenha a página aberta até a geração terminar, para não perder um
+  resultado já cobrado.
+
+Para manter tudo salvo e sem pausas, no painel do serviço mude o plano para **Starter**
+(US$ 7/mês), adicione um **Disk** com mount path `/var/data` e crie a variável
+`STORAGE_DIR` com o valor `/var/data`.
+
+Sem a senha, o app hospedado não abre: em vez dele, aparece um aviso pedindo a variável
+`APP_PASSWORD`, porque qualquer pessoa poderia gastar o seu saldo do Higgsfield.
+
+## Acessar pelo celular com o app no seu computador
+
+Nestas opções o app roda no seu computador e o celular só abre a página dele. O computador
+precisa estar ligado com o app aberto.
 
 ### No mesmo Wi-Fi (Windows)
 
@@ -74,3 +105,6 @@ privada entre o computador e o celular, sem expor o app na internet.
   parciais (byte ranges), que a rota de mídia não suportava.
 - `Gerar-link-celular.cmd`: link público via Cloudflare, copiado automaticamente e
   exibido em QR code. Tentativas de senha erradas ficam limitadas a uma por segundo.
+- Hospedagem no Render (`render.yaml`): pasta de dados configurável por `STORAGE_DIR`,
+  senha obrigatória no servidor público e mídia marcada como `private` para nenhum cache
+  intermediário guardar cópias.

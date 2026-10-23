@@ -42,6 +42,9 @@ Para abrir de qualquer lugar, inclusive no 4G, execute Gerar-link-celular.cmd. E
 https://....trycloudflare.com, copia o link e abre um QR code para escanear com o celular.
 O link funciona enquanto a janela do atalho estiver aberta. Consulte README.md para mais detalhes.
 
+Para abrir no celular sem depender do computador, hospede o app no Render pelo link de
+instalação indicado no README.md, na seção "Abrir no celular sem depender do computador".
+
 ## Valores em reais
 
 Os valores em reais são estimativas dos custos registrados em dólar, convertidos pela cotação exibida.

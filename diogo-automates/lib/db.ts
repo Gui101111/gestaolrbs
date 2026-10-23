@@ -10,7 +10,8 @@ import fs from "node:fs";
  * downloaded ourselves; `remote_url` is kept only for reference and will rot.
  */
 
-export const STORAGE_DIR = path.join(process.cwd(), "storage");
+// STORAGE_DIR lets a host point this at a persistent disk; locally it's ./storage.
+export const STORAGE_DIR = process.env.STORAGE_DIR || path.join(process.cwd(), "storage");
 export const MEDIA_DIR = path.join(STORAGE_DIR, "media");
 const DB_PATH = path.join(STORAGE_DIR, "studio.db");
 

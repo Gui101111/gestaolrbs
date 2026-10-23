@@ -39,7 +39,8 @@ export async function GET(req: Request, ctx: { params: Promise<{ path: string[] 
   const size = fs.statSync(target).size;
   const headers = {
     "Content-Type": MIME[ext] ?? "application/octet-stream",
-    "Cache-Control": "public, max-age=31536000, immutable",
+    // private: behind a password, a shared cache (a tunnel or CDN) must not keep a copy.
+    "Cache-Control": "private, max-age=31536000, immutable",
     "Accept-Ranges": "bytes",
   };
 
