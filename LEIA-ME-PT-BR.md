@@ -31,6 +31,14 @@ Se o servidor já estiver aberto e você tiver recompilado o projeto, use Reinic
 O atalho de reinício verifica se o processo na porta 3002 pertence a esta cópia do app antes de encerrá-lo.
 Após uma atualização, recarregue a página com Ctrl+F5. O ícone da aba pode permanecer no cache do navegador.
 
+## Acesso pelo celular
+
+Com o celular no mesmo Wi-Fi do computador, execute Iniciar-app-celular.cmd no Windows.
+Na primeira vez ele pede uma senha de acesso e a permissão de administrador para liberar
+a porta 3002 no firewall. Depois mostra o endereço para abrir no celular, como
+http://192.168.0.10:3002. Se o Windows perguntar se o Node.js pode acessar a rede, clique em Permitir.
+Consulte README.md para mais opções, incluindo o acesso fora de casa.
+
 ## Valores em reais
 
 Os valores em reais são estimativas dos custos registrados em dólar, convertidos pela cotação exibida.

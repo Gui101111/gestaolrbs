@@ -1,4 +1,4 @@
-﻿param([switch]$SemAbrirNavegador)
+﻿param([switch]$SemAbrirNavegador, [switch]$Celular)
 $ErrorActionPreference = 'Stop'
 $appDirectory = (Resolve-Path (Join-Path $PSScriptRoot 'diogo-automates')).Path
 $nextExecutable = Join-Path $appDirectory 'node_modules\next\dist\bin\next'
@@ -26,4 +26,4 @@ if (Test-Path -LiteralPath $testRecordPath) {
         }
     }
 }
-& (Join-Path $PSScriptRoot 'iniciar-app.ps1') -SemAbrirNavegador:$SemAbrirNavegador
+& (Join-Path $PSScriptRoot 'iniciar-app.ps1') -SemAbrirNavegador:$SemAbrirNavegador -Celular:$Celular
