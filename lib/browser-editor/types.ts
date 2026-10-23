@@ -14,6 +14,8 @@ export interface EditOptions {
   style: StyleId;
   /** Edição simples: legenda bonita, cortes de pausas e vícios e zoom suave nos cortes (sem grafismos, trilha ou efeitos). */
   simple?: boolean;
+  /** Para onde vai o vídeo (os dois são 9:16): muda a área livre para a legenda. */
+  platform?: "reels" | "tiktok";
   ratios: Ratio[];
   /** Corta silêncios e respirações longas. */
   cutPauses: boolean;

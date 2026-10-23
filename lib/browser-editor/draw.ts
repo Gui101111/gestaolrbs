@@ -73,6 +73,16 @@ function withAlpha(hex: string, a: number) {
 /** Altura do centro da legenda (fração da tela): bem embaixo, longe do rosto. */
 export const CAPTION_Y: Record<Ratio, number> = { "9:16": 0.81, "4:5": 0.87, "1:1": 0.87, "16:9": 0.88 };
 
+/**
+ * Área livre de cada app no 9:16: no Reels, a descrição cobre o pé do vídeo;
+ * no TikTok, o pé é mais alto e há botões na direita. A legenda fica logo
+ * acima disso (ainda bem abaixo do rosto) e, no TikTok, um pouco à esquerda.
+ */
+export const PLATFORM_SAFE = {
+  reels: { capY: 0.78, textW: 0.8, capX: 0.48 },
+  tiktok: { capY: 0.74, textW: 0.74, capX: 0.45 },
+} as const;
+
 function layoutFor(ratio: Ratio, W: number, H: number) {
   const capY = CAPTION_Y[ratio] * H;
   if (ratio === "9:16") return { capY, titleY: 0.19 * H, slotY: 0.2 * H, slotX: W / 2, margin: 0.07 * W, textW: 0.84 * W, scale: 1, side: false };
@@ -157,7 +167,12 @@ export function createPainter(scene: Scene) {
   const M = look.motion;
   const m = Math.min(W, H);
   const L = layoutFor(scene.ratio, W, H);
-  if (opts.captionShift) L.capY = clamp(CAPTION_Y[scene.ratio] + opts.captionShift, 0.5, 0.9) * H;
+  const safe = scene.ratio === "9:16" && opts.platform ? PLATFORM_SAFE[opts.platform] : null;
+  const capBase = safe ? safe.capY : CAPTION_Y[scene.ratio];
+  if (safe) Object.assign(L, { capY: capBase * H, textW: safe.textW * W });
+  if (opts.captionShift) L.capY = clamp(capBase + opts.captionShift, 0.5, 0.9) * H;
+  /** Centro horizontal da legenda. */
+  const capX = (safe?.capX ?? 0.5) * W;
   const S = m * L.scale;
   const accent = look.accent;
   const cap = look.captions;
@@ -703,7 +718,7 @@ export function createPainter(scene: Scene) {
     const lh = capSize * 1.22;
     const out = lines.map((ws, i) => {
       const lw = ws.length ? ws[ws.length - 1].x + ws[ws.length - 1].width : 0;
-      const x0 = (W - lw) / 2;
+      const x0 = capX - lw / 2;
       return { y: L.capY + (i - (lines.length - 1) / 2) * lh, width: lw, words: ws.map((x) => ({ ...x, x: x0 + x.x })) };
     });
     laid.set(index, out);
@@ -730,9 +745,9 @@ export function createPainter(scene: Scene) {
     }
     if (cap.pop || anim === "pop" || anim === "box") {
       const k = 0.84 + 0.16 * easeBack(since / 0.18, 2);
-      ctx.translate(W / 2, L.capY);
+      ctx.translate(capX, L.capY);
       ctx.scale(k, k);
-      ctx.translate(-W / 2, -L.capY);
+      ctx.translate(-capX, -L.capY);
     }
     ctx.font = capFont;
     ctx.textBaseline = "middle";
@@ -742,7 +757,7 @@ export function createPainter(scene: Scene) {
     if (cap.box === "pill" && anim !== "bounce") {
       for (const line of lines) {
         ctx.fillStyle = "rgba(10,12,16,0.66)";
-        rr(ctx, (W - line.width) / 2 - padX, line.y - capSize * 0.62 - padY / 2, line.width + padX * 2, capSize * 1.24 + padY, capSize * 0.3);
+        rr(ctx, capX - line.width / 2 - padX, line.y - capSize * 0.62 - padY / 2, line.width + padX * 2, capSize * 1.24 + padY, capSize * 0.3);
         ctx.fill();
       }
     }
