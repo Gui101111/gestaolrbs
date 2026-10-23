@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, Moon, Settings, Shield, Sun } from "lucide-react";
+import { LogOut, Moon, Shield, Sun, UserRound } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -17,7 +17,7 @@ import { signOutAction } from "@/lib/actions/auth";
 import { ROUTES } from "@/lib/routes";
 import { cn, initials } from "@/lib/utils";
 
-/** Avatar com menu: Configurações, tema Grafite/Claro e Sair. */
+/** Avatar com menu: Conta, tema Grafite/Claro e Sair. */
 export function UserMenu({ user, side = "bottom" }: { user: ShellUser; side?: "bottom" | "right" }) {
   const { theme, setTheme } = useTheme();
   return (
@@ -36,7 +36,7 @@ export function UserMenu({ user, side = "bottom" }: { user: ShellUser; side?: "b
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href={ROUTES.settings}>
-            <Settings /> Configurações
+            <UserRound /> Conta
           </Link>
         </DropdownMenuItem>
         <div className="px-1.5 py-1.5">

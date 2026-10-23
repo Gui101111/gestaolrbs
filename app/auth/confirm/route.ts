@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
   const tokenHash = searchParams.get("token_hash");
   const type = searchParams.get("type") as EmailOtpType | null;
   const code = searchParams.get("code");
-  const defaultNext = type === "recovery" ? ROUTES.resetPassword : "/onboarding";
+  const defaultNext = type === "recovery" ? ROUTES.resetPassword : ROUTES.app;
   const next = safeNext(searchParams.get("next"), defaultNext);
 
   const supabase = await createClient();

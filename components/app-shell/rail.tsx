@@ -3,30 +3,46 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
-import { Gem } from "lucide-react";
+import { Plus } from "lucide-react";
 import { LogoMark } from "@/components/brand/logo";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { UserMenu } from "@/components/app-shell/user-menu";
-import { RAIL_ITEMS, sectionOf, type ShellUsage, type ShellUser } from "@/components/app-shell/nav";
+import { NAV_ITEMS, sectionOf, type ShellUser } from "@/components/app-shell/nav";
 import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { NeonDivider } from "@/components/effects/neon-divider";
 
-/** Barra de ícones (72px) com rótulo embaixo e pílula ativa que desliza. */
-export function Rail({ user, usage }: { user: ShellUser; usage: ShellUsage }) {
+/** Barra de ícones (desktop): enviar vídeo, Início, Projetos e Conta, com pílula ativa que desliza. */
+export function Rail({ user }: { user: ShellUser }) {
   const section = sectionOf(usePathname());
 
   return (
     <aside
       aria-label="Navegação do app"
-      className="glass-strong fixed inset-y-0 left-0 z-40 hidden w-[72px] flex-col items-center border-y-0 border-l-0 py-4 lg:flex"
+      className="glass-strong fixed inset-y-0 left-0 z-40 hidden w-[84px] flex-col items-center border-y-0 border-l-0 py-4 lg:flex"
     >
-      <Link href={ROUTES.app} aria-label="Início" className="mb-5 grid size-11 place-items-center rounded-2xl transition hover:bg-fg/[0.06]">
+      <Link href={ROUTES.app} aria-label="Início" className="mb-4 grid size-11 place-items-center rounded-2xl transition hover:bg-fg/[0.06]">
         <LogoMark className="size-8" />
       </Link>
 
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link
+            href={ROUTES.newVideo}
+            aria-label="Enviar vídeo"
+            aria-current={section === "novo" ? "page" : undefined}
+            className="cta-pulse mb-4 grid size-12 place-items-center rounded-2xl bg-[linear-gradient(135deg,#f7d898,#f2c46d_45%,#c99a3b)] text-[#1a1306] shadow-[0_10px_30px_-12px_rgb(242_196_109/0.75)] transition-transform hover:-translate-y-0.5 active:scale-95"
+          >
+            <Plus className="size-6" strokeWidth={2.5} />
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent side="right">Enviar vídeo</TooltipContent>
+      </Tooltip>
+
+      <NeonDivider className="mb-3 w-8" />
+
       <nav className="flex w-full flex-1 flex-col items-center gap-1.5 px-1.5">
-        {RAIL_ITEMS.map((item) => {
+        {NAV_ITEMS.map((item) => {
           const active = section === item.key;
           const Icon = item.icon;
           return (
@@ -36,7 +52,7 @@ export function Rail({ user, usage }: { user: ShellUser; usage: ShellUsage }) {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "group/rail relative flex w-full flex-col items-center gap-1 rounded-2xl py-2.5 text-[0.625rem] font-semibold transition-colors duration-300",
+                    "group/rail relative flex w-full flex-col items-center gap-1 rounded-2xl py-2.5 text-[0.6875rem] font-semibold transition-colors duration-300",
                     active ? "text-fg" : "text-fg-3 hover:text-fg",
                   )}
                 >
@@ -64,33 +80,7 @@ export function Rail({ user, usage }: { user: ShellUser; usage: ShellUsage }) {
         })}
       </nav>
 
-      <div className="flex flex-col items-center gap-3">
-        <NeonDivider className="w-8" />
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link
-              href={ROUTES.billing}
-              aria-label="Assinatura"
-              aria-current={section === "assinatura" ? "page" : undefined}
-              className="group/gem relative grid size-11 place-items-center rounded-full"
-            >
-              <span
-                aria-hidden
-                className={cn(
-                  "absolute inset-0 rounded-full border-2 transition-shadow duration-500",
-                  section === "assinatura" ? "border-cyan shadow-[0_0_16px_var(--cyan)]" : "border-cyan/60 group-hover/gem:shadow-[0_0_14px_var(--cyan)]",
-                )}
-              />
-              <Gem className="size-[18px] text-gold transition-transform duration-500 group-hover/gem:rotate-12 group-hover/gem:scale-110" />
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent side="right">
-            {usage.planName ?? "Assinatura"}
-            {usage.limit != null && ` · ${usage.used}/${usage.limit} vídeos`}
-          </TooltipContent>
-        </Tooltip>
-        <UserMenu user={user} side="right" />
-      </div>
+      <UserMenu user={user} side="right" />
     </aside>
   );
 }

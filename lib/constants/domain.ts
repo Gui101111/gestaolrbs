@@ -128,8 +128,30 @@ export const PLATFORMS = [
   { value: "meta_ads", label: "Meta Ads", ratios: ["9:16", "1:1", "4:5"], icon: "megaphone" },
   { value: "youtube", label: "YouTube", ratios: ["16:9"], icon: "monitor-play" },
   { value: "linkedin", label: "LinkedIn", ratios: ["16:9", "1:1"], icon: "linkedin" },
+  { value: "reels", label: "Reels (Instagram)", ratios: ["9:16"], icon: "instagram" },
 ] as const;
 export type Platform = (typeof PLATFORMS)[number]["value"];
+
+/**
+ * A única escolha do envio: para onde vai o vídeo. Os dois saem verticais
+ * (9:16, 1080×1920); muda só a área livre para a legenda de cada app.
+ * Gravado em projects.platforms (["reels"] ou ["tiktok"]).
+ */
+export const VIDEO_TARGETS = [
+  { value: "reels", label: "Reels (Instagram)", short: "Reels" },
+  { value: "tiktok", label: "TikTok", short: "TikTok" },
+] as const;
+export type VideoTarget = (typeof VIDEO_TARGETS)[number]["value"];
+export const DEFAULT_VIDEO_TARGET: VideoTarget = "reels";
+
+export function isVideoTarget(v: unknown): v is VideoTarget {
+  return VIDEO_TARGETS.some((t) => t.value === v);
+}
+
+/** Destino escolhido no envio (só quando o vídeo tem exatamente um deles). */
+export function videoTargetOf(platforms: readonly string[] | null | undefined) {
+  return platforms?.length === 1 ? (VIDEO_TARGETS.find((t) => t.value === platforms[0]) ?? null) : null;
+}
 
 /** Proporções de saída padrão derivadas das plataformas escolhidas. */
 export function ratiosForPlatforms(platforms: readonly string[]): AspectRatio[] {

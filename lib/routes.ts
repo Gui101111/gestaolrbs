@@ -12,10 +12,7 @@ export const ROUTES = {
   app: "/app",
   projects: "/app/projetos",
   newVideo: "/app/novo",
-  examples: "/app/exemplos",
-  howTo: "/app/como-fazer",
-  brand: "/app/marca",
-  billing: "/app/assinatura",
+  /** Página "Conta" (o caminho antigo continua valendo para links já enviados). */
   settings: "/app/configuracoes",
   folder: (id: string) => `/app/projetos/${id}`,
   video: (id: string) => `/app/video/${id}`,

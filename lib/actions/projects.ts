@@ -6,26 +6,31 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getProfile, getSessionUser } from "@/lib/auth/dal";
 import { errorCode, friendlyError, messageFor } from "@/lib/errors";
-import {
-  ASPECT_RATIOS,
-  BUCKETS,
-  DEFAULT_EDIT_SETTINGS,
-  EDITING_STYLES,
-  EDIT_SETTINGS,
-  LEGAL_AREAS,
-  OBJECTIVES,
-  PLATFORMS,
-  ratiosForPlatforms,
-} from "@/lib/constants/domain";
+import { BUCKETS, DEFAULT_EDIT_SETTINGS, DEFAULT_VIDEO_TARGET, isVideoTarget, type VideoTarget } from "@/lib/constants/domain";
 import { dispatchJob } from "@/services/editing/dispatch";
-import { archiveProjectSessions } from "@/services/editing/claude/session-lifecycle";
 import { emailTemplates, sendEmail } from "@/services/email";
 import type { ActionResult } from "@/types/domain";
-import type { Json, TablesUpdate } from "@/types/database";
+import type { Json } from "@/types/database";
 
 const json = (v: unknown) => v as NonNullable<Json>;
 
-const vals = <T extends readonly { value: string }[]>(list: T) => list.map((i) => i.value) as [string, ...string[]];
+/**
+ * Envio sem perguntas: o banco ainda pede objetivo, área, estilo e
+ * plataformas preenchidos, então o vídeo leva valores fixos (o motor de
+ * edição não usa mais essas escolhas). A única escolha é o destino.
+ */
+const SIMPLE_PROJECT = {
+  objective: "conteudo_organico",
+  legal_area: "outro",
+  editing_style: "dinamico",
+  settings: json({ ...DEFAULT_EDIT_SETTINGS, lower_third: false, compliance_review: false }),
+};
+
+/** Reels ou TikTok: sempre vertical 9:16 (o motor reenquadra vídeos deitados). */
+function formatFor(target: unknown) {
+  const t: VideoTarget = isVideoTarget(target) ? target : DEFAULT_VIDEO_TARGET;
+  return { aspect_ratios: ["9:16"], platforms: [t] };
+}
 
 async function requireAuth() {
   const user = await getSessionUser();
@@ -40,13 +45,11 @@ function fail(e: unknown): { ok: false; error: string } {
 // ---------------------------------------------------------------------------
 // Rascunho
 // ---------------------------------------------------------------------------
-export async function createDraftAction(input: { name?: string; folderId?: string | null }): Promise<ActionResult<{ id: string }>> {
+/** Cria o vídeo (rascunho) assim que a pessoa escolhe o arquivo: o caminho do envio depende do id. */
+export async function createDraftAction(input: { name?: string; folderId?: string | null; target?: VideoTarget }): Promise<ActionResult<{ id: string }>> {
   try {
     const user = await requireAuth();
-    const profile = await getProfile();
     const supabase = await createClient();
-    const objective = OBJECTIVES.some((o) => o.value === profile?.main_goal) ? profile?.main_goal : null;
-    const platforms = profile?.default_platforms?.length ? profile.default_platforms : [];
     const { data, error } = await supabase
       .from("projects")
       .insert({
@@ -54,75 +57,13 @@ export async function createDraftAction(input: { name?: string; folderId?: strin
         name: (input.name?.trim() || "Novo vídeo").slice(0, 140),
         status: "draft",
         folder_id: input.folderId && z.uuid().safeParse(input.folderId).success ? input.folderId : null,
-        objective,
-        legal_area: profile?.legal_area ?? null,
-        editing_style: profile?.default_editing_style ?? null,
-        platforms,
-        aspect_ratios: ratiosForPlatforms(platforms),
-        settings: json(DEFAULT_EDIT_SETTINGS),
+        ...SIMPLE_PROJECT,
+        ...formatFor(input.target),
       })
       .select("id")
       .single();
     if (error) return fail(error);
     return { ok: true, data: { id: data.id } };
-  } catch (e) {
-    return fail(e);
-  }
-}
-
-const settingsKeys = EDIT_SETTINGS.map((s) => s.key) as [string, ...string[]];
-
-const draftPatchSchema = z
-  .object({
-    name: z.string().trim().min(1, "Dê um nome ao vídeo.").max(140),
-    objective: z.enum(vals(OBJECTIVES)).nullable(),
-    legal_area: z.enum(vals(LEGAL_AREAS)).nullable(),
-    editing_style: z.enum(vals(EDITING_STYLES)).nullable(),
-    platforms: z.array(z.enum(vals(PLATFORMS))).max(PLATFORMS.length),
-    aspect_ratios: z.array(z.enum(vals(ASPECT_RATIOS))).max(4),
-    settings: z.record(z.enum(settingsKeys), z.boolean()),
-    options: z.object({
-      caption_style: z.enum(["discreta", "palavra", "caixa_alta"]).optional(),
-      cta_type: z.enum(["seguir", "site", "whatsapp", "personalizado"]).optional(),
-      cta_text: z.string().max(140).optional(),
-      target_duration: z.enum(["completo", "60s", "90s", "3min", "cortes"]).optional(),
-      audience: z.string().max(200).optional(),
-      hook_text: z.string().max(140).optional(),
-      music_tone: z.enum(["auto", "sobria", "inspiradora", "neutra", "energica", "leve"]).optional(),
-      cut_ranges: z.array(z.object({ start: z.string().max(8), end: z.string().max(8) })).max(10).optional(),
-      reference_url: z.string().url("Informe um link válido.").max(300).optional().or(z.literal("")),
-      answers: z.record(z.string().max(30), z.enum(["sim", "nao", "outro"])).optional(),
-      answers_text: z.record(z.string().max(30), z.string().max(200)).optional(),
-      template: z.string().max(60).optional(),
-    }),
-    folder_id: z.uuid().nullable(),
-    instructions: z.string().max(1200, "Use no máximo 1.000 caracteres.").nullable(),
-    wizard_step: z.number().int().min(1).max(10),
-    rights_confirmed: z.boolean(),
-  })
-  .partial();
-
-export type DraftPatch = z.input<typeof draftPatchSchema>;
-
-export async function saveDraftAction(id: string, patch: DraftPatch): Promise<ActionResult> {
-  try {
-    await requireAuth();
-    const parsed = draftPatchSchema.safeParse(patch);
-    if (!parsed.success) return { ok: false, error: parsed.error.issues[0]?.message ?? "Dados inválidos." };
-    const { rights_confirmed, platforms, aspect_ratios, settings, options, ...rest } = parsed.data;
-    const update: TablesUpdate<"projects"> = { ...rest };
-    if (platforms) {
-      update.platforms = platforms;
-      update.aspect_ratios = aspect_ratios?.length ? aspect_ratios : ratiosForPlatforms(platforms);
-    } else if (aspect_ratios) update.aspect_ratios = aspect_ratios;
-    if (settings) update.settings = json({ ...DEFAULT_EDIT_SETTINGS, ...settings });
-    if (options) update.options = json(options);
-    if (rights_confirmed !== undefined) update.rights_confirmed_at = rights_confirmed ? new Date().toISOString() : null;
-
-    const supabase = await createClient();
-    const { error } = await supabase.from("projects").update(update).eq("id", id).eq("status", "draft");
-    if (error) return fail(error);
-    return { ok: true };
   } catch (e) {
     return fail(e);
   }
@@ -244,6 +185,37 @@ export async function setThumbnailAction(projectId: string, path: string): Promi
 // ---------------------------------------------------------------------------
 // Envio para edição
 // ---------------------------------------------------------------------------
+/**
+ * Vídeo enviado → edição, sem perguntas: grava o destino (Reels ou TikTok,
+ * sempre 9:16), registra a confirmação de direito de uso (aviso junto ao
+ * envio) e manda para a fila.
+ */
+export async function startEditingAction(id: string, target: VideoTarget): Promise<ActionResult<{ jobId: string }> & { code?: string }> {
+  try {
+    await requireAuth();
+    if (!z.uuid().safeParse(id).success) return { ok: false, error: messageFor("project_not_found") };
+    const supabase = await createClient();
+    const { data: project } = await supabase.from("projects").select("status").eq("id", id).maybeSingle();
+    if (!project) return { ok: false, error: messageFor("project_not_found") };
+    if (project.status === "draft") {
+      const { error } = await supabase
+        .from("projects")
+        .update({
+          ...SIMPLE_PROJECT,
+          ...formatFor(target),
+          rights_confirmed_at: new Date().toISOString(),
+          wizard_step: 3,
+        })
+        .eq("id", id)
+        .eq("status", "draft");
+      if (error) return fail(error);
+    }
+    return await submitProjectAction(id);
+  } catch (e) {
+    return fail(e);
+  }
+}
+
 export async function submitProjectAction(id: string): Promise<ActionResult<{ jobId: string }> & { code?: string }> {
   try {
     const user = await requireAuth();
@@ -286,19 +258,6 @@ export async function renameProjectAction(id: string, name: string): Promise<Act
     if (error) return fail(error);
     revalidatePath("/app", "layout");
     return { ok: true };
-  } catch (e) {
-    return fail(e);
-  }
-}
-
-export async function duplicateProjectAction(id: string, asVersion = false): Promise<ActionResult<{ id: string }>> {
-  try {
-    await requireAuth();
-    const supabase = await createClient();
-    const { data, error } = await supabase.rpc("duplicate_project", { p_project_id: id, p_as_version: asVersion });
-    if (error || !data) return fail(error);
-    revalidatePath("/app", "layout");
-    return { ok: true, data: { id: data.id } };
   } catch (e) {
     return fail(e);
   }
@@ -375,21 +334,6 @@ export async function requestRevisionAction(id: string, comment: string, timesta
         html: `<p>${user.email} solicitou ajuste no projeto ${id}.</p>`,
       });
     }
-    revalidatePath(`/app/video/${id}`);
-    return { ok: true };
-  } catch (e) {
-    return fail(e);
-  }
-}
-
-export async function approveProjectAction(id: string): Promise<ActionResult> {
-  try {
-    await requireAuth();
-    const supabase = await createClient();
-    const { error } = await supabase.rpc("approve_project", { p_project_id: id });
-    if (error) return fail(error);
-    // vídeo aprovado: a sessão do agente não é mais necessária (menos retenção de dados)
-    await archiveProjectSessions(id).catch(() => undefined);
     revalidatePath(`/app/video/${id}`);
     return { ok: true };
   } catch (e) {

@@ -40,7 +40,13 @@ const nextConfig: NextConfig = {
       { source: "/reset-password", destination: "/nova-senha", permanent: true },
       { source: "/app/biblioteca", destination: "/app/projetos", permanent: true },
       { source: "/app/projetos/novo", destination: "/app/novo", permanent: true },
-      { source: "/app/perfil", destination: "/app/configuracoes?aba=conta", permanent: true },
+      { source: "/app/perfil", destination: "/app/configuracoes", permanent: true },
+      // App simplificado: sem perguntas de boas-vindas nem as páginas abaixo
+      { source: "/onboarding", destination: "/app", permanent: false },
+      { source: "/app/exemplos", destination: "/app", permanent: false },
+      { source: "/app/como-fazer", destination: "/app", permanent: false },
+      { source: "/app/marca", destination: "/app", permanent: false },
+      { source: "/app/assinatura", destination: "/app/configuracoes", permanent: false },
     ];
   },
   async headers() {

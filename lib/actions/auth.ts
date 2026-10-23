@@ -44,7 +44,7 @@ export async function signUpAction(input: z.input<typeof signUpSchema>): Promise
     email,
     password,
     options: {
-      emailRedirectTo: `${await siteUrl()}/auth/confirm?next=/onboarding`,
+      emailRedirectTo: `${await siteUrl()}/auth/confirm?next=/app`,
       data: { full_name: fullName, terms_accepted: true },
     },
   });
@@ -103,7 +103,7 @@ export async function resendConfirmationAction(email: string): Promise<ActionRes
   const { error } = await supabase.auth.resend({
     type: "signup",
     email: parsed.data,
-    options: { emailRedirectTo: `${await siteUrl()}/auth/confirm?next=/onboarding` },
+    options: { emailRedirectTo: `${await siteUrl()}/auth/confirm?next=/app` },
   });
   if (error) return { ok: false, error: friendlyError(error) };
   return { ok: true };

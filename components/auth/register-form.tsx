@@ -46,7 +46,7 @@ export function RegisterForm() {
   return (
     <div className="space-y-5">
       {error && <FormAlert>{error}</FormAlert>}
-      <GoogleButton next="/onboarding" />
+      <GoogleButton next={ROUTES.app} />
       <OrDivider />
       <form onSubmit={onSubmit} className="space-y-5" noValidate>
         <Field label="Nome completo" htmlFor="fullName" error={form.formState.errors.fullName?.message}>

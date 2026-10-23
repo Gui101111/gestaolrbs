@@ -1,24 +1,20 @@
-import { Clapperboard, FolderClosed, GraduationCap, Home, Palette } from "lucide-react";
+import { FolderClosed, Home, UserRound } from "lucide-react";
 import { ROUTES } from "@/lib/routes";
 
-export const RAIL_ITEMS = [
-  { key: "inicio", href: ROUTES.app, label: "Início", hint: "Resumo e próximos passos", icon: Home },
+/** Navegação do app: só Início, Projetos e Conta (+ o botão de enviar vídeo). */
+export const NAV_ITEMS = [
+  { key: "inicio", href: ROUTES.app, label: "Início", hint: "Enviar e acompanhar vídeos", icon: Home },
   { key: "projetos", href: ROUTES.projects, label: "Projetos", hint: "Pastas e vídeos", icon: FolderClosed },
-  { key: "exemplos", href: ROUTES.examples, label: "Exemplos", hint: "Vídeos para se inspirar", icon: Clapperboard },
-  { key: "marca", href: ROUTES.brand, label: "Marca", hint: "Logo, cores e fonte", icon: Palette },
-  { key: "como-fazer", href: ROUTES.howTo, label: "Como fazer", hint: "Dicas para gravar", icon: GraduationCap },
+  { key: "conta", href: ROUTES.settings, label: "Conta", hint: "Nome, tema e sair", icon: UserRound },
 ] as const;
 
-export type Section = "inicio" | "projetos" | "exemplos" | "marca" | "como-fazer" | "assinatura" | "configuracoes";
+export type Section = (typeof NAV_ITEMS)[number]["key"] | "novo";
 
-/** Seção do app a partir da URL (decide o item ativo do rail e o conteúdo do painel). */
+/** Seção do app a partir da URL (decide o item ativo da navegação). */
 export function sectionOf(pathname: string): Section {
-  if (pathname.startsWith("/app/projetos") || pathname.startsWith("/app/video") || pathname.startsWith("/app/novo")) return "projetos";
-  if (pathname.startsWith("/app/exemplos")) return "exemplos";
-  if (pathname.startsWith("/app/marca")) return "marca";
-  if (pathname.startsWith("/app/como-fazer")) return "como-fazer";
-  if (pathname.startsWith("/app/assinatura")) return "assinatura";
-  if (pathname.startsWith("/app/configuracoes") || pathname.startsWith("/app/perfil")) return "configuracoes";
+  if (pathname.startsWith(ROUTES.newVideo)) return "novo";
+  if (pathname.startsWith(ROUTES.projects) || pathname.startsWith("/app/video")) return "projetos";
+  if (pathname.startsWith(ROUTES.settings) || pathname.startsWith("/app/perfil")) return "conta";
   return "inicio";
 }
 
@@ -31,19 +27,4 @@ export type ShellUser = {
   isAdmin: boolean;
 };
 
-export type ShellUsage = { planName: string | null; used: number; limit: number | null; caption: string; active: boolean };
-
-export type RecentItem = { id: string; name: string; status: string; updated_at: string };
-
 export type FolderItem = { id: string; name: string; color: string; parent_id: string | null; position: number; count: number };
-
-/** Abas de Configurações (sincronizadas com ?aba=). */
-export const SETTINGS_TABS = [
-  { value: "conta", label: "Conta" },
-  { value: "seguranca", label: "Segurança" },
-  { value: "aparencia", label: "Aparência" },
-  { value: "notificacoes", label: "Notificações" },
-  { value: "excluir", label: "Excluir conta" },
-] as const;
-
-export type SettingsTab = (typeof SETTINGS_TABS)[number]["value"];

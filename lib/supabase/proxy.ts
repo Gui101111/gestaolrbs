@@ -4,7 +4,7 @@ import type { Database } from "@/types/database";
 import { isSupabaseConfigured, supabasePublishableKey, supabaseUrl } from "./env";
 import { ROUTES } from "@/lib/routes";
 
-const PROTECTED = ["/app", "/admin", "/onboarding"];
+const PROTECTED = ["/app", "/admin"];
 const AUTH_ONLY_GUEST: string[] = [ROUTES.login, ROUTES.register, ROUTES.forgotPassword];
 
 /**
