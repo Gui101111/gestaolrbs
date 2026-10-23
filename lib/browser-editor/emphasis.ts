@@ -3,6 +3,7 @@
  * fortes da fala (números, valores, prazos, termos jurídicos e palavras de
  * impacto) e marca como destaque, espaçadas para não virar tudo destaque.
  */
+import { withText } from "@/lib/browser-editor/glossary";
 import { norm } from "@/lib/browser-editor/timeline";
 import type { Segment, Word } from "@/lib/browser-editor/types";
 
@@ -87,7 +88,6 @@ export function replaceIn(text: string, list: { from: string; to: string }[] | u
 export function applyReplacements(segments: Segment[], list: { from: string; to: string }[] | undefined): Segment[] {
   if (!list?.length) return segments;
   return segments.map((s) => {
-    const text = replaceIn(s.text, list);
-    return text === s.text ? s : { ...s, text };
+    return withText(s, replaceIn(s.text, list));
   });
 }

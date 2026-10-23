@@ -223,6 +223,39 @@ export const LOOKS: Record<StyleId, Look> = {
   },
 };
 
+/** Edição simples (padrão do app): só a legenda, bem legível e bonita, e zoom suave para disfarçar os cortes. */
+export const SIMPLE: Look = {
+  minPause: 0.4,
+  pad: 0.08,
+  grade: "contrast(1.06) saturate(1.06) brightness(1.02)",
+  vignette: 0.14,
+  zoom: "punch",
+  zoomAmount: 0.06,
+  progressBar: false,
+  accent: "#ffd23f",
+  ink: "#141414",
+  captions: { font: "Sora", weight: 800, italic: false, upper: false, maxWords: 4, size: 0.064, color: "#ffffff", active: "#ffffff", box: "none", pop: true, anim: "pop" },
+  titleFont: "Sora",
+  motion: {
+    spacing: 6,
+    cards: false,
+    callout: "minimal",
+    title: "classic",
+    transition: "cut",
+    transitionGap: 99,
+    grain: 0,
+    leaks: false,
+    letterbox: 0,
+    frame: false,
+    sparkles: false,
+    mood: "neutra",
+    sfxLevel: 0,
+    titleSfx: [],
+    beatSfx: "pop",
+    riser: false,
+  },
+};
+
 const HEX = /^#([0-9a-f]{6})$/i;
 
 /** Cor da marca usável como acento (descarta tons muito escuros ou muito claros). */
@@ -238,8 +271,8 @@ export function usableAccent(color: string | null | undefined): string | null {
 }
 
 /** O estilo de legenda escolhido, a cor da marca e os ajustes pedidos mudam o padrão do estilo. */
-export function lookFor(opts: Pick<EditOptions, "style" | "captionStyle" | "accentColor" | "captionScale" | "captionColor" | "energy">): Look {
-  const base = LOOKS[opts.style] ?? LOOKS.institucional;
+export function lookFor(opts: Pick<EditOptions, "style" | "simple" | "captionStyle" | "accentColor" | "captionScale" | "captionColor" | "energy">): Look {
+  const base = opts.simple ? SIMPLE : (LOOKS[opts.style] ?? LOOKS.institucional);
   const c = { ...base.captions };
   const s: CaptionStyle = opts.captionStyle;
   if (s === "discreta") Object.assign(c, { upper: false, maxWords: Math.max(c.maxWords, 6), size: Math.min(c.size, 0.06), box: "pill", pop: false, active: null, anim: "fade" });

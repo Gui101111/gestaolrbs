@@ -1,5 +1,6 @@
 import { HOP, SAMPLE_RATE } from "@/lib/browser-editor/audio";
-import type { Interval, Segment } from "@/lib/browser-editor/types";
+import { bare, VOCABULARY } from "@/lib/browser-editor/glossary";
+import type { Interval, Segment, TimedWord } from "@/lib/browser-editor/types";
 
 /**
  * Transcrição com Whisper rodando no próprio navegador (transformers.js +
@@ -26,7 +27,10 @@ export interface WhisperManifest {
 
 type AsrChunk = { timestamp: [number, number | null]; text: string };
 type AsrOutput = { text: string; chunks?: AsrChunk[] };
-type AsrPipe = (audio: Float32Array, opts: Record<string, unknown>) => Promise<AsrOutput | AsrOutput[]>;
+type TokenList = { tolist(): unknown[] };
+type AsrModel = { generate(args: Record<string, unknown>): Promise<unknown> };
+type AsrTokenizer = { encode(text: string, opts?: Record<string, unknown>): number[]; model: { tokens_to_ids: Map<string, number> } };
+type AsrPipe = ((audio: Float32Array, opts: Record<string, unknown>) => Promise<AsrOutput | AsrOutput[]>) & { model?: AsrModel; tokenizer?: AsrTokenizer };
 
 interface CacheLike {
   match(key: string): Promise<Response | undefined>;
@@ -131,7 +135,7 @@ export function loadWhisper(manifest: WhisperManifest, importTransformers: () =>
         },
       });
       const pipe = (await T.pipeline("automatic-speech-recognition", manifest.modelId, { dtype: "q8", device: "wasm" })) as AsrPipe;
-      return { transcribe: (audio, speech, p, s) => runWindows(pipe, audio, speech, p, s) };
+      return makeWhisper(pipe, manifest.modelId);
     })();
     loading.catch(() => {
       loading = null;
@@ -147,7 +151,14 @@ export function loadWhisper(manifest: WhisperManifest, importTransformers: () =>
  * No app (fora da página publicada): transformers.js servido pelo próprio
  * site e o modelo baixado do Hugging Face, com cache do navegador.
  */
-export function loadWhisperRemote(modelId: string, wasmPaths: string, importTransformers: () => Promise<TransformersLike>, onProgress?: LoadProgress): Promise<Whisper> {
+export function loadWhisperRemote(
+  modelId: string,
+  wasmPaths: string,
+  importTransformers: () => Promise<TransformersLike>,
+  onProgress?: LoadProgress,
+  /** ONNX Runtime publicado em partes junto da página (prévia), em vez de baixar de `wasmPaths`. */
+  wasmParts?: ModelFile,
+): Promise<Whisper> {
   if (onProgress) {
     listeners.add(onProgress);
     if (lastProgress) onProgress(...lastProgress);
@@ -157,11 +168,15 @@ export function loadWhisperRemote(modelId: string, wasmPaths: string, importTran
       const T = await importTransformers();
       const wasm = T.env.backends.onnx.wasm;
       if (wasm) {
+        if (wasmParts) {
+          const base = new URL(".", window.location.href).href;
+          wasm.wasmBinary = await (await fetchParts(base, [wasmParts], () => {})).get(wasmParts.name)!.arrayBuffer();
+        }
         wasm.wasmPaths = wasmPaths;
         wasm.numThreads = 1;
         wasm.proxy = false;
       }
-      Object.assign(T.env, { allowLocalModels: false, allowRemoteModels: true, useBrowserCache: true, useCustomCache: false });
+      Object.assign(T.env, { allowLocalModels: false, allowRemoteModels: true, remoteHost: "https://huggingface.co/", remotePathTemplate: "{model}/resolve/{revision}/", useBrowserCache: true, useCustomCache: false, customCache: null });
       const files = new Map<string, [number, number]>();
       const pipe = (await T.pipeline("automatic-speech-recognition", modelId, {
         dtype: "q8",
@@ -179,7 +194,7 @@ export function loadWhisperRemote(modelId: string, wasmPaths: string, importTran
           listeners.forEach((fn) => fn(l, t));
         },
       })) as AsrPipe;
-      return { transcribe: (audio, speech, p, s) => runWindows(pipe, audio, speech, p, s) };
+      return makeWhisper(pipe, modelId);
     })();
     loading.catch(() => {
       loading = null;
@@ -215,25 +230,121 @@ export function speechWindows(speech: Interval[], duration: number): Interval[] 
 
 const HALLUCINATIONS = [/amara\.org/i, /legendas? (pela|por)/i, /inscreva-se/i, /obrigad[oa] por assistir/i, /^\W*$/];
 
+/**
+ * Antes de cada trecho, o Whisper "lê" um contexto com os termos jurídicos
+ * (como se fosse a fala anterior): a grafia de INSS, auxílio-doença etc.
+ * sai certa. O contexto sai do resultado antes de virar legenda.
+ */
+function addVocabulary(pipe: AsrPipe, text: string): boolean {
+  const model = pipe.model;
+  const tok = pipe.tokenizer;
+  if (!model || !tok) return false;
+  try {
+    const id = (t: string) => tok.model.tokens_to_ids.get(t);
+    const ids = [id("<|startofprev|>"), ...tok.encode(` ${text}`, { add_special_tokens: false }), id("<|startoftranscript|>"), id("<|pt|>"), id("<|transcribe|>")];
+    if (ids.some((x) => typeof x !== "number")) return false;
+    const sot = ids.length - 3;
+    const generate = model.generate.bind(model);
+    model.generate = async (args) => {
+      const out = (await generate({ ...args, decoder_input_ids: ids })) as { sequences?: TokenList; token_timestamps?: TokenList } & TokenList[];
+      if (out.sequences && out.token_timestamps) {
+        const seq = (out.sequences.tolist()[0] as unknown[]).slice(sot);
+        const ts = (out.token_timestamps.tolist()[0] as unknown[]).slice(sot);
+        return { sequences: { tolist: () => [seq] }, token_timestamps: { tolist: () => [ts] } };
+      }
+      const seq = out[0].tolist().slice(sot);
+      return [{ tolist: () => seq }];
+    };
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function makeWhisper(pipe: AsrPipe, modelId: string): Whisper {
+  // o modelo "small" aproveita o vocabulário; o "base" se confunde com ele e repete os termos
+  if (/small|medium|large/.test(modelId)) addVocabulary(pipe, VOCABULARY);
+  return { transcribe: (audio, speech, p, s) => runWindows(pipe, audio, speech, p, s) };
+}
+
+const VOCAB_WORDS = new Set(VOCABULARY.split(/[\s,:/]+/).map(bare).filter((w) => w.length > 3));
+
+/** Palavras com tempo → frases (quebra na pontuação, em pausas e em frases longas). */
+function wordsToSegments(chunks: AsrChunk[], w: Interval, firstId: number): Segment[] {
+  const words: TimedWord[] = [];
+  for (const c of chunks) {
+    const text = c.text.trim();
+    if (!text) continue;
+    const start = w.start + (c.timestamp[0] ?? 0);
+    const end = Math.min(w.end, w.start + (c.timestamp[1] ?? c.timestamp[0] ?? 0));
+    const prev = words[words.length - 1];
+    // "auxílio" + "-doença" e pontuação solta vão junto da palavra anterior
+    if (prev && (/^-/.test(text) || /^[.,;:!?…]+$/.test(text))) {
+      prev.text += text;
+      prev.end = Math.max(prev.end, end);
+      continue;
+    }
+    words.push({ text, start, end: Math.max(end, start + 0.04) });
+  }
+  if (!words.length) return [];
+  const joined = words.map((x) => x.text).join(" ");
+  if (HALLUCINATIONS.some((h) => h.test(joined))) return [];
+  // trecho curto que só repete o vocabulário do contexto: eco, não fala
+  const echo = words.filter((x) => VOCAB_WORDS.has(bare(x.text))).length;
+  if (words.length <= 12 && echo / words.length > 0.6) return [];
+  const out: Segment[] = [];
+  let cur: TimedWord[] = [];
+  const flush = () => {
+    if (!cur.length) return;
+    out.push({ id: firstId + out.length, text: cur.map((x) => x.text).join(" "), start: cur[0].start, end: cur[cur.length - 1].end, words: cur });
+    cur = [];
+  };
+  for (let i = 0; i < words.length; i++) {
+    const x = words[i];
+    const prev = cur[cur.length - 1];
+    if (prev && (x.start - prev.end > 0.9 || (cur.length >= 16 && /,$/.test(prev.text)) || cur.length >= 22)) flush();
+    cur.push(x);
+    if (/[.!?…]$/.test(x.text)) flush();
+  }
+  flush();
+  return out;
+}
+
 async function runWindows(pipe: AsrPipe, audio: Float32Array, speech: Interval[], onProgress: (done: number, total: number) => void, signal?: AbortSignal) {
   const duration = audio.length / SAMPLE_RATE;
   const windows = speechWindows(speech.length ? speech : [{ start: 0, end: duration }], duration);
   const segments: Segment[] = [];
+  let wordMode = true;
   onProgress(0, windows.length);
   for (let i = 0; i < windows.length; i++) {
     if (signal?.aborted) throw new DOMException("cancelado", "AbortError");
     const w = windows[i];
     const slice = audio.subarray(Math.floor(w.start * SAMPLE_RATE), Math.ceil(w.end * SAMPLE_RATE));
-    const res = await pipe(slice, { language: "portuguese", task: "transcribe", return_timestamps: true });
-    const out = Array.isArray(res) ? res[0] : res;
-    const chunks = out?.chunks?.length ? out.chunks : [{ timestamp: [0, w.end - w.start] as [number, number], text: out?.text ?? "" }];
-    for (const c of chunks) {
-      const text = c.text.replace(/\s+/g, " ").trim();
-      if (!text || HALLUCINATIONS.some((h) => h.test(text))) continue;
-      const start = w.start + (c.timestamp[0] ?? 0);
-      const end = Math.min(w.end, w.start + (c.timestamp[1] ?? w.end - w.start));
-      if (end - start < HOP) continue;
-      segments.push({ id: segments.length, text, start, end });
+    let out: AsrOutput | undefined;
+    if (wordMode) {
+      try {
+        // tempo de cada palavra: legenda sincronizada e cortes de vícios precisos
+        const res = await pipe(slice, { language: "portuguese", task: "transcribe", return_timestamps: "word" });
+        out = Array.isArray(res) ? res[0] : res;
+        segments.push(...wordsToSegments(out?.chunks ?? [], w, segments.length));
+      } catch (e) {
+        if ((e as Error)?.name === "AbortError") throw e;
+        console.warn("[transcrição] sem tempo por palavra; seguindo por frases", e);
+        wordMode = false;
+      }
+    }
+    if (!wordMode) {
+      const res = await pipe(slice, { language: "portuguese", task: "transcribe", return_timestamps: true });
+      out = Array.isArray(res) ? res[0] : res;
+      const chunks = out?.chunks?.length ? out.chunks : [{ timestamp: [0, w.end - w.start] as [number, number], text: out?.text ?? "" }];
+      for (const c of chunks) {
+        const text = c.text.replace(/\s+/g, " ").trim();
+        if (!text || HALLUCINATIONS.some((h) => h.test(text))) continue;
+        const start = w.start + (c.timestamp[0] ?? 0);
+        const end = Math.min(w.end, w.start + (c.timestamp[1] ?? w.end - w.start));
+        if (end - start < HOP) continue;
+        segments.push({ id: segments.length, text, start, end });
+      }
     }
     onProgress(i + 1, windows.length);
     // devolve a vez para a interface atualizar entre as janelas

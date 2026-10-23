@@ -25,7 +25,14 @@ let deps: Promise<EditorDeps> | null = null;
 export function getEditorDeps(): Promise<EditorDeps> {
   deps ??= (async () => ({
     sample: await getSample(),
-    whisper: __WHISPER__ ? { manifest: __WHISPER__, importTransformers: loadAsr } : null,
+    // tenta o modelo mais preciso (small, do Hugging Face); se a página não puder baixar, usa o que vem com ela
+    whisper: __WHISPER__
+      ? {
+          remote: { modelId: "Xenova/whisper-small", wasmPaths: new URL(__WHISPER__.ortDir, window.location.href).href, wasmParts: __WHISPER__.wasm },
+          manifest: __WHISPER__,
+          importTransformers: loadAsr,
+        }
+      : null,
   }))();
   return deps;
 }

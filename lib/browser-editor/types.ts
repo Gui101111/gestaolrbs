@@ -12,6 +12,8 @@ export const RATIOS: readonly Ratio[] = ["9:16", "1:1", "4:5", "16:9"];
 
 export interface EditOptions {
   style: StyleId;
+  /** Edição simples: legenda bonita, cortes de pausas e vícios e zoom suave nos cortes (sem grafismos, trilha ou efeitos). */
+  simple?: boolean;
   ratios: Ratio[];
   /** Corta silêncios e respirações longas. */
   cutPauses: boolean;
@@ -82,10 +84,17 @@ export interface Interval {
   end: number;
 }
 
+/** Palavra reconhecida com o seu tempo (fonte). */
+export interface TimedWord extends Interval {
+  text: string;
+}
+
 /** Trecho da transcrição (tempo da fonte). */
 export interface Segment extends Interval {
   id: number;
   text: string;
+  /** Tempo de cada palavra, quando o reconhecimento dá (legenda sincronizada). */
+  words?: TimedWord[];
 }
 
 /** Palavra da legenda (tempo da fonte). */

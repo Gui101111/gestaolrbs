@@ -242,7 +242,7 @@ export function planMotion(p: {
 
   // palavras de destaque: pulso de zoom e um toque sutil de som
   const pulses: number[] = [];
-  if (opts.zoom || opts.effects) {
+  if (opts.effects) {
     const minGap = 1.2 / Math.min(2, Math.max(0.5, opts.energy ?? 1));
     let lastSfx = -Infinity;
     for (const w of p.words) {

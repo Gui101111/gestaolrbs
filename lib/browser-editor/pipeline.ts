@@ -1,18 +1,27 @@
 import { faceWithClaude, isSampleError, localReview, reviewWithClaude, type SampleFn } from "@/lib/browser-editor/ai";
 import { decodeAudio, detectSpeech, frameEnergy, to16k } from "@/lib/browser-editor/audio";
 import { applyReplacements, emphasize, replaceIn } from "@/lib/browser-editor/emphasis";
+import { fixSegments } from "@/lib/browser-editor/glossary";
 import { RATIO_VALUE, faceWithDetector, grabFrames, loadVideo } from "@/lib/browser-editor/framing";
 import { lookFor, type Look } from "@/lib/browser-editor/looks";
 import { localMoments, placeMoments, planMotion, type MotionPlan } from "@/lib/browser-editor/motion";
 import { bookends } from "@/lib/browser-editor/render";
 import { buildPlan, markKeywords, segmentsFromScript, toOut, wordsFromSegments, wordsToOut } from "@/lib/browser-editor/timeline";
-import { loadWhisper, loadWhisperRemote, type TransformersLike, type WhisperManifest } from "@/lib/browser-editor/transcribe";
+import { loadWhisper, loadWhisperRemote, type ModelFile, type TransformersLike, type Whisper, type WhisperManifest } from "@/lib/browser-editor/transcribe";
 import type { Analysis, EditOptions, Face, Plan, Progress, Segment, Word } from "@/lib/browser-editor/types";
 
 export interface EditorDeps {
   sample: SampleFn | null;
-  /** Modelo servido com a página (manifest) ou baixado do Hugging Face (remote). */
-  whisper: { manifest: WhisperManifest; importTransformers: () => Promise<TransformersLike> } | { remote: { modelId: string; wasmPaths: string }; importTransformers: () => Promise<TransformersLike> } | null;
+  /**
+   * Reconhecimento de fala: baixado do Hugging Face (remote, o modelo mais
+   * preciso) e/ou servido com a página (manifest). Com os dois, tenta o
+   * remoto e cai para o da página se não der para baixar.
+   */
+  whisper: {
+    remote?: { modelId: string; wasmPaths: string; wasmParts?: ModelFile };
+    manifest?: WhisperManifest;
+    importTransformers: () => Promise<TransformersLike>;
+  } | null;
 }
 
 const CENTER: Face = { x: 0.5, y: 0.42, by: "centro" };
@@ -80,9 +89,21 @@ export async function analyze(file: Blob, url: string, opts: EditOptions, deps: 
     try {
       const w = deps.whisper;
       const report = (l: number, t: number) => onProgress({ step: "transcrever", value: (l / t) * 0.35, detail: `Baixando o reconhecimento de fala: ${Math.round((l / t) * 100)}%` });
-      const whisper = "remote" in w ? await loadWhisperRemote(w.remote.modelId, w.remote.wasmPaths, w.importTransformers, report) : await loadWhisper(w.manifest, w.importTransformers, report);
+      let whisper: Whisper | null = null;
+      if (w.remote) {
+        try {
+          whisper = await loadWhisperRemote(w.remote.modelId, w.remote.wasmPaths, w.importTransformers, report, w.remote.wasmParts);
+        } catch (e) {
+          if (!w.manifest) throw e;
+          console.warn("[editor] modelo remoto indisponível; usando o da página", e);
+        }
+      }
+      if (!whisper && w.manifest) whisper = await loadWhisper(w.manifest, w.importTransformers, report);
+      if (!whisper) throw new Error("sem reconhecimento de fala");
       onProgress({ step: "transcrever", value: 0.35, detail: "Ouvindo a fala" });
       segments = await whisper.transcribe(audio, speech, (d, t) => onProgress({ step: "transcrever", value: 0.35 + 0.65 * (d / Math.max(1, t)), detail: `Ouvindo a fala: trecho ${Math.min(d + 1, t)} de ${t}` }), signal);
+      // termos do Direito que o reconhecimento costuma errar (INSS, auxílio-doença...)
+      segments = fixSegments(segments);
       transcriptBy = segments.length ? "whisper" : "nenhum";
     } catch (e) {
       if ((e as Error)?.name === "AbortError") throw e;
@@ -145,7 +166,7 @@ export function renderInputs(analysis: Analysis, opts: EditOptions): RenderInput
   const look = lookFor(opts);
   const plan = buildPlan(a, opts, look);
   const raw = markKeywords(wordsFromSegments(a.segments, a.speech), [...(a.review?.keywords ?? []), ...(opts.extraKeywords ?? [])]);
-  const cut = new Set(opts.removeMistakes ? (a.review?.cutIds ?? []) : []);
+  const cut = new Set(opts.removeMistakes && !opts.simple ? (a.review?.cutIds ?? []) : []);
   const kept = cut.size ? raw.filter((w) => !a.segments.some((s) => cut.has(s.id) && w.start >= s.start - 0.01 && w.start < s.end)) : raw;
   // destaque automático nas palavras mais fortes, sem precisar pedir
   const words = emphasize(wordsToOut(kept, plan.keep), opts.energy ?? 1);

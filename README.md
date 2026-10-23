@@ -1,7 +1,9 @@
 # TRIBUNA — edição de vídeo com IA para advogados
 
-SaaS que transforma vídeos brutos gravados por advogados em vídeos profissionais para Reels, TikTok, Shorts, Stories, Feed, Meta Ads, YouTube e LinkedIn.
-O advogado envia o vídeo, escolhe objetivo, área, estilo e formato, e recebe o MP4 pronto na plataforma.
+SaaS que transforma vídeos brutos gravados por advogados em vídeos prontos para Reels, TikTok, Shorts e YouTube.
+O advogado só envia o vídeo, sem responder nada, e recebe o MP4 editado: legendas precisas (com os termos do Direito, como INSS, auxílio-doença e auxílio-acidente), cortes de pausas e vícios de fala e zoom suave nos cortes. O formato segue o vídeo (em pé → 9:16, deitado → 16:9).
+
+**Como a edição funciona (no navegador de quem envia, sem custo de servidor):** o Whisper *small* (transformers.js) transcreve com um contexto de termos jurídicos e dá o tempo de cada palavra; um corretor de termos (`lib/browser-editor/glossary.ts`) acerta as grafias que ainda escapam; os vícios ("ééé", "né", palavra repetida, frase recomeçada) e as pausas saem sem IA (`lib/browser-editor/mistakes.ts`); com `ANTHROPIC_API_KEY`, o Claude ainda revisa o texto da legenda. Pedidos de ajuste ("legenda maior", "corta do 0:10 ao 0:15", "troque X por Y") refazem o vídeo.
 
 > O nome **TRIBUNA** é provisório. Nome, slogan, contatos, redes e números da landing ficam em [`config/site.ts`](config/site.ts).
 

@@ -56,8 +56,7 @@ async function process(jobId: string) {
     if (!blob) throw new Error("O vídeo original não está mais guardado neste navegador. Envie de novo para editar.");
     const brand = db.rows("brand_kits").find((b) => b.user_id === uid);
     const profile = db.rows("profiles").find((p) => p.id === uid);
-    const logoBlob = brand?.logo_path ? await getFile(`brand-assets/${brand.logo_path}`) : null;
-    let opts = optionsFor(project, brand, profile, logoBlob);
+    let opts = optionsFor(project, brand, profile);
     const deps = await getEditorDeps();
     const url = URL.createObjectURL(blob);
     const signal = new AbortController().signal;

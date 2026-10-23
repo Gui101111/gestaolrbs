@@ -1,4 +1,5 @@
 import { cuttableSilences } from "@/lib/browser-editor/audio";
+import { localMistakes } from "@/lib/browser-editor/mistakes";
 import type { Analysis, EditOptions, Interval, Plan, Segment, Word } from "@/lib/browser-editor/types";
 import type { Look } from "@/lib/browser-editor/looks";
 
@@ -39,7 +40,13 @@ export function buildPlan(a: Analysis, opts: EditOptions, look: Look): Plan {
     cuts.push(...sil);
   }
   let cutsMistakes = 0;
-  if (opts.removeMistakes && a.review?.cutIds.length) {
+  if (opts.removeMistakes) {
+    // vícios ("ééé", "né", palavra repetida, frase recomeçada) pelo tempo de cada palavra, sem IA
+    const local = localMistakes(a.segments);
+    cuts.push(...local);
+    cutsMistakes += local.length;
+  }
+  if (opts.removeMistakes && !opts.simple && a.review?.cutIds.length) {
     const starts = a.speech.map((s) => s.start);
     const ends = a.speech.map((s) => s.end);
     for (const id of a.review.cutIds) {
@@ -123,7 +130,8 @@ function distribute(text: string, start: number, end: number, speech: Interval[]
 
 /** Palavras com tempo (da fonte) a partir dos trechos da transcrição. */
 export function wordsFromSegments(segments: Segment[], speech: Interval[]): Word[] {
-  return segments.flatMap((s) => distribute(s.text, s.start, s.end, speech));
+  // com o tempo de cada palavra (Whisper), a legenda acompanha a fala exata
+  return segments.flatMap((s) => (s.words?.length ? s.words.map((w) => ({ text: w.text, start: w.start, end: w.end })) : distribute(s.text, s.start, s.end, speech)));
 }
 
 /**

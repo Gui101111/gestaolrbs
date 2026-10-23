@@ -6,6 +6,7 @@
  */
 import { reviseWithClaude, type SampleFn } from "@/lib/browser-editor/ai";
 import { CAPTION_Y } from "@/lib/browser-editor/draw";
+import { withText } from "@/lib/browser-editor/glossary";
 import { renderInputs } from "@/lib/browser-editor/pipeline";
 import { bookends } from "@/lib/browser-editor/render";
 import { toSource } from "@/lib/browser-editor/timeline";
@@ -394,6 +395,8 @@ export function applyIntent(opts: EditOptions, it: Intent, ctx: { toSrc: (out: n
   }
   if (it.newMusic) o.musicSeed = (opts.musicSeed ?? 0) + 1;
   if (it.animation) o.energy = clampN((opts.energy ?? 1) * (it.animation === "mais" ? 1.5 : 0.6), 0.4, 2.2);
+  // a edição simples não tem grafismos nem estilos: pedir isso troca para a edição completa
+  if (o.simple && (it.set.style || it.animation === "mais" || it.set.effects)) Object.assign(o, { simple: false, effects: true });
   if (it.keywords?.length) o.extraKeywords = [...new Set([...(opts.extraKeywords ?? []), ...it.keywords])].slice(-20);
   if (it.replace?.length) o.replacements = [...(opts.replacements ?? []), ...it.replace].slice(-30);
   if (it.shorter) Object.assign(o, { cutPauses: true, removeMistakes: true });
@@ -446,7 +449,7 @@ export async function applyRequest(p: {
       if (r.fixes.length) {
         const segs = analysis.segments.map((s) => {
           const f = r.fixes.find((x) => x.id === s.id);
-          return f ? { ...s, text: f.text } : s;
+          return f ? withText(s, f.text) : s;
         });
         analysis = { ...analysis, segments: segs, review: analysis.review ? { ...analysis.review, segments: segs } : null };
       }

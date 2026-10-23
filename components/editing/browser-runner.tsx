@@ -93,7 +93,8 @@ function loadAsr(): Promise<TransformersLike> {
 
 const deps = (): EditorDeps => ({
   sample: serverSample(),
-  whisper: { remote: { modelId: "Xenova/whisper-base", wasmPaths: "/vendor/asr/" }, importTransformers: loadAsr },
+  // "small": bem mais preciso nos termos jurídicos (INSS, auxílio-doença); baixa ~250 MB na primeira vez
+  whisper: { remote: { modelId: "Xenova/whisper-small", wasmPaths: "/vendor/asr/" }, importTransformers: loadAsr },
 });
 
 /** O que guardamos do job para ajustes futuros (sem refazer a transcrição). */
@@ -258,8 +259,7 @@ async function processJob(
     if (!res.ok) throw new Error("Não foi possível baixar o vídeo enviado.");
     blob = await res.blob();
   }
-  const logoBlob = brand?.logo_path ? ((await supabase.storage.from(BUCKETS.brand).download(brand.logo_path)).data ?? null) : null;
-  let opts = optionsFor(project as unknown as Record<string, unknown>, brand as unknown as Record<string, unknown> | null, profile as unknown as Record<string, unknown> | null, logoBlob);
+  let opts = optionsFor(project as unknown as Record<string, unknown>, brand as unknown as Record<string, unknown> | null, profile as unknown as Record<string, unknown> | null);
   const d = deps();
   const url = URL.createObjectURL(blob);
   const signal = new AbortController().signal;
