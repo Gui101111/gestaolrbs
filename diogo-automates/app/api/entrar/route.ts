@@ -8,6 +8,13 @@ function safeBack(value: string): string {
   return value.startsWith("/") && !value.startsWith("//") && !value.startsWith("/\\") ? value : "/";
 }
 
+/**
+ * Failed attempts wait in a single queue, one per second across all clients, so
+ * opening many connections at once doesn't speed up guessing over a public link.
+ * The right password never waits behind them.
+ */
+let failures: Promise<void> = Promise.resolve();
+
 function redirect(location: string): NextResponse {
   return new NextResponse(null, { status: 303, headers: { Location: location } });
 }
@@ -21,8 +28,8 @@ export async function POST(req: Request) {
   if (!password) return redirect(back);
 
   if (!safeEqual(given, password)) {
-    // Slows down guessing from another device on the network.
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    failures = failures.then(() => new Promise<void>((resolve) => setTimeout(resolve, 1000)));
+    await failures;
     return redirect(`/entrar?erro=1&voltar=${encodeURIComponent(back)}`);
   }
 

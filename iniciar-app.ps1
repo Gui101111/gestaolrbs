@@ -1,4 +1,4 @@
-﻿param([switch]$SemAbrirNavegador, [switch]$Celular)
+﻿param([switch]$SemAbrirNavegador, [switch]$Celular, [switch]$ExigirSenha)
 $ErrorActionPreference = 'Stop'
 $appDirectory = Join-Path $PSScriptRoot 'diogo-automates'
 $installedNode = Get-Command node -ErrorAction SilentlyContinue
@@ -22,8 +22,8 @@ function Get-AppPassword {
 # Letters and digits only: .env files treat $, # and quotes specially.
 function New-AppPassword {
     do {
-        $password = Read-Host 'Crie uma senha para o acesso pelo celular (minimo 6 letras ou numeros)'
-    } until ($password -match '^[A-Za-z0-9]{6,}$')
+        $password = Read-Host 'Crie uma senha para o acesso pelo celular (minimo 8 letras ou numeros)'
+    } until ($password -match '^[A-Za-z0-9]{8,}$')
     $prefix = ''
     if ((Test-Path -LiteralPath $envFile) -and -not ([System.IO.File]::ReadAllText($envFile)).EndsWith("`n")) { $prefix = "`r`n" }
     # AppendAllText writes UTF-8 without a BOM, which would otherwise corrupt the first key.
@@ -46,7 +46,7 @@ function Open-FirewallPort {
 
 try {
     $appPassword = Get-AppPassword
-    if ($Celular -and -not $appPassword) { $appPassword = New-AppPassword }
+    if (($Celular -or $ExigirSenha) -and -not $appPassword) { $appPassword = New-AppPassword }
     $existing = netstat -ano -p tcp | Select-String '(127\.0\.0\.1|0\.0\.0\.0):3002\s+.*LISTENING'
     if ($existing) {
         try { $health = Invoke-RestMethod $healthUrl -TimeoutSec 5 } catch { throw 'Existe uma versao antiga ou outro aplicativo na porta 3002. Execute Reiniciar-app.cmd.' }

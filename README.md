@@ -28,7 +28,7 @@ estar ligado com o app aberto.
 ### No mesmo Wi-Fi (Windows)
 
 1. Execute `Iniciar-app-celular.cmd`.
-2. Na primeira vez, crie uma senha de acesso (mínimo 6 letras ou números) e confirme o
+2. Na primeira vez, crie uma senha de acesso (mínimo 8 letras ou números) e confirme o
    pedido de administrador, que libera a porta 3002 no Firewall do Windows. Se aparecer o
    aviso do Firewall sobre o Node.js, clique em **Permitir acesso**.
 3. A janela mostra o endereço, por exemplo `http://192.168.0.10:3002`. Abra esse
@@ -41,7 +41,19 @@ nas configurações de rede.
 Se o celular não abrir a página: confira se os dois aparelhos estão no mesmo Wi-Fi (redes
 de convidados costumam isolar os aparelhos) e se o Firewall do Windows permite o Node.js.
 
-### Fora de casa (4G ou outra rede)
+### Link para abrir de qualquer lugar (Windows)
+
+1. Execute `Gerar-link-celular.cmd`. Na primeira vez ele pede a senha de acesso, se ainda
+   não houver uma, e baixa o `cloudflared`, programa oficial da Cloudflare.
+2. Em alguns segundos ele mostra um link `https://....trycloudflare.com`, já copiado
+   para a área de transferência, e abre no navegador uma página com o QR code do link.
+3. Aponte a câmera do celular para o QR code, toque no link e digite a senha. Funciona
+   no Wi-Fi ou no 4G.
+
+O link funciona enquanto a janela do atalho estiver aberta, e cada execução gera um link
+novo. Qualquer pessoa com o link chega à tela de senha, por isso use uma senha forte.
+
+### Fora de casa com endereço fixo e privado
 
 Use o [Tailscale](https://tailscale.com), gratuito para uso pessoal: crie uma rede
 privada entre o computador e o celular, sem expor o app na internet.
@@ -60,3 +72,5 @@ privada entre o computador e o celular, sem expor o app na internet.
 - Acesso pelo celular: `Iniciar-app-celular.cmd`, senha de acesso opcional
   (`APP_PASSWORD`) e reprodução de vídeos no iPhone. O Safari exige respostas
   parciais (byte ranges), que a rota de mídia não suportava.
+- `Gerar-link-celular.cmd`: link público via Cloudflare, copiado automaticamente e
+  exibido em QR code. Tentativas de senha erradas ficam limitadas a uma por segundo.

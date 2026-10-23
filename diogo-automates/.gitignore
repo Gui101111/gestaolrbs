@@ -46,3 +46,6 @@ next-env.d.ts
 
 # local generation database and downloaded media
 /storage
+
+# cloudflared.exe, downloaded by gerar-link-celular.ps1
+/tools/

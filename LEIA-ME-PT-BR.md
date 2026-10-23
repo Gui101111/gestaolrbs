@@ -37,7 +37,10 @@ Com o celular no mesmo Wi-Fi do computador, execute Iniciar-app-celular.cmd no W
 Na primeira vez ele pede uma senha de acesso e a permissão de administrador para liberar
 a porta 3002 no firewall. Depois mostra o endereço para abrir no celular, como
 http://192.168.0.10:3002. Se o Windows perguntar se o Node.js pode acessar a rede, clique em Permitir.
-Consulte README.md para mais opções, incluindo o acesso fora de casa.
+
+Para abrir de qualquer lugar, inclusive no 4G, execute Gerar-link-celular.cmd. Ele cria um link
+https://....trycloudflare.com, copia o link e abre um QR code para escanear com o celular.
+O link funciona enquanto a janela do atalho estiver aberta. Consulte README.md para mais detalhes.
 
 ## Valores em reais
 
