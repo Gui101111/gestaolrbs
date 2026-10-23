@@ -37,17 +37,13 @@ export function ProjectsBrowser({
   path,
   subfolders,
   videos,
-  view,
   searching,
-  filtered,
 }: {
   folder: { id: string; name: string; color: string; depth: number } | null;
   path: Crumb[];
   subfolders: FolderCardData[];
   videos: ProjectListItem[];
-  view: "grade" | "lista";
   searching: boolean;
-  filtered: boolean;
 }) {
   const router = useRouter();
   const [selected, setSelected] = React.useState<string[]>([]);
@@ -102,7 +98,7 @@ export function ProjectsBrowser({
         )}
       </div>
 
-      <BrowserToolbar folderId={folder?.id ?? null} canCreateFolder={canCreateFolder} onNewFolder={() => setNewFolder(true)} view={view} />
+      <BrowserToolbar folderId={folder?.id ?? null} canCreateFolder={canCreateFolder} onNewFolder={() => setNewFolder(true)} />
 
       {searching && <p className="text-sm text-fg-3">Buscando em todas as pastas.</p>}
 
@@ -118,7 +114,7 @@ export function ProjectsBrowser({
       )}
 
       {empty ? (
-        <EmptyBrowser folderId={folder?.id ?? null} filtered={filtered || searching} canCreateFolder={canCreateFolder} onNewFolder={() => setNewFolder(true)} />
+        <EmptyBrowser folderId={folder?.id ?? null} filtered={searching} canCreateFolder={canCreateFolder} onNewFolder={() => setNewFolder(true)} />
       ) : videos.length > 0 ? (
         <section aria-label="Vídeos">
           <div className="mb-3 flex items-center justify-between px-1">
@@ -126,43 +122,26 @@ export function ProjectsBrowser({
             <button
               type="button"
               onClick={() => setSelected(visibleSelected.length === videos.length ? [] : videos.map((v) => v.id))}
-              className="text-xs font-semibold text-fg-3 transition hover:text-cyan"
+              className="min-h-10 px-1 text-xs font-semibold text-fg-3 transition hover:text-cyan"
             >
               {visibleSelected.length === videos.length ? "Desmarcar todos" : "Selecionar todos"}
             </button>
           </div>
           <p className="mb-3 hidden px-1 text-xs text-fg-3 lg:block">Arraste vídeos para uma pasta. Clique com o botão direito para mais ações.</p>
-          {view === "lista" ? (
-            <div className="space-y-2">
-              {videos.map((p) => (
-                <VideoCard
-                  key={p.id}
-                  project={p}
-                  layout="list"
-                  selectable
-                  selected={visibleSelected.includes(p.id)}
-                  onToggleSelect={toggle}
-                  draggable
-                  dragIds={visibleSelected}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {videos.map((p, i) => (
-                <VideoCard
-                  key={p.id}
-                  project={p}
-                  index={i}
-                  selectable
-                  selected={visibleSelected.includes(p.id)}
-                  onToggleSelect={toggle}
-                  draggable
-                  dragIds={visibleSelected}
-                />
-              ))}
-            </div>
-          )}
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {videos.map((p, i) => (
+              <VideoCard
+                key={p.id}
+                project={p}
+                index={i}
+                selectable
+                selected={visibleSelected.includes(p.id)}
+                onToggleSelect={toggle}
+                draggable
+                dragIds={visibleSelected}
+              />
+            ))}
+          </div>
         </section>
       ) : null}
 
@@ -308,13 +287,13 @@ function EmptyBrowser({
         {filtered ? "Nada encontrado." : folderId ? "Pasta vazia." : "Nenhum vídeo ainda."}
       </p>
       <p className="relative mt-1 text-sm text-fg-2">
-        {filtered ? "Ajuste a busca ou os filtros." : folderId ? "Crie um vídeo aqui ou arraste vídeos para esta pasta." : "Envie a primeira gravação."}
+        {filtered ? "Tente outro nome." : folderId ? "Envie um vídeo aqui ou arraste vídeos para esta pasta." : "Envie a primeira gravação."}
       </p>
       {!filtered && (
         <div className="relative mt-6 flex flex-wrap justify-center gap-2">
           <Button asChild variant="gold">
             <Link href={folderId ? `${ROUTES.newVideo}?pasta=${folderId}` : ROUTES.newVideo}>
-              <Plus /> {folderId ? "Novo vídeo nesta pasta" : "Criar meu primeiro vídeo"}
+              <Plus /> {folderId ? "Enviar vídeo nesta pasta" : "Enviar meu primeiro vídeo"}
             </Link>
           </Button>
           {canCreateFolder && (

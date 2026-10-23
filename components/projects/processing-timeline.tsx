@@ -101,10 +101,10 @@ export function ProcessingTimeline({ projectId, initialJob, projectStatus }: { p
             {failed
               ? "O processamento foi interrompido. Nossa equipe já foi avisada — você pode aguardar a nova tentativa ou falar com o suporte."
               : status === "queued" && current === 0
-                ? "Seu vídeo está na fila. Você pode fechar esta página — avisaremos por e-mail quando estiver pronto."
+                ? "Seu vídeo entrou na fila. Avisaremos aqui no sino quando estiver pronto."
                 : (PIPELINE_STEPS[current]?.description ?? "")}
           </p>
-          {job?.kind === "revision" && !failed && <p className="mt-3 text-xs text-cyan">Aplicando o ajuste solicitado</p>}
+          {job?.kind === "revision" && !failed && <p className="mt-3 text-xs text-cyan">Aplicando o ajuste pedido</p>}
         </div>
       </div>
 

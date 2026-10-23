@@ -4,41 +4,30 @@
  * Trechos entre *asteriscos* viram o acento serifado com degradê.
  */
 export const landing = {
-  nav: [
-    { tab: "exemplos", label: "Exemplos" },
-    { tab: "como-funciona", label: "Como funciona" },
-    { tab: "planos", label: "Planos" },
-  ],
   hero: {
-    chip: "Edição de vídeo com IA para advogados",
-    title: "Vídeos jurídicos *editados* por IA.",
-    subtitle: "Envie a gravação. Receba pronta para Reels, TikTok, YouTube e anúncios.",
-    primary: "Criar meu primeiro vídeo",
-    secondary: "Ver exemplos",
+    chip: "Edição automática para advogados",
+    title: "Envie o vídeo. A TRIBUNA *edita sozinha*.",
+    subtitle: "Legendas certinhas, cortes de pausas e vícios, pronto para Reels e TikTok.",
+    primary: "Criar conta grátis",
+    secondary: "Entrar",
+    app: "Abrir o app",
     seals: [
-      { icon: "landmark", label: "OAB 205/2021" },
+      { icon: "captions", label: "Legendas certinhas" },
+      { icon: "scissors", label: "Sem pausas e vícios" },
       { icon: "lock", label: "Sigilo e LGPD" },
-      { icon: "ratio", label: "4 formatos" },
     ],
-    chips: ["9:16", "Legenda", "Corte", "OAB ✓"],
+    chips: ["9:16", "Legenda", "Corte", "Pronto ✓"],
   },
-  explore: {
-    eyebrow: "Explorar",
-    tabs: [
-      { id: "exemplos", label: "Exemplos", title: "Feitos com a *TRIBUNA*.", accent: "cyan" },
-      { id: "como-funciona", label: "Como funciona", title: "Três *passos*.", accent: "cyan" },
-      { id: "estilos", label: "Estilos", title: "Um tom para cada *vídeo*.", accent: "violet" },
-      { id: "formatos", label: "Formatos", title: "Um vídeo. Todas as *telas*.", accent: "blue" },
-      { id: "planos", label: "Planos", title: "Sem *fidelidade*.", accent: "gold" },
-      { id: "duvidas", label: "Dúvidas", title: "Dúvidas *rápidas*.", accent: "gold" },
+  steps: {
+    eyebrow: "Como funciona",
+    title: "Três *passos*. Nenhuma pergunta.",
+    items: [
+      { icon: "upload", title: "Envie o vídeo", text: "Do celular ou do computador, do jeito que gravou." },
+      { icon: "scissors", title: "A TRIBUNA corta e legenda", text: "Tira pausas e vícios e coloca legendas certinhas." },
+      { icon: "download", title: "Baixe e publique", text: "Vertical, pronto para Reels e TikTok." },
     ],
   },
-  steps: [
-    { icon: "upload", title: "Envie o vídeo", text: "Do celular ou da câmera." },
-    { icon: "palette", title: "Escolha estilo e formato", text: "Poucas escolhas, bons padrões." },
-    { icon: "download", title: "Baixe pronto", text: "MP4 em cada formato." },
-  ],
-  /** Nome curto de cada estilo na landing. */
+  /** Nome curto de cada estilo (editor rápido no navegador). */
   styleNames: {
     institucional: "Institucional",
     dinamico: "Dinâmico",
@@ -46,7 +35,7 @@ export const landing = {
     performance: "Meta Ads",
     descontraido: "Descontraído",
   } as Record<string, string>,
-  /** Descrição curta (até 8 palavras) por estilo de edição. */
+  /** Descrição curta (até 8 palavras) por estilo de edição (editor rápido no navegador). */
   styles: {
     institucional: "Trilha calma, cartões elegantes e transições suaves.",
     dinamico: "Zooms, ícones animados, trilha leve e efeitos.",
@@ -54,22 +43,9 @@ export const landing = {
     performance: "Gancho forte, números grandes e batida.",
     descontraido: "Adesivos animados, trilha alegre, legenda que pula.",
   } as Record<string, string>,
-  formats: [
-    { ratio: "9:16", platforms: ["tiktok", "instagram", "youtube"], label: "Reels, TikTok, Shorts" },
-    { ratio: "1:1", platforms: ["instagram", "linkedin"], label: "Feed e LinkedIn" },
-    { ratio: "4:5", platforms: ["instagram", "meta"], label: "Feed e Meta Ads" },
-    { ratio: "16:9", platforms: ["youtube", "linkedin"], label: "YouTube e LinkedIn" },
-  ],
-  plans: {
-    empty: "Planos em breve",
-    emptyHint: "Deixe seu e-mail e avisamos.",
-    soon: "Valor em breve",
-    featured: "Recomendado",
-    trial: "1 vídeo de avaliação ao criar a conta.",
-  },
   cta: {
     title: "Sua próxima gravação vira *conteúdo*.",
-    button: "Começar agora",
+    button: "Criar conta grátis",
   },
   cookies: {
     text: "Usamos cookies essenciais.",
@@ -77,5 +53,3 @@ export const landing = {
     more: "Saiba mais",
   },
 } as const;
-
-export type ExploreTabId = (typeof landing.explore.tabs)[number]["id"];

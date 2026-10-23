@@ -1,18 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { ProcessingTimeline } from "@/components/projects/processing-timeline";
 import { ProjectResult, type ResultRender } from "@/components/projects/project-result";
+import { ProjectActionsMenu } from "@/components/projects/project-actions";
 import { StatusBadge } from "@/components/projects/status-badge";
-import { StatusTrack } from "@/components/projects/status-track";
-import { ComplianceAlerts, type ComplianceAlert } from "@/components/projects/compliance-alerts";
-import { ProjectBriefing } from "@/components/projects/project-briefing";
-import { folderPath } from "@/components/folders/folder-colors";
+import { TargetBadge } from "@/components/projects/target-badge";
 import { requireOnboardedProfile } from "@/lib/auth/dal";
 import { createClient } from "@/lib/supabase/server";
-import { signedUrl, signedUrlMap } from "@/services/storage";
-import { BUCKETS, EDITING_STYLES, labelOf } from "@/lib/constants/domain";
+import { signedUrlMap } from "@/services/storage";
+import { BUCKETS, videoTargetOf } from "@/lib/constants/domain";
 import { ROUTES } from "@/lib/routes";
 import { formatDateTime } from "@/lib/utils";
 
@@ -33,24 +31,22 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
   const supabase = await createClient();
   const { data: project } = await supabase.from("projects").select("*").eq("id", id).maybeSingle();
   if (!project || project.user_id !== user.id) notFound();
+  // Envio que não terminou: volta para a tela de envio
   if (project.status === "draft") redirect(`${ROUTES.newVideo}?id=${id}`);
 
-  const [{ data: job }, { data: renders }, { data: original }, { data: revisions }, { data: sub }, { data: folders }] = await Promise.all([
+  const [{ data: job }, { data: renders }, { data: folder }] = await Promise.all([
     supabase
       .from("render_jobs")
-      .select("id, status, progress, current_step, error_message, kind, updated_at, compliance_flags")
+      .select("id, status, progress, current_step, error_message, kind, updated_at")
       .eq("project_id", id)
       .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle(),
     supabase.from("renders").select("*").eq("project_id", id).order("version", { ascending: false }),
-    supabase.from("project_files").select("*").eq("project_id", id).eq("kind", "original").maybeSingle(),
-    supabase.from("project_revisions").select("*").eq("project_id", id).order("created_at", { ascending: false }),
-    supabase.from("subscriptions").select("plan_id").eq("user_id", user.id).maybeSingle(),
-    supabase.from("folders").select("id, name, parent_id").eq("owner_id", user.id),
+    project.folder_id ? supabase.from("folders").select("id, name").eq("id", project.folder_id).maybeSingle() : Promise.resolve({ data: null }),
   ]);
 
-  const path = folderPath(folders ?? [], project.folder_id);
+  const target = videoTargetOf(project.platforms);
   const done = project.status === "ready" || project.status === "completed";
   let content: React.ReactNode;
 
@@ -61,12 +57,11 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
       (renders ?? []).flatMap((r) => [r.storage_path, r.thumbnail_path]),
       60 * 60 * 2,
     );
-    const [originalUrl, poster] = await Promise.all([
-      original ? signedUrl(supabase, original.bucket, original.storage_path, { expiresIn: 60 * 60 * 2 }) : null,
-      signedUrl(supabase, BUCKETS.thumbnails, project.thumbnail_path),
-    ]);
+    // Limite de ajustes só com assinatura paga ativa (fase de testes: sem limite)
     let revisionsLeft: number | null = null;
-    if (sub?.plan_id) {
+    const { data: sub } = await supabase.from("subscriptions").select("plan_id, status, current_period_end").eq("user_id", user.id).maybeSingle();
+    const paid = sub?.status === "active" && (!sub.current_period_end || new Date(sub.current_period_end) > new Date());
+    if (paid && sub?.plan_id) {
       const { data: plan } = await supabase.from("plans").select("revisions_per_video").eq("id", sub.plan_id).maybeSingle();
       if (plan) revisionsLeft = Math.max(0, plan.revisions_per_video - project.revisions_used);
     }
@@ -83,63 +78,47 @@ export default async function VideoPage({ params }: { params: Promise<{ id: stri
       createdAt: r.created_at,
       poster: r.thumbnail_path ? (urls.get(r.thumbnail_path) ?? null) : null,
     }));
-    const ow = original?.width ?? project.source_width;
-    const oh = original?.height ?? project.source_height;
-    content = (
-      <ProjectResult
-        project={{ id: project.id, name: project.name, status: project.status, completedAt: project.completed_at, updatedAt: project.updated_at }}
-        renders={list}
-        original={{ url: originalUrl, poster, aspect: ow && oh ? `${ow}:${oh}` : "16:9" }}
-        revisionsLeft={revisionsLeft}
-        styleLabel={labelOf(EDITING_STYLES, project.editing_style)}
-      />
-    );
-    const alerts = Array.isArray(job?.compliance_flags) ? (job.compliance_flags as unknown as ComplianceAlert[]) : [];
-    if (alerts.length) {
-      content = (
-        <div className="space-y-8">
-          {content}
-          <ComplianceAlerts alerts={alerts} />
-        </div>
-      );
-    }
+    content = <ProjectResult project={{ id: project.id, name: project.name }} renders={list} revisionsLeft={revisionsLeft} target={target} />;
   } else {
     content = (
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl text-fg md:text-4xl">{project.name}</h1>
-          {project.submitted_at && <p className="mt-1 text-sm text-fg-3">Enviado em {formatDateTime(project.submitted_at)}</p>}
+          <p className="mt-2 flex flex-wrap items-center gap-2 text-sm text-fg-3">
+            {target && <TargetBadge target={target} />}
+            {project.submitted_at && <span>Enviado em {formatDateTime(project.submitted_at)}</span>}
+          </p>
         </div>
-        <StatusTrack status={project.status} className="max-w-xl" />
         <ProcessingTimeline projectId={project.id} initialJob={job ?? null} projectStatus={project.status} />
       </div>
     );
   }
 
+  const back = folder ? { href: ROUTES.folder(folder.id), label: folder.name } : { href: ROUTES.projects, label: "Projetos" };
+
   return (
-    <div className="space-y-8 pt-2 pb-8">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <nav aria-label="Caminho" className="flex min-w-0 flex-wrap items-center gap-1 text-sm">
-          <Link href={ROUTES.projects} className="rounded-lg px-2 py-1 text-fg-3 transition hover:bg-fg/[0.05] hover:text-fg">
-            Projetos
-          </Link>
-          {path.map((f) => (
-            <span key={f.id} className="flex items-center gap-1">
-              <ChevronRight className="size-3.5 text-fg-3" />
-              <Link href={ROUTES.folder(f.id)} className="rounded-lg px-2 py-1 text-fg-3 transition hover:bg-fg/[0.05] hover:text-fg">
-                {f.name}
-              </Link>
-            </span>
-          ))}
-          <ChevronRight className="size-3.5 text-fg-3" />
-          <span className="max-w-[16rem] truncate px-2 py-1 font-semibold text-fg" aria-current="page">
-            {project.name}
-          </span>
-        </nav>
-        <StatusBadge status={project.status} />
+    <div className="space-y-6 pt-2 pb-8">
+      <div className="flex items-center justify-between gap-3">
+        <Link
+          href={back.href}
+          className="flex min-h-10 min-w-0 items-center gap-1 rounded-full pr-3 pl-1.5 text-sm font-semibold text-fg-3 transition hover:bg-fg/[0.05] hover:text-fg"
+        >
+          <ChevronLeft className="size-4 shrink-0" /> <span className="truncate">{back.label}</span>
+        </Link>
+        <div className="flex shrink-0 items-center gap-2">
+          <StatusBadge status={project.status} />
+          <ProjectActionsMenu
+            id={project.id}
+            name={project.name}
+            status={project.status}
+            canDownload={done}
+            folderId={project.folder_id}
+            inPage
+            triggerClassName="glass grid size-10 place-items-center rounded-full text-fg-2 transition hover:border-cyan/40 hover:text-fg data-[state=open]:border-cyan/60"
+          />
+        </div>
       </div>
       {content}
-      <ProjectBriefing project={project} revisions={revisions ?? []} />
     </div>
   );
 }

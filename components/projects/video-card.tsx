@@ -9,7 +9,7 @@ import { StatusBadge } from "@/components/projects/status-badge";
 import { ProjectActionsMenu, ProjectContextMenu } from "@/components/projects/project-actions";
 import { onSpotlightMove } from "@/components/effects/spotlight";
 import { ProgressRing } from "@/components/effects/progress-ring";
-import { EDITING_STATUSES, PIPELINE_STEPS } from "@/lib/constants/domain";
+import { EDITING_STATUSES, PIPELINE_STEPS, videoTargetOf } from "@/lib/constants/domain";
 import { ROUTES } from "@/lib/routes";
 import { cn, formatDuration } from "@/lib/utils";
 import type { ProjectListItem } from "@/services/projects/queries";
@@ -43,6 +43,9 @@ export function VideoCard({
   const tilt = useTilt();
   const step = PIPELINE_STEPS.find((s) => s.value === project.job?.current_step);
   const progress = project.job?.progress ?? 0;
+  // Reels ou TikTok no lugar da proporção (vídeos antigos mostram a proporção)
+  const target = videoTargetOf(project.platforms);
+  const formats = target ? [target.short] : project.aspect_ratios;
 
   const dragProps = draggable
     ? {
@@ -83,7 +86,7 @@ export function VideoCard({
             </span>
           </span>
           <span className="hidden gap-1 md:flex">
-            {project.aspect_ratios.map((r) => (
+            {formats.map((r) => (
               <span key={r} className="rounded-md border border-line px-1.5 py-0.5 font-mono text-[0.625rem] text-fg-2">
                 {r}
               </span>
@@ -148,7 +151,7 @@ export function VideoCard({
               </span>
             )}
             <div className="absolute bottom-3 left-3 flex gap-1">
-              {project.aspect_ratios.map((r) => (
+              {formats.map((r) => (
                 <span key={r} className="rounded-md bg-black/55 px-1.5 py-0.5 font-mono text-[0.625rem] font-semibold text-white backdrop-blur">
                   {r}
                 </span>

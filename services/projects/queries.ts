@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
-import { BUCKETS, LIBRARY_FILTERS, STATUS_GROUPS } from "@/lib/constants/domain";
+import { BUCKETS, LIBRARY_FILTERS } from "@/lib/constants/domain";
 import { signedUrlMap } from "@/services/storage";
 import type { Plan, Project, RenderJob, Subscription, Usage } from "@/types/domain";
 
@@ -40,18 +40,10 @@ export async function listProjects(opts: { filter?: string; q?: string; limit?: 
 }
 
 /**
- * Vídeos de uma pasta (ou da raiz com folderId = null).
+ * Vídeos de uma pasta (ou da raiz com folderId = null), mais recentes primeiro.
  * Com busca por nome, procura em todas as pastas.
  */
-export async function listFolderProjects(opts: {
-  userId: string;
-  folderId: string | null;
-  q?: string;
-  status?: string;
-  format?: string;
-  area?: string;
-  sort?: string;
-}) {
+export async function listFolderProjects(opts: { userId: string; folderId: string | null; q?: string }) {
   const supabase = await createClient();
   let query = supabase.from("projects").select("*").eq("user_id", opts.userId);
   const q = opts.q?.replace(/[%_,()]/g, "").trim();
@@ -59,26 +51,7 @@ export async function listFolderProjects(opts: {
   else if (opts.folderId) query = query.eq("folder_id", opts.folderId);
   else query = query.is("folder_id", null);
 
-  const group = STATUS_GROUPS.find((g) => g.value === opts.status);
-  if (group) query = query.in("status", [...group.statuses]);
-  if (opts.format && ["9:16", "1:1", "4:5", "16:9"].includes(opts.format)) query = query.contains("aspect_ratios", [opts.format]);
-  if (opts.area) query = query.eq("legal_area", opts.area);
-
-  switch (opts.sort) {
-    case "antigos":
-      query = query.order("created_at", { ascending: true });
-      break;
-    case "nome":
-      query = query.order("name", { ascending: true });
-      break;
-    case "duracao":
-      query = query.order("source_duration_sec", { ascending: false, nullsFirst: false });
-      break;
-    default:
-      query = query.order("updated_at", { ascending: false });
-  }
-
-  const { data, error } = await query.limit(300);
+  const { data, error } = await query.order("updated_at", { ascending: false }).limit(300);
   if (error) throw new Error("projects_list_failed");
   return withThumbs(data ?? []);
 }
@@ -106,6 +79,20 @@ export async function getBillingInfo(userId: string): Promise<BillingInfo> {
     (subscription.status === "active" || subscription.status === "trialing") &&
     (!subscription.current_period_end || new Date(subscription.current_period_end) > new Date());
   return { subscription: subscription ?? null, plan, usage: (usage as Usage | null) ?? null, active };
+}
+
+/**
+ * Limites do envio: tamanho máximo do plano (até 2 GB). A duração só limita
+ * com assinatura paga ativa (como no envio para edição); sem ela, fase de testes.
+ */
+export async function getUploadLimits(userId: string) {
+  const billing = await getBillingInfo(userId);
+  const plan = billing.active ? billing.plan : null;
+  const paid = billing.active && billing.subscription?.status === "active";
+  return {
+    maxBytes: Math.min(plan?.max_upload_mb ?? 2048, 2048) * 1024 * 1024,
+    maxDurationSec: paid ? (plan?.max_video_duration_sec ?? null) : null,
+  };
 }
 
 export async function getDashboardData(userId: string) {

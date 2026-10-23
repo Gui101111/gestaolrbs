@@ -1,107 +1,22 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
-import { Check, Moon, Save, Sun } from "lucide-react";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
-import { Field } from "@/components/ui/field";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Check, Moon, Sun } from "lucide-react";
 import { panelClass, panelTitle } from "@/components/account/profile-form";
 import { useTheme, type Theme } from "@/components/theme/theme-provider";
-import { savePreferencesAction } from "@/lib/actions/profile";
-import { EDITING_STYLES } from "@/lib/constants/domain";
 import { cn } from "@/lib/utils";
-
-export type PreferenceValues = { defaultEditingStyle: string; defaultPlatforms: string[]; emailNotifications: boolean; productNews: boolean };
-
-function useSavePrefs(initial: PreferenceValues) {
-  const router = useRouter();
-  const [v, setV] = React.useState(initial);
-  const [pending, start] = React.useTransition();
-  const save = (next?: PreferenceValues) =>
-    start(async () => {
-      const res = await savePreferencesAction(next ?? v);
-      if (!res.ok) return void toast.error(res.error);
-      toast.success("Preferências salvas.");
-      router.refresh();
-    });
-  return { v, setV, pending, save };
-}
-
-/** Padrão do Novo vídeo (aba Conta). */
-export function DefaultsPanel({ initial }: { initial: PreferenceValues }) {
-  const { v, setV, pending, save } = useSavePrefs(initial);
-  return (
-    <div className={panelClass}>
-      <h2 className={panelTitle}>Padrão do novo vídeo</h2>
-      <p className="mt-1 text-sm text-fg-3">Pré-selecionado ao criar um vídeo.</p>
-      <div className="mt-5 flex flex-wrap items-end gap-3">
-        <Field label="Estilo de edição" className="w-full max-w-xs">
-          <Select value={v.defaultEditingStyle || undefined} onValueChange={(val) => setV((s) => ({ ...s, defaultEditingStyle: val }))}>
-            <SelectTrigger aria-label="Estilo padrão">
-              <SelectValue placeholder="Sem padrão" />
-            </SelectTrigger>
-            <SelectContent>
-              {EDITING_STYLES.map((s) => (
-                <SelectItem key={s.value} value={s.value}>
-                  {s.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </Field>
-        <Button variant="subtle" onClick={() => save()} loading={pending}>
-          {!pending && <Save />} Salvar
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-/** Notificações por e-mail. */
-export function NotificationsPanel({ initial }: { initial: PreferenceValues }) {
-  const { v, setV, pending, save } = useSavePrefs(initial);
-  return (
-    <div className={panelClass}>
-      <h2 className={panelTitle}>Notificações</h2>
-      <div className="mt-3 divide-y divide-line">
-        {(
-          [
-            ["emailNotifications", "E-mails sobre meus vídeos", "Recebido, pronto e ajustes concluídos."],
-            ["productNews", "Novidades da plataforma", "No máximo uma vez por mês."],
-          ] as const
-        ).map(([key, label, desc]) => (
-          <label key={key} className="flex cursor-pointer items-center justify-between gap-4 py-4">
-            <span>
-              <span className="block text-sm font-semibold text-fg">{label}</span>
-              <span className="block text-xs text-fg-3">{desc}</span>
-            </span>
-            <Switch checked={v[key]} onCheckedChange={(c) => setV((s) => ({ ...s, [key]: c }))} aria-label={label} />
-          </label>
-        ))}
-      </div>
-      <div className="mt-2 flex justify-end">
-        <Button variant="gold" onClick={() => save()} loading={pending}>
-          {!pending && <Save />} Salvar
-        </Button>
-      </div>
-    </div>
-  );
-}
 
 const THEMES: { value: Theme; label: string; text: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { value: "grafite", label: "Grafite", text: "Metal escuro com neon.", icon: Moon },
   { value: "claro", label: "Claro", text: "Metal claro, vidro branco.", icon: Sun },
 ];
 
-/** Aparência: tema Grafite ou Claro (vale para este navegador). */
+/** Tema Grafite ou Claro (vale para este navegador). */
 export function AppearancePanel() {
   const { theme, setTheme } = useTheme();
   return (
     <div className={panelClass}>
-      <h2 className={panelTitle}>Aparência</h2>
+      <h2 className={panelTitle}>Tema</h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="Tema">
         {THEMES.map((t) => {
           const on = theme === t.value;

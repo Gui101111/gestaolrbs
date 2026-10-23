@@ -35,18 +35,13 @@ export async function loadProjectsBrowser(userId: string, folderId: string | nul
     }));
 
   const q = param(sp, "q")?.slice(0, 80) ?? "";
-  const status = param(sp, "status");
-  const format = param(sp, "formato");
-  const area = param(sp, "area");
-  const videos = await listFolderProjects({ userId, folderId, q, status, format, area, sort: param(sp, "ordem") });
+  const videos = await listFolderProjects({ userId, folderId, q });
 
   return {
     folder: current ? { id: current.id, name: current.name, color: current.color, depth } : null,
     path: path.map((f) => ({ id: f.id, name: f.name })),
     subfolders,
     videos,
-    view: (param(sp, "vista") === "lista" ? "lista" : "grade") as "grade" | "lista",
     searching: Boolean(q),
-    filtered: Boolean(status || format || area),
   };
 }

@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from "motion/react";
-import { ArrowRight, Landmark, Lock, Play, RectangleVertical, Sparkles } from "lucide-react";
+import { ArrowRight, Captions, Lock, LogIn, Scissors, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedText } from "@/components/animations/animated-text";
 import { Magnetic } from "@/components/animations/magnetic";
@@ -11,13 +11,12 @@ import { GoldDust } from "@/components/animations/gold-dust";
 import { Aurora } from "@/components/effects/aurora";
 import { JusticeScale } from "@/components/landing/justice-scale";
 import { DOCK_START, useStatueDock } from "@/components/landing/statue-dock";
-import { openExploreTab } from "@/components/landing/explore-events";
 import { accentSegments } from "@/components/shared/accent-text";
 import { landing } from "@/content/landing";
 import { ROUTES } from "@/lib/routes";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-const SEAL_ICONS = { landmark: Landmark, lock: Lock, ratio: RectangleVertical } as const;
+const SEAL_ICONS = { captions: Captions, scissors: Scissors, lock: Lock } as const;
 
 /**
  * Bloco 1: palco escuro arredondado com a estátua interativa.
@@ -38,7 +37,7 @@ export function Hero({ isAuthenticated = false }: { isAuthenticated?: boolean })
   const stageScale = useTransform(progress, [0, DOCK_START], [1, still ? 1 : 0.985]);
   const glow = useTransform(progress, [0, DOCK_START], [0.55, still ? 0.55 : 1]);
 
-  const primaryHref = isAuthenticated ? ROUTES.newVideo : ROUTES.register;
+  const primaryHref = isAuthenticated ? ROUTES.app : ROUTES.register;
   const h = landing.hero;
 
   return (
@@ -106,16 +105,17 @@ export function Hero({ isAuthenticated = false }: { isAuthenticated?: boolean })
                 <Magnetic>
                   <Button asChild variant="gold" size="lg" pulse className="w-full sm:w-auto">
                     <Link href={primaryHref}>
-                      {h.primary} <ArrowRight className="transition-transform group-hover/btn:translate-x-1" />
+                      {isAuthenticated ? h.app : h.primary} <ArrowRight className="transition-transform group-hover/btn:translate-x-1" />
                     </Link>
                   </Button>
                 </Magnetic>
-                <Button variant="glass" size="lg" onClick={() => openExploreTab("exemplos")} className="w-full sm:w-auto">
-                  <span className="grid size-5 place-items-center rounded-full border border-cyan/50 text-cyan">
-                    <Play className="size-2.5 fill-current" />
-                  </span>
-                  {h.secondary}
-                </Button>
+                {!isAuthenticated && (
+                  <Button asChild variant="glass" size="lg" className="w-full sm:w-auto">
+                    <Link href={ROUTES.login}>
+                      <LogIn className="text-cyan" /> {h.secondary}
+                    </Link>
+                  </Button>
+                )}
               </motion.div>
 
               <motion.ul

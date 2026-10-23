@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ContextMenu as ContextMenuPrimitive } from "radix-ui";
-import { Copy, Download, Eye, FolderInput, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { Download, Eye, FolderInput, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +27,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { MoveDialog } from "@/components/folders/move-dialog";
-import { deleteProjectAction, duplicateProjectAction, renameProjectAction } from "@/lib/actions/projects";
+import { deleteProjectAction, renameProjectAction } from "@/lib/actions/projects";
 import { ROUTES } from "@/lib/routes";
 import { startDownload } from "@/lib/download";
 import { cn } from "@/lib/utils";
@@ -45,14 +45,6 @@ export function useProjectMutations() {
       router.refresh();
     });
 
-  const duplicate = (id: string, asVersion = false) =>
-    start(async () => {
-      const res = await duplicateProjectAction(id, asVersion);
-      if (!res.ok) return void toast.error(res.error);
-      toast.success(asVersion ? "Nova versão criada. Ajuste e envie." : "Briefing duplicado como rascunho.");
-      router.push(`${ROUTES.newVideo}?id=${res.data.id}`);
-    });
-
   const remove = (id: string, redirectTo?: string) =>
     start(async () => {
       const res = await deleteProjectAction(id);
@@ -62,10 +54,18 @@ export function useProjectMutations() {
       router.refresh();
     });
 
-  return { pending, rename, duplicate, remove };
+  return { pending, rename, remove };
 }
 
-type ActionTarget = { id: string; name: string; status: string; canDownload: boolean; folderId?: string | null };
+type ActionTarget = {
+  id: string;
+  name: string;
+  status: string;
+  canDownload: boolean;
+  folderId?: string | null;
+  /** Na própria página do vídeo: sem "Abrir" e, ao excluir, volta para Projetos. */
+  inPage?: boolean;
+};
 
 type Item =
   | { kind: "link"; label: string; icon: React.ComponentType; href: string; download?: boolean }
@@ -78,11 +78,11 @@ function useProjectActionItems(t: ActionTarget) {
   const [moveOpen, setMoveOpen] = React.useState(false);
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [value, setValue] = React.useState(t.name);
-  const { pending, rename, duplicate, remove } = useProjectMutations();
+  const { pending, rename, remove } = useProjectMutations();
   const href = t.status === "draft" ? `${ROUTES.newVideo}?id=${t.id}` : ROUTES.video(t.id);
 
   const items: Item[] = [
-    { kind: "link", label: t.status === "draft" ? "Continuar" : "Abrir", icon: Eye, href },
+    ...(t.inPage ? [] : [{ kind: "link" as const, label: t.status === "draft" ? "Continuar envio" : "Abrir", icon: Eye, href }]),
     ...(t.canDownload ? [{ kind: "link" as const, label: "Baixar MP4", icon: Download, href: `/api/projects/${t.id}/download`, download: true }] : []),
     {
       kind: "action",
@@ -94,7 +94,6 @@ function useProjectActionItems(t: ActionTarget) {
       },
     },
     { kind: "action", label: "Mover para…", icon: FolderInput, onSelect: () => setMoveOpen(true) },
-    { kind: "action", label: "Duplicar briefing", icon: Copy, onSelect: () => duplicate(t.id), disabled: pending },
     { kind: "separator" },
     { kind: "action", label: "Excluir", icon: Trash2, onSelect: () => setDeleteOpen(true), destructive: true },
   ];
@@ -137,7 +136,7 @@ function useProjectActionItems(t: ActionTarget) {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={() => remove(t.id)}>Excluir definitivamente</AlertDialogAction>
+            <AlertDialogAction onClick={() => remove(t.id, t.inPage ? ROUTES.projects : undefined)}>Excluir definitivamente</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
