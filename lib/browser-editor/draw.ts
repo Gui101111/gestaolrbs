@@ -698,7 +698,8 @@ export function createPainter(scene: Scene) {
     const hit = laid.get(index);
     if (hit) return hit;
     ctx.font = capFont;
-    const space = ctx.measureText(" ").width * (cap.upper ? 1.3 : 1.12);
+    // a palavra falada cresce ("pop"): espaço extra para não encostar na vizinha
+    const space = ctx.measureText(" ").width * (cap.upper ? 1.3 : 1.12) + (cap.pop ? capSize * 0.12 : 0);
     const lines: LaidLine["words"][] = [[]];
     let width = 0;
     for (const w of page.words) {

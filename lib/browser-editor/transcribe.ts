@@ -288,8 +288,8 @@ function wordsToSegments(chunks: AsrChunk[], w: Interval, firstId: number): Segm
     const start = w.start + (c.timestamp[0] ?? 0);
     const end = Math.min(w.end, w.start + (c.timestamp[1] ?? c.timestamp[0] ?? 0));
     const prev = words[words.length - 1];
-    // "auxílio" + "-doença" e pontuação solta vão junto da palavra anterior
-    if (prev && (/^-/.test(text) || /^[.,;:!?…]+$/.test(text))) {
+    // "auxílio" + "-doença", "8" + ".213" e pontuação solta vão junto da palavra anterior
+    if (prev && (/^[-/]/.test(text) || /^[.,;:!?…]+$/.test(text) || (/^[.,]\d/.test(text) && /\d$/.test(prev.text)))) {
       prev.text += text;
       prev.end = Math.max(prev.end, end);
       continue;
