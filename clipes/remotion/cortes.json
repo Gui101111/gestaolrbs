@@ -1,0 +1,45 @@
+{
+  "episodio": "5 Milionários x 5 Novatos (Canal Foco)",
+  "cortes": [
+    {
+      "id": "01-trono-750-mil",
+      "segmentos": [[0.0, 13.6], [23.9, 30.9]],
+      "manchete": "5 MILIONÁRIOS x 5 NOVATOS|DISPUTAM *R$ 750 MIL*",
+      "cortes": [3.6, 9.3],
+      "zoomBase": 1.14,
+      "origemY": 0,
+      "correcoes": []
+    },
+    {
+      "id": "02-senha-15-mil",
+      "segmentos": [[340.2, 356.4]],
+      "manchete": "ELE VENDEU A PRÓPRIA SENHA|POR *R$ 15 MIL*",
+      "cortes": [5.6, 11.8],
+      "correcoes": []
+    },
+    {
+      "id": "03-zero-respostas",
+      "segmentos": [[1597.6, 1627.43]],
+      "manchete": "ELE TESTOU OS INVESTIDORES|E TEVE *ZERO RESPOSTAS*",
+      "cortes": [10.2, 17.9, 24.2],
+      "correcoes": [
+        ["Luizinho que é meu S D O Luizinho que é S D R de D M zero resposta,", "O Luizinho, que é SDR de DM: zero resposta,"],
+        ["É uma na mente impossível", "É humanamente impossível"]
+      ]
+    },
+    {
+      "id": "04-furadeira-13-minutos",
+      "segmentos": [[2210.5, 2236.2]],
+      "manchete": "QUANTO TEMPO UMA FURADEIRA|É USADA *NA VIDA TODA*?",
+      "cortes": [7.5, 12.0, 16.1],
+      "correcoes": [["fucking", "F*CKING"]]
+    },
+    {
+      "id": "05-luiza-trajano-socia",
+      "segmentos": [[985.8, 995.6], [1001.3, 1016.9]],
+      "manchete": "ELE TEM LUIZA TRAJANO|COMO *SÓCIA*",
+      "cortes": [4.2, 15.0, 20.4],
+      "correcoes": []
+    }
+  ]
+}

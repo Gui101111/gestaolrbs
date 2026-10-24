@@ -16,6 +16,10 @@ const padrao: ClipeProps = {
   ctaSeg: 3.5,
   cortes: [],
   cropX: 0.5,
+  videoAlt: 608,
+  videoY: 610,
+  zoomBase: 1,
+  origemY: 50,
   efeitos: true,
 };
 

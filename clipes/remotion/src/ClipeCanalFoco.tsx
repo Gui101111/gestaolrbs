@@ -34,16 +34,19 @@ export type ClipeProps = {
   cortes: number[];
   /** 0 = esquerda, 0.5 = centro, 1 = direita */
   cropX: number;
+  /** altura da janela do vídeo (608 = quadro 16:9 inteiro) */
+  videoAlt: number;
+  videoY: number;
+  /** zoom fixo do vídeo e ponto de origem vertical (%); ex.: 1.14 e 0 corta a faixa de baixo */
+  zoomBase: number;
+  origemY: number;
   efeitos: boolean;
   /** preenchido em calculateMetadata a partir de `legendas` */
   palavras?: Palavra[];
 };
 
 const AMARELO = "#FFD400";
-const VIDEO_Y = 580;
-const VIDEO_ALT = 900;
 const LOGO_CENTRO_Y = 470;
-const LEGENDA_Y = 1385;
 const CTA_Y = 1600;
 
 const src = (caminho: string) =>
@@ -72,7 +75,7 @@ const Fundo: React.FC<{ video: string; trimBefore: number }> = ({ video, trimBef
         height: "100%",
         objectFit: "cover",
         transform: "scale(1.2)",
-        filter: "blur(38px) brightness(0.72) saturate(1.25)",
+        filter: "blur(38px) brightness(0.42) saturate(1.2)",
       }}
     />
   </AbsoluteFill>
@@ -84,7 +87,11 @@ const JanelaVideo: React.FC<{
   cortes: number[];
   cropX: number;
   duracao: number;
-}> = ({ video, trimBefore, cortes, cropX, duracao }) => {
+  y: number;
+  altura: number;
+  zoomBase: number;
+  origemY: number;
+}> = ({ video, trimBefore, cortes, cropX, duracao, y, altura, zoomBase, origemY }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -104,10 +111,10 @@ const JanelaVideo: React.FC<{
     <div
       style={{
         position: "absolute",
-        top: VIDEO_Y,
+        top: y,
         left: 0,
         width: 1080,
-        height: VIDEO_ALT,
+        height: altura,
         overflow: "hidden",
         borderTop: "4px solid rgba(255,255,255,0.85)",
         boxShadow: "0 0 60px rgba(0,0,0,0.6)",
@@ -121,7 +128,8 @@ const JanelaVideo: React.FC<{
           height: "100%",
           objectFit: "cover",
           objectPosition: `${cropX * 100}% 50%`,
-          transform: `scale(${1 + entrada + jump})`,
+          transform: `scale(${zoomBase * (1 + entrada + jump)})`,
+          transformOrigin: `50% ${origemY}%`,
         }}
       />
       <BarraProgresso duracao={duracao} />
@@ -242,7 +250,11 @@ const Logo: React.FC<{ logo: string | null; ctaInicio: number }> = ({ logo, ctaI
   );
 };
 
-const Legendas: React.FC<{ palavras: Palavra[]; duracao: number }> = ({ palavras, duracao }) => {
+const Legendas: React.FC<{ palavras: Palavra[]; duracao: number; y: number }> = ({
+  palavras,
+  duracao,
+  y,
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const ms = (frame / fps) * 1000;
@@ -261,7 +273,7 @@ const Legendas: React.FC<{ palavras: Palavra[]; duracao: number }> = ({ palavras
     <div
       style={{
         position: "absolute",
-        top: LEGENDA_Y - 115,
+        top: y - 115,
         width: "100%",
         textAlign: "center",
         ...textoBase,
@@ -351,6 +363,10 @@ export const ClipeCanalFoco: React.FC<ClipeProps> = (props) => {
         cortes={props.cortes}
         cropX={props.cropX}
         duracao={durationInFrames}
+        y={props.videoY}
+        altura={props.videoAlt}
+        zoomBase={props.zoomBase}
+        origemY={props.origemY}
       />
       {linhas.map((l, i) => (
         <LinhaManchete
@@ -362,7 +378,11 @@ export const ClipeCanalFoco: React.FC<ClipeProps> = (props) => {
         />
       ))}
       <Logo logo={props.logo} ctaInicio={ctaInicio} />
-      <Legendas palavras={props.palavras ?? []} duracao={durationInFrames} />
+      <Legendas
+        palavras={props.palavras ?? []}
+        duracao={durationInFrames}
+        y={props.videoY + props.videoAlt + 160}
+      />
       {props.cta ? (
         <Sequence from={ctaInicio} layout="none">
           <Cta texto={props.cta} />
