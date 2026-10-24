@@ -3,6 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 import type { Database } from "@/types/database";
 import { isSupabaseConfigured, supabasePublishableKey, supabaseUrl } from "./env";
 import { ROUTES } from "@/lib/routes";
+import { NO_LOGIN } from "@/lib/no-login";
 
 const PROTECTED = ["/app", "/admin"];
 const AUTH_ONLY_GUEST: string[] = [ROUTES.login, ROUTES.register, ROUTES.forgotPassword];
@@ -35,6 +36,19 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   const isProtected = PROTECTED.some((p) => path === p || path.startsWith(`${p}/`));
+
+  if (NO_LOGIN && (path === ROUTES.home || AUTH_ONLY_GUEST.includes(path) || (!user && isProtected))) {
+    const url = request.nextUrl.clone();
+    if (!isProtected) {
+      url.pathname = ROUTES.app;
+      url.search = "";
+    }
+    if (user) return redirectWithCookies(url, response);
+    const { error } = await supabase.auth.signInAnonymously();
+    if (!error) return redirectWithCookies(url, response);
+    console.error("[sem login] ligue o login anônimo no Supabase", error.message);
+  }
+
   if (!user && isProtected) {
     const url = request.nextUrl.clone();
     url.pathname = ROUTES.login;

@@ -14,6 +14,7 @@ import {
 import { useTheme } from "@/components/theme/theme-provider";
 import type { ShellUser } from "@/components/app-shell/nav";
 import { signOutAction } from "@/lib/actions/auth";
+import { NO_LOGIN } from "@/lib/no-login";
 import { ROUTES } from "@/lib/routes";
 import { cn, initials } from "@/lib/utils";
 
@@ -31,7 +32,7 @@ export function UserMenu({ user, side = "bottom" }: { user: ShellUser; side?: "b
       <DropdownMenuContent side={side} align="end" className="w-64">
         <DropdownMenuLabel>
           <span className="block truncate text-sm font-semibold text-fg">{user.displayName || user.name}</span>
-          <span className="block truncate text-xs text-fg-3">{user.email}</span>
+          {user.email && <span className="block truncate text-xs text-fg-3">{user.email}</span>}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
@@ -72,10 +73,14 @@ export function UserMenu({ user, side = "bottom" }: { user: ShellUser; side?: "b
             </Link>
           </DropdownMenuItem>
         )}
-        <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive" onSelect={() => void signOutAction()}>
-          <LogOut /> Sair
-        </DropdownMenuItem>
+        {!NO_LOGIN && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive" onSelect={() => void signOutAction()}>
+              <LogOut /> Sair
+            </DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

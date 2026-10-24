@@ -22,7 +22,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   folderRefs?.forEach((r) => r.folder_id && counts.set(r.folder_id, (counts.get(r.folder_id) ?? 0) + 1));
   const folderItems: FolderItem[] = (folders ?? []).map((f) => ({ ...f, count: counts.get(f.id) ?? 0 }));
 
-  const name = profile.full_name ?? user.email ?? "Usuário";
+  const name = profile.full_name || user.email || "Visitante";
 
   return (
     <AppShell

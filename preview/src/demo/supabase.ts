@@ -65,6 +65,13 @@ export function createUser(email: string, password: string, meta: Record<string,
   return user;
 }
 
+/** Sem login: entra (ou volta) como o visitante deste navegador, como o login anônimo do Supabase. */
+export function ensureGuest() {
+  if (authUser(currentUserId())) return;
+  const guest = db.rows("auth_users").find((u) => (u.app_metadata as { provider?: string } | undefined)?.provider === "anonymous");
+  setSession((guest ?? createUser("", uuid(), { terms_accepted: true }, "anonymous")).id);
+}
+
 const cmp = (a: unknown, b: unknown) => {
   if (a === b) return 0;
   if (a === null || a === undefined) return 1;
@@ -455,6 +462,10 @@ const authApi = {
     setSession(u.id);
     const next = options?.redirectTo ? new URL(options.redirectTo, location.href).searchParams.get("next") : null;
     return { data: { url: next || "/app", provider: "google" }, error: null };
+  },
+  async signInAnonymously() {
+    ensureGuest();
+    return { data: { user: authUser(currentUserId()), session: { access_token: "demo" } }, error: null };
   },
   async signOut() {
     setSession(null);

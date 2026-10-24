@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { deleteAccountAction, updateNameAction } from "@/lib/actions/profile";
 import { signOutAction } from "@/lib/actions/auth";
+import { NO_LOGIN } from "@/lib/no-login";
 import { cn, initials } from "@/lib/utils";
 
 export const panelClass = "glass rounded-[22px] p-5 md:p-6";
@@ -39,11 +40,11 @@ export function ProfileForm({ email, avatarUrl, initialName, provider }: { email
       <div className="flex items-center gap-4">
         <Avatar className="size-16 ring-2 ring-cyan/30">
           {avatarUrl && <AvatarImage src={avatarUrl} alt="" />}
-          <AvatarFallback className="text-xl">{initials(name || email)}</AvatarFallback>
+          <AvatarFallback className="text-xl">{initials(name || email || "T")}</AvatarFallback>
         </Avatar>
         <div className="min-w-0">
           <p className="truncate font-display text-xl font-bold text-fg">{name || "Seu nome"}</p>
-          <p className="text-xs text-fg-3">Acesso com {provider === "google" ? "Google" : "e-mail e senha"}</p>
+          <p className="text-xs text-fg-3">{NO_LOGIN ? "Aparece no seu Início" : `Acesso com ${provider === "google" ? "Google" : "e-mail e senha"}`}</p>
         </div>
       </div>
 
@@ -51,12 +52,14 @@ export function ProfileForm({ email, avatarUrl, initialName, provider }: { email
         <Field label="Nome" htmlFor="fullName" error={error ?? undefined}>
           <Input id="fullName" autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} maxLength={120} />
         </Field>
-        <Field label="E-mail" htmlFor="email">
-          <div className="relative">
-            <Mail className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-fg-3" />
-            <Input id="email" type="email" value={email} readOnly aria-readonly className="pl-11 text-fg-2" />
-          </div>
-        </Field>
+        {!NO_LOGIN && (
+          <Field label="E-mail" htmlFor="email">
+            <div className="relative">
+              <Mail className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-fg-3" />
+              <Input id="email" type="email" value={email} readOnly aria-readonly className="pl-11 text-fg-2" />
+            </div>
+          </Field>
+        )}
       </div>
 
       <div className="mt-6 flex justify-end">

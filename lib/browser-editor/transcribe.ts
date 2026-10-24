@@ -13,7 +13,10 @@ export interface ModelFile {
   name: string;
   /** Partes publicadas, relativas à página. */
   parts: string[];
+  /** Bytes baixados (comprimidos, quando `gzip`). */
   size: number;
+  /** Partes comprimidas com gzip (o navegador descomprime ao montar). */
+  gzip?: boolean;
 }
 
 export interface WhisperManifest {
@@ -81,7 +84,11 @@ async function fetchParts(base: string, files: ModelFile[], onProgress: LoadProg
     }
   };
   await Promise.all([worker(), worker(), worker()]);
-  for (const f of files) out.set(f.name, new Blob(pieces.get(f.name) ?? []));
+  for (const f of files) {
+    const blob = new Blob(pieces.get(f.name) ?? []);
+    pieces.delete(f.name);
+    out.set(f.name, f.gzip ? await new Response(blob.stream().pipeThrough(new DecompressionStream("gzip"))).blob() : blob);
+  }
   return out;
 }
 
@@ -135,6 +142,9 @@ export function loadWhisper(manifest: WhisperManifest, importTransformers: () =>
         },
       });
       const pipe = (await T.pipeline("automatic-speech-recognition", manifest.modelId, { dtype: "q8", device: "wasm" })) as AsrPipe;
+      // o modelo já está na memória do ONNX Runtime: solta as cópias baixadas
+      blobs.clear();
+      lastProgress = null;
       return makeWhisper(pipe, manifest.modelId);
     })();
     loading.catch(() => {

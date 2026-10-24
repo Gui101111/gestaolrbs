@@ -6,12 +6,13 @@ import { DeleteAccountPanel, ProfileForm, SignOutPanel } from "@/components/acco
 import { AppearancePanel } from "@/components/account/settings-form";
 import { Button } from "@/components/ui/button";
 import { requireOnboardedProfile } from "@/lib/auth/dal";
+import { NO_LOGIN } from "@/lib/no-login";
 import { createClient } from "@/lib/supabase/server";
 import { resolveAvatar } from "@/services/storage";
 
 export const metadata: Metadata = { title: "Conta" };
 
-/** Conta: nome, e-mail, tema, sair e excluir conta. */
+/** Conta: nome, e-mail, tema, sair e excluir conta (sem login: só nome e tema). */
 export default async function AccountPage() {
   const { user, profile } = await requireOnboardedProfile();
   const supabase = await createClient();
@@ -27,7 +28,7 @@ export default async function AccountPage() {
         provider={(user.app_metadata?.provider as string) ?? "email"}
       />
       <AppearancePanel />
-      <SignOutPanel />
+      {!NO_LOGIN && <SignOutPanel />}
       {profile.role === "admin" && (
         <Button asChild variant="outline" className="w-full">
           <Link href="/admin">
@@ -35,7 +36,7 @@ export default async function AccountPage() {
           </Link>
         </Button>
       )}
-      <DeleteAccountPanel />
+      {!NO_LOGIN && <DeleteAccountPanel />}
     </div>
   );
 }

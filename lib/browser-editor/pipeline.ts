@@ -13,13 +13,13 @@ import type { Analysis, EditOptions, Face, Plan, Progress, Segment, Word } from 
 export interface EditorDeps {
   sample: SampleFn | null;
   /**
-   * Reconhecimento de fala: baixado do Hugging Face (remote, o modelo mais
-   * preciso) e/ou servido com a página (manifest). Com os dois, tenta o
-   * remoto e cai para o da página se não der para baixar.
+   * Reconhecimento de fala: baixado do Hugging Face (remote) e/ou servido com
+   * a página (manifests, do mais preciso ao mais leve). Tenta nessa ordem e
+   * passa para o próximo se um não puder ser baixado ou carregado.
    */
   whisper: {
     remote?: { modelId: string; wasmPaths: string; wasmParts?: ModelFile };
-    manifest?: WhisperManifest;
+    manifests?: WhisperManifest[];
     importTransformers: () => Promise<TransformersLike>;
   } | null;
 }
@@ -90,15 +90,23 @@ export async function analyze(file: Blob, url: string, opts: EditOptions, deps: 
       const w = deps.whisper;
       const report = (l: number, t: number) => onProgress({ step: "transcrever", value: (l / t) * 0.35, detail: `Baixando o reconhecimento de fala: ${Math.round((l / t) * 100)}%` });
       let whisper: Whisper | null = null;
+      const manifests = w.manifests ?? [];
       if (w.remote) {
         try {
           whisper = await loadWhisperRemote(w.remote.modelId, w.remote.wasmPaths, w.importTransformers, report, w.remote.wasmParts);
         } catch (e) {
-          if (!w.manifest) throw e;
+          if (!manifests.length) throw e;
           console.warn("[editor] modelo remoto indisponível; usando o da página", e);
         }
       }
-      if (!whisper && w.manifest) whisper = await loadWhisper(w.manifest, w.importTransformers, report);
+      for (let i = 0; !whisper && i < manifests.length; i++) {
+        try {
+          whisper = await loadWhisper(manifests[i], w.importTransformers, report);
+        } catch (e) {
+          if (i === manifests.length - 1) throw e;
+          console.warn(`[editor] ${manifests[i].modelId} não carregou; tentando o próximo`, e);
+        }
+      }
       if (!whisper) throw new Error("sem reconhecimento de fala");
       onProgress({ step: "transcrever", value: 0.35, detail: "Ouvindo a fala" });
       segments = await whisper.transcribe(audio, speech, (d, t) => onProgress({ step: "transcrever", value: 0.35 + 0.65 * (d / Math.max(1, t)), detail: `Ouvindo a fala: trecho ${Math.min(d + 1, t)} de ${t}` }), signal);

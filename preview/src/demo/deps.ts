@@ -2,7 +2,8 @@ import type { EditorDeps } from "@/lib/browser-editor/pipeline";
 import { getSample } from "@/lib/browser-editor/runtime";
 import type { TransformersLike, WhisperManifest } from "@/lib/browser-editor/transcribe";
 
-declare const __WHISPER__: WhisperManifest | null;
+/** Modelos servidos com a página, do mais preciso (small) ao mais leve (base). */
+declare const __WHISPER__: WhisperManifest[] | null;
 
 /** transformers.js fica em asr.js e só é baixado quando a transcrição roda. */
 function loadAsr(): Promise<TransformersLike> {
@@ -25,14 +26,8 @@ let deps: Promise<EditorDeps> | null = null;
 export function getEditorDeps(): Promise<EditorDeps> {
   deps ??= (async () => ({
     sample: await getSample(),
-    // tenta o modelo mais preciso (small, do Hugging Face); se a página não puder baixar, usa o que vem com ela
-    whisper: __WHISPER__
-      ? {
-          remote: { modelId: "Xenova/whisper-small", wasmPaths: new URL(__WHISPER__.ortDir, window.location.href).href, wasmParts: __WHISPER__.wasm },
-          manifest: __WHISPER__,
-          importTransformers: loadAsr,
-        }
-      : null,
+    // o small vem com a página (não depende do Hugging Face); o base fica de reserva para aparelhos com pouca memória
+    whisper: __WHISPER__ ? { manifests: __WHISPER__, importTransformers: loadAsr } : null,
   }))();
   return deps;
 }

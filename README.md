@@ -148,6 +148,8 @@ O jeito mais curto, todo pelo navegador. A edição dos vídeos roda no navegado
 5. **Admin**: cadastre-se no app e rode `update public.profiles set role = 'admin' where email = 'voce@exemplo.com';` no SQL Editor do Supabase.
 6. Opcional: `ANTHROPIC_API_KEY` na Vercel liga a revisão com Claude (texto, cortes, título e grafismos) e o "Perguntar à Tribuna"; sem ela, o editor usa a revisão local. Resend e Asaas como em `.env.example`.
 
+**Sem login (para testar com amigos)**: na Vercel, `NEXT_PUBLIC_NO_LOGIN=true` e, no Supabase, **Authentication → Sign In / Providers → Allow anonymous sign-ins**. Quem abre o site cai direto no app como visitante (cada navegador tem os próprios vídeos), sem telas de entrar, criar conta ou sair. A prévia publicada no claude.ai já funciona assim.
+
 Limite de upload: no plano gratuito do Supabase cada arquivo pode ter até 50 MB. Para vídeos maiores, use um plano pago e ajuste **Settings → Storage → Upload file size limit** (≥ 2 GB).
 
 `NEXT_PUBLIC_SITE_URL` é opcional na Vercel (sem ela, vale o domínio de produção do projeto). O cron de `vercel.json` roda uma vez por dia (limite do plano Hobby); com Claude Managed Agents no plano Pro, mude para `*/10 * * * *`.

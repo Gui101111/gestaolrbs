@@ -14,7 +14,6 @@ import * as Register from "@/app/(auth)/criar-conta/page";
 import * as VerifyEmail from "@/app/(auth)/verificar-email/page";
 import * as ForgotPassword from "@/app/(auth)/recuperar-senha/page";
 import * as ResetPassword from "@/app/(auth)/nova-senha/page";
-import * as Onboarding from "@/app/onboarding/page";
 import * as AppLayout from "@/app/app/layout";
 import AppTemplate from "@/app/app/template";
 import * as AppHome from "@/app/app/page";
@@ -22,12 +21,13 @@ import * as Projects from "@/app/app/projetos/page";
 import * as Folder from "@/app/app/projetos/[pastaId]/page";
 import * as Video from "@/app/app/video/[id]/page";
 import * as NewVideo from "@/app/app/novo/page";
-import * as Examples from "@/app/app/exemplos/page";
-import * as HowTo from "@/app/app/como-fazer/page";
-import * as Brand from "@/app/app/marca/page";
-import * as Billing from "@/app/app/assinatura/page";
 import * as Settings from "@/app/app/configuracoes/page";
 import NotFoundPage from "@/app/not-found";
+import { NO_LOGIN } from "@/lib/no-login";
+import { ensureGuest } from "./supabase";
+
+/** Sem login, o começo e as telas de entrar levam direto ao app. */
+const GUEST_TO_APP = /^\/(entrar|criar-conta|verificar-email|recuperar-senha|nova-senha|login|register)?$/;
 
 type Mod = { default: (props: never) => unknown; metadata?: { title?: unknown } };
 type Route = { re: RegExp; params?: string[]; page: Mod; layouts?: Mod[]; template?: boolean; app?: boolean };
@@ -41,16 +41,11 @@ const routes: Route[] = [
   { re: /^\/verificar-email$/, page: VerifyEmail, layouts: [AuthLayout] },
   { re: /^\/recuperar-senha$/, page: ForgotPassword, layouts: [AuthLayout] },
   { re: /^\/nova-senha$/, page: ResetPassword, layouts: [AuthLayout] },
-  { re: /^\/onboarding$/, page: Onboarding },
   { re: /^\/app$/, page: AppHome, layouts: [AppLayout], template: true, app: true },
   { re: /^\/app\/projetos$/, page: Projects, layouts: [AppLayout], template: true, app: true },
   { re: /^\/app\/projetos\/([^/]+)$/, params: ["pastaId"], page: Folder, layouts: [AppLayout], template: true, app: true },
   { re: /^\/app\/video\/([^/]+)$/, params: ["id"], page: Video, layouts: [AppLayout], template: true, app: true },
   { re: /^\/app\/novo$/, page: NewVideo, layouts: [AppLayout], template: true, app: true },
-  { re: /^\/app\/exemplos$/, page: Examples, layouts: [AppLayout], template: true, app: true },
-  { re: /^\/app\/como-fazer$/, page: HowTo, layouts: [AppLayout], template: true, app: true },
-  { re: /^\/app\/marca$/, page: Brand, layouts: [AppLayout], template: true, app: true },
-  { re: /^\/app\/assinatura$/, page: Billing, layouts: [AppLayout], template: true, app: true },
   { re: /^\/app\/configuracoes$/, page: Settings, layouts: [AppLayout], template: true, app: true },
 ];
 
@@ -64,6 +59,9 @@ const REDIRECTS: [RegExp, string][] = [
   [/^\/app\/perfil$/, "/app/configuracoes"],
   [/^\/app\/biblioteca$/, "/app/projetos"],
   [/^\/app\/projetos\/novo$/, "/app/novo"],
+  [/^\/onboarding$/, "/app"],
+  [/^\/app\/(exemplos|como-fazer|marca)$/, "/app"],
+  [/^\/app\/assinatura$/, "/app/configuracoes"],
 ];
 
 export class RouteRedirect {
@@ -84,6 +82,10 @@ function titleOf(mod: Mod): string {
 }
 
 export async function loadRoute(path: string, search: string): Promise<Loaded> {
+  if (NO_LOGIN) {
+    ensureGuest();
+    if (GUEST_TO_APP.test(path)) throw new RouteRedirect("/app");
+  }
   for (const [re, to] of REDIRECTS) if (re.test(path)) throw new RouteRedirect(`${to}${search}`);
   if (path === "/auth/callback" || path === "/auth/confirm") throw new RouteRedirect(new URLSearchParams(search).get("next") || "/app");
   if (path.startsWith("/admin")) throw new RouteRedirect("/app");

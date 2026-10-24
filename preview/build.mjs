@@ -6,13 +6,15 @@
  *
  * Saída em preview/dist: index.html, app.js (landing + editor), asr.js
  * (transformers.js, carregado só quando precisa), app.css (o CSS do build do
- * Next), media/ e modelos/ (Whisper base em partes de até 12 MB, com extensão
- * .wasm, um dos tipos que o artifact serve).
+ * Next), media/ e modelos/ (Whisper small e base, comprimidos com gzip e em
+ * partes de até 12 MB com extensão .wasm, um dos tipos que o artifact serve;
+ * cabe tudo nos 256 MB de uma versão).
  */
 import { createRequire } from "node:module";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import zlib from "node:zlib";
 
 const HERE = path.dirname(new URL(import.meta.url).pathname);
 const ROOT = path.resolve(HERE, "..");
@@ -22,8 +24,11 @@ const { build } = createRequire(path.join(ROOT, "package.json"))("esbuild");
 const shim = (f) => path.join(HERE, "src/shims", f);
 const exts = ["", ".tsx", ".ts", ".jsx", ".js", "/index.tsx", "/index.ts"];
 const PART = 12_000_000;
-const WHISPER_PKG = "sts-whisper-base@1.0.0";
-const WHISPER_ID = "Xenova/whisper-base";
+/** Do mais preciso ao mais leve: o app tenta nessa ordem. */
+const WHISPERS = [
+  { pkg: "sts-whisper-small@1.0.0", id: "Xenova/whisper-small", dir: "whisper-small" },
+  { pkg: "sts-whisper-base@1.0.0", id: "Xenova/whisper-base", dir: "whisper-base" },
+];
 const MODEL_FILES = [
   "config.json",
   "generation_config.json",
@@ -90,46 +95,48 @@ const aliasPlugin = {
   },
 };
 
-/** Copia um arquivo em partes de até 12 MB; devolve os caminhos publicados. */
+/**
+ * Copia um arquivo para a saída; os binários grandes (.onnx, .wasm) saem
+ * comprimidos com gzip e em partes de até 12 MB. Devolve os caminhos publicados.
+ */
 function split(src, publishedBase) {
-  const buf = fs.readFileSync(src);
-  if (buf.length <= PART && !publishedBase.endsWith(".onnx") && !publishedBase.endsWith(".wasm")) {
+  const raw = fs.readFileSync(src);
+  if (raw.length <= PART && !publishedBase.endsWith(".onnx") && !publishedBase.endsWith(".wasm")) {
     fs.mkdirSync(path.dirname(path.join(OUT, publishedBase)), { recursive: true });
-    fs.writeFileSync(path.join(OUT, publishedBase), buf);
-    return { parts: [publishedBase], size: buf.length };
+    fs.writeFileSync(path.join(OUT, publishedBase), raw);
+    return { parts: [publishedBase], size: raw.length };
   }
+  const buf = zlib.gzipSync(raw, { level: 9 });
   const parts = [];
   for (let i = 0, o = 0; o < buf.length; i++, o += PART) {
-    const rel = `${publishedBase}.${i}.wasm`;
+    const rel = `${publishedBase}.gz.${i}.wasm`;
     fs.mkdirSync(path.dirname(path.join(OUT, rel)), { recursive: true });
     fs.writeFileSync(path.join(OUT, rel), buf.subarray(o, o + PART));
     parts.push(rel);
   }
-  return { parts, size: buf.length };
+  return { parts, size: buf.length, gzip: true };
 }
 
-function whisperSource() {
-  const dir = path.join(CACHE, "whisper-base");
+function whisperSource({ pkg, id, dir: name }) {
+  const dir = path.join(CACHE, name);
   if (!fs.existsSync(path.join(dir, "package"))) {
     fs.mkdirSync(dir, { recursive: true });
-    const tgz = execFileSync("npm", ["pack", WHISPER_PKG, "--pack-destination", dir, "--silent"], { encoding: "utf8" }).trim().split("\n").pop();
+    const tgz = execFileSync("npm", ["pack", pkg, "--pack-destination", dir, "--silent"], { encoding: "utf8" }).trim().split("\n").pop();
     execFileSync("tar", ["-xzf", path.join(dir, tgz), "-C", dir]);
   }
-  return path.join(dir, "package/models", WHISPER_ID);
+  return path.join(dir, "package/models", id);
 }
 
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, "media"), { recursive: true });
 fs.copyFileSync(path.join(HERE, "src/index.html"), path.join(OUT, "index.html"));
 
-// Whisper: modelo + ONNX Runtime (WebAssembly)
-const src = whisperSource();
-const manifest = {
-  modelId: WHISPER_ID,
-  files: MODEL_FILES.map((name) => ({ name, ...split(path.join(src, name), `modelos/whisper-base/${name}`) })),
-  wasm: { name: "ort-wasm-simd-threaded.jsep.wasm", ...split(path.join(HERE, "node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.jsep.wasm"), "ort/ort-wasm-simd-threaded.jsep.wasm") },
-  ortDir: "ort/",
-};
+// Whisper: modelos + ONNX Runtime (WebAssembly, o mesmo para os dois)
+const wasm = { name: "ort-wasm-simd-threaded.jsep.wasm", ...split(path.join(HERE, "node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.jsep.wasm"), "ort/ort-wasm-simd-threaded.jsep.wasm") };
+const manifests = WHISPERS.map((w) => {
+  const src = whisperSource(w);
+  return { modelId: w.id, files: MODEL_FILES.map((name) => ({ name, ...split(path.join(src, name), `modelos/${w.dir}/${name}`) })), wasm, ortDir: "ort/" };
+});
 fs.copyFileSync(path.join(HERE, "node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.jsep.mjs"), path.join(OUT, "ort/ort-wasm-simd-threaded.jsep.mjs"));
 
 const common = {
@@ -150,11 +157,11 @@ const res = await build({
   outfile: path.join(OUT, "app.js"),
   define: {
     "process.env.NODE_ENV": '"production"',
-    __WHISPER__: JSON.stringify(manifest),
+    __WHISPER__: JSON.stringify(manifests),
   },
   // variáveis de ambiente que o código do app lê (o resto fica vazio)
   banner: {
-    js: `var process=globalThis.process||{env:{NODE_ENV:"production",NEXT_PUBLIC_SITE_URL:location.origin,NEXT_PUBLIC_SUPABASE_URL:"https://demo.supabase.local",NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:"demo",HUMAN_REVIEW:"false",VIDEO_EDITING_PROVIDER:"claude"}};`,
+    js: `var process=globalThis.process||{env:{NODE_ENV:"production",NEXT_PUBLIC_SITE_URL:location.origin,NEXT_PUBLIC_SUPABASE_URL:"https://demo.supabase.local",NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:"demo",HUMAN_REVIEW:"false",NEXT_PUBLIC_NO_LOGIN:"true",VIDEO_EDITING_PROVIDER:"claude"}};`,
   },
   plugins: [aliasPlugin],
   metafile: true,
@@ -184,12 +191,13 @@ fs.writeFileSync(path.join(OUT, "app.css"), css);
 
 const used = new Set([...(js + css).matchAll(/media\/([\w.-]+\.(?:webp|mp4|png|jpg))/g)].map((m) => m[1]));
 for (const f of used) fs.copyFileSync(path.join(ROOT, "public/media", f), path.join(OUT, "media", f));
-// vídeos da página Exemplos (caminhos montados em tempo de execução)
-fs.cpSync(path.join(ROOT, "public/media/exemplos"), path.join(OUT, "media/exemplos"), { recursive: true });
 
 const kb = (f) => (fs.statSync(path.join(OUT, f)).size / 1024).toFixed(0);
 console.log(`app.js ${kb("app.js")} KB · asr.js ${kb("asr.js")} KB · app.css ${kb("app.css")} KB · media ${[...used].join(", ")}`);
-const modelMb = [...manifest.files, manifest.wasm].reduce((s, f) => s + f.size, 0) / 1e6;
-console.log(`whisper + onnx: ${modelMb.toFixed(1)} MB em ${[...manifest.files, manifest.wasm].reduce((s, f) => s + f.parts.length, 0)} arquivos`);
+for (const m of manifests) console.log(`${m.modelId}: ${(m.files.reduce((s, f) => s + f.size, 0) / 1e6).toFixed(1)} MB em ${m.files.reduce((s, f) => s + f.parts.length, 0)} arquivos`);
+let total = 0;
+for (const f of fs.readdirSync(OUT, { recursive: true })) if (fs.statSync(path.join(OUT, f)).isFile()) total += fs.statSync(path.join(OUT, f)).size;
+console.log(`onnx runtime: ${(wasm.size / 1e6).toFixed(1)} MB · total publicado: ${(total / 1e6).toFixed(1)} MB (limite 256 MB por versão)`);
+if (total > 250e6) throw new Error("passou do limite de uma versão do artifact");
 const inputs = Object.keys(res.metafile.inputs).filter((k) => !k.includes("node_modules"));
 console.log("módulos do projeto:", inputs.length);
