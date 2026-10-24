@@ -1,0 +1,5 @@
+*.mp4
+*.json3
+*.vtt
+*.srt
+__pycache__/
