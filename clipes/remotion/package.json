@@ -1,0 +1,23 @@
+{
+  "name": "clipes-canal-foco",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Clipes verticais da campanha CPMV do Canal Foco feitos com Remotion",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render ClipeCanalFoco out/clipe.mp4",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/captions": "^4.0.534",
+    "@remotion/cli": "4.0.534",
+    "@remotion/fonts": "4.0.534",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "remotion": "4.0.534"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "typescript": "5.8.3"
+  }
+}

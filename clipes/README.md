@@ -13,7 +13,51 @@ já dentro das regras da campanha.
 - 📌 Manter publicado até **7 dias depois do fim** da campanha (fim: 31/10/2026)
 - 🚫 Proibido: inventar/distorcer falas, imagens sem contexto, sensacionalismo, falso react, ASMR/vídeo satisfatório
 
-## Como gerar
+## Três jeitos de gerar o mesmo clipe
+
+| Ferramenta | Pasta | Quando usar |
+|---|---|---|
+| **Remotion** (React) | `remotion/` | Melhor animação (molas, tarja amarela, pulso da logo); renderiza por linha de comando |
+| **After Effects** | `after-effects/` | Quer ajustar à mão na timeline do AE |
+| **ffmpeg** (Python) | `gerar_clipe.py` | Mais rápido e sem dependências além do ffmpeg |
+
+### Remotion
+
+```bash
+cd remotion
+npm install
+# coloque em remotion/public/: episodio.mp4, logo.png e as legendas (.json3 ou .srt)
+npx remotion studio                       # editar e ver ao vivo no navegador
+npx remotion render ClipeCanalFoco out/clipe.mp4 --props=props.json
+```
+
+`props.json` (só o que mudar do padrão):
+
+```json
+{
+  "video": "episodio.mp4",
+  "inicioSeg": 754.5,
+  "duracaoSeg": 30,
+  "logo": "logo.png",
+  "legendas": "episodio.pt.json3",
+  "manchete": "5 MILIONÁRIOS x 5 NOVATOS|DISPUTAM *R$ 750 MIL*",
+  "cortes": [4.5, 10, 16.5, 22],
+  "cropX": 0.5
+}
+```
+
+Sem `logo` o vídeo mostra um aviso vermelho no lugar, para não sair publicado sem ela.
+Licença: o Remotion é gratuito para pessoa física e empresas com até 3 pessoas.
+
+### After Effects
+
+1. Instale a fonte `fonts/Anton-Regular.ttf`.
+2. No AE: **Arquivo > Scripts > Executar arquivo de script...** e escolha
+   `after-effects/ClipeCanalFoco.jsx`.
+3. Responda às perguntas (episódio, logo, legendas, início, duração, cortes, manchete).
+4. A composição **"Clipe Canal Foco"** é criada com camadas editáveis; renderize em H.264.
+
+### ffmpeg (Python)
 
 ```bash
 pip install yt-dlp
