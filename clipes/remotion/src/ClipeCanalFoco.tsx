@@ -132,6 +132,8 @@ const JanelaVideo: React.FC<{
           transformOrigin: `50% ${origemY}%`,
         }}
       />
+      {/* o flash fica só sobre o vídeo: a logo não pode sumir nem por um instante */}
+      <Flash />
       <BarraProgresso duracao={duracao} />
     </div>
   );
@@ -388,7 +390,6 @@ export const ClipeCanalFoco: React.FC<ClipeProps> = (props) => {
           <Cta texto={props.cta} />
         </Sequence>
       ) : null}
-      <Flash />
       {props.efeitos ? (
         <>
           <Html5Audio src={staticFile("sfx/whoosh.wav")} volume={0.35} />
