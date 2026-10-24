@@ -1,0 +1,14 @@
+import type { MetadataRoute } from "next";
+import { siteConfig } from "@/config/site";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = siteConfig.url.replace(/\/$/, "");
+  const now = new Date();
+  return [
+    { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${base}/criar-conta`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/entrar`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/termos`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${base}/privacidade`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+  ];
+}
