@@ -11,7 +11,7 @@ import { accentSegments } from "@/components/shared/accent-text";
 import { landing } from "@/content/landing";
 import { ROUTES } from "@/lib/routes";
 
-/** Bloco 4: uma frase e um botão. */
+/** Bloco 3: uma frase e um botão. */
 export function FinalCta({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   return (
     <section data-accent="gold" className="relative px-3 pt-6 pb-16 md:px-5 md:pb-24" aria-label="Começar">
@@ -33,8 +33,8 @@ export function FinalCta({ isAuthenticated = false }: { isAuthenticated?: boolea
           >
             <Magnetic>
               <Button asChild variant="gold" size="xl" pulse>
-                <Link href={isAuthenticated ? ROUTES.newVideo : ROUTES.register}>
-                  {landing.cta.button} <ArrowRight className="transition-transform group-hover/btn:translate-x-1" />
+                <Link href={isAuthenticated ? ROUTES.app : ROUTES.register}>
+                  {isAuthenticated ? landing.hero.app : landing.cta.button} <ArrowRight className="transition-transform group-hover/btn:translate-x-1" />
                 </Link>
               </Button>
             </Magnetic>

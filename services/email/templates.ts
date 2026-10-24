@@ -32,8 +32,8 @@ export const emailTemplates = {
     html: layout({
       eyebrow: "Conta ativa",
       title: `Olá, ${esc(name || "Dr(a).")}. Sua conta está pronta.`,
-      body: "<p>Você já pode enviar seu primeiro vídeo. Grave como sempre gravou — a plataforma cuida dos cortes, legendas e formatos.</p><p>Dica: salve a identidade visual do seu escritório em <strong>Marca</strong> para aplicá-la automaticamente.</p>",
-      cta: { label: "Criar primeiro projeto", href: url("/app/novo") },
+      body: "<p>Você já pode enviar seu primeiro vídeo. Grave como sempre gravou e envie: a TRIBUNA corta as pausas e os vícios e coloca legendas certinhas, pronto para Reels e TikTok.</p>",
+      cta: { label: "Enviar meu primeiro vídeo", href: url("/app") },
     }),
   }),
   projectReceived: (name: string, projectName: string, projectId: string) => ({
@@ -50,7 +50,7 @@ export const emailTemplates = {
     html: layout({
       eyebrow: "Vídeo pronto",
       title: "Seu vídeo está pronto.",
-      body: `<p>${esc(name || "Olá")}, a edição de <strong>${esc(projectName)}</strong> foi concluída. Assista, compare com o original e baixe em MP4.</p>`,
+      body: `<p>${esc(name || "Olá")}, a edição de <strong>${esc(projectName)}</strong> foi concluída. Assista e baixe em MP4.</p>`,
       cta: { label: "Ver vídeo", href: url(`/app/video/${projectId}`) },
     }),
   }),
@@ -78,7 +78,7 @@ export const emailTemplates = {
       eyebrow: "Assinatura",
       title: "Pagamento pendente.",
       body: `<p>${esc(name || "Olá")}, não identificamos o pagamento do <strong>${esc(planName)}</strong>. Atualize a forma de pagamento para continuar criando projetos.</p>`,
-      cta: { label: "Ver assinatura", href: url("/app/assinatura") },
+      cta: { label: "Ver minha conta", href: url("/app/configuracoes") },
     }),
   }),
   adminNewProject: (projectName: string, projectId: string, userEmail: string) => ({

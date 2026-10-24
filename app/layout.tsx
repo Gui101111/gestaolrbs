@@ -40,10 +40,10 @@ export const metadata: Metadata = {
   keywords: [
     "edição de vídeo para advogados",
     "vídeos jurídicos",
-    "marketing jurídico",
-    "Provimento 205/2021",
+    "legendas automáticas",
+    "cortar pausas do vídeo",
     "Reels para advogados",
-    "edição com IA",
+    "TikTok para advogados",
   ],
   openGraph: {
     type: "website",
