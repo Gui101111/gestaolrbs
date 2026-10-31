@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Mont"; font-weight: 900; src: url(node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Mont"; font-weight: 800; src: url(node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2) format("woff2"); }
+  html, body { margin: 0; padding: 0; background: #071634; }
+  #stage {
+    position: relative; width: 1080px; height: 1080px; overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 44%, rgba(255, 200, 80, .30) 0%, rgba(255, 200, 80, 0) 34%),
+      radial-gradient(circle at 50% 40%, #2a5bd0 0%, #163a8f 38%, #0b2160 68%, #061331 100%);
+  }
+  #ring { position: absolute; inset: 26px; border-radius: 50%; border: 6px solid rgba(242, 183, 5, .0); }
+  canvas { position: absolute; left: 0; top: 0; }
+  #title {
+    position: absolute; left: 0; right: 0; text-align: center; font-family: "Mont"; color: #fff;
+    letter-spacing: 2px; display: none; text-shadow: 0 6px 18px rgba(0,0,0,.35);
+  }
+  #title .l1 { font-weight: 900; font-size: 92px; line-height: 1; }
+  #title .l2 { font-weight: 900; font-size: 92px; line-height: 1; color: #FFC531; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="ring"></div>
+  <div id="title"><div class="l1">ADVOGADO</div><div class="l2">DE BOLSO</div></div>
+</div>
+<script type="importmap">{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }</script>
+<script type="module">
+import * as THREE from "three";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+const params = new URLSearchParams(location.search);
+const withName = params.get("nome") === "1";
+const W = 1080, H = 1080;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(2);
+renderer.setSize(W, H);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.getElementById("stage").appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+const camera = new THREE.PerspectiveCamera(28, W / H, 0.1, 100);
+camera.position.set(1.1, 1.0, 10.5);
+camera.lookAt(0, withName ? -0.55 : -0.05, 0);
+
+
+// ---------- luzes
+const key = new THREE.DirectionalLight(0xfff1d6, 2.4);
+key.position.set(-4, 6, 7); key.castShadow = true;
+key.shadow.mapSize.set(4096, 4096); key.shadow.radius = 6; key.shadow.bias = -0.0004; key.shadow.normalBias = 0.03;
+Object.assign(key.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4 });
+scene.add(key);
+const rim = new THREE.DirectionalLight(0x9cc2ff, 1.6); rim.position.set(5, 3, -6); scene.add(rim);
+const fill = new THREE.HemisphereLight(0xdbe8ff, 0x1a2a55, 0.55); scene.add(fill);
+
+// ---------- textura de jeans (sarja diagonal) gerada em canvas
+function denimTexture() {
+  const c = document.createElement("canvas"); c.width = c.height = 512;
+  const g = c.getContext("2d");
+  g.fillStyle = "#1d4aa8"; g.fillRect(0, 0, 512, 512);
+  for (let i = -512; i < 1024; i += 6) {
+    g.strokeStyle = `rgba(255,255,255,${0.05 + 0.05 * ((((i / 6) % 2) + 2) % 2)})`; g.lineWidth = 2.2;
+    g.beginPath(); g.moveTo(i, 0); g.lineTo(i + 512, 512); g.stroke();
+  }
+  // granulado
+  const img = g.getImageData(0, 0, 512, 512);
+  let s = 1234567;
+  const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  for (let p = 0; p < img.data.length; p += 4) {
+    const n = (rnd() - 0.5) * 26;
+    img.data[p] += n; img.data[p + 1] += n; img.data[p + 2] += n;
+  }
+  g.putImageData(img, 0, 0);
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(0.55, 0.55); t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+
+// ---------- contorno do bolso (bolso traseiro de jeans, cantos suaves)
+function pocketShape(sx = 1, top = 0.3) {
+  const s = new THREE.Shape();
+  const r = 0.12;
+  s.moveTo(-1.25 * sx + r, top);
+  s.lineTo(1.25 * sx - r, top);
+  s.quadraticCurveTo(1.25 * sx, top, 1.24 * sx, top - r);
+  s.lineTo(1.12 * sx, -1.35);
+  s.quadraticCurveTo(1.1 * sx, -1.48, 0.98 * sx, -1.55);
+  s.lineTo(0.1, -1.98);
+  s.quadraticCurveTo(0, -2.03, -0.1, -1.98);
+  s.lineTo(-0.98 * sx, -1.55);
+  s.quadraticCurveTo(-1.1 * sx, -1.48, -1.12 * sx, -1.35);
+  s.lineTo(-1.24 * sx, top - r);
+  s.quadraticCurveTo(-1.25 * sx, top, -1.25 * sx + r, top);
+  return s;
+}
+
+const group = new THREE.Group();
+scene.add(group);
+
+const denim = new THREE.MeshStandardMaterial({ map: denimTexture(), roughness: 0.9, metalness: 0.0, envMapIntensity: 0.45 });
+const DEPTH = 0.14, BEVEL = 0.07;
+const front = new THREE.Mesh(
+  new THREE.ExtrudeGeometry(pocketShape(), { depth: DEPTH, bevelEnabled: true, bevelThickness: BEVEL, bevelSize: 0.07, bevelSegments: 8, curveSegments: 24 }),
+  denim);
+front.castShadow = true; front.receiveShadow = params.get("rs") !== "0";
+group.add(front);
+
+// interior escuro do bolso (aparece como a "boca" do bolso)
+const inner = new THREE.Mesh(
+  new THREE.ExtrudeGeometry(pocketShape(0.97, 0.44), { depth: 0.04, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 4, curveSegments: 24 }),
+  new THREE.MeshStandardMaterial({ color: 0x07122e, roughness: 0.95, envMapIntensity: 0.2 }));
+inner.position.z = -0.42;
+inner.receiveShadow = true;
+group.add(inner);
+
+// barra dobrada no topo do bolso
+const hem = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.1, 0.06), new THREE.MeshStandardMaterial({ color: 0x1a4296, roughness: 0.9, envMapIntensity: 0.45 }));
+hem.position.set(0, 0.2, DEPTH + BEVEL + 0.01);
+group.add(hem);
+
+// pesponto dourado: tracinhos ao longo de um contorno interno
+const stitchMat = new THREE.MeshStandardMaterial({ color: 0xf4b223, roughness: 0.55, metalness: 0.15, emissive: 0x3a2400, emissiveIntensity: 0.25 });
+function stitchRow(sx, top, dash = 0.09, gap = 0.06) {
+  const pts = pocketShape(sx, top).getSpacedPoints(400);
+  const curve = new THREE.CatmullRomCurve3(pts.map(p => new THREE.Vector3(p.x, p.y, 0)), true);
+  const len = curve.getLength();
+  const n = Math.floor(len / (dash + gap));
+  const geo = new THREE.CapsuleGeometry(0.018, dash, 3, 8);
+  for (let i = 0; i < n; i++) {
+    const u = i / n;
+    const p = curve.getPointAt(u);
+    if (p.y > top - 0.02) continue; // sem pesponto na borda superior (é a boca do bolso)
+    const t = curve.getTangentAt(u);
+    const m = new THREE.Mesh(geo, stitchMat);
+    m.position.set(p.x, p.y, DEPTH + BEVEL + 0.015);
+    m.rotation.z = Math.atan2(t.y, t.x) - Math.PI / 2;
+    m.rotation.x = Math.PI / 2 * 0; m.castShadow = true;
+    group.add(m);
+  }
+}
+stitchRow(0.9, 0.08);
+stitchRow(0.84, 0.0);
+// pesponto reto da barra
+for (let x = -1.1; x <= 1.1; x += 0.15) {
+  const m = new THREE.Mesh(new THREE.CapsuleGeometry(0.018, 0.09, 3, 8), stitchMat);
+  m.position.set(x, 0.13, DEPTH + BEVEL + 0.03); m.rotation.z = Math.PI / 2; group.add(m);
+}
+// rebites de cobre nos cantos
+const rivetMat = new THREE.MeshStandardMaterial({ color: 0xd08a3a, metalness: 1, roughness: 0.3 });
+for (const x of [-1.08, 1.08]) {
+  const r = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.085, 0.06, 32), rivetMat);
+  r.rotation.x = Math.PI / 2; r.position.set(x, 0.16, DEPTH + BEVEL + 0.03); group.add(r);
+}
+
+// ---------- balança da justiça dourada saindo do bolso
+const gold = new THREE.MeshStandardMaterial({ color: 0xf2bd3a, metalness: 1.0, roughness: 0.22 });
+const goldDark = new THREE.MeshStandardMaterial({ color: 0xc98f1a, metalness: 1.0, roughness: 0.3 });
+const scale = new THREE.Group();
+scale.position.set(0, 0, -0.2);
+group.add(scale);
+const add = (geo, mat, x, y, z = 0, rx = 0, ry = 0, rz = 0) => {
+  const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.rotation.set(rx, ry, rz);
+  m.castShadow = true; m.receiveShadow = true; scale.add(m); return m;
+};
+add(new THREE.CylinderGeometry(0.075, 0.1, 2.6, 32), gold, 0, 0.35);           // coluna
+add(new THREE.TorusGeometry(0.11, 0.035, 16, 40), goldDark, 0, 1.2, 0, Math.PI / 2); // anel decorativo
+add(new THREE.SphereGeometry(0.2, 40, 24), gold, 0, 1.86);                      // pináculo
+add(new THREE.ConeGeometry(0.09, 0.22, 32), gold, 0, 2.12);
+const BEAM_Y = 1.62, ARM = 1.22;
+add(new THREE.CylinderGeometry(0.055, 0.055, ARM * 2, 24), gold, 0, BEAM_Y, 0, 0, 0, Math.PI / 2); // travessão
+for (const sx of [-1, 1]) add(new THREE.SphereGeometry(0.085, 24, 16), goldDark, sx * ARM, BEAM_Y);
+// pratos
+const PAN_Y = 0.62, PAN_R = 0.48;
+const panProfile = [];
+for (let i = 0; i <= 16; i++) { const a = (i / 16) * Math.PI / 2; panProfile.push(new THREE.Vector2(Math.sin(a) * PAN_R, -Math.cos(a) * 0.17 + 0.17)); }
+const panGeo = new THREE.LatheGeometry(panProfile, 48);
+for (const sx of [-1, 1]) {
+  const x = sx * ARM;
+  const pan = add(panGeo, new THREE.MeshStandardMaterial({ color: 0xf2bd3a, metalness: 1, roughness: 0.22, side: THREE.DoubleSide }), x, PAN_Y);
+  add(new THREE.TorusGeometry(PAN_R, 0.025, 12, 64), goldDark, x, PAN_Y + 0.17, 0, Math.PI / 2);
+  // correntes (3 hastes finas por prato)
+  for (let k = 0; k < 3; k++) {
+    const ang = k * (Math.PI * 2 / 3) + Math.PI / 6;
+    const bx = x + Math.cos(ang) * PAN_R * 0.92, bz = Math.sin(ang) * PAN_R * 0.92;
+    const top = new THREE.Vector3(x, BEAM_Y - 0.04, 0), bot = new THREE.Vector3(bx, PAN_Y + 0.17, bz);
+    const len = top.distanceTo(bot);
+    const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, len, 8), goldDark);
+    rod.position.copy(top).add(bot).multiplyScalar(0.5);
+    rod.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), bot.clone().sub(top).normalize());
+    rod.castShadow = true; scale.add(rod);
+  }
+}
+
+// brilhos (estrelinhas) ao redor
+function sparkle(x, y, s) {
+  const shape = new THREE.Shape();
+  const r1 = s, r2 = s * 0.22;
+  for (let i = 0; i < 8; i++) {
+    const r = i % 2 === 0 ? r1 : r2, a = i * Math.PI / 4 + Math.PI / 2;
+    i === 0 ? shape.moveTo(Math.cos(a) * r, Math.sin(a) * r) : shape.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+  }
+  const m = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: 0.02, bevelEnabled: false }),
+    new THREE.MeshStandardMaterial({ color: 0xffe08a, emissive: 0xffc531, emissiveIntensity: 0.9, roughness: 0.4 }));
+  m.position.set(x, y, 0.4); group.add(m);
+}
+sparkle(1.55, 1.75, 0.17); sparkle(-1.8, 1.25, 0.12); sparkle(1.62, -0.6, 0.09);
+
+group.rotation.set(-0.06, -0.24, 0.03);
+group.position.y = withName ? 0.05 : 0;
+
+if (withName) {
+  const t = document.getElementById("title"); t.style.display = "block"; t.style.top = "742px";
+  const cv = renderer.domElement; cv.style.transformOrigin = "50% 0"; cv.style.transform = "translateY(70px) scale(0.64)";
+}
+await document.fonts.ready;
+renderer.render(scene, camera);
+window.__ready = true;
+</script>
+</body>
+</html>
