@@ -115,7 +115,6 @@ const SYSTEM = (): SceneObject[] => [
 ];
 const PIPE = o("accidentPipe", "cano-dourado-do-seguro-desemprego");
 const LUCAS_HEAD: Vec3 = [L.work[0], 1.95, L.work[2]];
-const GOV: Vec3 = [2.8, 4.0, -4.6];
 
 const P = {
   far: orbit([0, 1.4, -1.0], 46, 30, 32),
@@ -133,7 +132,7 @@ const P = {
   timeline: orbit([-1.2, 0.5, 3.6], 13, -62, 30),
   gate: orbit([3.0, 0.9, -2.3], 14, 40, 18),
   gateClose: orbit([3.3, 0.9, -2.3], 10.5, 28, 12),
-  gov: orbit([2.6, 2.4, -3.4], 12, -12, 10),
+  gov: orbit([2.8, 2.0, -4.4], 14, 28, 18),
   final: orbit([0, 1.4, -1.2], 46, 40, 30),
   finalClose: orbit([L.home[0], 1.35, L.home[2]], 5.2, 18, 8),
 };
@@ -416,7 +415,7 @@ export const scenes: ScenePlan[] = [
     durationInFrames: sc(9).durationInFrames,
     voKey: "s10",
     narration: "O benefício é do Ministério do Trabalho, e o pagamento é feito pela Caixa.",
-    camera: { projection: "perspective", movement: "dolly-in", keys: [key(0, P.timeline), key(10, P.gov, "out"), key(end(9), orbit([2.6, 2.6, -3.4], 9.5, -6, 10), "soft")] },
+    camera: { projection: "perspective", movement: "dolly-in", keys: [key(0, P.timeline), key(10, P.gov, "out"), key(end(9), orbit([2.8, 2.0, -4.4], 11.5, 22, 14), "soft")] },
     objects: [...SYSTEM(), PIPE],
     animations: [...whip(0), spring("inss.glow", W("s10", 4), W("s10", 4) + 20, 0, 1, 8), ...punch(W("s10", 4)), ...punch(W("s10", 13))],
     badges: [
@@ -424,7 +423,6 @@ export const scenes: ScenePlan[] = [
       { text: "PAGAMENTO PELA CAIXA", variant: "info", appearAt: W("s10", 9), disappearAt: end(9) },
     ],
     bigWords: [{ text: "CAIXA", at: W("s10", 13), until: end(9), color: "#5aa9f2", size: 180 }],
-    labels: [{ text: "MINISTÉRIO DO TRABALHO", point: GOV, at: W("s10", 4), until: end(9), off: [0, -80], accent: "#2f7df6" }],
     highlights: ["BENEFÍCIO", "MINISTÉRIO", "TRABALHO", "PAGAMENTO", "CAIXA"],
     captions: [{ text: "O benefício é do Ministério do Trabalho, e o pagamento é feito pela Caixa.", from: voLocal("s10"), to: end(9) }],
     audioCues: [narration("s10", "ready"), sfx("whoosh", 0, 0.22), sfx("badge", W("s10", 4), 0.22), sfx("badge", W("s10", 9), 0.22), sfx("ding", W("s10", 13), 0.22)],
