@@ -1,0 +1,1243 @@
+{
+ "s1": {
+  "text": "Trabalhar e receber do INSS ao mesmo tempo? Parece golpe, né? Mas é lei.",
+  "seconds": 5.371,
+  "words": [
+   {
+    "text": "Trabalhar",
+    "start": 0,
+    "end": 0.477
+   },
+   {
+    "text": "e",
+    "start": 0.477,
+    "end": 0.523
+   },
+   {
+    "text": "receber",
+    "start": 0.523,
+    "end": 1.096
+   },
+   {
+    "text": "do",
+    "start": 1.096,
+    "end": 1.211
+   },
+   {
+    "text": "INSS",
+    "start": 1.211,
+    "end": 2.071
+   },
+   {
+    "text": "ao",
+    "start": 2.071,
+    "end": 2.117
+   },
+   {
+    "text": "mesmo",
+    "start": 2.117,
+    "end": 2.369
+   },
+   {
+    "text": "tempo?",
+    "start": 2.369,
+    "end": 2.736
+   },
+   {
+    "text": "Parece",
+    "start": 3.068,
+    "end": 3.412
+   },
+   {
+    "text": "golpe,",
+    "start": 3.412,
+    "end": 3.802
+   },
+   {
+    "text": "né?",
+    "start": 4.042,
+    "end": 4.26
+   },
+   {
+    "text": "Mas",
+    "start": 4.571,
+    "end": 4.743
+   },
+   {
+    "text": "é",
+    "start": 4.743,
+    "end": 4.892
+   },
+   {
+    "text": "lei.",
+    "start": 4.892,
+    "end": 5.293
+   }
+  ]
+ },
+ "s2": {
+  "text": "Esse é o Marcos: carteira assinada, e todo mês o salário cai no cofrinho.",
+  "seconds": 4.084,
+  "words": [
+   {
+    "text": "Esse",
+    "start": 0,
+    "end": 0.243
+   },
+   {
+    "text": "é",
+    "start": 0.243,
+    "end": 0.3
+   },
+   {
+    "text": "o",
+    "start": 0.3,
+    "end": 0.358
+   },
+   {
+    "text": "Marcos:",
+    "start": 0.358,
+    "end": 0.874
+   },
+   {
+    "text": "carteira",
+    "start": 1.069,
+    "end": 1.516
+   },
+   {
+    "text": "assinada,",
+    "start": 1.516,
+    "end": 2.021
+   },
+   {
+    "text": "e",
+    "start": 2.204,
+    "end": 2.296
+   },
+   {
+    "text": "todo",
+    "start": 2.296,
+    "end": 2.56
+   },
+   {
+    "text": "mês",
+    "start": 2.56,
+    "end": 2.72
+   },
+   {
+    "text": "o",
+    "start": 2.72,
+    "end": 2.812
+   },
+   {
+    "text": "salário",
+    "start": 2.812,
+    "end": 3.225
+   },
+   {
+    "text": "cai",
+    "start": 3.225,
+    "end": 3.397
+   },
+   {
+    "text": "no",
+    "start": 3.397,
+    "end": 3.466
+   },
+   {
+    "text": "cofrinho.",
+    "start": 3.466,
+    "end": 3.993
+   }
+  ]
+ },
+ "s3": {
+  "text": "Até que a escada resolveu dançar… e o Marcos caiu de mão no chão.",
+  "seconds": 3.556,
+  "words": [
+   {
+    "text": "Até",
+    "start": 0,
+    "end": 0.211
+   },
+   {
+    "text": "que",
+    "start": 0.211,
+    "end": 0.291
+   },
+   {
+    "text": "a",
+    "start": 0.291,
+    "end": 0.314
+   },
+   {
+    "text": "escada",
+    "start": 0.314,
+    "end": 0.715
+   },
+   {
+    "text": "resolveu",
+    "start": 0.715,
+    "end": 1.14
+   },
+   {
+    "text": "dançar…",
+    "start": 1.14,
+    "end": 1.575
+   },
+   {
+    "text": "e",
+    "start": 1.885,
+    "end": 1.965
+   },
+   {
+    "text": "o",
+    "start": 1.965,
+    "end": 2.011
+   },
+   {
+    "text": "Marcos",
+    "start": 2.011,
+    "end": 2.378
+   },
+   {
+    "text": "caiu",
+    "start": 2.378,
+    "end": 2.757
+   },
+   {
+    "text": "de",
+    "start": 2.757,
+    "end": 2.848
+   },
+   {
+    "text": "mão",
+    "start": 2.848,
+    "end": 3.055
+   },
+   {
+    "text": "no",
+    "start": 3.055,
+    "end": 3.124
+   },
+   {
+    "text": "chão.",
+    "start": 3.124,
+    "end": 3.468
+   }
+  ]
+ },
+ "s4": {
+  "text": "Mão engessada, nada de trabalho. O salário parou. E agora?",
+  "seconds": 4.475,
+  "words": [
+   {
+    "text": "Mão",
+    "start": 0,
+    "end": 0.251
+   },
+   {
+    "text": "engessada,",
+    "start": 0.251,
+    "end": 0.939
+   },
+   {
+    "text": "nada",
+    "start": 1.179,
+    "end": 1.546
+   },
+   {
+    "text": "de",
+    "start": 1.546,
+    "end": 1.638
+   },
+   {
+    "text": "trabalho.",
+    "start": 1.638,
+    "end": 2.085
+   },
+   {
+    "text": "O",
+    "start": 2.395,
+    "end": 2.475
+   },
+   {
+    "text": "salário",
+    "start": 2.475,
+    "end": 3.037
+   },
+   {
+    "text": "parou.",
+    "start": 3.037,
+    "end": 3.462
+   },
+   {
+    "text": "E",
+    "start": 3.771,
+    "end": 3.851
+   },
+   {
+    "text": "agora?",
+    "start": 3.851,
+    "end": 4.356
+   }
+  ]
+ },
+ "s5": {
+  "text": "Calma! Enquanto ele se recupera, o INSS paga o auxílio-doença.",
+  "seconds": 4.487,
+  "words": [
+   {
+    "text": "Calma!",
+    "start": 0,
+    "end": 0.399
+   },
+   {
+    "text": "Enquanto",
+    "start": 0.721,
+    "end": 1.146
+   },
+   {
+    "text": "ele",
+    "start": 1.146,
+    "end": 1.26
+   },
+   {
+    "text": "se",
+    "start": 1.26,
+    "end": 1.352
+   },
+   {
+    "text": "recupera,",
+    "start": 1.352,
+    "end": 1.88
+   },
+   {
+    "text": "o",
+    "start": 2.109,
+    "end": 2.224
+   },
+   {
+    "text": "INSS",
+    "start": 2.224,
+    "end": 3.129
+   },
+   {
+    "text": "paga",
+    "start": 3.13,
+    "end": 3.416
+   },
+   {
+    "text": "o",
+    "start": 3.416,
+    "end": 3.451
+   },
+   {
+    "text": "auxílio-doença.",
+    "start": 3.451,
+    "end": 4.368
+   }
+  ]
+ },
+ "s6": {
+  "text": "Aí vem a perícia: alta! O gesso sai, o auxílio acaba e o salário volta.",
+  "seconds": 5.039,
+  "words": [
+   {
+    "text": "Aí",
+    "start": 0,
+    "end": 0.304
+   },
+   {
+    "text": "vem",
+    "start": 0.304,
+    "end": 0.453
+   },
+   {
+    "text": "a",
+    "start": 0.453,
+    "end": 0.51
+   },
+   {
+    "text": "perícia:",
+    "start": 0.51,
+    "end": 0.946
+   },
+   {
+    "text": "alta!",
+    "start": 1.198,
+    "end": 1.623
+   },
+   {
+    "text": "O",
+    "start": 1.944,
+    "end": 2.013
+   },
+   {
+    "text": "gesso",
+    "start": 2.013,
+    "end": 2.357
+   },
+   {
+    "text": "sai,",
+    "start": 2.357,
+    "end": 2.747
+   },
+   {
+    "text": "o",
+    "start": 2.976,
+    "end": 3.01
+   },
+   {
+    "text": "auxílio",
+    "start": 3.01,
+    "end": 3.469
+   },
+   {
+    "text": "acaba",
+    "start": 3.469,
+    "end": 4.031
+   },
+   {
+    "text": "e",
+    "start": 4.031,
+    "end": 4.111
+   },
+   {
+    "text": "o",
+    "start": 4.111,
+    "end": 4.146
+   },
+   {
+    "text": "salário",
+    "start": 4.146,
+    "end": 4.513
+   },
+   {
+    "text": "volta.",
+    "start": 4.513,
+    "end": 4.925
+   }
+  ]
+ },
+ "s7": {
+  "text": "Só que dois dedos não dobram mais. Ele tenta pegar a caixa… e a caixa ganha.",
+  "seconds": 4.767,
+  "words": [
+   {
+    "text": "Só",
+    "start": 0,
+    "end": 0.185
+   },
+   {
+    "text": "que",
+    "start": 0.185,
+    "end": 0.299
+   },
+   {
+    "text": "dois",
+    "start": 0.299,
+    "end": 0.586
+   },
+   {
+    "text": "dedos",
+    "start": 0.586,
+    "end": 0.988
+   },
+   {
+    "text": "não",
+    "start": 0.988,
+    "end": 1.228
+   },
+   {
+    "text": "dobram",
+    "start": 1.228,
+    "end": 1.607
+   },
+   {
+    "text": "mais.",
+    "start": 1.607,
+    "end": 2.031
+   },
+   {
+    "text": "Ele",
+    "start": 2.353,
+    "end": 2.56
+   },
+   {
+    "text": "tenta",
+    "start": 2.56,
+    "end": 2.835
+   },
+   {
+    "text": "pegar",
+    "start": 2.835,
+    "end": 3.099
+   },
+   {
+    "text": "a",
+    "start": 3.099,
+    "end": 3.179
+   },
+   {
+    "text": "caixa…",
+    "start": 3.179,
+    "end": 3.569
+   },
+   {
+    "text": "e",
+    "start": 3.764,
+    "end": 3.844
+   },
+   {
+    "text": "a",
+    "start": 3.844,
+    "end": 3.947
+   },
+   {
+    "text": "caixa",
+    "start": 3.947,
+    "end": 4.303
+   },
+   {
+    "text": "ganha.",
+    "start": 4.303,
+    "end": 4.658
+   }
+  ]
+ },
+ "s8": {
+  "text": "É pra isso que existe o auxílio-acidente: uma indenização do INSS pra quem ficou com sequela que reduz a capacidade de trabalho.",
+  "seconds": 7.011,
+  "words": [
+   {
+    "text": "É",
+    "start": 0,
+    "end": 0.031
+   },
+   {
+    "text": "pra",
+    "start": 0.031,
+    "end": 0.26
+   },
+   {
+    "text": "isso",
+    "start": 0.26,
+    "end": 0.478
+   },
+   {
+    "text": "que",
+    "start": 0.478,
+    "end": 0.547
+   },
+   {
+    "text": "existe",
+    "start": 0.547,
+    "end": 0.902
+   },
+   {
+    "text": "o",
+    "start": 0.902,
+    "end": 0.948
+   },
+   {
+    "text": "auxílio-acidente:",
+    "start": 0.948,
+    "end": 1.969
+   },
+   {
+    "text": "uma",
+    "start": 2.187,
+    "end": 2.347
+   },
+   {
+    "text": "indenização",
+    "start": 2.347,
+    "end": 3.104
+   },
+   {
+    "text": "do",
+    "start": 3.104,
+    "end": 3.219
+   },
+   {
+    "text": "INSS",
+    "start": 3.219,
+    "end": 4.113
+   },
+   {
+    "text": "pra",
+    "start": 4.113,
+    "end": 4.239
+   },
+   {
+    "text": "quem",
+    "start": 4.239,
+    "end": 4.4
+   },
+   {
+    "text": "ficou",
+    "start": 4.4,
+    "end": 4.675
+   },
+   {
+    "text": "com",
+    "start": 4.675,
+    "end": 4.778
+   },
+   {
+    "text": "sequela",
+    "start": 4.778,
+    "end": 5.237
+   },
+   {
+    "text": "que",
+    "start": 5.249,
+    "end": 5.363
+   },
+   {
+    "text": "reduz",
+    "start": 5.363,
+    "end": 5.719
+   },
+   {
+    "text": "a",
+    "start": 5.719,
+    "end": 5.811
+   },
+   {
+    "text": "capacidade",
+    "start": 5.811,
+    "end": 6.384
+   },
+   {
+    "text": "de",
+    "start": 6.384,
+    "end": 6.476
+   },
+   {
+    "text": "trabalho.",
+    "start": 6.476,
+    "end": 6.923
+   }
+  ]
+ },
+ "s9": {
+  "text": "E ele continua trabalhando! Salário e auxílio caem juntos, todo mês.",
+  "seconds": 4.453,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.088
+   },
+   {
+    "text": "ele",
+    "start": 0.088,
+    "end": 0.249
+   },
+   {
+    "text": "continua",
+    "start": 0.249,
+    "end": 0.776
+   },
+   {
+    "text": "trabalhando!",
+    "start": 0.776,
+    "end": 1.361
+   },
+   {
+    "text": "Salário",
+    "start": 1.682,
+    "end": 2.278
+   },
+   {
+    "text": "e",
+    "start": 2.278,
+    "end": 2.347
+   },
+   {
+    "text": "auxílio",
+    "start": 2.347,
+    "end": 2.817
+   },
+   {
+    "text": "caem",
+    "start": 2.817,
+    "end": 3.127
+   },
+   {
+    "text": "juntos,",
+    "start": 3.127,
+    "end": 3.609
+   },
+   {
+    "text": "todo",
+    "start": 3.758,
+    "end": 3.999
+   },
+   {
+    "text": "mês.",
+    "start": 3.999,
+    "end": 4.354
+   }
+  ]
+ },
+ "s10": {
+  "text": "Ah, mas o tombo foi de moto, no fim de semana? Também vale: acidente de qualquer natureza.",
+  "seconds": 5.807,
+  "words": [
+   {
+    "text": "Ah,",
+    "start": 0,
+    "end": 0.201
+   },
+   {
+    "text": "mas",
+    "start": 0.453,
+    "end": 0.556
+   },
+   {
+    "text": "o",
+    "start": 0.556,
+    "end": 0.717
+   },
+   {
+    "text": "tombo",
+    "start": 0.717,
+    "end": 1.038
+   },
+   {
+    "text": "foi",
+    "start": 1.038,
+    "end": 1.21
+   },
+   {
+    "text": "de",
+    "start": 1.21,
+    "end": 1.302
+   },
+   {
+    "text": "moto,",
+    "start": 1.302,
+    "end": 1.68
+   },
+   {
+    "text": "no",
+    "start": 1.887,
+    "end": 1.932
+   },
+   {
+    "text": "fim",
+    "start": 1.932,
+    "end": 2.127
+   },
+   {
+    "text": "de",
+    "start": 2.127,
+    "end": 2.196
+   },
+   {
+    "text": "semana?",
+    "start": 2.196,
+    "end": 2.678
+   },
+   {
+    "text": "Também",
+    "start": 2.986,
+    "end": 3.376
+   },
+   {
+    "text": "vale:",
+    "start": 3.376,
+    "end": 3.743
+   },
+   {
+    "text": "acidente",
+    "start": 3.973,
+    "end": 4.615
+   },
+   {
+    "text": "de",
+    "start": 4.615,
+    "end": 4.695
+   },
+   {
+    "text": "qualquer",
+    "start": 4.695,
+    "end": 5.108
+   },
+   {
+    "text": "natureza.",
+    "start": 5.108,
+    "end": 5.693
+   }
+  ]
+ },
+ "s11": {
+  "text": "Mas nem todo mundo tem direito. Vale pra carteira assinada, inclusive doméstico, avulso e segurado especial, tipo pequeno produtor rural.",
+  "seconds": 8.044,
+  "words": [
+   {
+    "text": "Mas",
+    "start": 0,
+    "end": 0.174
+   },
+   {
+    "text": "nem",
+    "start": 0.174,
+    "end": 0.392
+   },
+   {
+    "text": "todo",
+    "start": 0.392,
+    "end": 0.61
+   },
+   {
+    "text": "mundo",
+    "start": 0.61,
+    "end": 0.908
+   },
+   {
+    "text": "tem",
+    "start": 0.908,
+    "end": 1.034
+   },
+   {
+    "text": "direito.",
+    "start": 1.034,
+    "end": 1.482
+   },
+   {
+    "text": "Vale",
+    "start": 1.804,
+    "end": 2.136
+   },
+   {
+    "text": "pra",
+    "start": 2.136,
+    "end": 2.262
+   },
+   {
+    "text": "carteira",
+    "start": 2.263,
+    "end": 2.652
+   },
+   {
+    "text": "assinada,",
+    "start": 2.652,
+    "end": 3.146
+   },
+   {
+    "text": "inclusive",
+    "start": 3.306,
+    "end": 3.822
+   },
+   {
+    "text": "doméstico,",
+    "start": 3.822,
+    "end": 4.407
+   },
+   {
+    "text": "avulso",
+    "start": 4.568,
+    "end": 5.244
+   },
+   {
+    "text": "e",
+    "start": 5.244,
+    "end": 5.279
+   },
+   {
+    "text": "segurado",
+    "start": 5.279,
+    "end": 5.726
+   },
+   {
+    "text": "especial,",
+    "start": 5.726,
+    "end": 6.322
+   },
+   {
+    "text": "tipo",
+    "start": 6.506,
+    "end": 6.723
+   },
+   {
+    "text": "pequeno",
+    "start": 6.723,
+    "end": 7.136
+   },
+   {
+    "text": "produtor",
+    "start": 7.136,
+    "end": 7.572
+   },
+   {
+    "text": "rural.",
+    "start": 7.572,
+    "end": 7.951
+   }
+  ]
+ },
+ "s12": {
+  "text": "MEI e autônomo? Ficam de fora.",
+  "seconds": 2.567,
+  "words": [
+   {
+    "text": "MEI",
+    "start": 0,
+    "end": 0.228
+   },
+   {
+    "text": "e",
+    "start": 0.228,
+    "end": 0.458
+   },
+   {
+    "text": "autônomo?",
+    "start": 0.458,
+    "end": 1.203
+   },
+   {
+    "text": "Ficam",
+    "start": 1.525,
+    "end": 1.938
+   },
+   {
+    "text": "de",
+    "start": 1.938,
+    "end": 2.041
+   },
+   {
+    "text": "fora.",
+    "start": 2.041,
+    "end": 2.454
+   }
+  ]
+ },
+ "s13": {
+  "text": "E quanto é? Em regra, metade do salário de benefício, a média das contribuições. E cai até ele se aposentar.",
+  "seconds": 7.203,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.039
+   },
+   {
+    "text": "quanto",
+    "start": 0.039,
+    "end": 0.395
+   },
+   {
+    "text": "é?",
+    "start": 0.395,
+    "end": 0.59
+   },
+   {
+    "text": "Em",
+    "start": 0.899,
+    "end": 1.094
+   },
+   {
+    "text": "regra,",
+    "start": 1.094,
+    "end": 1.507
+   },
+   {
+    "text": "metade",
+    "start": 1.714,
+    "end": 2.241
+   },
+   {
+    "text": "do",
+    "start": 2.241,
+    "end": 2.31
+   },
+   {
+    "text": "salário",
+    "start": 2.31,
+    "end": 2.7
+   },
+   {
+    "text": "de",
+    "start": 2.7,
+    "end": 2.757
+   },
+   {
+    "text": "benefício,",
+    "start": 2.757,
+    "end": 3.411
+   },
+   {
+    "text": "a",
+    "start": 3.56,
+    "end": 3.64
+   },
+   {
+    "text": "média",
+    "start": 3.64,
+    "end": 4.03
+   },
+   {
+    "text": "das",
+    "start": 4.03,
+    "end": 4.168
+   },
+   {
+    "text": "contribuições.",
+    "start": 4.168,
+    "end": 5.051
+   },
+   {
+    "text": "E",
+    "start": 5.36,
+    "end": 5.498
+   },
+   {
+    "text": "cai",
+    "start": 5.498,
+    "end": 5.83
+   },
+   {
+    "text": "até",
+    "start": 5.83,
+    "end": 6.106
+   },
+   {
+    "text": "ele",
+    "start": 6.106,
+    "end": 6.404
+   },
+   {
+    "text": "se",
+    "start": 6.404,
+    "end": 6.484
+   },
+   {
+    "text": "aposentar.",
+    "start": 6.484,
+    "end": 7.023
+   }
+  ]
+ },
+ "s14": {
+  "text": "Mas nem sempre o INSS libera sozinho. Junta os laudos e pede pelo telefone um três cinco.",
+  "seconds": 5.775,
+  "words": [
+   {
+    "text": "Mas",
+    "start": 0,
+    "end": 0.166
+   },
+   {
+    "text": "nem",
+    "start": 0.166,
+    "end": 0.35
+   },
+   {
+    "text": "sempre",
+    "start": 0.35,
+    "end": 0.774
+   },
+   {
+    "text": "o",
+    "start": 0.774,
+    "end": 0.854
+   },
+   {
+    "text": "INSS",
+    "start": 0.854,
+    "end": 1.588
+   },
+   {
+    "text": "libera",
+    "start": 1.588,
+    "end": 1.944
+   },
+   {
+    "text": "sozinho.",
+    "start": 1.944,
+    "end": 2.494
+   },
+   {
+    "text": "Junta",
+    "start": 2.804,
+    "end": 3.228
+   },
+   {
+    "text": "os",
+    "start": 3.228,
+    "end": 3.309
+   },
+   {
+    "text": "laudos",
+    "start": 3.309,
+    "end": 3.687
+   },
+   {
+    "text": "e",
+    "start": 3.687,
+    "end": 3.802
+   },
+   {
+    "text": "pede",
+    "start": 3.802,
+    "end": 4.031
+   },
+   {
+    "text": "pelo",
+    "start": 4.031,
+    "end": 4.215
+   },
+   {
+    "text": "telefone",
+    "start": 4.214,
+    "end": 4.799
+   },
+   {
+    "text": "um",
+    "start": 4.799,
+    "end": 4.937
+   },
+   {
+    "text": "três",
+    "start": 4.937,
+    "end": 5.224
+   },
+   {
+    "text": "cinco.",
+    "start": 5.224,
+    "end": 5.682
+   }
+  ]
+ },
+ "s15": {
+  "text": "Negaram? Dá pra recorrer ou ir à Justiça.",
+  "seconds": 2.91,
+  "words": [
+   {
+    "text": "Negaram?",
+    "start": 0,
+    "end": 0.617
+   },
+   {
+    "text": "Dá",
+    "start": 0.928,
+    "end": 1.158
+   },
+   {
+    "text": "pra",
+    "start": 1.158,
+    "end": 1.307
+   },
+   {
+    "text": "recorrer",
+    "start": 1.307,
+    "end": 1.834
+   },
+   {
+    "text": "ou",
+    "start": 1.834,
+    "end": 2.042
+   },
+   {
+    "text": "ir",
+    "start": 2.042,
+    "end": 2.178
+   },
+   {
+    "text": "à",
+    "start": 2.178,
+    "end": 2.225
+   },
+   {
+    "text": "Justiça.",
+    "start": 2.225,
+    "end": 2.798
+   }
+  ]
+ },
+ "s16": {
+  "text": "Pronto: agora você sabe como funciona o auxílio-acidente. Conhece alguém assim? Manda pra essa pessoa!",
+  "seconds": 6.247,
+  "words": [
+   {
+    "text": "Pronto:",
+    "start": 0,
+    "end": 0.344
+   },
+   {
+    "text": "agora",
+    "start": 0.527,
+    "end": 0.837
+   },
+   {
+    "text": "você",
+    "start": 0.837,
+    "end": 1.032
+   },
+   {
+    "text": "sabe",
+    "start": 1.032,
+    "end": 1.284
+   },
+   {
+    "text": "como",
+    "start": 1.284,
+    "end": 1.468
+   },
+   {
+    "text": "funciona",
+    "start": 1.468,
+    "end": 2.064
+   },
+   {
+    "text": "o",
+    "start": 2.064,
+    "end": 2.133
+   },
+   {
+    "text": "auxílio-acidente.",
+    "start": 2.133,
+    "end": 3.211
+   },
+   {
+    "text": "Conhece",
+    "start": 3.555,
+    "end": 3.991
+   },
+   {
+    "text": "alguém",
+    "start": 3.991,
+    "end": 4.289
+   },
+   {
+    "text": "assim?",
+    "start": 4.289,
+    "end": 4.725
+   },
+   {
+    "text": "Manda",
+    "start": 5.035,
+    "end": 5.402
+   },
+   {
+    "text": "pra",
+    "start": 5.402,
+    "end": 5.505
+   },
+   {
+    "text": "essa",
+    "start": 5.505,
+    "end": 5.677
+   },
+   {
+    "text": "pessoa!",
+    "start": 5.677,
+    "end": 6.136
+   }
+  ]
+ }
+}

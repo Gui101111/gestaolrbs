@@ -2,9 +2,9 @@
 
 | Campo | Valor |
 | --- | --- |
-| Fase atual | **Fase 1 concluída: AGUARDANDO APROVAÇÃO.** Implementação e renderização não iniciadas. |
+| Fase atual | **Fase 2 em andamento**: projeto implementado, render completo em execução. |
 | Versão do roteiro | v1 (31/10/2026) |
-| Aprovação | Pendente. Nenhuma versão foi aprovada ainda. |
+| Aprovação | v1 aprovada em 31/10/2026: o usuário pediu "o vídeo pronto pra eu baixar em MP4" depois de receber a v1. |
 | Origem do pedido | Skill `remotion-problem-resolve-video` com o tema "Auxílio-acidente: Se machucou no trabalho e voltou a trabalhar? Você pode ter direito a um benefício todo mês." |
 
 ## Arquivos
@@ -38,3 +38,4 @@
 ## Histórico
 
 - 31/10/2026: Fase 1 v1 entregue.
+- 31/10/2026: v1 aprovada (pedido do MP4). Fase 2 iniciada em `projeto/`. Voz gerada (edge-tts Thalita +9 %, 81,8 s de fala). Efeitos e trilha sintetizados. `tsc` ok. 4 rodadas de stills revisadas e corrigidas.

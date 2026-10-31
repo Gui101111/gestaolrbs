@@ -220,3 +220,37 @@ Na Fase 2 ele vira `src/data/scenes.ts` sem tradução. Os parâmetros de `utils
 
 **Limitação:** o site do Planalto bloqueou o acesso automático, então o texto consolidado da lei não foi lido na fonte oficial.
 Recomenda-se a revisão de um advogado inscrito na OAB antes de publicar.
+
+
+## 6. Ajustes técnicos da Fase 2 (sincronização, conteúdo preservado)
+
+Aprovação: o usuário pediu "o vídeo pronto em MP4" depois de receber esta versão 1, o que vale como aprovação da v1.
+
+| Ajuste | Motivo |
+| --- | --- |
+| Voz Thalita a **+9 %** (planejado +6 %) e pausas de **0,45 s** entre falas (planejado 0,5 s) | A +6 % a fala real deu 83,7 s e não cabia em 90 s. A +9 % deu 81,8 s, terminando em ~89 s. Nenhuma palavra foi mudada. |
+| Cortes derivados da voz real (`utils/timing.ts`) | Regra do pipeline: cada cena começa 0,25 s antes da sua fala. |
+| Poses de câmera refinadas por stills | Gancho mais aberto, portão visto de lado (o cofrinho tapava), moeda menor, linha do tempo em diagonal, close da mão de cima. |
+| Trilhas auxiliares (`marcos.recover`, `marcos.reach`, `folder.back` e retornos de pose) | Só fazem os personagens voltarem ao estado normal entre as cenas. Não mudam o conteúdo. |
+| Cerca do quintal removida e calendário movido | A cerca cruzava a linha do tempo e o calendário saía do quadro. |
+
+Cortes finais (frames globais, [início, fim)):
+
+| Cena | Timestamp | Quadros | Duração |
+| --- | --- | --- | --- |
+| s1 | 00:00:00 – 00:06:01 | 0 – 181 | 181 |
+| s2 | 00:06:01 – 00:10:17 | 181 – 317 | 136 |
+| s3 | 00:10:17 – 00:14:17 | 317 – 437 | 120 |
+| s4 | 00:14:17 – 00:19:15 | 437 – 585 | 148 |
+| s5 | 00:19:15 – 00:24:13 | 585 – 733 | 148 |
+| s6 | 00:24:13 – 00:29:27 | 733 – 897 | 164 |
+| s7 | 00:29:27 – 00:35:04 | 897 – 1054 | 157 |
+| s8 | 00:35:04 – 00:42:18 | 1054 – 1278 | 224 |
+| s9 | 00:42:18 – 00:47:15 | 1278 – 1425 | 147 |
+| s10 | 00:47:15 – 00:53:22 | 1425 – 1612 | 187 |
+| s11 | 00:53:22 – 01:02:07 | 1612 – 1867 | 255 |
+| s12 | 01:02:07 – 01:05:08 | 1867 – 1958 | 91 |
+| s13 | 01:05:08 – 01:12:27 | 1958 – 2187 | 229 |
+| s14 | 01:12:27 – 01:19:04 | 2187 – 2374 | 187 |
+| s15 | 01:19:04 – 01:22:15 | 2374 – 2475 | 101 |
+| s16 | 01:22:15 – 01:30:00 | 2475 – 2700 | 225 |
