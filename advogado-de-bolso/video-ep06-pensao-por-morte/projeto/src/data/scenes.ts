@@ -205,7 +205,7 @@ export const scenes: ScenePlan[] = [
     durationInFrames: sc(2).durationInFrames,
     voKey: "s3",
     narration: "Infelizmente, ele faleceu. E a dona Rosa ficou com os dois filhos pequenos.",
-    camera: { projection: "perspective", movement: "dolly-in", keys: [key(0, P.family), key(W("s3", 2) + 20, P.photo, "soft"), key(W("s3", 3) + 6, P.photo), key(W("s3", 5) + 4, P.family, "soft"), key(end(2), P.family)] },
+    camera: { projection: "perspective", movement: "dolly-in", keys: [key(0, P.family), key(W("s3", 2) + 4, orbit([-2.3, 2.3, -1.8], 9, 14, 12), "soft"), key(W("s3", 3) + 6, orbit([-2.3, 2.0, -1.8], 8, 10, 10)), key(W("s3", 5) + 4, P.family, "soft"), key(end(2), P.family)] },
     objects: [...SYSTEM(), o("marcos", "seu-jose"), PHOTO],
     animations: [
       lerp("family.hop", 0, 6, 1, 0, "in"),

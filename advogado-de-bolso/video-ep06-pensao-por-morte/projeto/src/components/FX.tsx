@@ -89,7 +89,7 @@ export const BigWords: React.FC = () => {
           style={{
             fontFamily: FONT,
             fontWeight: 900,
-            fontSize: w.size ?? 130,
+            fontSize: Math.min(w.size ?? 130, Math.floor(980 / (0.8 * Math.max(1, w.text.length)))),
             color: w.color ?? "#ffffff",
             WebkitTextStroke: `16px ${PALETTE.outline}`,
             paintOrder: "stroke fill",
