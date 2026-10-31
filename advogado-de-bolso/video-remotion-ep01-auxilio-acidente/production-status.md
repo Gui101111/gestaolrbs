@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 | --- | --- |
-| Fase atual | **Fase 2 em andamento**: projeto implementado, render completo em execução. |
+| Fase atual | **CONCLUÍDO**: MP4 final gerado e verificado. |
 | Versão do roteiro | v1 (31/10/2026) |
 | Aprovação | v1 aprovada em 31/10/2026: o usuário pediu "o vídeo pronto pra eu baixar em MP4" depois de receber a v1. |
 | Origem do pedido | Skill `remotion-problem-resolve-video` com o tema "Auxílio-acidente: Se machucou no trabalho e voltou a trabalhar? Você pode ter direito a um benefício todo mês." |
@@ -39,3 +39,16 @@
 
 - 31/10/2026: Fase 1 v1 entregue.
 - 31/10/2026: v1 aprovada (pedido do MP4). Fase 2 iniciada em `projeto/`. Voz gerada (edge-tts Thalita +9 %, 81,8 s de fala). Efeitos e trilha sintetizados. `tsc` ok. 4 rodadas de stills revisadas e corrigidas.
+- 31/10/2026: render completo concluído. Medido: H.264 1080×1920, 30 fps, 2700 frames, 90,0 s, AAC; −14,0 LUFS, pico −1,4 dBFS, sem clipping. Entrega: `advogado-de-bolso-auxilio-acidente.mp4` (36 MB, versão leve para celular, CRF 21).
+
+## Como renderizar de novo
+
+```bash
+cd projeto && npm install
+python3 scripts/sfx.py && python3 scripts/music.py
+npx remotion render AuxilioAcidente out/auxilio-acidente-raw.mp4 --gl=swangle --concurrency=4 --crf=18
+python3 scripts/loudnorm.py out/auxilio-acidente-raw.mp4 out/auxilio-acidente.mp4
+```
+
+Com GPU, use `--gl=angle`. Neste ambiente sem GPU foi usado `--gl=swangle` com `--browser-executable` apontando para o Chromium local.
+A narração (`public/audio/vo`) é regenerada com `scripts/voiceover.py --provider edge --voice pt-BR-ThalitaMultilingualNeural --rate +9%` seguido de `scripts/prepare_vo.py`.
