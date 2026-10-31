@@ -1,0 +1,842 @@
+{
+ "s1": {
+  "text": "Você sabia que tem gente que recebe um salário mínimo por mês do INSS sem nunca ter contribuído?",
+  "seconds": 5.551,
+  "words": [
+   {
+    "text": "Você",
+    "start": 0,
+    "end": 0.174
+   },
+   {
+    "text": "sabia",
+    "start": 0.185,
+    "end": 0.602
+   },
+   {
+    "text": "que",
+    "start": 0.613,
+    "end": 0.718
+   },
+   {
+    "text": "tem",
+    "start": 0.729,
+    "end": 0.88
+   },
+   {
+    "text": "gente",
+    "start": 0.891,
+    "end": 1.25
+   },
+   {
+    "text": "que",
+    "start": 1.262,
+    "end": 1.343
+   },
+   {
+    "text": "recebe",
+    "start": 1.354,
+    "end": 1.736
+   },
+   {
+    "text": "um",
+    "start": 1.748,
+    "end": 1.806
+   },
+   {
+    "text": "salário",
+    "start": 1.817,
+    "end": 2.234
+   },
+   {
+    "text": "mínimo",
+    "start": 2.245,
+    "end": 2.627
+   },
+   {
+    "text": "por",
+    "start": 2.639,
+    "end": 2.789
+   },
+   {
+    "text": "mês",
+    "start": 2.801,
+    "end": 3.032
+   },
+   {
+    "text": "do",
+    "start": 3.044,
+    "end": 3.183
+   },
+   {
+    "text": "INSS",
+    "start": 3.194,
+    "end": 4.062
+   },
+   {
+    "text": "sem",
+    "start": 4.074,
+    "end": 4.306
+   },
+   {
+    "text": "nunca",
+    "start": 4.317,
+    "end": 4.595
+   },
+   {
+    "text": "ter",
+    "start": 4.606,
+    "end": 4.745
+   },
+   {
+    "text": "contribuído?",
+    "start": 4.757,
+    "end": 5.463
+   }
+  ]
+ },
+ "s2": {
+  "text": "Essa é a Dona Maria. Ela tem 66 anos e nunca pagou o INSS.",
+  "seconds": 4.721,
+  "words": [
+   {
+    "text": "Essa",
+    "start": 0,
+    "end": 0.209
+   },
+   {
+    "text": "é",
+    "start": 0.22,
+    "end": 0.255
+   },
+   {
+    "text": "a",
+    "start": 0.267,
+    "end": 0.325
+   },
+   {
+    "text": "Dona",
+    "start": 0.336,
+    "end": 0.591
+   },
+   {
+    "text": "Maria.",
+    "start": 0.602,
+    "end": 1.031
+   },
+   {
+    "text": "Ela",
+    "start": 1.27,
+    "end": 1.502
+   },
+   {
+    "text": "tem",
+    "start": 1.513,
+    "end": 1.664
+   },
+   {
+    "text": "66 anos",
+    "start": 1.675,
+    "end": 2.717
+   },
+   {
+    "text": "e",
+    "start": 2.728,
+    "end": 2.844
+   },
+   {
+    "text": "nunca",
+    "start": 2.856,
+    "end": 3.157
+   },
+   {
+    "text": "pagou",
+    "start": 3.168,
+    "end": 3.585
+   },
+   {
+    "text": "o",
+    "start": 3.608,
+    "end": 3.677
+   },
+   {
+    "text": "INSS.",
+    "start": 3.689,
+    "end": 4.615
+   }
+  ]
+ },
+ "s3": {
+  "text": "Ela mora com o filho, e a renda da casa é bem apertada.",
+  "seconds": 3.115,
+  "words": [
+   {
+    "text": "Ela",
+    "start": 0,
+    "end": 0.171
+   },
+   {
+    "text": "mora",
+    "start": 0.182,
+    "end": 0.425
+   },
+   {
+    "text": "com",
+    "start": 0.437,
+    "end": 0.564
+   },
+   {
+    "text": "o",
+    "start": 0.576,
+    "end": 0.61
+   },
+   {
+    "text": "filho,",
+    "start": 0.622,
+    "end": 0.992
+   },
+   {
+    "text": "e",
+    "start": 1.189,
+    "end": 1.27
+   },
+   {
+    "text": "a",
+    "start": 1.282,
+    "end": 1.351
+   },
+   {
+    "text": "renda",
+    "start": 1.363,
+    "end": 1.617
+   },
+   {
+    "text": "da",
+    "start": 1.629,
+    "end": 1.756
+   },
+   {
+    "text": "casa",
+    "start": 1.768,
+    "end": 2.127
+   },
+   {
+    "text": "é",
+    "start": 2.138,
+    "end": 2.173
+   },
+   {
+    "text": "bem",
+    "start": 2.184,
+    "end": 2.393
+   },
+   {
+    "text": "apertada.",
+    "start": 2.404,
+    "end": 3.018
+   }
+  ]
+ },
+ "s4": {
+  "text": "É pra gente como ela que existe o BPC, também chamado de LOAS.",
+  "seconds": 3.644,
+  "words": [
+   {
+    "text": "É",
+    "start": 0,
+    "end": 0.04
+   },
+   {
+    "text": "pra",
+    "start": 0.052,
+    "end": 0.214
+   },
+   {
+    "text": "gente",
+    "start": 0.225,
+    "end": 0.48
+   },
+   {
+    "text": "como",
+    "start": 0.492,
+    "end": 0.746
+   },
+   {
+    "text": "ela",
+    "start": 0.758,
+    "end": 0.943
+   },
+   {
+    "text": "que",
+    "start": 0.955,
+    "end": 1.036
+   },
+   {
+    "text": "existe",
+    "start": 1.047,
+    "end": 1.418
+   },
+   {
+    "text": "o",
+    "start": 1.429,
+    "end": 1.452
+   },
+   {
+    "text": "BPC,",
+    "start": 1.464,
+    "end": 2.008
+   },
+   {
+    "text": "também",
+    "start": 2.228,
+    "end": 2.563
+   },
+   {
+    "text": "chamado",
+    "start": 2.575,
+    "end": 2.98
+   },
+   {
+    "text": "de",
+    "start": 2.992,
+    "end": 3.084
+   },
+   {
+    "text": "LOAS.",
+    "start": 3.096,
+    "end": 3.547
+   }
+  ]
+ },
+ "s5": {
+  "text": "Ele paga um salário mínimo todo mês pra quem não tem como se manter.",
+  "seconds": 3.325,
+  "words": [
+   {
+    "text": "Ele",
+    "start": 0,
+    "end": 0.144
+   },
+   {
+    "text": "paga",
+    "start": 0.156,
+    "end": 0.411
+   },
+   {
+    "text": "um",
+    "start": 0.422,
+    "end": 0.48
+   },
+   {
+    "text": "salário",
+    "start": 0.492,
+    "end": 0.897
+   },
+   {
+    "text": "mínimo",
+    "start": 0.908,
+    "end": 1.29
+   },
+   {
+    "text": "todo",
+    "start": 1.302,
+    "end": 1.58
+   },
+   {
+    "text": "mês",
+    "start": 1.591,
+    "end": 1.869
+   },
+   {
+    "text": "pra",
+    "start": 1.881,
+    "end": 2.019
+   },
+   {
+    "text": "quem",
+    "start": 2.031,
+    "end": 2.158
+   },
+   {
+    "text": "não",
+    "start": 2.17,
+    "end": 2.32
+   },
+   {
+    "text": "tem",
+    "start": 2.332,
+    "end": 2.482
+   },
+   {
+    "text": "como",
+    "start": 2.494,
+    "end": 2.691
+   },
+   {
+    "text": "se",
+    "start": 2.702,
+    "end": 2.806
+   },
+   {
+    "text": "manter.",
+    "start": 2.818,
+    "end": 3.188
+   }
+  ]
+ },
+ "s6": {
+  "text": "Quem pode receber? O idoso a partir de 65 anos e a pessoa com deficiência de qualquer idade.",
+  "seconds": 5.57,
+  "words": [
+   {
+    "text": "Quem",
+    "start": 0,
+    "end": 0.145
+   },
+   {
+    "text": "pode",
+    "start": 0.157,
+    "end": 0.458
+   },
+   {
+    "text": "receber?",
+    "start": 0.47,
+    "end": 0.967
+   },
+   {
+    "text": "O",
+    "start": 1.207,
+    "end": 1.288
+   },
+   {
+    "text": "idoso",
+    "start": 1.299,
+    "end": 1.646
+   },
+   {
+    "text": "a",
+    "start": 1.658,
+    "end": 1.693
+   },
+   {
+    "text": "partir",
+    "start": 1.704,
+    "end": 2.04
+   },
+   {
+    "text": "de",
+    "start": 2.052,
+    "end": 2.144
+   },
+   {
+    "text": "65 anos",
+    "start": 2.156,
+    "end": 3.197
+   },
+   {
+    "text": "e",
+    "start": 3.209,
+    "end": 3.301
+   },
+   {
+    "text": "a",
+    "start": 3.325,
+    "end": 3.383
+   },
+   {
+    "text": "pessoa",
+    "start": 3.394,
+    "end": 3.764
+   },
+   {
+    "text": "com",
+    "start": 3.776,
+    "end": 3.892
+   },
+   {
+    "text": "deficiência",
+    "start": 3.903,
+    "end": 4.528
+   },
+   {
+    "text": "de",
+    "start": 4.54,
+    "end": 4.621
+   },
+   {
+    "text": "qualquer",
+    "start": 4.633,
+    "end": 4.968
+   },
+   {
+    "text": "idade.",
+    "start": 4.98,
+    "end": 5.477
+   }
+  ]
+ },
+ "s7": {
+  "text": "Mas tem regra de renda: em regra, a renda por pessoa da família precisa ser de até um quarto do salário mínimo.",
+  "seconds": 5.777,
+  "words": [
+   {
+    "text": "Mas",
+    "start": 0,
+    "end": 0.159
+   },
+   {
+    "text": "tem",
+    "start": 0.171,
+    "end": 0.344
+   },
+   {
+    "text": "regra",
+    "start": 0.356,
+    "end": 0.645
+   },
+   {
+    "text": "de",
+    "start": 0.657,
+    "end": 0.761
+   },
+   {
+    "text": "renda:",
+    "start": 0.772,
+    "end": 1.131
+   },
+   {
+    "text": "em",
+    "start": 1.305,
+    "end": 1.409
+   },
+   {
+    "text": "regra,",
+    "start": 1.421,
+    "end": 1.849
+   },
+   {
+    "text": "a",
+    "start": 1.884,
+    "end": 1.941
+   },
+   {
+    "text": "renda",
+    "start": 1.953,
+    "end": 2.219
+   },
+   {
+    "text": "por",
+    "start": 2.231,
+    "end": 2.37
+   },
+   {
+    "text": "pessoa",
+    "start": 2.381,
+    "end": 2.705
+   },
+   {
+    "text": "da",
+    "start": 2.717,
+    "end": 2.821
+   },
+   {
+    "text": "família",
+    "start": 2.833,
+    "end": 3.238
+   },
+   {
+    "text": "precisa",
+    "start": 3.249,
+    "end": 3.678
+   },
+   {
+    "text": "ser",
+    "start": 3.689,
+    "end": 3.897
+   },
+   {
+    "text": "de",
+    "start": 3.909,
+    "end": 3.99
+   },
+   {
+    "text": "até",
+    "start": 4.002,
+    "end": 4.198
+   },
+   {
+    "text": "um",
+    "start": 4.21,
+    "end": 4.326
+   },
+   {
+    "text": "quarto",
+    "start": 4.337,
+    "end": 4.696
+   },
+   {
+    "text": "do",
+    "start": 4.708,
+    "end": 4.8
+   },
+   {
+    "text": "salário",
+    "start": 4.812,
+    "end": 5.217
+   },
+   {
+    "text": "mínimo.",
+    "start": 5.228,
+    "end": 5.68
+   }
+  ]
+ },
+ "s8": {
+  "text": "A família também precisa estar no Cadastro Único. E, pra pessoa com deficiência, tem avaliação médica e social.",
+  "seconds": 6.014,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.062
+   },
+   {
+    "text": "família",
+    "start": 0.073,
+    "end": 0.467
+   },
+   {
+    "text": "também",
+    "start": 0.479,
+    "end": 0.826
+   },
+   {
+    "text": "precisa",
+    "start": 0.837,
+    "end": 1.242
+   },
+   {
+    "text": "estar",
+    "start": 1.254,
+    "end": 1.543
+   },
+   {
+    "text": "no",
+    "start": 1.555,
+    "end": 1.659
+   },
+   {
+    "text": "Cadastro",
+    "start": 1.671,
+    "end": 2.191
+   },
+   {
+    "text": "Único.",
+    "start": 2.203,
+    "end": 2.573
+   },
+   {
+    "text": "E,",
+    "start": 2.813,
+    "end": 2.871
+   },
+   {
+    "text": "pra",
+    "start": 2.894,
+    "end": 3.044
+   },
+   {
+    "text": "pessoa",
+    "start": 3.056,
+    "end": 3.392
+   },
+   {
+    "text": "com",
+    "start": 3.403,
+    "end": 3.519
+   },
+   {
+    "text": "deficiência,",
+    "start": 3.53,
+    "end": 4.225
+   },
+   {
+    "text": "tem",
+    "start": 4.248,
+    "end": 4.375
+   },
+   {
+    "text": "avaliação",
+    "start": 4.387,
+    "end": 4.896
+   },
+   {
+    "text": "médica",
+    "start": 4.908,
+    "end": 5.324
+   },
+   {
+    "text": "e",
+    "start": 5.336,
+    "end": 5.371
+   },
+   {
+    "text": "social.",
+    "start": 5.382,
+    "end": 5.915
+   }
+  ]
+ },
+ "s9": {
+  "text": "Atenção: o BPC não paga décimo terceiro e não deixa pensão.",
+  "seconds": 3.779,
+  "words": [
+   {
+    "text": "Atenção:",
+    "start": 0,
+    "end": 0.538
+   },
+   {
+    "text": "o",
+    "start": 0.828,
+    "end": 0.862
+   },
+   {
+    "text": "BPC",
+    "start": 0.874,
+    "end": 1.291
+   },
+   {
+    "text": "não",
+    "start": 1.302,
+    "end": 1.453
+   },
+   {
+    "text": "paga",
+    "start": 1.464,
+    "end": 1.754
+   },
+   {
+    "text": "décimo",
+    "start": 1.765,
+    "end": 2.136
+   },
+   {
+    "text": "terceiro",
+    "start": 2.147,
+    "end": 2.656
+   },
+   {
+    "text": "e",
+    "start": 2.68,
+    "end": 2.726
+   },
+   {
+    "text": "não",
+    "start": 2.737,
+    "end": 2.923
+   },
+   {
+    "text": "deixa",
+    "start": 2.934,
+    "end": 3.212
+   },
+   {
+    "text": "pensão.",
+    "start": 3.224,
+    "end": 3.675
+   }
+  ]
+ },
+ "s10": {
+  "text": "Gostou da informação? Manda esse vídeo pra um amigo que você acha que se encaixa nessa situação.",
+  "seconds": 5.106,
+  "words": [
+   {
+    "text": "Gostou",
+    "start": 0,
+    "end": 0.321
+   },
+   {
+    "text": "da",
+    "start": 0.333,
+    "end": 0.413
+   },
+   {
+    "text": "informação?",
+    "start": 0.425,
+    "end": 1.108
+   },
+   {
+    "text": "Manda",
+    "start": 1.347,
+    "end": 1.625
+   },
+   {
+    "text": "esse",
+    "start": 1.637,
+    "end": 1.822
+   },
+   {
+    "text": "vídeo",
+    "start": 1.833,
+    "end": 2.169
+   },
+   {
+    "text": "pra",
+    "start": 2.181,
+    "end": 2.32
+   },
+   {
+    "text": "um",
+    "start": 2.331,
+    "end": 2.435
+   },
+   {
+    "text": "amigo",
+    "start": 2.447,
+    "end": 2.806
+   },
+   {
+    "text": "que",
+    "start": 2.817,
+    "end": 2.91
+   },
+   {
+    "text": "você",
+    "start": 2.921,
+    "end": 3.176
+   },
+   {
+    "text": "acha",
+    "start": 3.188,
+    "end": 3.489
+   },
+   {
+    "text": "que",
+    "start": 3.5,
+    "end": 3.581
+   },
+   {
+    "text": "se",
+    "start": 3.593,
+    "end": 3.685
+   },
+   {
+    "text": "encaixa",
+    "start": 3.697,
+    "end": 4.114
+   },
+   {
+    "text": "nessa",
+    "start": 4.125,
+    "end": 4.391
+   },
+   {
+    "text": "situação.",
+    "start": 4.403,
+    "end": 5.005
+   }
+  ]
+ }
+}

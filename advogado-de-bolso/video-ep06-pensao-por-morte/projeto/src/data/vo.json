@@ -1,0 +1,928 @@
+{
+ "s1": {
+  "text": "Sabia que, quando um segurado do INSS falece, a família pode receber uma pensão todo mês?",
+  "seconds": 5.443,
+  "words": [
+   {
+    "text": "Sabia",
+    "start": 0,
+    "end": 0.414
+   },
+   {
+    "text": "que,",
+    "start": 0.425,
+    "end": 0.564
+   },
+   {
+    "text": "quando",
+    "start": 0.587,
+    "end": 0.83
+   },
+   {
+    "text": "um",
+    "start": 0.842,
+    "end": 0.888
+   },
+   {
+    "text": "segurado",
+    "start": 0.9,
+    "end": 1.398
+   },
+   {
+    "text": "do",
+    "start": 1.409,
+    "end": 1.525
+   },
+   {
+    "text": "INSS",
+    "start": 1.537,
+    "end": 2.312
+   },
+   {
+    "text": "falece,",
+    "start": 2.324,
+    "end": 2.844
+   },
+   {
+    "text": "a",
+    "start": 2.983,
+    "end": 3.041
+   },
+   {
+    "text": "família",
+    "start": 3.053,
+    "end": 3.446
+   },
+   {
+    "text": "pode",
+    "start": 3.458,
+    "end": 3.724
+   },
+   {
+    "text": "receber",
+    "start": 3.736,
+    "end": 4.118
+   },
+   {
+    "text": "uma",
+    "start": 4.129,
+    "end": 4.268
+   },
+   {
+    "text": "pensão",
+    "start": 4.28,
+    "end": 4.662
+   },
+   {
+    "text": "todo",
+    "start": 4.673,
+    "end": 4.928
+   },
+   {
+    "text": "mês?",
+    "start": 4.939,
+    "end": 5.321
+   }
+  ]
+ },
+ "s2": {
+  "text": "O seu José trabalhava de carteira assinada e sustentava a casa.",
+  "seconds": 3.34,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.038
+   },
+   {
+    "text": "seu",
+    "start": 0.05,
+    "end": 0.2
+   },
+   {
+    "text": "José",
+    "start": 0.212,
+    "end": 0.513
+   },
+   {
+    "text": "trabalhava",
+    "start": 0.524,
+    "end": 1.057
+   },
+   {
+    "text": "de",
+    "start": 1.068,
+    "end": 1.149
+   },
+   {
+    "text": "carteira",
+    "start": 1.161,
+    "end": 1.566
+   },
+   {
+    "text": "assinada",
+    "start": 1.578,
+    "end": 2.098
+   },
+   {
+    "text": "e",
+    "start": 2.145,
+    "end": 2.179
+   },
+   {
+    "text": "sustentava",
+    "start": 2.191,
+    "end": 2.77
+   },
+   {
+    "text": "a",
+    "start": 2.781,
+    "end": 2.828
+   },
+   {
+    "text": "casa.",
+    "start": 2.839,
+    "end": 3.244
+   }
+  ]
+ },
+ "s3": {
+  "text": "Infelizmente, ele faleceu. E a dona Rosa ficou com os dois filhos pequenos.",
+  "seconds": 4.272,
+  "words": [
+   {
+    "text": "Infelizmente,",
+    "start": 0,
+    "end": 0.731
+   },
+   {
+    "text": "ele",
+    "start": 0.766,
+    "end": 0.893
+   },
+   {
+    "text": "faleceu.",
+    "start": 0.905,
+    "end": 1.449
+   },
+   {
+    "text": "E",
+    "start": 1.688,
+    "end": 1.792
+   },
+   {
+    "text": "a",
+    "start": 1.804,
+    "end": 1.873
+   },
+   {
+    "text": "dona",
+    "start": 1.885,
+    "end": 2.116
+   },
+   {
+    "text": "Rosa",
+    "start": 2.128,
+    "end": 2.452
+   },
+   {
+    "text": "ficou",
+    "start": 2.464,
+    "end": 2.764
+   },
+   {
+    "text": "com",
+    "start": 2.776,
+    "end": 2.903
+   },
+   {
+    "text": "os",
+    "start": 2.915,
+    "end": 3.019
+   },
+   {
+    "text": "dois",
+    "start": 3.031,
+    "end": 3.274
+   },
+   {
+    "text": "filhos",
+    "start": 3.285,
+    "end": 3.563
+   },
+   {
+    "text": "pequenos.",
+    "start": 3.575,
+    "end": 4.177
+   }
+  ]
+ },
+ "s4": {
+  "text": "É pra isso que existe a pensão por morte.",
+  "seconds": 2.104,
+  "words": [
+   {
+    "text": "É",
+    "start": 0,
+    "end": 0.045
+   },
+   {
+    "text": "pra",
+    "start": 0.057,
+    "end": 0.265
+   },
+   {
+    "text": "isso",
+    "start": 0.277,
+    "end": 0.52
+   },
+   {
+    "text": "que",
+    "start": 0.531,
+    "end": 0.601
+   },
+   {
+    "text": "existe",
+    "start": 0.612,
+    "end": 0.96
+   },
+   {
+    "text": "a",
+    "start": 0.971,
+    "end": 1.006
+   },
+   {
+    "text": "pensão",
+    "start": 1.018,
+    "end": 1.353
+   },
+   {
+    "text": "por",
+    "start": 1.365,
+    "end": 1.504
+   },
+   {
+    "text": "morte.",
+    "start": 1.515,
+    "end": 2.001
+   }
+  ]
+ },
+ "s5": {
+  "text": "Ela é paga aos dependentes de quem era segurado do INSS ou já era aposentado.",
+  "seconds": 4.525,
+  "words": [
+   {
+    "text": "Ela",
+    "start": 0,
+    "end": 0.157
+   },
+   {
+    "text": "é",
+    "start": 0.169,
+    "end": 0.203
+   },
+   {
+    "text": "paga",
+    "start": 0.215,
+    "end": 0.493
+   },
+   {
+    "text": "aos",
+    "start": 0.504,
+    "end": 0.608
+   },
+   {
+    "text": "dependentes",
+    "start": 0.62,
+    "end": 1.28
+   },
+   {
+    "text": "de",
+    "start": 1.291,
+    "end": 1.372
+   },
+   {
+    "text": "quem",
+    "start": 1.384,
+    "end": 1.558
+   },
+   {
+    "text": "era",
+    "start": 1.569,
+    "end": 1.708
+   },
+   {
+    "text": "segurado",
+    "start": 1.72,
+    "end": 2.264
+   },
+   {
+    "text": "do",
+    "start": 2.275,
+    "end": 2.391
+   },
+   {
+    "text": "INSS",
+    "start": 2.402,
+    "end": 3.259
+   },
+   {
+    "text": "ou",
+    "start": 3.282,
+    "end": 3.375
+   },
+   {
+    "text": "já",
+    "start": 3.386,
+    "end": 3.548
+   },
+   {
+    "text": "era",
+    "start": 3.56,
+    "end": 3.722
+   },
+   {
+    "text": "aposentado.",
+    "start": 3.733,
+    "end": 4.428
+   }
+  ]
+ },
+ "s6": {
+  "text": "Dependentes são o marido ou a esposa, o companheiro ou a companheira, e os filhos menores de 21 anos ou com deficiência.",
+  "seconds": 6.6,
+  "words": [
+   {
+    "text": "Dependentes",
+    "start": 0,
+    "end": 0.625
+   },
+   {
+    "text": "são",
+    "start": 0.637,
+    "end": 0.787
+   },
+   {
+    "text": "o",
+    "start": 0.799,
+    "end": 0.81
+   },
+   {
+    "text": "marido",
+    "start": 0.822,
+    "end": 1.204
+   },
+   {
+    "text": "ou",
+    "start": 1.215,
+    "end": 1.296
+   },
+   {
+    "text": "a",
+    "start": 1.308,
+    "end": 1.377
+   },
+   {
+    "text": "esposa,",
+    "start": 1.389,
+    "end": 1.933
+   },
+   {
+    "text": "o",
+    "start": 2.014,
+    "end": 2.072
+   },
+   {
+    "text": "companheiro",
+    "start": 2.083,
+    "end": 2.674
+   },
+   {
+    "text": "ou",
+    "start": 2.697,
+    "end": 2.789
+   },
+   {
+    "text": "a",
+    "start": 2.801,
+    "end": 2.847
+   },
+   {
+    "text": "companheira,",
+    "start": 2.859,
+    "end": 3.414
+   },
+   {
+    "text": "e",
+    "start": 3.669,
+    "end": 3.727
+   },
+   {
+    "text": "os",
+    "start": 3.738,
+    "end": 3.866
+   },
+   {
+    "text": "filhos",
+    "start": 3.877,
+    "end": 4.178
+   },
+   {
+    "text": "menores",
+    "start": 4.19,
+    "end": 4.653
+   },
+   {
+    "text": "de",
+    "start": 4.664,
+    "end": 4.757
+   },
+   {
+    "text": "21 anos",
+    "start": 4.769,
+    "end": 5.428
+   },
+   {
+    "text": "ou",
+    "start": 5.44,
+    "end": 5.625
+   },
+   {
+    "text": "com",
+    "start": 5.637,
+    "end": 5.764
+   },
+   {
+    "text": "deficiência.",
+    "start": 5.776,
+    "end": 6.493
+   }
+  ]
+ },
+ "s7": {
+  "text": "Na falta deles, entram os pais e, depois, os irmãos menores de 21 anos ou com deficiência, desde que dependessem dele.",
+  "seconds": 6.798,
+  "words": [
+   {
+    "text": "Na",
+    "start": 0,
+    "end": 0.116
+   },
+   {
+    "text": "falta",
+    "start": 0.127,
+    "end": 0.451
+   },
+   {
+    "text": "deles,",
+    "start": 0.463,
+    "end": 0.833
+   },
+   {
+    "text": "entram",
+    "start": 0.926,
+    "end": 1.192
+   },
+   {
+    "text": "os",
+    "start": 1.204,
+    "end": 1.319
+   },
+   {
+    "text": "pais",
+    "start": 1.331,
+    "end": 1.597
+   },
+   {
+    "text": "e,",
+    "start": 1.609,
+    "end": 1.748
+   },
+   {
+    "text": "depois,",
+    "start": 1.782,
+    "end": 2.292
+   },
+   {
+    "text": "os",
+    "start": 2.523,
+    "end": 2.569
+   },
+   {
+    "text": "irmãos",
+    "start": 2.581,
+    "end": 3.009
+   },
+   {
+    "text": "menores",
+    "start": 3.021,
+    "end": 3.461
+   },
+   {
+    "text": "de",
+    "start": 3.472,
+    "end": 3.576
+   },
+   {
+    "text": "21 anos",
+    "start": 3.588,
+    "end": 4.236
+   },
+   {
+    "text": "ou",
+    "start": 4.248,
+    "end": 4.41
+   },
+   {
+    "text": "com",
+    "start": 4.421,
+    "end": 4.549
+   },
+   {
+    "text": "deficiência,",
+    "start": 4.56,
+    "end": 5.266
+   },
+   {
+    "text": "desde",
+    "start": 5.359,
+    "end": 5.706
+   },
+   {
+    "text": "que",
+    "start": 5.718,
+    "end": 5.799
+   },
+   {
+    "text": "dependessem",
+    "start": 5.81,
+    "end": 6.377
+   },
+   {
+    "text": "dele.",
+    "start": 6.389,
+    "end": 6.713
+   }
+  ]
+ },
+ "s8": {
+  "text": "O valor, em regra, é de 50% da aposentadoria, mais 10% por dependente, até chegar a 100%.",
+  "seconds": 6.751,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.027
+   },
+   {
+    "text": "valor,",
+    "start": 0.038,
+    "end": 0.397
+   },
+   {
+    "text": "em",
+    "start": 0.443,
+    "end": 0.548
+   },
+   {
+    "text": "regra,",
+    "start": 0.559,
+    "end": 0.941
+   },
+   {
+    "text": "é",
+    "start": 1.057,
+    "end": 1.126
+   },
+   {
+    "text": "de",
+    "start": 1.138,
+    "end": 1.23
+   },
+   {
+    "text": "50%",
+    "start": 1.242,
+    "end": 2.18
+   },
+   {
+    "text": "da",
+    "start": 2.191,
+    "end": 2.284
+   },
+   {
+    "text": "aposentadoria,",
+    "start": 2.295,
+    "end": 3.152
+   },
+   {
+    "text": "mais",
+    "start": 3.395,
+    "end": 3.615
+   },
+   {
+    "text": "10%",
+    "start": 3.626,
+    "end": 4.355
+   },
+   {
+    "text": "por",
+    "start": 4.367,
+    "end": 4.494
+   },
+   {
+    "text": "dependente,",
+    "start": 4.506,
+    "end": 5.154
+   },
+   {
+    "text": "até",
+    "start": 5.281,
+    "end": 5.455
+   },
+   {
+    "text": "chegar",
+    "start": 5.467,
+    "end": 5.802
+   },
+   {
+    "text": "a",
+    "start": 5.814,
+    "end": 5.86
+   },
+   {
+    "text": "100%.",
+    "start": 5.872,
+    "end": 6.647
+   }
+  ]
+ },
+ "s9": {
+  "text": "No caso da dona Rosa e dos dois filhos, são três dependentes: 80%.",
+  "seconds": 4.543,
+  "words": [
+   {
+    "text": "No",
+    "start": 0,
+    "end": 0.104
+   },
+   {
+    "text": "caso",
+    "start": 0.115,
+    "end": 0.393
+   },
+   {
+    "text": "da",
+    "start": 0.405,
+    "end": 0.52
+   },
+   {
+    "text": "dona",
+    "start": 0.532,
+    "end": 0.786
+   },
+   {
+    "text": "Rosa",
+    "start": 0.798,
+    "end": 1.18
+   },
+   {
+    "text": "e",
+    "start": 1.192,
+    "end": 1.226
+   },
+   {
+    "text": "dos",
+    "start": 1.238,
+    "end": 1.377
+   },
+   {
+    "text": "dois",
+    "start": 1.388,
+    "end": 1.643
+   },
+   {
+    "text": "filhos,",
+    "start": 1.655,
+    "end": 2.036
+   },
+   {
+    "text": "são",
+    "start": 2.106,
+    "end": 2.303
+   },
+   {
+    "text": "três",
+    "start": 2.314,
+    "end": 2.557
+   },
+   {
+    "text": "dependentes:",
+    "start": 2.569,
+    "end": 3.286
+   },
+   {
+    "text": "80%.",
+    "start": 3.495,
+    "end": 4.444
+   }
+  ]
+ },
+ "s10": {
+  "text": "Pro cônjuge, a duração depende da idade e do tempo de união: pode durar alguns anos ou a vida toda.",
+  "seconds": 5.593,
+  "words": [
+   {
+    "text": "Pro",
+    "start": 0,
+    "end": 0.122
+   },
+   {
+    "text": "cônjuge,",
+    "start": 0.133,
+    "end": 0.678
+   },
+   {
+    "text": "a",
+    "start": 0.793,
+    "end": 0.851
+   },
+   {
+    "text": "duração",
+    "start": 0.863,
+    "end": 1.279
+   },
+   {
+    "text": "depende",
+    "start": 1.291,
+    "end": 1.673
+   },
+   {
+    "text": "da",
+    "start": 1.684,
+    "end": 1.789
+   },
+   {
+    "text": "idade",
+    "start": 1.8,
+    "end": 2.228
+   },
+   {
+    "text": "e",
+    "start": 2.24,
+    "end": 2.275
+   },
+   {
+    "text": "do",
+    "start": 2.286,
+    "end": 2.402
+   },
+   {
+    "text": "tempo",
+    "start": 2.414,
+    "end": 2.703
+   },
+   {
+    "text": "de",
+    "start": 2.714,
+    "end": 2.795
+   },
+   {
+    "text": "união:",
+    "start": 2.807,
+    "end": 3.177
+   },
+   {
+    "text": "pode",
+    "start": 3.409,
+    "end": 3.652
+   },
+   {
+    "text": "durar",
+    "start": 3.664,
+    "end": 3.918
+   },
+   {
+    "text": "alguns",
+    "start": 3.93,
+    "end": 4.208
+   },
+   {
+    "text": "anos",
+    "start": 4.219,
+    "end": 4.555
+   },
+   {
+    "text": "ou",
+    "start": 4.566,
+    "end": 4.717
+   },
+   {
+    "text": "a",
+    "start": 4.728,
+    "end": 4.809
+   },
+   {
+    "text": "vida",
+    "start": 4.821,
+    "end": 5.087
+   },
+   {
+    "text": "toda.",
+    "start": 5.11,
+    "end": 5.504
+   }
+  ]
+ },
+ "s11": {
+  "text": "Gostou da informação? Manda esse vídeo pra um amigo que você acha que se encaixa nessa situação.",
+  "seconds": 5.106,
+  "words": [
+   {
+    "text": "Gostou",
+    "start": 0,
+    "end": 0.321
+   },
+   {
+    "text": "da",
+    "start": 0.333,
+    "end": 0.413
+   },
+   {
+    "text": "informação?",
+    "start": 0.425,
+    "end": 1.108
+   },
+   {
+    "text": "Manda",
+    "start": 1.347,
+    "end": 1.625
+   },
+   {
+    "text": "esse",
+    "start": 1.637,
+    "end": 1.822
+   },
+   {
+    "text": "vídeo",
+    "start": 1.833,
+    "end": 2.169
+   },
+   {
+    "text": "pra",
+    "start": 2.181,
+    "end": 2.32
+   },
+   {
+    "text": "um",
+    "start": 2.331,
+    "end": 2.435
+   },
+   {
+    "text": "amigo",
+    "start": 2.447,
+    "end": 2.806
+   },
+   {
+    "text": "que",
+    "start": 2.817,
+    "end": 2.91
+   },
+   {
+    "text": "você",
+    "start": 2.921,
+    "end": 3.176
+   },
+   {
+    "text": "acha",
+    "start": 3.188,
+    "end": 3.489
+   },
+   {
+    "text": "que",
+    "start": 3.5,
+    "end": 3.581
+   },
+   {
+    "text": "se",
+    "start": 3.593,
+    "end": 3.685
+   },
+   {
+    "text": "encaixa",
+    "start": 3.697,
+    "end": 4.114
+   },
+   {
+    "text": "nessa",
+    "start": 4.125,
+    "end": 4.391
+   },
+   {
+    "text": "situação.",
+    "start": 4.403,
+    "end": 5.005
+   }
+  ]
+ }
+}

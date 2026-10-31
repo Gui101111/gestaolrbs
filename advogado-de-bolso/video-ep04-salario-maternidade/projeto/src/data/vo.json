@@ -1,0 +1,958 @@
+{
+ "s1": {
+  "text": "Vai ter bebê? Sabia que existe um salário pago pelo INSS só pra isso?",
+  "seconds": 4.701,
+  "words": [
+   {
+    "text": "Vai",
+    "start": 0,
+    "end": 0.169
+   },
+   {
+    "text": "ter",
+    "start": 0.181,
+    "end": 0.343
+   },
+   {
+    "text": "bebê?",
+    "start": 0.354,
+    "end": 0.736
+   },
+   {
+    "text": "Sabia",
+    "start": 0.976,
+    "end": 1.462
+   },
+   {
+    "text": "que",
+    "start": 1.473,
+    "end": 1.554
+   },
+   {
+    "text": "existe",
+    "start": 1.566,
+    "end": 1.913
+   },
+   {
+    "text": "um",
+    "start": 1.925,
+    "end": 1.983
+   },
+   {
+    "text": "salário",
+    "start": 1.994,
+    "end": 2.399
+   },
+   {
+    "text": "pago",
+    "start": 2.411,
+    "end": 2.746
+   },
+   {
+    "text": "pelo",
+    "start": 2.758,
+    "end": 3.001
+   },
+   {
+    "text": "INSS",
+    "start": 3.013,
+    "end": 3.8
+   },
+   {
+    "text": "só",
+    "start": 3.811,
+    "end": 4.008
+   },
+   {
+    "text": "pra",
+    "start": 4.02,
+    "end": 4.228
+   },
+   {
+    "text": "isso?",
+    "start": 4.239,
+    "end": 4.61
+   }
+  ]
+ },
+ "s2": {
+  "text": "Essa é a Ana. Ela é manicure e paga o INSS como MEI.",
+  "seconds": 3.557,
+  "words": [
+   {
+    "text": "Essa",
+    "start": 0,
+    "end": 0.21
+   },
+   {
+    "text": "é",
+    "start": 0.221,
+    "end": 0.279
+   },
+   {
+    "text": "a",
+    "start": 0.291,
+    "end": 0.384
+   },
+   {
+    "text": "Ana.",
+    "start": 0.395,
+    "end": 0.742
+   },
+   {
+    "text": "Ela",
+    "start": 0.982,
+    "end": 1.155
+   },
+   {
+    "text": "é",
+    "start": 1.167,
+    "end": 1.202
+   },
+   {
+    "text": "manicure",
+    "start": 1.213,
+    "end": 1.688
+   },
+   {
+    "text": "e",
+    "start": 1.699,
+    "end": 1.746
+   },
+   {
+    "text": "paga",
+    "start": 1.757,
+    "end": 2.093
+   },
+   {
+    "text": "o",
+    "start": 2.104,
+    "end": 2.174
+   },
+   {
+    "text": "INSS",
+    "start": 2.185,
+    "end": 2.938
+   },
+   {
+    "text": "como",
+    "start": 2.949,
+    "end": 3.181
+   },
+   {
+    "text": "MEI.",
+    "start": 3.192,
+    "end": 3.459
+   }
+  ]
+ },
+ "s3": {
+  "text": "Agora ela está grávida, e quando o bebê nascer, vai precisar parar pra cuidar dele.",
+  "seconds": 4.144,
+  "words": [
+   {
+    "text": "Agora",
+    "start": 0,
+    "end": 0.279
+   },
+   {
+    "text": "ela",
+    "start": 0.29,
+    "end": 0.395
+   },
+   {
+    "text": "está",
+    "start": 0.406,
+    "end": 0.603
+   },
+   {
+    "text": "grávida,",
+    "start": 0.614,
+    "end": 1.101
+   },
+   {
+    "text": "e",
+    "start": 1.124,
+    "end": 1.193
+   },
+   {
+    "text": "quando",
+    "start": 1.205,
+    "end": 1.459
+   },
+   {
+    "text": "o",
+    "start": 1.471,
+    "end": 1.482
+   },
+   {
+    "text": "bebê",
+    "start": 1.494,
+    "end": 1.749
+   },
+   {
+    "text": "nascer,",
+    "start": 1.76,
+    "end": 2.165
+   },
+   {
+    "text": "vai",
+    "start": 2.246,
+    "end": 2.385
+   },
+   {
+    "text": "precisar",
+    "start": 2.397,
+    "end": 2.871
+   },
+   {
+    "text": "parar",
+    "start": 2.883,
+    "end": 3.184
+   },
+   {
+    "text": "pra",
+    "start": 3.195,
+    "end": 3.334
+   },
+   {
+    "text": "cuidar",
+    "start": 3.346,
+    "end": 3.682
+   },
+   {
+    "text": "dele.",
+    "start": 3.693,
+    "end": 4.052
+   }
+  ]
+ },
+ "s4": {
+  "text": "É pra isso que existe o salário-maternidade.",
+  "seconds": 2.331,
+  "words": [
+   {
+    "text": "É",
+    "start": 0,
+    "end": 0.054
+   },
+   {
+    "text": "pra",
+    "start": 0.065,
+    "end": 0.274
+   },
+   {
+    "text": "isso",
+    "start": 0.285,
+    "end": 0.528
+   },
+   {
+    "text": "que",
+    "start": 0.54,
+    "end": 0.609
+   },
+   {
+    "text": "existe",
+    "start": 0.621,
+    "end": 0.968
+   },
+   {
+    "text": "o",
+    "start": 0.98,
+    "end": 1.003
+   },
+   {
+    "text": "salário-maternidade.",
+    "start": 1.015,
+    "end": 2.241
+   }
+  ]
+ },
+ "s5": {
+  "text": "Ele é pago por 120 dias, a partir do parto ou até 28 dias antes.",
+  "seconds": 4.615,
+  "words": [
+   {
+    "text": "Ele",
+    "start": 0,
+    "end": 0.117
+   },
+   {
+    "text": "é",
+    "start": 0.128,
+    "end": 0.175
+   },
+   {
+    "text": "pago",
+    "start": 0.186,
+    "end": 0.51
+   },
+   {
+    "text": "por",
+    "start": 0.522,
+    "end": 0.649
+   },
+   {
+    "text": "120 dias,",
+    "start": 0.661,
+    "end": 1.668
+   },
+   {
+    "text": "a",
+    "start": 1.841,
+    "end": 1.899
+   },
+   {
+    "text": "partir",
+    "start": 1.911,
+    "end": 2.223
+   },
+   {
+    "text": "do",
+    "start": 2.235,
+    "end": 2.362
+   },
+   {
+    "text": "parto",
+    "start": 2.374,
+    "end": 2.814
+   },
+   {
+    "text": "ou",
+    "start": 2.871,
+    "end": 2.964
+   },
+   {
+    "text": "até",
+    "start": 2.976,
+    "end": 3.195
+   },
+   {
+    "text": "28 dias",
+    "start": 3.207,
+    "end": 3.982
+   },
+   {
+    "text": "antes.",
+    "start": 3.994,
+    "end": 4.515
+   }
+  ]
+ },
+ "s6": {
+  "text": "Quem pode receber? A empregada de carteira assinada, a empregada doméstica, a MEI, a autônoma, a contribuinte facultativa e a segurada especial, como a trabalhadora rural.",
+  "seconds": 9.43,
+  "words": [
+   {
+    "text": "Quem",
+    "start": 0,
+    "end": 0.145
+   },
+   {
+    "text": "pode",
+    "start": 0.157,
+    "end": 0.458
+   },
+   {
+    "text": "receber?",
+    "start": 0.47,
+    "end": 0.967
+   },
+   {
+    "text": "A",
+    "start": 1.207,
+    "end": 1.276
+   },
+   {
+    "text": "empregada",
+    "start": 1.288,
+    "end": 1.774
+   },
+   {
+    "text": "de",
+    "start": 1.785,
+    "end": 1.878
+   },
+   {
+    "text": "carteira",
+    "start": 1.889,
+    "end": 2.26
+   },
+   {
+    "text": "assinada,",
+    "start": 2.271,
+    "end": 2.885
+   },
+   {
+    "text": "a",
+    "start": 2.943,
+    "end": 2.977
+   },
+   {
+    "text": "empregada",
+    "start": 2.989,
+    "end": 3.464
+   },
+   {
+    "text": "doméstica,",
+    "start": 3.475,
+    "end": 4.054
+   },
+   {
+    "text": "a",
+    "start": 4.1,
+    "end": 4.146
+   },
+   {
+    "text": "MEI,",
+    "start": 4.158,
+    "end": 4.378
+   },
+   {
+    "text": "a",
+    "start": 4.482,
+    "end": 4.517
+   },
+   {
+    "text": "autônoma,",
+    "start": 4.528,
+    "end": 5.095
+   },
+   {
+    "text": "a",
+    "start": 5.258,
+    "end": 5.315
+   },
+   {
+    "text": "contribuinte",
+    "start": 5.327,
+    "end": 5.929
+   },
+   {
+    "text": "facultativa",
+    "start": 5.94,
+    "end": 6.751
+   },
+   {
+    "text": "e",
+    "start": 6.785,
+    "end": 6.855
+   },
+   {
+    "text": "a",
+    "start": 6.866,
+    "end": 6.913
+   },
+   {
+    "text": "segurada",
+    "start": 6.924,
+    "end": 7.387
+   },
+   {
+    "text": "especial,",
+    "start": 7.399,
+    "end": 7.989
+   },
+   {
+    "text": "como",
+    "start": 8.082,
+    "end": 8.29
+   },
+   {
+    "text": "a",
+    "start": 8.302,
+    "end": 8.348
+   },
+   {
+    "text": "trabalhadora",
+    "start": 8.359,
+    "end": 8.938
+   },
+   {
+    "text": "rural.",
+    "start": 8.95,
+    "end": 9.32
+   }
+  ]
+ },
+ "s7": {
+  "text": "Até quem está desempregada pode ter direito, se ainda tiver a qualidade de segurada.",
+  "seconds": 4.633,
+  "words": [
+   {
+    "text": "Até",
+    "start": 0,
+    "end": 0.214
+   },
+   {
+    "text": "quem",
+    "start": 0.226,
+    "end": 0.365
+   },
+   {
+    "text": "está",
+    "start": 0.376,
+    "end": 0.585
+   },
+   {
+    "text": "desempregada",
+    "start": 0.596,
+    "end": 1.302
+   },
+   {
+    "text": "pode",
+    "start": 1.314,
+    "end": 1.557
+   },
+   {
+    "text": "ter",
+    "start": 1.569,
+    "end": 1.719
+   },
+   {
+    "text": "direito,",
+    "start": 1.731,
+    "end": 2.193
+   },
+   {
+    "text": "se",
+    "start": 2.39,
+    "end": 2.518
+   },
+   {
+    "text": "ainda",
+    "start": 2.529,
+    "end": 2.818
+   },
+   {
+    "text": "tiver",
+    "start": 2.83,
+    "end": 3.189
+   },
+   {
+    "text": "a",
+    "start": 3.2,
+    "end": 3.258
+   },
+   {
+    "text": "qualidade",
+    "start": 3.27,
+    "end": 3.802
+   },
+   {
+    "text": "de",
+    "start": 3.814,
+    "end": 3.895
+   },
+   {
+    "text": "segurada.",
+    "start": 3.907,
+    "end": 4.532
+   }
+  ]
+ },
+ "s8": {
+  "text": "E vale também na adoção, inclusive quando quem adota é o pai.",
+  "seconds": 3.317,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.056
+   },
+   {
+    "text": "vale",
+    "start": 0.067,
+    "end": 0.322
+   },
+   {
+    "text": "também",
+    "start": 0.334,
+    "end": 0.658
+   },
+   {
+    "text": "na",
+    "start": 0.669,
+    "end": 0.75
+   },
+   {
+    "text": "adoção,",
+    "start": 0.762,
+    "end": 1.26
+   },
+   {
+    "text": "inclusive",
+    "start": 1.364,
+    "end": 1.942
+   },
+   {
+    "text": "quando",
+    "start": 1.954,
+    "end": 2.209
+   },
+   {
+    "text": "quem",
+    "start": 2.22,
+    "end": 2.394
+   },
+   {
+    "text": "adota",
+    "start": 2.405,
+    "end": 2.787
+   },
+   {
+    "text": "é",
+    "start": 2.799,
+    "end": 2.834
+   },
+   {
+    "text": "o",
+    "start": 2.845,
+    "end": 2.903
+   },
+   {
+    "text": "pai.",
+    "start": 2.915,
+    "end": 3.216
+   }
+  ]
+ },
+ "s9": {
+  "text": "Pra quem tem carteira assinada, o valor é o próprio salário. Pra MEI, que contribui sobre o mínimo, em regra é um salário mínimo.",
+  "seconds": 6.589,
+  "words": [
+   {
+    "text": "Pra",
+    "start": 0,
+    "end": 0.07
+   },
+   {
+    "text": "quem",
+    "start": 0.081,
+    "end": 0.232
+   },
+   {
+    "text": "tem",
+    "start": 0.243,
+    "end": 0.371
+   },
+   {
+    "text": "carteira",
+    "start": 0.382,
+    "end": 0.764
+   },
+   {
+    "text": "assinada,",
+    "start": 0.776,
+    "end": 1.331
+   },
+   {
+    "text": "o",
+    "start": 1.47,
+    "end": 1.516
+   },
+   {
+    "text": "valor",
+    "start": 1.528,
+    "end": 1.84
+   },
+   {
+    "text": "é",
+    "start": 1.852,
+    "end": 1.91
+   },
+   {
+    "text": "o",
+    "start": 1.921,
+    "end": 1.979
+   },
+   {
+    "text": "próprio",
+    "start": 1.991,
+    "end": 2.315
+   },
+   {
+    "text": "salário.",
+    "start": 2.327,
+    "end": 2.836
+   },
+   {
+    "text": "Pra",
+    "start": 3.075,
+    "end": 3.202
+   },
+   {
+    "text": "MEI,",
+    "start": 3.214,
+    "end": 3.503
+   },
+   {
+    "text": "que",
+    "start": 3.538,
+    "end": 3.642
+   },
+   {
+    "text": "contribui",
+    "start": 3.654,
+    "end": 4.175
+   },
+   {
+    "text": "sobre",
+    "start": 4.186,
+    "end": 4.441
+   },
+   {
+    "text": "o",
+    "start": 4.452,
+    "end": 4.487
+   },
+   {
+    "text": "mínimo,",
+    "start": 4.499,
+    "end": 4.927
+   },
+   {
+    "text": "em",
+    "start": 4.973,
+    "end": 5.089
+   },
+   {
+    "text": "regra",
+    "start": 5.101,
+    "end": 5.448
+   },
+   {
+    "text": "é",
+    "start": 5.459,
+    "end": 5.506
+   },
+   {
+    "text": "um",
+    "start": 5.517,
+    "end": 5.587
+   },
+   {
+    "text": "salário",
+    "start": 5.598,
+    "end": 6.015
+   },
+   {
+    "text": "mínimo.",
+    "start": 6.027,
+    "end": 6.489
+   }
+  ]
+ },
+ "s10": {
+  "text": "E desde 2024, depois de uma decisão do STF, não precisa mais cumprir carência: o que conta é ter a qualidade de segurada.",
+  "seconds": 7.682,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.047
+   },
+   {
+    "text": "desde",
+    "start": 0.059,
+    "end": 0.383
+   },
+   {
+    "text": "2024,",
+    "start": 0.395,
+    "end": 1.494
+   },
+   {
+    "text": "depois",
+    "start": 1.529,
+    "end": 1.876
+   },
+   {
+    "text": "de",
+    "start": 1.888,
+    "end": 1.957
+   },
+   {
+    "text": "uma",
+    "start": 1.969,
+    "end": 2.096
+   },
+   {
+    "text": "decisão",
+    "start": 2.107,
+    "end": 2.547
+   },
+   {
+    "text": "do",
+    "start": 2.559,
+    "end": 2.698
+   },
+   {
+    "text": "STF,",
+    "start": 2.709,
+    "end": 3.357
+   },
+   {
+    "text": "não",
+    "start": 3.601,
+    "end": 3.728
+   },
+   {
+    "text": "precisa",
+    "start": 3.739,
+    "end": 4.133
+   },
+   {
+    "text": "mais",
+    "start": 4.145,
+    "end": 4.376
+   },
+   {
+    "text": "cumprir",
+    "start": 4.388,
+    "end": 4.758
+   },
+   {
+    "text": "carência:",
+    "start": 4.77,
+    "end": 5.29
+   },
+   {
+    "text": "o",
+    "start": 5.533,
+    "end": 5.591
+   },
+   {
+    "text": "que",
+    "start": 5.603,
+    "end": 5.719
+   },
+   {
+    "text": "conta",
+    "start": 5.73,
+    "end": 6.043
+   },
+   {
+    "text": "é",
+    "start": 6.054,
+    "end": 6.089
+   },
+   {
+    "text": "ter",
+    "start": 6.101,
+    "end": 6.274
+   },
+   {
+    "text": "a",
+    "start": 6.286,
+    "end": 6.332
+   },
+   {
+    "text": "qualidade",
+    "start": 6.344,
+    "end": 6.876
+   },
+   {
+    "text": "de",
+    "start": 6.888,
+    "end": 6.969
+   },
+   {
+    "text": "segurada.",
+    "start": 6.98,
+    "end": 7.582
+   }
+  ]
+ },
+ "s11": {
+  "text": "Gostou da informação? Manda esse vídeo pra uma amiga que você acha que se encaixa nessa situação.",
+  "seconds": 5.051,
+  "words": [
+   {
+    "text": "Gostou",
+    "start": 0,
+    "end": 0.321
+   },
+   {
+    "text": "da",
+    "start": 0.333,
+    "end": 0.413
+   },
+   {
+    "text": "informação?",
+    "start": 0.425,
+    "end": 1.108
+   },
+   {
+    "text": "Manda",
+    "start": 1.347,
+    "end": 1.637
+   },
+   {
+    "text": "esse",
+    "start": 1.648,
+    "end": 1.833
+   },
+   {
+    "text": "vídeo",
+    "start": 1.845,
+    "end": 2.169
+   },
+   {
+    "text": "pra",
+    "start": 2.181,
+    "end": 2.32
+   },
+   {
+    "text": "uma",
+    "start": 2.331,
+    "end": 2.447
+   },
+   {
+    "text": "amiga",
+    "start": 2.458,
+    "end": 2.759
+   },
+   {
+    "text": "que",
+    "start": 2.771,
+    "end": 2.864
+   },
+   {
+    "text": "você",
+    "start": 2.875,
+    "end": 3.141
+   },
+   {
+    "text": "acha",
+    "start": 3.153,
+    "end": 3.454
+   },
+   {
+    "text": "que",
+    "start": 3.465,
+    "end": 3.546
+   },
+   {
+    "text": "se",
+    "start": 3.558,
+    "end": 3.651
+   },
+   {
+    "text": "encaixa",
+    "start": 3.662,
+    "end": 4.079
+   },
+   {
+    "text": "nessa",
+    "start": 4.09,
+    "end": 4.345
+   },
+   {
+    "text": "situação.",
+    "start": 4.357,
+    "end": 4.947
+   }
+  ]
+ }
+}

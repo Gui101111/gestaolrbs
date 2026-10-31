@@ -1,0 +1,837 @@
+{
+ "s1": {
+  "text": "Ficou doente e não consegue trabalhar? O INSS pode pagar enquanto você se recupera.",
+  "seconds": 5.142,
+  "words": [
+   {
+    "text": "Ficou",
+    "start": 0,
+    "end": 0.272
+   },
+   {
+    "text": "doente",
+    "start": 0.284,
+    "end": 0.689
+   },
+   {
+    "text": "e",
+    "start": 0.7,
+    "end": 0.723
+   },
+   {
+    "text": "não",
+    "start": 0.735,
+    "end": 0.897
+   },
+   {
+    "text": "consegue",
+    "start": 0.909,
+    "end": 1.348
+   },
+   {
+    "text": "trabalhar?",
+    "start": 1.36,
+    "end": 1.892
+   },
+   {
+    "text": "O",
+    "start": 2.132,
+    "end": 2.259
+   },
+   {
+    "text": "INSS",
+    "start": 2.271,
+    "end": 3.104
+   },
+   {
+    "text": "pode",
+    "start": 3.115,
+    "end": 3.347
+   },
+   {
+    "text": "pagar",
+    "start": 3.358,
+    "end": 3.659
+   },
+   {
+    "text": "enquanto",
+    "start": 3.671,
+    "end": 4.053
+   },
+   {
+    "text": "você",
+    "start": 4.065,
+    "end": 4.331
+   },
+   {
+    "text": "se",
+    "start": 4.342,
+    "end": 4.446
+   },
+   {
+    "text": "recupera.",
+    "start": 4.458,
+    "end": 5.048
+   }
+  ]
+ },
+ "s2": {
+  "text": "Esse é o Marcos. Ele trabalha de carteira assinada e, de repente, a coluna travou: hérnia de disco.",
+  "seconds": 5.537,
+  "words": [
+   {
+    "text": "Esse",
+    "start": 0,
+    "end": 0.208
+   },
+   {
+    "text": "é",
+    "start": 0.22,
+    "end": 0.255
+   },
+   {
+    "text": "o",
+    "start": 0.266,
+    "end": 0.312
+   },
+   {
+    "text": "Marcos.",
+    "start": 0.324,
+    "end": 0.868
+   },
+   {
+    "text": "Ele",
+    "start": 1.107,
+    "end": 1.281
+   },
+   {
+    "text": "trabalha",
+    "start": 1.293,
+    "end": 1.709
+   },
+   {
+    "text": "de",
+    "start": 1.721,
+    "end": 1.802
+   },
+   {
+    "text": "carteira",
+    "start": 1.813,
+    "end": 2.207
+   },
+   {
+    "text": "assinada",
+    "start": 2.219,
+    "end": 2.797
+   },
+   {
+    "text": "e,",
+    "start": 2.844,
+    "end": 2.878
+   },
+   {
+    "text": "de",
+    "start": 2.901,
+    "end": 3.006
+   },
+   {
+    "text": "repente,",
+    "start": 3.017,
+    "end": 3.503
+   },
+   {
+    "text": "a",
+    "start": 3.55,
+    "end": 3.607
+   },
+   {
+    "text": "coluna",
+    "start": 3.619,
+    "end": 3.966
+   },
+   {
+    "text": "travou:",
+    "start": 3.978,
+    "end": 4.36
+   },
+   {
+    "text": "hérnia",
+    "start": 4.568,
+    "end": 4.881
+   },
+   {
+    "text": "de",
+    "start": 4.892,
+    "end": 4.996
+   },
+   {
+    "text": "disco.",
+    "start": 5.008,
+    "end": 5.436
+   }
+  ]
+ },
+ "s3": {
+  "text": "O médico deu 60 dias de atestado. E agora, quem paga?",
+  "seconds": 3.601,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.027
+   },
+   {
+    "text": "médico",
+    "start": 0.038,
+    "end": 0.49
+   },
+   {
+    "text": "deu",
+    "start": 0.501,
+    "end": 0.663
+   },
+   {
+    "text": "60 dias",
+    "start": 0.675,
+    "end": 1.439
+   },
+   {
+    "text": "de",
+    "start": 1.45,
+    "end": 1.508
+   },
+   {
+    "text": "atestado.",
+    "start": 1.52,
+    "end": 2.133
+   },
+   {
+    "text": "E",
+    "start": 2.373,
+    "end": 2.465
+   },
+   {
+    "text": "agora,",
+    "start": 2.477,
+    "end": 2.87
+   },
+   {
+    "text": "quem",
+    "start": 2.893,
+    "end": 3.09
+   },
+   {
+    "text": "paga?",
+    "start": 3.102,
+    "end": 3.507
+   }
+  ]
+ },
+ "s4": {
+  "text": "Os primeiros 15 dias, quem paga é a empresa.",
+  "seconds": 2.493,
+  "words": [
+   {
+    "text": "Os",
+    "start": 0,
+    "end": 0.093
+   },
+   {
+    "text": "primeiros",
+    "start": 0.104,
+    "end": 0.556
+   },
+   {
+    "text": "15 dias,",
+    "start": 0.567,
+    "end": 1.262
+   },
+   {
+    "text": "quem",
+    "start": 1.296,
+    "end": 1.481
+   },
+   {
+    "text": "paga",
+    "start": 1.493,
+    "end": 1.782
+   },
+   {
+    "text": "é",
+    "start": 1.794,
+    "end": 1.829
+   },
+   {
+    "text": "a",
+    "start": 1.84,
+    "end": 1.863
+   },
+   {
+    "text": "empresa.",
+    "start": 1.875,
+    "end": 2.396
+   }
+  ]
+ },
+ "s5": {
+  "text": "A partir do décimo sexto dia, entra o INSS com o auxílio por incapacidade temporária, o antigo auxílio-doença.",
+  "seconds": 6.899,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.064
+   },
+   {
+    "text": "partir",
+    "start": 0.075,
+    "end": 0.4
+   },
+   {
+    "text": "do",
+    "start": 0.411,
+    "end": 0.527
+   },
+   {
+    "text": "décimo",
+    "start": 0.538,
+    "end": 0.932
+   },
+   {
+    "text": "sexto",
+    "start": 0.944,
+    "end": 1.325
+   },
+   {
+    "text": "dia,",
+    "start": 1.337,
+    "end": 1.673
+   },
+   {
+    "text": "entra",
+    "start": 1.869,
+    "end": 2.147
+   },
+   {
+    "text": "o",
+    "start": 2.159,
+    "end": 2.217
+   },
+   {
+    "text": "INSS",
+    "start": 2.228,
+    "end": 3.073
+   },
+   {
+    "text": "com",
+    "start": 3.085,
+    "end": 3.27
+   },
+   {
+    "text": "o",
+    "start": 3.281,
+    "end": 3.316
+   },
+   {
+    "text": "auxílio",
+    "start": 3.328,
+    "end": 3.756
+   },
+   {
+    "text": "por",
+    "start": 3.768,
+    "end": 3.906
+   },
+   {
+    "text": "incapacidade",
+    "start": 3.918,
+    "end": 4.659
+   },
+   {
+    "text": "temporária,",
+    "start": 4.67,
+    "end": 5.284
+   },
+   {
+    "text": "o",
+    "start": 5.504,
+    "end": 5.596
+   },
+   {
+    "text": "antigo",
+    "start": 5.608,
+    "end": 5.92
+   },
+   {
+    "text": "auxílio-doença.",
+    "start": 5.932,
+    "end": 6.8
+   }
+  ]
+ },
+ "s6": {
+  "text": "Pra ter direito, a incapacidade precisa durar mais de 15 dias e ser avaliada pela perícia médica do INSS.",
+  "seconds": 6.543,
+  "words": [
+   {
+    "text": "Pra",
+    "start": 0,
+    "end": 0.091
+   },
+   {
+    "text": "ter",
+    "start": 0.103,
+    "end": 0.276
+   },
+   {
+    "text": "direito,",
+    "start": 0.288,
+    "end": 0.786
+   },
+   {
+    "text": "a",
+    "start": 0.82,
+    "end": 0.89
+   },
+   {
+    "text": "incapacidade",
+    "start": 0.901,
+    "end": 1.688
+   },
+   {
+    "text": "precisa",
+    "start": 1.7,
+    "end": 2.14
+   },
+   {
+    "text": "durar",
+    "start": 2.151,
+    "end": 2.441
+   },
+   {
+    "text": "mais",
+    "start": 2.452,
+    "end": 2.73
+   },
+   {
+    "text": "de",
+    "start": 2.742,
+    "end": 2.834
+   },
+   {
+    "text": "15 dias",
+    "start": 2.846,
+    "end": 3.471
+   },
+   {
+    "text": "e",
+    "start": 3.482,
+    "end": 3.587
+   },
+   {
+    "text": "ser",
+    "start": 3.598,
+    "end": 3.749
+   },
+   {
+    "text": "avaliada",
+    "start": 3.76,
+    "end": 4.316
+   },
+   {
+    "text": "pela",
+    "start": 4.327,
+    "end": 4.524
+   },
+   {
+    "text": "perícia",
+    "start": 4.536,
+    "end": 4.929
+   },
+   {
+    "text": "médica",
+    "start": 4.941,
+    "end": 5.392
+   },
+   {
+    "text": "do",
+    "start": 5.404,
+    "end": 5.519
+   },
+   {
+    "text": "INSS.",
+    "start": 5.531,
+    "end": 6.445
+   }
+  ]
+ },
+ "s7": {
+  "text": "Em regra, também precisa ter pelo menos 12 contribuições. Mas acidentes e algumas doenças graves dispensam essa carência.",
+  "seconds": 7.035,
+  "words": [
+   {
+    "text": "Em",
+    "start": 0,
+    "end": 0.096
+   },
+   {
+    "text": "regra,",
+    "start": 0.107,
+    "end": 0.489
+   },
+   {
+    "text": "também",
+    "start": 0.512,
+    "end": 0.848
+   },
+   {
+    "text": "precisa",
+    "start": 0.86,
+    "end": 1.288
+   },
+   {
+    "text": "ter",
+    "start": 1.299,
+    "end": 1.438
+   },
+   {
+    "text": "pelo",
+    "start": 1.45,
+    "end": 1.658
+   },
+   {
+    "text": "menos",
+    "start": 1.67,
+    "end": 1.982
+   },
+   {
+    "text": "12 contribuições.",
+    "start": 1.994,
+    "end": 3.244
+   },
+   {
+    "text": "Mas",
+    "start": 3.483,
+    "end": 3.61
+   },
+   {
+    "text": "acidentes",
+    "start": 3.622,
+    "end": 4.212
+   },
+   {
+    "text": "e",
+    "start": 4.224,
+    "end": 4.328
+   },
+   {
+    "text": "algumas",
+    "start": 4.34,
+    "end": 4.756
+   },
+   {
+    "text": "doenças",
+    "start": 4.768,
+    "end": 5.219
+   },
+   {
+    "text": "graves",
+    "start": 5.231,
+    "end": 5.636
+   },
+   {
+    "text": "dispensam",
+    "start": 5.647,
+    "end": 6.191
+   },
+   {
+    "text": "essa",
+    "start": 6.203,
+    "end": 6.388
+   },
+   {
+    "text": "carência.",
+    "start": 6.4,
+    "end": 6.932
+   }
+  ]
+ },
+ "s8": {
+  "text": "O valor, em regra, é de 91% do salário de benefício. E ele é pago até a pessoa se recuperar.",
+  "seconds": 6.027,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.029
+   },
+   {
+    "text": "valor,",
+    "start": 0.04,
+    "end": 0.399
+   },
+   {
+    "text": "em",
+    "start": 0.469,
+    "end": 0.573
+   },
+   {
+    "text": "regra,",
+    "start": 0.584,
+    "end": 0.989
+   },
+   {
+    "text": "é",
+    "start": 1.209,
+    "end": 1.29
+   },
+   {
+    "text": "de",
+    "start": 1.302,
+    "end": 1.394
+   },
+   {
+    "text": "91%",
+    "start": 1.406,
+    "end": 2.448
+   },
+   {
+    "text": "do",
+    "start": 2.459,
+    "end": 2.552
+   },
+   {
+    "text": "salário",
+    "start": 2.563,
+    "end": 3.003
+   },
+   {
+    "text": "de",
+    "start": 3.015,
+    "end": 3.096
+   },
+   {
+    "text": "benefício.",
+    "start": 3.107,
+    "end": 3.744
+   },
+   {
+    "text": "E",
+    "start": 3.983,
+    "end": 4.111
+   },
+   {
+    "text": "ele",
+    "start": 4.122,
+    "end": 4.238
+   },
+   {
+    "text": "é",
+    "start": 4.25,
+    "end": 4.284
+   },
+   {
+    "text": "pago",
+    "start": 4.296,
+    "end": 4.632
+   },
+   {
+    "text": "até",
+    "start": 4.643,
+    "end": 4.794
+   },
+   {
+    "text": "a",
+    "start": 4.805,
+    "end": 4.851
+   },
+   {
+    "text": "pessoa",
+    "start": 4.863,
+    "end": 5.21
+   },
+   {
+    "text": "se",
+    "start": 5.222,
+    "end": 5.326
+   },
+   {
+    "text": "recuperar.",
+    "start": 5.338,
+    "end": 5.893
+   }
+  ]
+ },
+ "s9": {
+  "text": "Quem pode receber? Todo segurado do INSS: empregado, doméstico, autônomo, MEI, facultativo e segurado especial.",
+  "seconds": 7.224,
+  "words": [
+   {
+    "text": "Quem",
+    "start": 0,
+    "end": 0.145
+   },
+   {
+    "text": "pode",
+    "start": 0.157,
+    "end": 0.458
+   },
+   {
+    "text": "receber?",
+    "start": 0.47,
+    "end": 0.967
+   },
+   {
+    "text": "Todo",
+    "start": 1.207,
+    "end": 1.438
+   },
+   {
+    "text": "segurado",
+    "start": 1.45,
+    "end": 1.982
+   },
+   {
+    "text": "do",
+    "start": 1.994,
+    "end": 2.121
+   },
+   {
+    "text": "INSS:",
+    "start": 2.132,
+    "end": 3.012
+   },
+   {
+    "text": "empregado,",
+    "start": 3.082,
+    "end": 3.649
+   },
+   {
+    "text": "doméstico,",
+    "start": 3.683,
+    "end": 4.332
+   },
+   {
+    "text": "autônomo,",
+    "start": 4.355,
+    "end": 4.933
+   },
+   {
+    "text": "MEI,",
+    "start": 4.957,
+    "end": 5.188
+   },
+   {
+    "text": "facultativo",
+    "start": 5.234,
+    "end": 5.987
+   },
+   {
+    "text": "e",
+    "start": 5.998,
+    "end": 6.021
+   },
+   {
+    "text": "segurado",
+    "start": 6.033,
+    "end": 6.519
+   },
+   {
+    "text": "especial.",
+    "start": 6.531,
+    "end": 7.121
+   }
+  ]
+ },
+ "s10": {
+  "text": "Gostou da informação? Manda esse vídeo pra um amigo que você acha que se encaixa nessa situação.",
+  "seconds": 5.106,
+  "words": [
+   {
+    "text": "Gostou",
+    "start": 0,
+    "end": 0.321
+   },
+   {
+    "text": "da",
+    "start": 0.333,
+    "end": 0.413
+   },
+   {
+    "text": "informação?",
+    "start": 0.425,
+    "end": 1.108
+   },
+   {
+    "text": "Manda",
+    "start": 1.347,
+    "end": 1.625
+   },
+   {
+    "text": "esse",
+    "start": 1.637,
+    "end": 1.822
+   },
+   {
+    "text": "vídeo",
+    "start": 1.833,
+    "end": 2.169
+   },
+   {
+    "text": "pra",
+    "start": 2.181,
+    "end": 2.32
+   },
+   {
+    "text": "um",
+    "start": 2.331,
+    "end": 2.435
+   },
+   {
+    "text": "amigo",
+    "start": 2.447,
+    "end": 2.806
+   },
+   {
+    "text": "que",
+    "start": 2.817,
+    "end": 2.91
+   },
+   {
+    "text": "você",
+    "start": 2.921,
+    "end": 3.176
+   },
+   {
+    "text": "acha",
+    "start": 3.188,
+    "end": 3.489
+   },
+   {
+    "text": "que",
+    "start": 3.5,
+    "end": 3.581
+   },
+   {
+    "text": "se",
+    "start": 3.593,
+    "end": 3.685
+   },
+   {
+    "text": "encaixa",
+    "start": 3.697,
+    "end": 4.114
+   },
+   {
+    "text": "nessa",
+    "start": 4.125,
+    "end": 4.391
+   },
+   {
+    "text": "situação.",
+    "start": 4.403,
+    "end": 5.005
+   }
+  ]
+ }
+}

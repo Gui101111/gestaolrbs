@@ -1,0 +1,823 @@
+{
+ "s1": {
+  "text": "Foi demitido sem justa causa? Você pode receber um dinheiro enquanto procura outro emprego.",
+  "seconds": 5.072,
+  "words": [
+   {
+    "text": "Foi",
+    "start": 0,
+    "end": 0.139
+   },
+   {
+    "text": "demitido",
+    "start": 0.151,
+    "end": 0.637
+   },
+   {
+    "text": "sem",
+    "start": 0.649,
+    "end": 0.857
+   },
+   {
+    "text": "justa",
+    "start": 0.869,
+    "end": 1.204
+   },
+   {
+    "text": "causa?",
+    "start": 1.216,
+    "end": 1.702
+   },
+   {
+    "text": "Você",
+    "start": 1.941,
+    "end": 2.161
+   },
+   {
+    "text": "pode",
+    "start": 2.173,
+    "end": 2.462
+   },
+   {
+    "text": "receber",
+    "start": 2.474,
+    "end": 2.867
+   },
+   {
+    "text": "um",
+    "start": 2.879,
+    "end": 2.948
+   },
+   {
+    "text": "dinheiro",
+    "start": 2.96,
+    "end": 3.388
+   },
+   {
+    "text": "enquanto",
+    "start": 3.411,
+    "end": 3.77
+   },
+   {
+    "text": "procura",
+    "start": 3.782,
+    "end": 4.245
+   },
+   {
+    "text": "outro",
+    "start": 4.256,
+    "end": 4.488
+   },
+   {
+    "text": "emprego.",
+    "start": 4.499,
+    "end": 4.962
+   }
+  ]
+ },
+ "s2": {
+  "text": "Esse é o Lucas. Ele trabalhou dois anos de carteira assinada numa loja.",
+  "seconds": 4.001,
+  "words": [
+   {
+    "text": "Esse",
+    "start": 0,
+    "end": 0.22
+   },
+   {
+    "text": "é",
+    "start": 0.231,
+    "end": 0.266
+   },
+   {
+    "text": "o",
+    "start": 0.278,
+    "end": 0.312
+   },
+   {
+    "text": "Lucas.",
+    "start": 0.324,
+    "end": 0.845
+   },
+   {
+    "text": "Ele",
+    "start": 1.084,
+    "end": 1.269
+   },
+   {
+    "text": "trabalhou",
+    "start": 1.281,
+    "end": 1.686
+   },
+   {
+    "text": "dois",
+    "start": 1.698,
+    "end": 1.918
+   },
+   {
+    "text": "anos",
+    "start": 1.929,
+    "end": 2.253
+   },
+   {
+    "text": "de",
+    "start": 2.265,
+    "end": 2.334
+   },
+   {
+    "text": "carteira",
+    "start": 2.346,
+    "end": 2.762
+   },
+   {
+    "text": "assinada",
+    "start": 2.774,
+    "end": 3.237
+   },
+   {
+    "text": "numa",
+    "start": 3.249,
+    "end": 3.434
+   },
+   {
+    "text": "loja.",
+    "start": 3.445,
+    "end": 3.897
+   }
+  ]
+ },
+ "s3": {
+  "text": "Um dia, a loja cortou funcionários, e ele foi dispensado sem justa causa.",
+  "seconds": 4.369,
+  "words": [
+   {
+    "text": "Um",
+    "start": 0,
+    "end": 0.094
+   },
+   {
+    "text": "dia,",
+    "start": 0.105,
+    "end": 0.464
+   },
+   {
+    "text": "a",
+    "start": 0.568,
+    "end": 0.614
+   },
+   {
+    "text": "loja",
+    "start": 0.626,
+    "end": 0.939
+   },
+   {
+    "text": "cortou",
+    "start": 0.95,
+    "end": 1.263
+   },
+   {
+    "text": "funcionários,",
+    "start": 1.274,
+    "end": 1.98
+   },
+   {
+    "text": "e",
+    "start": 2.188,
+    "end": 2.258
+   },
+   {
+    "text": "ele",
+    "start": 2.27,
+    "end": 2.397
+   },
+   {
+    "text": "foi",
+    "start": 2.408,
+    "end": 2.559
+   },
+   {
+    "text": "dispensado",
+    "start": 2.57,
+    "end": 3.207
+   },
+   {
+    "text": "sem",
+    "start": 3.219,
+    "end": 3.473
+   },
+   {
+    "text": "justa",
+    "start": 3.485,
+    "end": 3.832
+   },
+   {
+    "text": "causa.",
+    "start": 3.844,
+    "end": 4.272
+   }
+  ]
+ },
+ "s4": {
+  "text": "É aí que entra o seguro-desemprego.",
+  "seconds": 1.908,
+  "words": [
+   {
+    "text": "É",
+    "start": 0,
+    "end": 0.08
+   },
+   {
+    "text": "aí",
+    "start": 0.092,
+    "end": 0.3
+   },
+   {
+    "text": "que",
+    "start": 0.312,
+    "end": 0.45
+   },
+   {
+    "text": "entra",
+    "start": 0.462,
+    "end": 0.705
+   },
+   {
+    "text": "o",
+    "start": 0.717,
+    "end": 0.74
+   },
+   {
+    "text": "seguro-desemprego.",
+    "start": 0.751,
+    "end": 1.805
+   }
+  ]
+ },
+ "s5": {
+  "text": "Ele paga de três a cinco parcelas, dependendo de quanto tempo a pessoa trabalhou.",
+  "seconds": 4.167,
+  "words": [
+   {
+    "text": "Ele",
+    "start": 0,
+    "end": 0.14
+   },
+   {
+    "text": "paga",
+    "start": 0.151,
+    "end": 0.441
+   },
+   {
+    "text": "de",
+    "start": 0.452,
+    "end": 0.568
+   },
+   {
+    "text": "três",
+    "start": 0.58,
+    "end": 0.765
+   },
+   {
+    "text": "a",
+    "start": 0.776,
+    "end": 0.892
+   },
+   {
+    "text": "cinco",
+    "start": 0.904,
+    "end": 1.182
+   },
+   {
+    "text": "parcelas,",
+    "start": 1.193,
+    "end": 1.783
+   },
+   {
+    "text": "dependendo",
+    "start": 1.876,
+    "end": 2.432
+   },
+   {
+    "text": "de",
+    "start": 2.443,
+    "end": 2.536
+   },
+   {
+    "text": "quanto",
+    "start": 2.547,
+    "end": 2.86
+   },
+   {
+    "text": "tempo",
+    "start": 2.871,
+    "end": 3.149
+   },
+   {
+    "text": "a",
+    "start": 3.161,
+    "end": 3.195
+   },
+   {
+    "text": "pessoa",
+    "start": 3.207,
+    "end": 3.543
+   },
+   {
+    "text": "trabalhou.",
+    "start": 3.554,
+    "end": 4.064
+   }
+  ]
+ },
+ "s6": {
+  "text": "Na primeira vez, precisa ter trabalhado pelo menos 12 meses nos últimos 18.",
+  "seconds": 4.529,
+  "words": [
+   {
+    "text": "Na",
+    "start": 0,
+    "end": 0.12
+   },
+   {
+    "text": "primeira",
+    "start": 0.131,
+    "end": 0.49
+   },
+   {
+    "text": "vez,",
+    "start": 0.502,
+    "end": 0.826
+   },
+   {
+    "text": "precisa",
+    "start": 0.895,
+    "end": 1.312
+   },
+   {
+    "text": "ter",
+    "start": 1.323,
+    "end": 1.462
+   },
+   {
+    "text": "trabalhado",
+    "start": 1.474,
+    "end": 2.041
+   },
+   {
+    "text": "pelo",
+    "start": 2.053,
+    "end": 2.249
+   },
+   {
+    "text": "menos",
+    "start": 2.261,
+    "end": 2.585
+   },
+   {
+    "text": "12 meses",
+    "start": 2.597,
+    "end": 3.314
+   },
+   {
+    "text": "nos",
+    "start": 3.326,
+    "end": 3.43
+   },
+   {
+    "text": "últimos",
+    "start": 3.441,
+    "end": 3.893
+   },
+   {
+    "text": "18.",
+    "start": 3.905,
+    "end": 4.425
+   }
+  ]
+ },
+ "s7": {
+  "text": "Na segunda, 9 meses nos últimos 12. E, da terceira em diante, os 6 meses antes da demissão.",
+  "seconds": 5.632,
+  "words": [
+   {
+    "text": "Na",
+    "start": 0,
+    "end": 0.106
+   },
+   {
+    "text": "segunda,",
+    "start": 0.117,
+    "end": 0.638
+   },
+   {
+    "text": "9 meses",
+    "start": 0.719,
+    "end": 1.356
+   },
+   {
+    "text": "nos",
+    "start": 1.367,
+    "end": 1.471
+   },
+   {
+    "text": "últimos",
+    "start": 1.483,
+    "end": 1.923
+   },
+   {
+    "text": "12.",
+    "start": 1.934,
+    "end": 2.328
+   },
+   {
+    "text": "E,",
+    "start": 2.567,
+    "end": 2.637
+   },
+   {
+    "text": "da",
+    "start": 2.66,
+    "end": 2.776
+   },
+   {
+    "text": "terceira",
+    "start": 2.787,
+    "end": 3.239
+   },
+   {
+    "text": "em",
+    "start": 3.25,
+    "end": 3.308
+   },
+   {
+    "text": "diante,",
+    "start": 3.32,
+    "end": 3.794
+   },
+   {
+    "text": "os",
+    "start": 3.887,
+    "end": 3.979
+   },
+   {
+    "text": "6 meses",
+    "start": 3.991,
+    "end": 4.535
+   },
+   {
+    "text": "antes",
+    "start": 4.547,
+    "end": 4.894
+   },
+   {
+    "text": "da",
+    "start": 4.905,
+    "end": 4.998
+   },
+   {
+    "text": "demissão.",
+    "start": 5.009,
+    "end": 5.53
+   }
+  ]
+ },
+ "s8": {
+  "text": "Mas atenção: quem pede demissão ou é demitido por justa causa não tem direito.",
+  "seconds": 4.438,
+  "words": [
+   {
+    "text": "Mas",
+    "start": 0,
+    "end": 0.085
+   },
+   {
+    "text": "atenção:",
+    "start": 0.097,
+    "end": 0.698
+   },
+   {
+    "text": "quem",
+    "start": 0.884,
+    "end": 1.046
+   },
+   {
+    "text": "pede",
+    "start": 1.057,
+    "end": 1.335
+   },
+   {
+    "text": "demissão",
+    "start": 1.347,
+    "end": 1.856
+   },
+   {
+    "text": "ou",
+    "start": 1.902,
+    "end": 2.006
+   },
+   {
+    "text": "é",
+    "start": 2.018,
+    "end": 2.076
+   },
+   {
+    "text": "demitido",
+    "start": 2.087,
+    "end": 2.573
+   },
+   {
+    "text": "por",
+    "start": 2.585,
+    "end": 2.735
+   },
+   {
+    "text": "justa",
+    "start": 2.747,
+    "end": 3.117
+   },
+   {
+    "text": "causa",
+    "start": 3.129,
+    "end": 3.488
+   },
+   {
+    "text": "não",
+    "start": 3.499,
+    "end": 3.696
+   },
+   {
+    "text": "tem",
+    "start": 3.708,
+    "end": 3.847
+   },
+   {
+    "text": "direito.",
+    "start": 3.858,
+    "end": 4.333
+   }
+  ]
+ },
+ "s9": {
+  "text": "Também não pode ter outra renda suficiente pra se sustentar, nem receber benefício contínuo do INSS, como aposentadoria.",
+  "seconds": 7.101,
+  "words": [
+   {
+    "text": "Também",
+    "start": 0,
+    "end": 0.278
+   },
+   {
+    "text": "não",
+    "start": 0.29,
+    "end": 0.44
+   },
+   {
+    "text": "pode",
+    "start": 0.452,
+    "end": 0.764
+   },
+   {
+    "text": "ter",
+    "start": 0.776,
+    "end": 0.915
+   },
+   {
+    "text": "outra",
+    "start": 0.927,
+    "end": 1.181
+   },
+   {
+    "text": "renda",
+    "start": 1.193,
+    "end": 1.482
+   },
+   {
+    "text": "suficiente",
+    "start": 1.494,
+    "end": 2.084
+   },
+   {
+    "text": "pra",
+    "start": 2.095,
+    "end": 2.234
+   },
+   {
+    "text": "se",
+    "start": 2.246,
+    "end": 2.35
+   },
+   {
+    "text": "sustentar,",
+    "start": 2.362,
+    "end": 2.964
+   },
+   {
+    "text": "nem",
+    "start": 3.195,
+    "end": 3.345
+   },
+   {
+    "text": "receber",
+    "start": 3.357,
+    "end": 3.751
+   },
+   {
+    "text": "benefício",
+    "start": 3.762,
+    "end": 4.318
+   },
+   {
+    "text": "contínuo",
+    "start": 4.329,
+    "end": 4.781
+   },
+   {
+    "text": "do",
+    "start": 4.792,
+    "end": 4.92
+   },
+   {
+    "text": "INSS,",
+    "start": 4.931,
+    "end": 5.811
+   },
+   {
+    "text": "como",
+    "start": 5.984,
+    "end": 6.17
+   },
+   {
+    "text": "aposentadoria.",
+    "start": 6.181,
+    "end": 7.003
+   }
+  ]
+ },
+ "s10": {
+  "text": "O benefício é do Ministério do Trabalho, e o pagamento é feito pela Caixa.",
+  "seconds": 3.834,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.029
+   },
+   {
+    "text": "benefício",
+    "start": 0.04,
+    "end": 0.631
+   },
+   {
+    "text": "é",
+    "start": 0.642,
+    "end": 0.677
+   },
+   {
+    "text": "do",
+    "start": 0.688,
+    "end": 0.781
+   },
+   {
+    "text": "Ministério",
+    "start": 0.793,
+    "end": 1.244
+   },
+   {
+    "text": "do",
+    "start": 1.256,
+    "end": 1.348
+   },
+   {
+    "text": "Trabalho,",
+    "start": 1.36,
+    "end": 1.857
+   },
+   {
+    "text": "e",
+    "start": 2.066,
+    "end": 2.124
+   },
+   {
+    "text": "o",
+    "start": 2.135,
+    "end": 2.181
+   },
+   {
+    "text": "pagamento",
+    "start": 2.193,
+    "end": 2.679
+   },
+   {
+    "text": "é",
+    "start": 2.691,
+    "end": 2.714
+   },
+   {
+    "text": "feito",
+    "start": 2.725,
+    "end": 3.038
+   },
+   {
+    "text": "pela",
+    "start": 3.05,
+    "end": 3.258
+   },
+   {
+    "text": "Caixa.",
+    "start": 3.269,
+    "end": 3.744
+   }
+  ]
+ },
+ "s11": {
+  "text": "Gostou da informação? Manda esse vídeo pra um amigo que você acha que se encaixa nessa situação.",
+  "seconds": 5.106,
+  "words": [
+   {
+    "text": "Gostou",
+    "start": 0,
+    "end": 0.321
+   },
+   {
+    "text": "da",
+    "start": 0.333,
+    "end": 0.413
+   },
+   {
+    "text": "informação?",
+    "start": 0.425,
+    "end": 1.108
+   },
+   {
+    "text": "Manda",
+    "start": 1.347,
+    "end": 1.625
+   },
+   {
+    "text": "esse",
+    "start": 1.637,
+    "end": 1.822
+   },
+   {
+    "text": "vídeo",
+    "start": 1.833,
+    "end": 2.169
+   },
+   {
+    "text": "pra",
+    "start": 2.181,
+    "end": 2.32
+   },
+   {
+    "text": "um",
+    "start": 2.331,
+    "end": 2.435
+   },
+   {
+    "text": "amigo",
+    "start": 2.447,
+    "end": 2.806
+   },
+   {
+    "text": "que",
+    "start": 2.817,
+    "end": 2.91
+   },
+   {
+    "text": "você",
+    "start": 2.921,
+    "end": 3.176
+   },
+   {
+    "text": "acha",
+    "start": 3.188,
+    "end": 3.489
+   },
+   {
+    "text": "que",
+    "start": 3.5,
+    "end": 3.581
+   },
+   {
+    "text": "se",
+    "start": 3.593,
+    "end": 3.685
+   },
+   {
+    "text": "encaixa",
+    "start": 3.697,
+    "end": 4.114
+   },
+   {
+    "text": "nessa",
+    "start": 4.125,
+    "end": 4.391
+   },
+   {
+    "text": "situação.",
+    "start": 4.403,
+    "end": 5.005
+   }
+  ]
+ }
+}
