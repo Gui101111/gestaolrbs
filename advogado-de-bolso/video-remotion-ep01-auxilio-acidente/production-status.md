@@ -52,3 +52,4 @@ python3 scripts/loudnorm.py out/auxilio-acidente-raw.mp4 out/auxilio-acidente.mp
 
 Com GPU, use `--gl=angle`. Neste ambiente sem GPU foi usado `--gl=swangle` com `--browser-executable` apontando para o Chromium local.
 A narração (`public/audio/vo`) é regenerada com `scripts/voiceover.py --provider edge --voice pt-BR-ThalitaMultilingualNeural --rate +9%` seguido de `scripts/prepare_vo.py`.
+- 31/10/2026: o usuário reprovou o vídeo v1 (voz com sotaque inglês, chamada para ação, animação pouco dinâmica). Roteiro **v2** em `roteiro-v2.md`: AGUARDANDO APROVAÇÃO e o vídeo de exemplo do usuário. Implementação da v2 não iniciada.
