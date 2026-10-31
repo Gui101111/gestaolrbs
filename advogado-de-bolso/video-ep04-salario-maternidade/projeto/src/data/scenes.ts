@@ -151,6 +151,8 @@ export const scenes: ScenePlan[] = [
     objects: [...SYSTEM(), PIPE, o("crib", "berco")],
     animations: [
       lerp("ana.belly", 0, 1, 1, 1),
+      lerp("ana.holdBaby", 0, 1, 0, 0),
+      lerp("marcos.baby", 0, 1, 0, 0),
       lerp("ana.hop", 0, 1, 1, 1),
       lerp("ana.wave", 10, 22, 0, 1, "out"),
       lerp("pipeAccident.grow", 0, 1, 1, 1),
