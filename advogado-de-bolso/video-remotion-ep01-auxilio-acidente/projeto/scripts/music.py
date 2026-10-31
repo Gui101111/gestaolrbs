@@ -25,7 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "public" / "audio" / "music.wav"
 
 SR = 48000
-DUR = 90.0
+DUR = 67.0
 N = int(SR * DUR)
 BPM = 104
 BEAT = 60 / BPM
@@ -36,12 +36,12 @@ rng = np.random.default_rng(12)
 import json as _json
 
 _VO = _json.loads((ROOT / "src" / "data" / "vo.json").read_text(encoding="utf-8"))
-_KEYS = [f"s{i}" for i in range(1, 17)]
+_KEYS = [f"s{i}" for i in range(1, 14)]
 VO_START = {}
 _t = 0.45
 for _k in _KEYS:
     VO_START[_k] = _t
-    _t += _VO[_k]["seconds"] + 0.45
+    _t += _VO[_k]["seconds"] + 0.35
 S = [0.0] + [VO_START[k] - 0.25 for k in _KEYS[1:]]
 
 
@@ -49,17 +49,19 @@ def word(k, i):
     return VO_START[k] + _VO[k]["words"][i]["start"]
 
 
-GOLPE = word("s1", 9)
-LEI = word("s1", 13)
-CAIU = word("s3", 9)
-PAROU = word("s4", 7)
-ALTA = word("s6", 4)
-GANHA = word("s7", 15)
-REVEAL = word("s8", 6)
-FORA = word("s12", 5)
-LOCK = word("s14", 5)
-JUSTICA = word("s15", 3)
-FINAL_HIT = word("s16", 7)
+INSS = word("s1", 12)
+TODO_MES = word("s1", 13)
+CERTINHO = word("s2", 8)
+CAIU = word("s3", 11)
+QUEBRADA = word("s4", 2)
+DEDOS = word("s5", 16)
+REVEAL = word("s6", 5)
+PERICIA = word("s7", 25)
+MELHOR = word("s8", 2)
+METADE = word("s9", 5)
+FORA = word("s12", 6)
+SHARE = word("s13", 3)
+END = S[12] + 7.23 - 1.7
 CH = {
     "F": [53, 57, 60, 65],
     "Dm": [50, 53, 57, 62],
@@ -261,98 +263,73 @@ def groove(start, end, kick_g, hat_g, clap_g=0.0):
             place(drums, stereo(shaker(), 0.3 if sub else -0.2), t0 + sub * BEAT, hat_g * (1.0 if sub else 0.6))
 
 
-# 1) gancho curioso (pergunta) — pad leve + motivo de "pergunta" na marimba
-section_pads(S[0], S[1], ["F", "Dm"], 1100, 0.7)
-for t0, m in [(0.3, 72), (0.6, 69), (0.9, 65), (1.2, 67), (2.4, 72), (2.7, 74), (3.0, 76)]:
-    place(leads, stereo(marimba(m, 1.2), 0.2), t0, 0.5)
-place(leads, stereo(pluck(60, 0.5), -0.3), GOLPE, 0.35)
-place(leads, stereo(pluck(58, 0.5), 0.3), GOLPE + 0.18, 0.35)
-place(fx, stereo(soft_hit(0.8)), LEI, 0.45)
+# 1) gancho — energia desde o 1º segundo
+section_pads(S[0], S[1], MAJOR, 1800, 0.7)
+arps(S[0], S[1], MAJOR, BEAT / 2, [0, 2, 3, 1, 2, 3, 1, 2], 0.42)
+groove(S[0] + 0.2, S[1], 0.7, 0.55, 0.3)
+basses(S[0], S[1], MAJOR, [1, 0, 1, 1, 0, 1, 1, 0], 0.55)
+place(fx, stereo(soft_hit(0.9)), INSS, 0.45)
 for k, m in enumerate([77, 81, 84]):
-    place(leads, stereo(bell(m, 1.6), -0.4 + 0.4 * k), LEI + 0.04 * k, 0.2)
+    place(leads, stereo(bell(m, 1.6), -0.4 + 0.4 * k), TODO_MES + 0.04 * k, 0.22)
 
-# 2) apresentação do sistema — arpejo leve e chocalho
-section_pads(S[1], S[2], MAJOR, 1500, 0.75)
-arps(S[1], S[2], MAJOR, BEAT / 2, [0, 2, 3, 1, 2, 3, 1, 2], 0.4)
-groove(S[1] + BEAT * 2, S[2], 0.5, 0.45)
-basses(S[1], S[2], MAJOR, [1, 0, 0, 1, 0, 0, 1, 0], 0.5)
+# 2) apresentação — groove leve
+section_pads(S[1], S[2], MAJOR, 1700, 0.65)
+arps(S[1], S[2], MAJOR, BEAT / 2, [0, 1, 2, 3, 2, 1], 0.36)
+groove(S[1], S[2], 0.55, 0.5, 0.3)
+basses(S[1], S[2], MAJOR, [1, 0, 0, 1, 0, 1, 0, 0], 0.5)
+place(leads, stereo(bell(84, 1.4), 0.2), CERTINHO, 0.2)
 
-# 3) escada "dançando" (cômico) e queda
-arps(S[2], CAIU, ["C", "F"], BEAT / 2, [0, 2, 1, 3], 0.36, inst=pluck)
-groove(S[2], CAIU - 0.1, 0.55, 0.5, 0.35)
-basses(S[2], CAIU, ["C", "F"], [1, 0, 1, 1, 0, 1, 1, 0], 0.5)
-place(fx, stereo(soft_hit(0.9)), CAIU + 0.3, 0.5)
+# 3) escada e queda — tensão crescente e corte seco no tombo
+section_pads(S[2], CAIU, TENSE, 1200, 0.75)
+arps(S[2], CAIU - 0.2, TENSE, BEAT / 4, [0, 1, 2, 3], 0.22, inst=pluck, octave=12)
+place(fx, riser(CAIU - S[2] - 0.3), S[2], 0.35)
+place(fx, stereo(soft_hit(1.3)), CAIU, 0.6)
 
-# 4) salário parou — tensão contida
-section_pads(S[3], S[4], TENSE, 950, 0.8)
-for t0 in np.arange(S[3], S[4] - 0.05, BEAT):
-    name = chord_at(t0, TENSE, S[3])
+# 4) mão quebrada / afastado — pulso grave
+section_pads(CAIU + 0.4, S[4], TENSE, 900, 0.8)
+for t0 in np.arange(CAIU + 0.4, S[4] - 0.05, BEAT):
+    name = chord_at(t0, TENSE, CAIU)
     place(low, stereo(bass(ROOT_NOTE[name], BEAT * 0.8)), t0, 0.45)
-place(leads, stereo(pluck(62, 0.8), 0), PAROU, 0.3)
+place(leads, stereo(pluck(62, 0.8), 0), QUEBRADA, 0.3)
 
-# 5) alívio — auxílio-doença
-section_pads(S[4], S[5], MAJOR, 1700, 0.7)
-arps(S[4], S[5], MAJOR, BEAT / 2, [0, 1, 2, 3, 2, 1], 0.34)
-basses(S[4], S[5], MAJOR, [1, 0, 0, 1, 0, 0, 1, 0], 0.45)
+# 5) volta ao trabalho (leve) e sequela (menor)
+section_pads(S[4], DEDOS - 0.5, MAJOR, 1600, 0.6)
+arps(S[4], DEDOS - 0.5, MAJOR, BEAT / 2, [0, 2, 1, 3], 0.32)
+groove(S[4], DEDOS - 0.6, 0.5, 0.45, 0.2)
+section_pads(DEDOS - 0.5, S[5], TENSE, 900, 0.8)
+place(leads, stereo(pluck(55, 0.9), 0), DEDOS, 0.32)
+place(fx, riser(REVEAL - (DEDOS + 0.4)), DEDOS + 0.4, 0.4)
 
-# 6) perícia e alta — groove leve
-section_pads(S[5], S[6], MAJOR, 1700, 0.6)
-arps(S[5], S[6], MAJOR, BEAT / 2, [0, 2, 1, 3], 0.34)
-groove(S[5], S[6] - 0.2, 0.5, 0.45, 0.25)
-basses(S[5], S[6], MAJOR, [1, 0, 1, 0, 1, 0, 1, 0], 0.5)
-place(leads, stereo(bell(84, 1.5), 0.2), ALTA, 0.2)
-
-# 7) sequela — menor, esparso
-section_pads(S[6], S[7], TENSE, 900, 0.85)
-arps(S[6] + BEAT, S[7], TENSE, BEAT, [0, 2, 1, 3], 0.26, inst=pluck)
-place(leads, stereo(pluck(55, 0.9), 0), GANHA, 0.3)
-place(fx, riser(REVEAL - (S[7] + 0.4)), S[7] + 0.4, 0.38)
-
-# 8) revelação: auxílio-acidente — crescendo, sinos e groove cheio
-place(fx, stereo(soft_hit(1.2)), REVEAL, 0.6)
+# 6) revelação — impacto e sinos
+place(fx, stereo(soft_hit(1.3)), REVEAL, 0.65)
 for k, m in enumerate([77, 81, 84, 89]):
-    place(leads, stereo(bell(m, 2.2), -0.5 + 0.33 * k), REVEAL + 0.04 * k, 0.26)
-section_pads(S[7], S[8], MAJOR, 2300, 0.75)
-arps(REVEAL, S[8], MAJOR, BEAT / 2, [0, 1, 2, 3, 1, 2, 3, 0], 0.38)
-groove(REVEAL + 0.3, S[8], 0.7, 0.55, 0.35)
-basses(REVEAL, S[8], MAJOR, [1, 0, 1, 0, 1, 1, 1, 0], 0.55)
+    place(leads, stereo(bell(m, 2.2), -0.5 + 0.33 * k), REVEAL + 0.04 * k, 0.28)
 
-# 9–11) regras — groove contínuo com variações
-for i, prog in [(8, MAJOR), (9, ["Bb", "C", "F", "Dm"]), (10, MAJOR)]:
-    section_pads(S[i], S[i + 1], prog, 1900, 0.65)
-    arps(S[i], S[i + 1], prog, BEAT / 2, [0, 2, 3, 1, 2, 3, 1, 2], 0.34)
-    groove(S[i], S[i + 1] - 0.1, 0.65, 0.5, 0.3)
-    basses(S[i], S[i + 1], prog, [1, 0, 1, 1, 0, 1, 1, 0], 0.55)
+# 7–11) explicação — groove contínuo
+for i, prog in [(6, MAJOR), (7, ["Bb", "C", "F", "Dm"]), (8, MAJOR), (9, MAJOR), (10, ["Bb", "C", "F", "Dm"])]:
+    st = REVEAL if i == 6 else S[i]
+    section_pads(st, S[i + 1], prog, 2000, 0.65)
+    arps(st, S[i + 1], prog, BEAT / 2, [0, 2, 3, 1, 2, 3, 1, 2], 0.34)
+    groove(st + 0.1, S[i + 1] - 0.05, 0.65, 0.5, 0.3)
+    basses(st, S[i + 1], prog, [1, 0, 1, 1, 0, 1, 1, 0], 0.55)
+place(fx, stereo(soft_hit(0.9)), PERICIA, 0.45)
+place(leads, stereo(bell(88, 1.6), 0.2), MELHOR, 0.22)
+place(fx, stereo(soft_hit(1.0)), METADE, 0.5)
 
-# 12) MEI e autônomo de fora — respiro menor
+# 12) de fora — respiro menor
 section_pads(S[11], S[12], ["Dm", "A"], 1000, 0.75)
 place(leads, stereo(pluck(57, 0.9), 0), FORA, 0.3)
 
-# 13) valor e prazo — groove mais leve
-section_pads(S[12], S[13], MAJOR, 1700, 0.65)
-arps(S[12], S[13], MAJOR, BEAT / 2, [0, 1, 2, 3, 2, 1], 0.32)
-groove(S[12] + BAR / 2, S[13] - 0.2, 0.5, 0.45, 0.2)
-basses(S[12], S[13], MAJOR, [1, 0, 0, 1, 0, 1, 0, 0], 0.5)
-
-# 14) cadeado — suspense curto, depois pedido
-section_pads(S[13], S[14], TENSE, 950, 0.8)
-place(leads, stereo(pluck(50, 1.0), 0), LOCK, 0.35)
-arps(LOCK + BEAT, S[14], TENSE, BEAT, [0, 2, 1, 3], 0.24, inst=pluck)
-place(fx, riser(JUSTICA - (S[14] - 0.6)), S[14] - 0.6, 0.38)
-
-# 15) recurso/Justiça — impacto
-place(fx, stereo(soft_hit(1.1)), JUSTICA, 0.55)
-groove(JUSTICA, S[15], 0.7, 0.5, 0.35)
-section_pads(S[14], S[15], MAJOR, 2100, 0.6)
-
-# 16) resolução — sistema completo
-place(fx, stereo(soft_hit(1.2)), S[15], 0.5)
-place(pads, pad(CH["Fadd9"], DUR - S[15], 2400, 1.0), S[15], 1.0)
-place(low, stereo(np.sin(2 * np.pi * hz(29) * tt(5.0)) * env(5.0, 0.05, 2.5) * 0.6), S[15], 1.0)
-arps(S[15], DUR - 1.5, ["Fadd9"], BEAT / 2, [0, 1, 2, 3, 2, 1], 0.3)
-groove(S[15], DUR - 2.5, 0.5, 0.4, 0.2)
+# 13) final — resolução, depois cartão
+section_pads(S[12], DUR, ["F", "Bb", "C", "F"], 2200, 0.75)
+arps(S[12], END, MAJOR, BEAT / 2, [0, 1, 2, 3, 2, 1], 0.32)
+groove(S[12], END, 0.6, 0.45, 0.25)
+basses(S[12], END, MAJOR, [1, 0, 1, 0, 1, 0, 1, 1], 0.5)
+place(leads, stereo(bell(84, 1.8), 0.2), SHARE, 0.22)
+place(fx, stereo(soft_hit(1.2)), END, 0.5)
+place(pads, pad(CH["Fadd9"], DUR - END, 2400, 1.0), END, 1.0)
 for k, m in enumerate([77, 81, 84, 88, 91]):
-    place(leads, stereo(bell(m, 2.6), -0.6 + 0.3 * k), FINAL_HIT + 0.05 * k, 0.24)
+    place(leads, stereo(bell(m, 2.6), -0.6 + 0.3 * k), END + 0.05 * k, 0.24)
 
 # ---------------------------------------------------------------- mixagem
 sc = np.ones(N)

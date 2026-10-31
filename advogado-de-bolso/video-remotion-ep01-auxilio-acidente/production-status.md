@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 | --- | --- |
-| Fase atual | **CONCLUÍDO**: MP4 final gerado e verificado. |
+| Fase atual | **v2 em renderização** (a v1 foi entregue e reprovada pelo usuário). |
 | Versão do roteiro | v1 (31/10/2026) |
 | Aprovação | v1 aprovada em 31/10/2026: o usuário pediu "o vídeo pronto pra eu baixar em MP4" depois de receber a v1. |
 | Origem do pedido | Skill `remotion-problem-resolve-video` com o tema "Auxílio-acidente: Se machucou no trabalho e voltou a trabalhar? Você pode ter direito a um benefício todo mês." |
@@ -53,3 +53,8 @@ python3 scripts/loudnorm.py out/auxilio-acidente-raw.mp4 out/auxilio-acidente.mp
 Com GPU, use `--gl=angle`. Neste ambiente sem GPU foi usado `--gl=swangle` com `--browser-executable` apontando para o Chromium local.
 A narração (`public/audio/vo`) é regenerada com `scripts/voiceover.py --provider edge --voice pt-BR-ThalitaMultilingualNeural --rate +9%` seguido de `scripts/prepare_vo.py`.
 - 31/10/2026: o usuário reprovou o vídeo v1 (voz com sotaque inglês, chamada para ação, animação pouco dinâmica). Roteiro **v2** em `roteiro-v2.md`: AGUARDANDO APROVAÇÃO e o vídeo de exemplo do usuário. Implementação da v2 não iniciada.
+- 31/10/2026: **v2 aprovada** ("pode criar já"; o usuário não conseguiu enviar o vídeo de exemplo).
+  - Voz trocada para `pt-BR-FranciscaNeural` +8 % (só pt-BR, sem troca de sotaque): 60,5 s de fala, vídeo de 67 s.
+  - Animação mais dinâmica: transições em chicote, zoom "soco", palavras gigantes, flash de impacto, linhas de velocidade, raio-x, chuva de moedas e cartão final.
+  - Sem chamada para pedir benefício, ligar ou procurar advogado.
+  - Os dados da v1 estão em `v1-arquivo/`.

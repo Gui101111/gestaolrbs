@@ -5,6 +5,7 @@ import { AnimatedCaptions } from "./components/AnimatedCaptions";
 import { Background } from "./components/Background";
 import { CameraController } from "./components/CameraController";
 import { Lighting } from "./components/Lighting";
+import { BigWords, EndCard, Flash, ShareIcon, SpeedLines, WhipStreaks, XRay } from "./components/FX";
 import { Overlays, RewindOverlay } from "./components/Overlays";
 import { BadgeLayer } from "./components/TechnicalBadge";
 import { World } from "./components/World";
@@ -26,10 +27,12 @@ export const MainSequence: React.FC = () => {
   const { width, height } = useVideoConfig();
   const frame = useCurrentFrame();
   const rewind = clamp(track("rewind", frame), 0, 1);
+  const whipV = clamp(track("whip", frame), 0, 1);
+  const blur = 2.5 * rewind + 7 * whipV;
   return (
     <AbsoluteFill style={{ backgroundColor: "#0e2036" }}>
       <Background />
-      <AbsoluteFill style={{ filter: rewind > 0.01 ? `grayscale(${0.85 * rewind}) blur(${2.5 * rewind}px) contrast(${1 + 0.15 * rewind})` : undefined }}>
+      <AbsoluteFill style={{ filter: blur > 0.05 ? `grayscale(${0.85 * rewind}) blur(${blur}px) contrast(${1 + 0.15 * rewind})` : undefined }}>
         <ThreeCanvas width={width} height={height} gl={{ antialias: true }} shadows="percentage" flat camera={{ fov: CAMERA.fov, near: CAMERA.near, far: CAMERA.far, position: [8, 6, 30] }}>
           <CameraController />
           <Lighting shadowExtent={11} />
@@ -37,13 +40,20 @@ export const MainSequence: React.FC = () => {
         </ThreeCanvas>
       </AbsoluteFill>
       <Overlays />
+      <SpeedLines />
+      <WhipStreaks />
       <RewindOverlay />
+      <XRay />
       {scenes.map((sc) => (
         <Sequence key={sc.id} name={sc.id} from={sc.startFrame} durationInFrames={sc.durationInFrames}>
           <BadgeLayer badges={sc.badges} />
         </Sequence>
       ))}
+      <BigWords />
+      <ShareIcon />
       <AnimatedCaptions />
+      <Flash />
+      <EndCard />
       <FadeOut />
       <Soundtrack />
     </AbsoluteFill>

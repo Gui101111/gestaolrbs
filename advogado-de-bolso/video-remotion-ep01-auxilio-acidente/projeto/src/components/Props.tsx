@@ -60,7 +60,7 @@ export const Bench: React.FC = () => (
   </group>
 );
 
-export const ShelfAndLadder: React.FC<{ wobble: number; frame: number }> = ({ wobble, frame }) => {
+export const ShelfAndLadder: React.FC<{ wobble: number; frame: number; slide?: number }> = ({ wobble, frame, slide = 0 }) => {
   const ang = (18 * Math.PI) / 180 * Math.sin((frame / 30) * Math.PI * 4) * clamp(wobble, 0, 1);
   return (
     <group>
@@ -75,7 +75,7 @@ export const ShelfAndLadder: React.FC<{ wobble: number; frame: number }> = ({ wo
         <Box p={[0.3, 1.33, 0]} s={[0.46, 0.4, 0.4]} c="#d8ab6c" />
         <Box p={[-0.2, 2.13, 0]} s={[0.4, 0.4, 0.4]} c="#b98a4e" />
       </group>
-      <group position={L.ladderBase} rotation={[0.12, 0, ang]}>
+      <group position={[L.ladderBase[0], 0, L.ladderBase[2] + clamp(slide, 0, 1) * 0.9]} rotation={[0.12 + clamp(slide, 0, 1) * 1.15, 0, ang]}>
         {[-0.22, 0.22].map((x) => (
           <Box key={x} p={[x, 1.1, 0]} s={[0.06, 2.2, 0.06]} c="#e0b13a" />
         ))}
@@ -375,3 +375,24 @@ export const Gavel: React.FC<{ at: Vec3; swingDeg: number }> = ({ at, swingDeg }
     <Cyl p={[0, 0.34, 0]} r={[0, 0, Math.PI / 2]} rt={0.06} h={0.2} seg={8} c={PALETTE.wood} />
   </group>
 );
+
+/** Chuva de moedas (gancho e "o melhor"). */
+export const CoinRain: React.FC<{ amount: number; frame: number }> = ({ amount, frame }) => {
+  if (amount <= 0.01) return null;
+  return (
+    <group>
+      {Array.from({ length: 36 }, (_, i) => {
+        const x = randRange(`cx${i}`, -2.2, 3.0);
+        const z = randRange(`cz${i}`, 0.6, 3.4);
+        const sp = randRange(`cs${i}`, 0.07, 0.12);
+        const y = 7.5 - ((frame * sp + randRange(`co${i}`, 0, 7.5)) % 7.5);
+        return (
+          <mesh key={i} position={[x, y, z]} rotation={[frame * 0.2 + i, i, frame * 0.13]} scale={clamp(amount, 0, 1)}>
+            <cylinderGeometry args={[0.13, 0.13, 0.035, 12]} />
+            <meshStandardMaterial color={PALETTE.coinGold} metalness={0.6} roughness={0.3} emissive={PALETTE.coinGold} emissiveIntensity={0.3} flatShading />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+};

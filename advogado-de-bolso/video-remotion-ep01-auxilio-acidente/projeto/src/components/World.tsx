@@ -14,6 +14,7 @@ import {
   BigCoin,
   BoxPile,
   Calendar,
+  CoinRain,
   CapacityGauge,
   CastShards,
   Check3D,
@@ -78,6 +79,7 @@ export const World: React.FC = () => {
   const tumble = m.fall > 0.001 && m.fall < 1 ? -Math.sin(m.fall * Math.PI) * 0.7 : 0;
   const shake = 0;
   const thumbA = T("marcos.thumb");
+  const hopY = clamp(T("marcos.hop"), 0, 1) * Math.abs(Math.sin(frame * 0.38)) * 0.16;
   const sad = Math.max(T("box.slip") * (1 - T("stiff.tone")), T("salaryValve.closed") * (1 - thumbA));
   const pose = {
     frame,
@@ -95,6 +97,7 @@ export const World: React.FC = () => {
     climb: onLadder ? 1 : 0,
     flail: m.fall > 0.02 && m.fall < 0.92 ? 1 : 0,
     work: clamp(T("marcos.work") * 8, 0, 1),
+    wave: T("marcos.wave"),
     sad,
   };
 
@@ -154,7 +157,8 @@ export const World: React.FC = () => {
       <Island />
       <Warehouse />
       <Inss glow={T("inss.glow")} review={T("inss.review")} />
-      <ShelfAndLadder wobble={T("ladder.wobble")} frame={frame} />
+      <ShelfAndLadder wobble={T("ladder.wobble")} slide={T("ladder.slide")} frame={frame} />
+      <CoinRain amount={T("coinRain")} frame={frame} />
       <BoxPile />
       {vis("bench") ? <Bench /> : null}
       <Piggy level={T("piggy.level")} split={T("piggy.split")} frame={frame} />
@@ -178,7 +182,7 @@ export const World: React.FC = () => {
       ) : null}
 
       {/* Marcos e Lia */}
-      <group position={m.pos} rotation={[tumble, rotY, 0]}>
+      <group position={[m.pos[0], m.pos[1] + hopY, m.pos[2]]} rotation={[tumble, rotY, 0]}>
         <Marcos pose={pose} />
       </group>
       <DizzyStars at={v3.add(m.pos, [0, 1.98 - 0.36 * sitW, 0])} amount={T("dizzy.stars")} frame={frame} />
@@ -194,6 +198,7 @@ export const World: React.FC = () => {
       {vis("workBooklet") ? <WorkBooklet pop={T("workBooklet.pop")} frame={frame} /> : null}
       {/* cena 5–6 */}
       {vis("hourglass") ? <Hourglass pop={T("hourglass.pop")} frame={frame} /> : null}
+      {vis("pericia") && (T("pericia.drop") > 0.001 || T("pericia.mark") > 0.5) ? <Stamp drop={T("pericia.drop")} marked={T("pericia.mark") > 0.5} color={PALETTE.info} at={[L.work[0] + 0.05, 2.2, L.work[2] + 0.5]} /> : null}
       {vis("stamp") && T("marcos.sit") > 0.5 ? <Stamp drop={T("stamp.drop")} marked={T("cast.shatter") > 0.01} color={PALETTE.green} at={[L.home[0], 2.05, L.home[2] + 0.35]} /> : null}
       <CastShards at={[L.home[0] + 0.05, 0.85, L.home[2] + 0.3]} t={T("cast.shatter")} />
       {/* cena 7–9 */}

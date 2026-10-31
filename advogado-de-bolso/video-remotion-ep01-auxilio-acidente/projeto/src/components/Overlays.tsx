@@ -25,11 +25,13 @@ export const Overlays: React.FC = () => {
     labels.push({ p: [L.piggy[0] + 0.6, 1.6, L.piggy[2] + 0.6], text: "COFRINHO", a: stagger(sys, 2), off: [120, 90], accent: "#f48fb1" });
     labels.push({ p: PIPES.salary[2], text: "SALÁRIO", a: stagger(sys, 3), off: [-150, -80], accent: "#bcd3ea" });
   }
-  if (id === "scene-07-dedos-nao-dobram") {
+  const marcosLabel = T("label.marcos");
+  if (marcosLabel > 0.01) labels.push({ p: [L.work[0], 1.95, L.work[2]], text: "MARCOS", a: clamp(marcosLabel, 0, 1), off: [-190, -70], accent: PALETTE.warning });
+  if (isVisible("capacityGauge", frame)) {
     const a = clamp(T("capacity.pop"), 0, 1);
     if (a > 0.01) labels.push({ p: [L.work[0] + 0.5, 2.18, L.work[2]], text: "CAPACIDADE", a, off: [150, 60], accent: "#ff8a1f" });
   }
-  if (id === "scene-13-valor-ate-aposentar") {
+  if (id === "scene-08-junto-ate-aposentadoria") {
     const a = clamp(T("timeline.stop"), 0, 1);
     if (a > 0.01) labels.push({ p: [L.chair[0], 1.3, L.chair[2]], text: "APOSENTADORIA", a, off: [60, -110], accent: PALETTE.red });
   }

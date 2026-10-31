@@ -47,7 +47,7 @@ export const cameraPoseAt = (frame: number): CameraPose => {
   // deriva lenta e contínua: a câmera nunca fica totalmente parada
   const azimuth = lerp(a.azimuth, b.azimuth, t) + 0.012 * Math.sin(frame / 41);
   const elevation = lerp(a.elevation, b.elevation, t) + 0.006 * Math.sin(frame / 33 + 1.3);
-  const zoom = lerp(a.zoom, b.zoom, t);
+  const zoom = lerp(a.zoom, b.zoom, t) * (1 + 0.16 * track("cam.punch", frame));
   const sh = track("camera.shake", frame);
   const base = sphericalToPosition(target, distance, azimuth, elevation);
   const position: Vec3 = sh > 0.001 ? [base[0] + Math.sin(frame * 2.1) * 0.12 * sh, base[1] + Math.cos(frame * 2.7) * 0.1 * sh, base[2]] : base;

@@ -20,6 +20,7 @@ export type MarcosPose = {
   climb?: number;
   flail?: number;
   work?: number;
+  wave?: number;
   frame: number;
   helmet?: boolean;
   sad?: number;
@@ -83,6 +84,7 @@ export const Marcos: React.FC<{ pose: MarcosPose }> = ({ pose }) => {
     [work, -0.95 + 0.4 * wk],
     [climb, -2.6 + 0.35 * cl],
     [flail, -2.7 + 0.4 * Math.sin(frame / 2)],
+    [pose.wave ?? 0, -2.9],
   ]);
   const rElb = mix(-0.08, [
     [carry, -0.75],
@@ -91,7 +93,10 @@ export const Marcos: React.FC<{ pose: MarcosPose }> = ({ pose }) => {
     [work, -0.7],
     [climb, -0.3],
   ]);
-  const rShZ = mix(-0.08, [[cast, 0.25]]);
+  const rShZ = mix(-0.08, [
+    [cast, 0.25],
+    [pose.wave ?? 0, -0.35 + 0.4 * Math.sin(frame / 3)],
+  ]);
   const lShX = mix(0.05 + swing * 0.6, [
     [carry, -0.95],
     [pose.scratch ?? 0, -2.75],
