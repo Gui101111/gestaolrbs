@@ -1,0 +1,3 @@
+{"seconds": 46, "gap": 0.35, "endcard": 1.73, "style": "forro",
+ "moods": ["forro", "forro-light", "forro-light", "break", "forro-light", "build", "forro", "forro", "end"],
+ "hits": [["s1", 14, "hit"], ["s6", 0, "stop"], ["s6", 1, "hit"], ["s7", 12, "hit"]]}

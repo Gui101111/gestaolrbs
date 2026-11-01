@@ -48,3 +48,9 @@ bash scripts/finish.sh <nome>       # renderiza, ajusta o volume e gera a versã
 ```
 
 O texto de cada episódio fica em `scripts/narration.json` e as cenas em `src/data/scenes.ts`.
+
+## Série 2: comédia "mito" + Halloween
+
+Vídeos curtos (41–49 s) com piada, vilão zoeiro (cunhado, vizinha fofoqueira, sogra, compadre), NEGADO → recurso com a advogada de bolso → APROVADO → óculos de "mito". Detalhes e descrições prontas para postar em [`serie2/README.md`](serie2/README.md).
+
+Nos projetos da série 2, a trilha é gerada com `python3 scripts/funk.py`, que é original e livre de direitos: funk, terror e forró.

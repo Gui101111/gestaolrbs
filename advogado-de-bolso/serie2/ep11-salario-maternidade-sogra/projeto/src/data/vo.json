@@ -1,0 +1,671 @@
+{
+ "s1": {
+  "text": "A sogra jurou que a Ana não ia receber nada do INSS quando o bebê nascesse. Ela se enganou feio!",
+  "seconds": 5.868,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.064
+   },
+   {
+    "text": "sogra",
+    "start": 0.076,
+    "end": 0.458
+   },
+   {
+    "text": "jurou",
+    "start": 0.47,
+    "end": 0.794
+   },
+   {
+    "text": "que",
+    "start": 0.805,
+    "end": 0.909
+   },
+   {
+    "text": "a",
+    "start": 0.921,
+    "end": 1.002
+   },
+   {
+    "text": "Ana",
+    "start": 1.014,
+    "end": 1.268
+   },
+   {
+    "text": "não",
+    "start": 1.28,
+    "end": 1.442
+   },
+   {
+    "text": "ia",
+    "start": 1.453,
+    "end": 1.592
+   },
+   {
+    "text": "receber",
+    "start": 1.604,
+    "end": 2.02
+   },
+   {
+    "text": "nada",
+    "start": 2.032,
+    "end": 2.379
+   },
+   {
+    "text": "do",
+    "start": 2.391,
+    "end": 2.495
+   },
+   {
+    "text": "INSS",
+    "start": 2.507,
+    "end": 3.34
+   },
+   {
+    "text": "quando",
+    "start": 3.351,
+    "end": 3.571
+   },
+   {
+    "text": "o",
+    "start": 3.583,
+    "end": 3.606
+   },
+   {
+    "text": "bebê",
+    "start": 3.618,
+    "end": 3.895
+   },
+   {
+    "text": "nascesse.",
+    "start": 3.907,
+    "end": 4.451
+   },
+   {
+    "text": "Ela",
+    "start": 4.69,
+    "end": 4.91
+   },
+   {
+    "text": "se",
+    "start": 4.922,
+    "end": 5.026
+   },
+   {
+    "text": "enganou",
+    "start": 5.038,
+    "end": 5.373
+   },
+   {
+    "text": "feio!",
+    "start": 5.385,
+    "end": 5.778
+   }
+  ]
+ },
+ "s2": {
+  "text": "A Ana é manicure, MEI, e paga o carnê do INSS todo mês.",
+  "seconds": 3.858,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.088
+   },
+   {
+    "text": "Ana",
+    "start": 0.099,
+    "end": 0.342
+   },
+   {
+    "text": "é",
+    "start": 0.354,
+    "end": 0.389
+   },
+   {
+    "text": "manicure,",
+    "start": 0.4,
+    "end": 0.933
+   },
+   {
+    "text": "MEI,",
+    "start": 0.956,
+    "end": 1.199
+   },
+   {
+    "text": "e",
+    "start": 1.303,
+    "end": 1.372
+   },
+   {
+    "text": "paga",
+    "start": 1.384,
+    "end": 1.696
+   },
+   {
+    "text": "o",
+    "start": 1.708,
+    "end": 1.731
+   },
+   {
+    "text": "carnê",
+    "start": 1.743,
+    "end": 2.113
+   },
+   {
+    "text": "do",
+    "start": 2.125,
+    "end": 2.252
+   },
+   {
+    "text": "INSS",
+    "start": 2.264,
+    "end": 3.062
+   },
+   {
+    "text": "todo",
+    "start": 3.085,
+    "end": 3.34
+   },
+   {
+    "text": "mês.",
+    "start": 3.351,
+    "end": 3.757
+   }
+  ]
+ },
+ "s3": {
+  "text": "Grávida, ela descobriu que tinha direito ao salário-maternidade e foi pedir. E aí...",
+  "seconds": 4.882,
+  "words": [
+   {
+    "text": "Grávida,",
+    "start": 0,
+    "end": 0.512
+   },
+   {
+    "text": "ela",
+    "start": 0.697,
+    "end": 0.883
+   },
+   {
+    "text": "descobriu",
+    "start": 0.894,
+    "end": 1.415
+   },
+   {
+    "text": "que",
+    "start": 1.427,
+    "end": 1.542
+   },
+   {
+    "text": "tinha",
+    "start": 1.554,
+    "end": 1.785
+   },
+   {
+    "text": "direito",
+    "start": 1.797,
+    "end": 2.167
+   },
+   {
+    "text": "ao",
+    "start": 2.179,
+    "end": 2.237
+   },
+   {
+    "text": "salário-maternidade",
+    "start": 2.248,
+    "end": 3.417
+   },
+   {
+    "text": "e",
+    "start": 3.429,
+    "end": 3.475
+   },
+   {
+    "text": "foi",
+    "start": 3.487,
+    "end": 3.637
+   },
+   {
+    "text": "pedir.",
+    "start": 3.649,
+    "end": 4.054
+   },
+   {
+    "text": "E",
+    "start": 4.293,
+    "end": 4.421
+   },
+   {
+    "text": "aí...",
+    "start": 4.432,
+    "end": 4.779
+   }
+  ]
+ },
+ "s4": {
+  "text": "Negado! E a sogra, claro: eu avisei!",
+  "seconds": 2.779,
+  "words": [
+   {
+    "text": "Negado!",
+    "start": 0,
+    "end": 0.572
+   },
+   {
+    "text": "E",
+    "start": 0.811,
+    "end": 0.904
+   },
+   {
+    "text": "a",
+    "start": 0.915,
+    "end": 0.985
+   },
+   {
+    "text": "sogra,",
+    "start": 0.996,
+    "end": 1.424
+   },
+   {
+    "text": "claro:",
+    "start": 1.459,
+    "end": 1.876
+   },
+   {
+    "text": "eu",
+    "start": 2.073,
+    "end": 2.177
+   },
+   {
+    "text": "avisei!",
+    "start": 2.188,
+    "end": 2.686
+   }
+  ]
+ },
+ "s5": {
+  "text": "Só que, desde 2024, o STF decidiu que não precisa mais de carência. E a advogada de bolso entrou com recurso.",
+  "seconds": 7.358,
+  "words": [
+   {
+    "text": "Só",
+    "start": 0,
+    "end": 0.202
+   },
+   {
+    "text": "que,",
+    "start": 0.213,
+    "end": 0.329
+   },
+   {
+    "text": "desde",
+    "start": 0.352,
+    "end": 0.676
+   },
+   {
+    "text": "2024,",
+    "start": 0.688,
+    "end": 1.799
+   },
+   {
+    "text": "o",
+    "start": 1.996,
+    "end": 2.065
+   },
+   {
+    "text": "STF",
+    "start": 2.077,
+    "end": 2.702
+   },
+   {
+    "text": "decidiu",
+    "start": 2.713,
+    "end": 3.211
+   },
+   {
+    "text": "que",
+    "start": 3.223,
+    "end": 3.327
+   },
+   {
+    "text": "não",
+    "start": 3.338,
+    "end": 3.489
+   },
+   {
+    "text": "precisa",
+    "start": 3.501,
+    "end": 3.929
+   },
+   {
+    "text": "mais",
+    "start": 3.94,
+    "end": 4.183
+   },
+   {
+    "text": "de",
+    "start": 4.195,
+    "end": 4.264
+   },
+   {
+    "text": "carência.",
+    "start": 4.276,
+    "end": 4.832
+   },
+   {
+    "text": "E",
+    "start": 5.071,
+    "end": 5.163
+   },
+   {
+    "text": "a",
+    "start": 5.175,
+    "end": 5.221
+   },
+   {
+    "text": "advogada",
+    "start": 5.233,
+    "end": 5.8
+   },
+   {
+    "text": "de",
+    "start": 5.812,
+    "end": 5.904
+   },
+   {
+    "text": "bolso",
+    "start": 5.916,
+    "end": 6.275
+   },
+   {
+    "text": "entrou",
+    "start": 6.286,
+    "end": 6.552
+   },
+   {
+    "text": "com",
+    "start": 6.564,
+    "end": 6.68
+   },
+   {
+    "text": "recurso.",
+    "start": 6.691,
+    "end": 7.258
+   }
+  ]
+ },
+ "s6": {
+  "text": "Resultado? Aprovado!",
+  "seconds": 1.654,
+  "words": [
+   {
+    "text": "Resultado?",
+    "start": 0,
+    "end": 0.665
+   },
+   {
+    "text": "Aprovado!",
+    "start": 0.904,
+    "end": 1.541
+   }
+  ]
+ },
+ "s7": {
+  "text": "Agora a Ana recebe um salário mínimo por 120 dias. E a sogra? Jura que sempre apoiou.",
+  "seconds": 5.629,
+  "words": [
+   {
+    "text": "Agora",
+    "start": 0,
+    "end": 0.308
+   },
+   {
+    "text": "a",
+    "start": 0.32,
+    "end": 0.378
+   },
+   {
+    "text": "Ana",
+    "start": 0.39,
+    "end": 0.633
+   },
+   {
+    "text": "recebe",
+    "start": 0.644,
+    "end": 1.049
+   },
+   {
+    "text": "um",
+    "start": 1.061,
+    "end": 1.119
+   },
+   {
+    "text": "salário",
+    "start": 1.13,
+    "end": 1.535
+   },
+   {
+    "text": "mínimo",
+    "start": 1.547,
+    "end": 1.906
+   },
+   {
+    "text": "por",
+    "start": 1.917,
+    "end": 2.045
+   },
+   {
+    "text": "120 dias.",
+    "start": 2.056,
+    "end": 3.121
+   },
+   {
+    "text": "E",
+    "start": 3.36,
+    "end": 3.453
+   },
+   {
+    "text": "a",
+    "start": 3.465,
+    "end": 3.534
+   },
+   {
+    "text": "sogra?",
+    "start": 3.546,
+    "end": 4.043
+   },
+   {
+    "text": "Jura",
+    "start": 4.286,
+    "end": 4.599
+   },
+   {
+    "text": "que",
+    "start": 4.61,
+    "end": 4.715
+   },
+   {
+    "text": "sempre",
+    "start": 4.726,
+    "end": 5.062
+   },
+   {
+    "text": "apoiou.",
+    "start": 5.073,
+    "end": 5.536
+   }
+  ]
+ },
+ "s8": {
+  "text": "Tem direito quem é segurada do INSS: de carteira assinada, MEI, autônoma, desempregada que ainda é segurada, e até em caso de adoção.",
+  "seconds": 8.024,
+  "words": [
+   {
+    "text": "Tem",
+    "start": 0,
+    "end": 0.078
+   },
+   {
+    "text": "direito",
+    "start": 0.089,
+    "end": 0.529
+   },
+   {
+    "text": "quem",
+    "start": 0.541,
+    "end": 0.691
+   },
+   {
+    "text": "é",
+    "start": 0.703,
+    "end": 0.737
+   },
+   {
+    "text": "segurada",
+    "start": 0.749,
+    "end": 1.304
+   },
+   {
+    "text": "do",
+    "start": 1.316,
+    "end": 1.432
+   },
+   {
+    "text": "INSS:",
+    "start": 1.443,
+    "end": 2.323
+   },
+   {
+    "text": "de",
+    "start": 2.578,
+    "end": 2.67
+   },
+   {
+    "text": "carteira",
+    "start": 2.682,
+    "end": 3.098
+   },
+   {
+    "text": "assinada,",
+    "start": 3.11,
+    "end": 3.666
+   },
+   {
+    "text": "MEI,",
+    "start": 3.735,
+    "end": 3.897
+   },
+   {
+    "text": "autônoma,",
+    "start": 3.943,
+    "end": 4.51
+   },
+   {
+    "text": "desempregada",
+    "start": 4.615,
+    "end": 5.344
+   },
+   {
+    "text": "que",
+    "start": 5.355,
+    "end": 5.46
+   },
+   {
+    "text": "ainda",
+    "start": 5.471,
+    "end": 5.749
+   },
+   {
+    "text": "é",
+    "start": 5.761,
+    "end": 5.772
+   },
+   {
+    "text": "segurada,",
+    "start": 5.784,
+    "end": 6.42
+   },
+   {
+    "text": "e",
+    "start": 6.605,
+    "end": 6.675
+   },
+   {
+    "text": "até",
+    "start": 6.686,
+    "end": 6.895
+   },
+   {
+    "text": "em",
+    "start": 6.906,
+    "end": 7.022
+   },
+   {
+    "text": "caso",
+    "start": 7.034,
+    "end": 7.335
+   },
+   {
+    "text": "de",
+    "start": 7.346,
+    "end": 7.416
+   },
+   {
+    "text": "adoção.",
+    "start": 7.427,
+    "end": 7.925
+   }
+  ]
+ },
+ "s9": {
+  "text": "Conhece alguma grávida? Manda esse vídeo pra ela!",
+  "seconds": 2.906,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.348
+   },
+   {
+    "text": "alguma",
+    "start": 0.36,
+    "end": 0.649
+   },
+   {
+    "text": "grávida?",
+    "start": 0.661,
+    "end": 1.205
+   },
+   {
+    "text": "Manda",
+    "start": 1.444,
+    "end": 1.745
+   },
+   {
+    "text": "esse",
+    "start": 1.757,
+    "end": 1.953
+   },
+   {
+    "text": "vídeo",
+    "start": 1.965,
+    "end": 2.266
+   },
+   {
+    "text": "pra",
+    "start": 2.278,
+    "end": 2.463
+   },
+   {
+    "text": "ela!",
+    "start": 2.474,
+    "end": 2.81
+   }
+  ]
+ }
+}

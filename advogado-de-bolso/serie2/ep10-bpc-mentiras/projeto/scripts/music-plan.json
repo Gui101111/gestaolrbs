@@ -1,3 +1,3 @@
-{"seconds": 49, "gap": 0.35, "endcard": 1.73, "style": "funk",
- "moods": ["funk", "light", "light", "break", "light", "build", "drop", "funk", "end"],
- "hits": [["s1", 14, "hit"], ["s6", 0, "stop"], ["s6", 1, "hit"], ["s7", 14, "hit"]]}
+{"seconds": 48, "gap": 0.35, "endcard": 1.73, "style": "funk",
+ "moods": ["spooky", "light", "funk", "light", "funk", "light", "break", "drop", "end"],
+ "hits": [["s3", 0, "hit"], ["s5", 0, "hit"], ["s7", 0, "hit"], ["s9", 6, "hit"]]}

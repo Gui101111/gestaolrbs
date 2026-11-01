@@ -1,0 +1,507 @@
+{
+ "s1": {
+  "text": "Quatro mentiras sobre o salário-maternidade que dão mais medo que filme de terror!",
+  "seconds": 3.968,
+  "words": [
+   {
+    "text": "Quatro",
+    "start": 0,
+    "end": 0.256
+   },
+   {
+    "text": "mentiras",
+    "start": 0.268,
+    "end": 0.754
+   },
+   {
+    "text": "sobre",
+    "start": 0.765,
+    "end": 0.974
+   },
+   {
+    "text": "o",
+    "start": 0.985,
+    "end": 1.009
+   },
+   {
+    "text": "salário-maternidade",
+    "start": 1.02,
+    "end": 2.12
+   },
+   {
+    "text": "que",
+    "start": 2.131,
+    "end": 2.224
+   },
+   {
+    "text": "dão",
+    "start": 2.235,
+    "end": 2.421
+   },
+   {
+    "text": "mais",
+    "start": 2.432,
+    "end": 2.652
+   },
+   {
+    "text": "medo",
+    "start": 2.664,
+    "end": 2.93
+   },
+   {
+    "text": "que",
+    "start": 2.941,
+    "end": 3.034
+   },
+   {
+    "text": "filme",
+    "start": 3.046,
+    "end": 3.335
+   },
+   {
+    "text": "de",
+    "start": 3.346,
+    "end": 3.439
+   },
+   {
+    "text": "terror!",
+    "start": 3.451,
+    "end": 3.844
+   }
+  ]
+ },
+ "s2": {
+  "text": "Mentira número um: desempregada não recebe.",
+  "seconds": 2.635,
+  "words": [
+   {
+    "text": "Mentira",
+    "start": 0,
+    "end": 0.402
+   },
+   {
+    "text": "número",
+    "start": 0.413,
+    "end": 0.76
+   },
+   {
+    "text": "um:",
+    "start": 0.772,
+    "end": 0.946
+   },
+   {
+    "text": "desempregada",
+    "start": 1.177,
+    "end": 1.848
+   },
+   {
+    "text": "não",
+    "start": 1.86,
+    "end": 2.01
+   },
+   {
+    "text": "recebe.",
+    "start": 2.022,
+    "end": 2.543
+   }
+  ]
+ },
+ "s3": {
+  "text": "Mito! Se ainda estiver no período em que continua segurada do INSS, pode ter direito.",
+  "seconds": 5.411,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "Se",
+    "start": 0.655,
+    "end": 0.886
+   },
+   {
+    "text": "ainda",
+    "start": 0.898,
+    "end": 1.164
+   },
+   {
+    "text": "estiver",
+    "start": 1.175,
+    "end": 1.581
+   },
+   {
+    "text": "no",
+    "start": 1.592,
+    "end": 1.696
+   },
+   {
+    "text": "período",
+    "start": 1.708,
+    "end": 2.09
+   },
+   {
+    "text": "em",
+    "start": 2.101,
+    "end": 2.159
+   },
+   {
+    "text": "que",
+    "start": 2.171,
+    "end": 2.252
+   },
+   {
+    "text": "continua",
+    "start": 2.263,
+    "end": 2.726
+   },
+   {
+    "text": "segurada",
+    "start": 2.738,
+    "end": 3.259
+   },
+   {
+    "text": "do",
+    "start": 3.27,
+    "end": 3.386
+   },
+   {
+    "text": "INSS,",
+    "start": 3.398,
+    "end": 4.231
+   },
+   {
+    "text": "pode",
+    "start": 4.393,
+    "end": 4.682
+   },
+   {
+    "text": "ter",
+    "start": 4.694,
+    "end": 4.844
+   },
+   {
+    "text": "direito.",
+    "start": 4.856,
+    "end": 5.307
+   }
+  ]
+ },
+ "s4": {
+  "text": "Mentira número dois: só a mãe pode receber.",
+  "seconds": 2.612,
+  "words": [
+   {
+    "text": "Mentira",
+    "start": 0,
+    "end": 0.375
+   },
+   {
+    "text": "número",
+    "start": 0.387,
+    "end": 0.699
+   },
+   {
+    "text": "dois:",
+    "start": 0.711,
+    "end": 1.081
+   },
+   {
+    "text": "só",
+    "start": 1.266,
+    "end": 1.428
+   },
+   {
+    "text": "a",
+    "start": 1.44,
+    "end": 1.486
+   },
+   {
+    "text": "mãe",
+    "start": 1.498,
+    "end": 1.706
+   },
+   {
+    "text": "pode",
+    "start": 1.718,
+    "end": 1.984
+   },
+   {
+    "text": "receber.",
+    "start": 1.995,
+    "end": 2.481
+   }
+  ]
+ },
+ "s5": {
+  "text": "Mito! Na adoção, o pai que adota também pode ter direito.",
+  "seconds": 3.725,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "Na",
+    "start": 0.655,
+    "end": 0.794
+   },
+   {
+    "text": "adoção,",
+    "start": 0.805,
+    "end": 1.28
+   },
+   {
+    "text": "o",
+    "start": 1.476,
+    "end": 1.546
+   },
+   {
+    "text": "pai",
+    "start": 1.557,
+    "end": 1.8
+   },
+   {
+    "text": "que",
+    "start": 1.812,
+    "end": 1.905
+   },
+   {
+    "text": "adota",
+    "start": 1.916,
+    "end": 2.321
+   },
+   {
+    "text": "também",
+    "start": 2.333,
+    "end": 2.692
+   },
+   {
+    "text": "pode",
+    "start": 2.703,
+    "end": 2.981
+   },
+   {
+    "text": "ter",
+    "start": 2.993,
+    "end": 3.131
+   },
+   {
+    "text": "direito.",
+    "start": 3.143,
+    "end": 3.618
+   }
+  ]
+ },
+ "s6": {
+  "text": "Mentira número três: MEI precisa de dez contribuições.",
+  "seconds": 3.362,
+  "words": [
+   {
+    "text": "Mentira",
+    "start": 0,
+    "end": 0.363
+   },
+   {
+    "text": "número",
+    "start": 0.374,
+    "end": 0.698
+   },
+   {
+    "text": "três:",
+    "start": 0.71,
+    "end": 1.08
+   },
+   {
+    "text": "MEI",
+    "start": 1.312,
+    "end": 1.462
+   },
+   {
+    "text": "precisa",
+    "start": 1.474,
+    "end": 1.914
+   },
+   {
+    "text": "de",
+    "start": 1.925,
+    "end": 2.018
+   },
+   {
+    "text": "dez",
+    "start": 2.029,
+    "end": 2.319
+   },
+   {
+    "text": "contribuições.",
+    "start": 2.33,
+    "end": 3.256
+   }
+  ]
+ },
+ "s7": {
+  "text": "Mito! Desde 2024, o STF derrubou essa carência.",
+  "seconds": 4.213,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "Desde",
+    "start": 0.655,
+    "end": 1.002
+   },
+   {
+    "text": "2024,",
+    "start": 1.013,
+    "end": 2.171
+   },
+   {
+    "text": "o",
+    "start": 2.24,
+    "end": 2.321
+   },
+   {
+    "text": "STF",
+    "start": 2.333,
+    "end": 2.946
+   },
+   {
+    "text": "derrubou",
+    "start": 2.958,
+    "end": 3.374
+   },
+   {
+    "text": "essa",
+    "start": 3.386,
+    "end": 3.571
+   },
+   {
+    "text": "carência.",
+    "start": 3.583,
+    "end": 4.127
+   }
+  ]
+ },
+ "s8": {
+  "text": "Mentira número quatro: são só 60 dias.",
+  "seconds": 2.812,
+  "words": [
+   {
+    "text": "Mentira",
+    "start": 0,
+    "end": 0.376
+   },
+   {
+    "text": "número",
+    "start": 0.388,
+    "end": 0.689
+   },
+   {
+    "text": "quatro:",
+    "start": 0.7,
+    "end": 1.14
+   },
+   {
+    "text": "são",
+    "start": 1.372,
+    "end": 1.592
+   },
+   {
+    "text": "só",
+    "start": 1.603,
+    "end": 1.777
+   },
+   {
+    "text": "60 dias.",
+    "start": 1.788,
+    "end": 2.714
+   }
+  ]
+ },
+ "s9": {
+  "text": "Mito! Em regra, são 120 dias.",
+  "seconds": 2.641,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "Em",
+    "start": 0.655,
+    "end": 0.794
+   },
+   {
+    "text": "regra,",
+    "start": 0.805,
+    "end": 1.199
+   },
+   {
+    "text": "são",
+    "start": 1.222,
+    "end": 1.442
+   },
+   {
+    "text": "120 dias.",
+    "start": 1.453,
+    "end": 2.541
+   }
+  ]
+ },
+ "s10": {
+  "text": "Conhece alguma futura mamãe? Manda esse vídeo pra ela!",
+  "seconds": 3.138,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.36
+   },
+   {
+    "text": "alguma",
+    "start": 0.372,
+    "end": 0.684
+   },
+   {
+    "text": "futura",
+    "start": 0.696,
+    "end": 1.031
+   },
+   {
+    "text": "mamãe?",
+    "start": 1.043,
+    "end": 1.436
+   },
+   {
+    "text": "Manda",
+    "start": 1.676,
+    "end": 1.977
+   },
+   {
+    "text": "esse",
+    "start": 1.988,
+    "end": 2.185
+   },
+   {
+    "text": "vídeo",
+    "start": 2.197,
+    "end": 2.497
+   },
+   {
+    "text": "pra",
+    "start": 2.509,
+    "end": 2.694
+   },
+   {
+    "text": "ela!",
+    "start": 2.706,
+    "end": 3.041
+   }
+  ]
+ }
+}

@@ -1,0 +1,656 @@
+{
+ "s1": {
+  "text": "Diziam que o seu Tonho nunca ia se aposentar, porque nunca pagou o INSS. Pois é...",
+  "seconds": 5.078,
+  "words": [
+   {
+    "text": "Diziam",
+    "start": 0,
+    "end": 0.397
+   },
+   {
+    "text": "que",
+    "start": 0.408,
+    "end": 0.478
+   },
+   {
+    "text": "o",
+    "start": 0.489,
+    "end": 0.524
+   },
+   {
+    "text": "seu",
+    "start": 0.535,
+    "end": 0.732
+   },
+   {
+    "text": "Tonho",
+    "start": 0.744,
+    "end": 1.022
+   },
+   {
+    "text": "nunca",
+    "start": 1.033,
+    "end": 1.357
+   },
+   {
+    "text": "ia",
+    "start": 1.369,
+    "end": 1.496
+   },
+   {
+    "text": "se",
+    "start": 1.508,
+    "end": 1.6
+   },
+   {
+    "text": "aposentar,",
+    "start": 1.612,
+    "end": 2.214
+   },
+   {
+    "text": "porque",
+    "start": 2.376,
+    "end": 2.63
+   },
+   {
+    "text": "nunca",
+    "start": 2.642,
+    "end": 2.954
+   },
+   {
+    "text": "pagou",
+    "start": 2.966,
+    "end": 3.302
+   },
+   {
+    "text": "o",
+    "start": 3.313,
+    "end": 3.371
+   },
+   {
+    "text": "INSS.",
+    "start": 3.383,
+    "end": 4.251
+   },
+   {
+    "text": "Pois",
+    "start": 4.49,
+    "end": 4.687
+   },
+   {
+    "text": "é...",
+    "start": 4.698,
+    "end": 4.976
+   }
+  ]
+ },
+ "s2": {
+  "text": "O seu Tonho trabalha na roça com a família, plantando milho e mandioca, desde menino.",
+  "seconds": 4.427,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.04
+   },
+   {
+    "text": "seu",
+    "start": 0.052,
+    "end": 0.249
+   },
+   {
+    "text": "Tonho",
+    "start": 0.26,
+    "end": 0.538
+   },
+   {
+    "text": "trabalha",
+    "start": 0.55,
+    "end": 0.92
+   },
+   {
+    "text": "na",
+    "start": 0.932,
+    "end": 1.047
+   },
+   {
+    "text": "roça",
+    "start": 1.059,
+    "end": 1.383
+   },
+   {
+    "text": "com",
+    "start": 1.395,
+    "end": 1.522
+   },
+   {
+    "text": "a",
+    "start": 1.533,
+    "end": 1.58
+   },
+   {
+    "text": "família,",
+    "start": 1.591,
+    "end": 2.031
+   },
+   {
+    "text": "plantando",
+    "start": 2.054,
+    "end": 2.517
+   },
+   {
+    "text": "milho",
+    "start": 2.529,
+    "end": 2.864
+   },
+   {
+    "text": "e",
+    "start": 2.876,
+    "end": 2.922
+   },
+   {
+    "text": "mandioca,",
+    "start": 2.934,
+    "end": 3.524
+   },
+   {
+    "text": "desde",
+    "start": 3.547,
+    "end": 3.871
+   },
+   {
+    "text": "menino.",
+    "start": 3.883,
+    "end": 4.334
+   }
+  ]
+ },
+ "s3": {
+  "text": "Fez 60 anos e foi pedir a aposentadoria rural. E o INSS...",
+  "seconds": 4.309,
+  "words": [
+   {
+    "text": "Fez",
+    "start": 0,
+    "end": 0.169
+   },
+   {
+    "text": "60 anos",
+    "start": 0.18,
+    "end": 0.91
+   },
+   {
+    "text": "e",
+    "start": 0.921,
+    "end": 1.025
+   },
+   {
+    "text": "foi",
+    "start": 1.048,
+    "end": 1.199
+   },
+   {
+    "text": "pedir",
+    "start": 1.21,
+    "end": 1.535
+   },
+   {
+    "text": "a",
+    "start": 1.546,
+    "end": 1.592
+   },
+   {
+    "text": "aposentadoria",
+    "start": 1.604,
+    "end": 2.368
+   },
+   {
+    "text": "rural.",
+    "start": 2.379,
+    "end": 2.796
+   },
+   {
+    "text": "E",
+    "start": 3.035,
+    "end": 3.151
+   },
+   {
+    "text": "o",
+    "start": 3.163,
+    "end": 3.279
+   },
+   {
+    "text": "INSS...",
+    "start": 3.29,
+    "end": 4.216
+   }
+  ]
+ },
+ "s4": {
+  "text": "Negou! Disse que faltava prova do trabalho no campo.",
+  "seconds": 3.054,
+  "words": [
+   {
+    "text": "Negou!",
+    "start": 0,
+    "end": 0.466
+   },
+   {
+    "text": "Disse",
+    "start": 0.705,
+    "end": 1.041
+   },
+   {
+    "text": "que",
+    "start": 1.053,
+    "end": 1.145
+   },
+   {
+    "text": "faltava",
+    "start": 1.157,
+    "end": 1.585
+   },
+   {
+    "text": "prova",
+    "start": 1.597,
+    "end": 1.921
+   },
+   {
+    "text": "do",
+    "start": 1.932,
+    "end": 2.025
+   },
+   {
+    "text": "trabalho",
+    "start": 2.036,
+    "end": 2.43
+   },
+   {
+    "text": "no",
+    "start": 2.441,
+    "end": 2.546
+   },
+   {
+    "text": "campo.",
+    "start": 2.557,
+    "end": 2.951
+   }
+  ]
+ },
+ "s5": {
+  "text": "Aí a advogada de bolso juntou a autodeclaração, as notas de venda da produção e os documentos da terra, e entrou com recurso.",
+  "seconds": 7.192,
+  "words": [
+   {
+    "text": "Aí",
+    "start": 0,
+    "end": 0.249
+   },
+   {
+    "text": "a",
+    "start": 0.261,
+    "end": 0.295
+   },
+   {
+    "text": "advogada",
+    "start": 0.307,
+    "end": 0.886
+   },
+   {
+    "text": "de",
+    "start": 0.897,
+    "end": 1.001
+   },
+   {
+    "text": "bolso",
+    "start": 1.013,
+    "end": 1.43
+   },
+   {
+    "text": "juntou",
+    "start": 1.441,
+    "end": 1.812
+   },
+   {
+    "text": "a",
+    "start": 1.823,
+    "end": 1.846
+   },
+   {
+    "text": "autodeclaração,",
+    "start": 1.858,
+    "end": 2.749
+   },
+   {
+    "text": "as",
+    "start": 3.015,
+    "end": 3.131
+   },
+   {
+    "text": "notas",
+    "start": 3.143,
+    "end": 3.478
+   },
+   {
+    "text": "de",
+    "start": 3.49,
+    "end": 3.582
+   },
+   {
+    "text": "venda",
+    "start": 3.594,
+    "end": 3.883
+   },
+   {
+    "text": "da",
+    "start": 3.895,
+    "end": 3.999
+   },
+   {
+    "text": "produção",
+    "start": 4.011,
+    "end": 4.589
+   },
+   {
+    "text": "e",
+    "start": 4.612,
+    "end": 4.67
+   },
+   {
+    "text": "os",
+    "start": 4.682,
+    "end": 4.775
+   },
+   {
+    "text": "documentos",
+    "start": 4.786,
+    "end": 5.295
+   },
+   {
+    "text": "da",
+    "start": 5.307,
+    "end": 5.423
+   },
+   {
+    "text": "terra,",
+    "start": 5.457,
+    "end": 5.828
+   },
+   {
+    "text": "e",
+    "start": 6.025,
+    "end": 6.106
+   },
+   {
+    "text": "entrou",
+    "start": 6.117,
+    "end": 6.406
+   },
+   {
+    "text": "com",
+    "start": 6.418,
+    "end": 6.534
+   },
+   {
+    "text": "recurso.",
+    "start": 6.545,
+    "end": 7.089
+   }
+  ]
+ },
+ "s6": {
+  "text": "Resultado? Aprovado!",
+  "seconds": 1.651,
+  "words": [
+   {
+    "text": "Resultado?",
+    "start": 0,
+    "end": 0.665
+   },
+   {
+    "text": "Aprovado!",
+    "start": 0.904,
+    "end": 1.541
+   }
+  ]
+ },
+ "s7": {
+  "text": "Hoje o seu Tonho recebe um salário mínimo todo mês, e o forró na varanda nunca mais parou.",
+  "seconds": 4.882,
+  "words": [
+   {
+    "text": "Hoje",
+    "start": 0,
+    "end": 0.254
+   },
+   {
+    "text": "o",
+    "start": 0.265,
+    "end": 0.312
+   },
+   {
+    "text": "seu",
+    "start": 0.324,
+    "end": 0.509
+   },
+   {
+    "text": "Tonho",
+    "start": 0.532,
+    "end": 0.832
+   },
+   {
+    "text": "recebe",
+    "start": 0.844,
+    "end": 1.226
+   },
+   {
+    "text": "um",
+    "start": 1.238,
+    "end": 1.296
+   },
+   {
+    "text": "salário",
+    "start": 1.306,
+    "end": 1.713
+   },
+   {
+    "text": "mínimo",
+    "start": 1.724,
+    "end": 2.094
+   },
+   {
+    "text": "todo",
+    "start": 2.106,
+    "end": 2.384
+   },
+   {
+    "text": "mês,",
+    "start": 2.394,
+    "end": 2.718
+   },
+   {
+    "text": "e",
+    "start": 2.928,
+    "end": 2.974
+   },
+   {
+    "text": "o",
+    "start": 2.986,
+    "end": 3.02
+   },
+   {
+    "text": "forró",
+    "start": 3.032,
+    "end": 3.356
+   },
+   {
+    "text": "na",
+    "start": 3.368,
+    "end": 3.472
+   },
+   {
+    "text": "varanda",
+    "start": 3.482,
+    "end": 3.864
+   },
+   {
+    "text": "nunca",
+    "start": 3.876,
+    "end": 4.212
+   },
+   {
+    "text": "mais",
+    "start": 4.224,
+    "end": 4.42
+   },
+   {
+    "text": "parou.",
+    "start": 4.432,
+    "end": 4.78
+   }
+  ]
+ },
+ "s8": {
+  "text": "A regra: 60 anos pro homem, 55 pra mulher, e 15 anos de trabalho no campo, mesmo sem pagar carnê.",
+  "seconds": 6.931,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.087
+   },
+   {
+    "text": "regra:",
+    "start": 0.099,
+    "end": 0.481
+   },
+   {
+    "text": "60 anos",
+    "start": 0.689,
+    "end": 1.43
+   },
+   {
+    "text": "pro",
+    "start": 1.441,
+    "end": 1.626
+   },
+   {
+    "text": "homem,",
+    "start": 1.638,
+    "end": 1.997
+   },
+   {
+    "text": "55 pra",
+    "start": 2.182,
+    "end": 3.096
+   },
+   {
+    "text": "mulher,",
+    "start": 3.108,
+    "end": 3.49
+   },
+   {
+    "text": "e",
+    "start": 3.652,
+    "end": 3.71
+   },
+   {
+    "text": "15 anos",
+    "start": 3.733,
+    "end": 4.369
+   },
+   {
+    "text": "de",
+    "start": 4.381,
+    "end": 4.462
+   },
+   {
+    "text": "trabalho",
+    "start": 4.474,
+    "end": 4.867
+   },
+   {
+    "text": "no",
+    "start": 4.879,
+    "end": 4.983
+   },
+   {
+    "text": "campo,",
+    "start": 4.994,
+    "end": 5.365
+   },
+   {
+    "text": "mesmo",
+    "start": 5.538,
+    "end": 5.886
+   },
+   {
+    "text": "sem",
+    "start": 5.897,
+    "end": 6.082
+   },
+   {
+    "text": "pagar",
+    "start": 6.094,
+    "end": 6.407
+   },
+   {
+    "text": "carnê.",
+    "start": 6.418,
+    "end": 6.823
+   }
+  ]
+ },
+ "s9": {
+  "text": "Conhece alguém da roça? Manda esse vídeo pra ele!",
+  "seconds": 2.801,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.36
+   },
+   {
+    "text": "alguém",
+    "start": 0.372,
+    "end": 0.591
+   },
+   {
+    "text": "da",
+    "start": 0.603,
+    "end": 0.696
+   },
+   {
+    "text": "roça?",
+    "start": 0.707,
+    "end": 1.17
+   },
+   {
+    "text": "Manda",
+    "start": 1.409,
+    "end": 1.699
+   },
+   {
+    "text": "esse",
+    "start": 1.71,
+    "end": 1.907
+   },
+   {
+    "text": "vídeo",
+    "start": 1.919,
+    "end": 2.208
+   },
+   {
+    "text": "pra",
+    "start": 2.22,
+    "end": 2.405
+   },
+   {
+    "text": "ele!",
+    "start": 2.416,
+    "end": 2.706
+   }
+  ]
+ }
+}
