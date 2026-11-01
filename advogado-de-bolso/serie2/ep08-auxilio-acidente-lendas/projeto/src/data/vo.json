@@ -1,0 +1,621 @@
+{
+ "s1": {
+  "text": "Três lendas assombradas sobre o auxílio-acidente, e uma verdade de dar medo!",
+  "seconds": 4.066,
+  "words": [
+   {
+    "text": "Três",
+    "start": 0,
+    "end": 0.231
+   },
+   {
+    "text": "lendas",
+    "start": 0.243,
+    "end": 0.532
+   },
+   {
+    "text": "assombradas",
+    "start": 0.544,
+    "end": 1.215
+   },
+   {
+    "text": "sobre",
+    "start": 1.226,
+    "end": 1.446
+   },
+   {
+    "text": "o",
+    "start": 1.458,
+    "end": 1.493
+   },
+   {
+    "text": "auxílio-acidente,",
+    "start": 1.504,
+    "end": 2.465
+   },
+   {
+    "text": "e",
+    "start": 2.557,
+    "end": 2.615
+   },
+   {
+    "text": "uma",
+    "start": 2.627,
+    "end": 2.777
+   },
+   {
+    "text": "verdade",
+    "start": 2.789,
+    "end": 3.287
+   },
+   {
+    "text": "de",
+    "start": 3.298,
+    "end": 3.379
+   },
+   {
+    "text": "dar",
+    "start": 3.391,
+    "end": 3.576
+   },
+   {
+    "text": "medo!",
+    "start": 3.588,
+    "end": 3.958
+   }
+  ]
+ },
+ "s2": {
+  "text": "Lenda número um: só vale se o acidente for no trabalho.",
+  "seconds": 3.09,
+  "words": [
+   {
+    "text": "Lenda",
+    "start": 0,
+    "end": 0.295
+   },
+   {
+    "text": "número",
+    "start": 0.307,
+    "end": 0.619
+   },
+   {
+    "text": "um:",
+    "start": 0.631,
+    "end": 0.793
+   },
+   {
+    "text": "só",
+    "start": 1.025,
+    "end": 1.187
+   },
+   {
+    "text": "vale",
+    "start": 1.198,
+    "end": 1.476
+   },
+   {
+    "text": "se",
+    "start": 1.488,
+    "end": 1.615
+   },
+   {
+    "text": "o",
+    "start": 1.626,
+    "end": 1.661
+   },
+   {
+    "text": "acidente",
+    "start": 1.673,
+    "end": 2.159
+   },
+   {
+    "text": "for",
+    "start": 2.17,
+    "end": 2.367
+   },
+   {
+    "text": "no",
+    "start": 2.379,
+    "end": 2.483
+   },
+   {
+    "text": "trabalho.",
+    "start": 2.494,
+    "end": 3.004
+   }
+  ]
+ },
+ "s3": {
+  "text": "Mito! Vale pra acidente de qualquer tipo, até jogando bola no fim de semana, se deixar sequela.",
+  "seconds": 5.693,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "Vale",
+    "start": 0.655,
+    "end": 0.932
+   },
+   {
+    "text": "pra",
+    "start": 0.944,
+    "end": 1.06
+   },
+   {
+    "text": "acidente",
+    "start": 1.071,
+    "end": 1.534
+   },
+   {
+    "text": "de",
+    "start": 1.546,
+    "end": 1.627
+   },
+   {
+    "text": "qualquer",
+    "start": 1.638,
+    "end": 1.997
+   },
+   {
+    "text": "tipo,",
+    "start": 2.02,
+    "end": 2.391
+   },
+   {
+    "text": "até",
+    "start": 2.588,
+    "end": 2.796
+   },
+   {
+    "text": "jogando",
+    "start": 2.807,
+    "end": 3.247
+   },
+   {
+    "text": "bola",
+    "start": 3.259,
+    "end": 3.56
+   },
+   {
+    "text": "no",
+    "start": 3.571,
+    "end": 3.664
+   },
+   {
+    "text": "fim",
+    "start": 3.675,
+    "end": 3.861
+   },
+   {
+    "text": "de",
+    "start": 3.872,
+    "end": 3.953
+   },
+   {
+    "text": "semana,",
+    "start": 3.965,
+    "end": 4.428
+   },
+   {
+    "text": "se",
+    "start": 4.509,
+    "end": 4.636
+   },
+   {
+    "text": "deixar",
+    "start": 4.648,
+    "end": 5.018
+   },
+   {
+    "text": "sequela.",
+    "start": 5.03,
+    "end": 5.597
+   }
+  ]
+ },
+ "s4": {
+  "text": "Lenda número dois: quem recebe tem que parar de trabalhar.",
+  "seconds": 3.094,
+  "words": [
+   {
+    "text": "Lenda",
+    "start": 0,
+    "end": 0.289
+   },
+   {
+    "text": "número",
+    "start": 0.301,
+    "end": 0.613
+   },
+   {
+    "text": "dois:",
+    "start": 0.625,
+    "end": 0.984
+   },
+   {
+    "text": "quem",
+    "start": 1.181,
+    "end": 1.331
+   },
+   {
+    "text": "recebe",
+    "start": 1.343,
+    "end": 1.759
+   },
+   {
+    "text": "tem",
+    "start": 1.771,
+    "end": 1.898
+   },
+   {
+    "text": "que",
+    "start": 1.91,
+    "end": 1.991
+   },
+   {
+    "text": "parar",
+    "start": 2.002,
+    "end": 2.315
+   },
+   {
+    "text": "de",
+    "start": 2.326,
+    "end": 2.442
+   },
+   {
+    "text": "trabalhar.",
+    "start": 2.454,
+    "end": 2.963
+   }
+  ]
+ },
+ "s5": {
+  "text": "Mito! Ele é uma indenização, e dá pra receber junto com o salário.",
+  "seconds": 3.901,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "Ele",
+    "start": 0.655,
+    "end": 0.817
+   },
+   {
+    "text": "é",
+    "start": 0.828,
+    "end": 0.863
+   },
+   {
+    "text": "uma",
+    "start": 0.874,
+    "end": 0.99
+   },
+   {
+    "text": "indenização,",
+    "start": 1.002,
+    "end": 1.731
+   },
+   {
+    "text": "e",
+    "start": 1.974,
+    "end": 2.043
+   },
+   {
+    "text": "dá",
+    "start": 2.055,
+    "end": 2.206
+   },
+   {
+    "text": "pra",
+    "start": 2.217,
+    "end": 2.344
+   },
+   {
+    "text": "receber",
+    "start": 2.356,
+    "end": 2.773
+   },
+   {
+    "text": "junto",
+    "start": 2.784,
+    "end": 3.12
+   },
+   {
+    "text": "com",
+    "start": 3.131,
+    "end": 3.247
+   },
+   {
+    "text": "o",
+    "start": 3.259,
+    "end": 3.293
+   },
+   {
+    "text": "salário.",
+    "start": 3.305,
+    "end": 3.803
+   }
+  ]
+ },
+ "s6": {
+  "text": "Lenda número três: se o INSS negou, acabou.",
+  "seconds": 3.18,
+  "words": [
+   {
+    "text": "Lenda",
+    "start": 0,
+    "end": 0.293
+   },
+   {
+    "text": "número",
+    "start": 0.305,
+    "end": 0.629
+   },
+   {
+    "text": "três:",
+    "start": 0.641,
+    "end": 1.011
+   },
+   {
+    "text": "se",
+    "start": 1.208,
+    "end": 1.347
+   },
+   {
+    "text": "o",
+    "start": 1.358,
+    "end": 1.439
+   },
+   {
+    "text": "INSS",
+    "start": 1.451,
+    "end": 2.192
+   },
+   {
+    "text": "negou,",
+    "start": 2.203,
+    "end": 2.608
+   },
+   {
+    "text": "acabou.",
+    "start": 2.643,
+    "end": 3.071
+   }
+  ]
+ },
+ "s7": {
+  "text": "Mito! Dá pra recorrer e virar o jogo, que nem o Marcos.",
+  "seconds": 3.253,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "Dá",
+    "start": 0.655,
+    "end": 0.817
+   },
+   {
+    "text": "pra",
+    "start": 0.828,
+    "end": 0.967
+   },
+   {
+    "text": "recorrer",
+    "start": 0.979,
+    "end": 1.453
+   },
+   {
+    "text": "e",
+    "start": 1.465,
+    "end": 1.511
+   },
+   {
+    "text": "virar",
+    "start": 1.523,
+    "end": 1.8
+   },
+   {
+    "text": "o",
+    "start": 1.812,
+    "end": 1.87
+   },
+   {
+    "text": "jogo,",
+    "start": 1.881,
+    "end": 2.287
+   },
+   {
+    "text": "que",
+    "start": 2.31,
+    "end": 2.414
+   },
+   {
+    "text": "nem",
+    "start": 2.425,
+    "end": 2.576
+   },
+   {
+    "text": "o",
+    "start": 2.588,
+    "end": 2.634
+   },
+   {
+    "text": "Marcos.",
+    "start": 2.645,
+    "end": 3.166
+   }
+  ]
+ },
+ "s8": {
+  "text": "Agora, a verdade de dar medo: MEI e quem paga o INSS por conta própria não têm direito.",
+  "seconds": 5.339,
+  "words": [
+   {
+    "text": "Agora,",
+    "start": 0,
+    "end": 0.385
+   },
+   {
+    "text": "a",
+    "start": 0.408,
+    "end": 0.466
+   },
+   {
+    "text": "verdade",
+    "start": 0.478,
+    "end": 0.952
+   },
+   {
+    "text": "de",
+    "start": 0.964,
+    "end": 1.056
+   },
+   {
+    "text": "dar",
+    "start": 1.068,
+    "end": 1.241
+   },
+   {
+    "text": "medo:",
+    "start": 1.253,
+    "end": 1.612
+   },
+   {
+    "text": "MEI",
+    "start": 1.855,
+    "end": 2.04
+   },
+   {
+    "text": "e",
+    "start": 2.063,
+    "end": 2.109
+   },
+   {
+    "text": "quem",
+    "start": 2.121,
+    "end": 2.283
+   },
+   {
+    "text": "paga",
+    "start": 2.295,
+    "end": 2.63
+   },
+   {
+    "text": "o",
+    "start": 2.642,
+    "end": 2.711
+   },
+   {
+    "text": "INSS",
+    "start": 2.723,
+    "end": 3.533
+   },
+   {
+    "text": "por",
+    "start": 3.545,
+    "end": 3.684
+   },
+   {
+    "text": "conta",
+    "start": 3.707,
+    "end": 3.996
+   },
+   {
+    "text": "própria",
+    "start": 4.008,
+    "end": 4.378
+   },
+   {
+    "text": "não",
+    "start": 4.39,
+    "end": 4.598
+   },
+   {
+    "text": "têm",
+    "start": 4.609,
+    "end": 4.737
+   },
+   {
+    "text": "direito.",
+    "start": 4.748,
+    "end": 5.235
+   }
+  ]
+ },
+ "s9": {
+  "text": "Conhece alguém que ainda acredita em lenda? Manda esse vídeo pra ele!",
+  "seconds": 3.642,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.337
+   },
+   {
+    "text": "alguém",
+    "start": 0.348,
+    "end": 0.661
+   },
+   {
+    "text": "que",
+    "start": 0.672,
+    "end": 0.753
+   },
+   {
+    "text": "ainda",
+    "start": 0.765,
+    "end": 1.031
+   },
+   {
+    "text": "acredita",
+    "start": 1.043,
+    "end": 1.483
+   },
+   {
+    "text": "em",
+    "start": 1.494,
+    "end": 1.575
+   },
+   {
+    "text": "lenda?",
+    "start": 1.587,
+    "end": 2.015
+   },
+   {
+    "text": "Manda",
+    "start": 2.254,
+    "end": 2.544
+   },
+   {
+    "text": "esse",
+    "start": 2.555,
+    "end": 2.752
+   },
+   {
+    "text": "vídeo",
+    "start": 2.764,
+    "end": 3.053
+   },
+   {
+    "text": "pra",
+    "start": 3.065,
+    "end": 3.25
+   },
+   {
+    "text": "ele!",
+    "start": 3.261,
+    "end": 3.551
+   }
+  ]
+ }
+}

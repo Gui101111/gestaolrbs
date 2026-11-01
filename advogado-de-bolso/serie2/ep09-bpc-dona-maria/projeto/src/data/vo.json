@@ -1,0 +1,736 @@
+{
+ "s1": {
+  "text": "A vizinha fofoqueira disse que a dona Maria nunca ia receber nada do INSS. Olha só no que deu!",
+  "seconds": 5.742,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.075
+   },
+   {
+    "text": "vizinha",
+    "start": 0.087,
+    "end": 0.457
+   },
+   {
+    "text": "fofoqueira",
+    "start": 0.469,
+    "end": 1.025
+   },
+   {
+    "text": "disse",
+    "start": 1.036,
+    "end": 1.337
+   },
+   {
+    "text": "que",
+    "start": 1.349,
+    "end": 1.43
+   },
+   {
+    "text": "a",
+    "start": 1.441,
+    "end": 1.499
+   },
+   {
+    "text": "dona",
+    "start": 1.511,
+    "end": 1.754
+   },
+   {
+    "text": "Maria",
+    "start": 1.765,
+    "end": 2.066
+   },
+   {
+    "text": "nunca",
+    "start": 2.078,
+    "end": 2.46
+   },
+   {
+    "text": "ia",
+    "start": 2.471,
+    "end": 2.622
+   },
+   {
+    "text": "receber",
+    "start": 2.633,
+    "end": 3.038
+   },
+   {
+    "text": "nada",
+    "start": 3.05,
+    "end": 3.386
+   },
+   {
+    "text": "do",
+    "start": 3.397,
+    "end": 3.501
+   },
+   {
+    "text": "INSS.",
+    "start": 3.513,
+    "end": 4.416
+   },
+   {
+    "text": "Olha",
+    "start": 4.655,
+    "end": 4.91
+   },
+   {
+    "text": "só",
+    "start": 4.921,
+    "end": 5.106
+   },
+   {
+    "text": "no",
+    "start": 5.118,
+    "end": 5.222
+   },
+   {
+    "text": "que",
+    "start": 5.234,
+    "end": 5.338
+   },
+   {
+    "text": "deu!",
+    "start": 5.35,
+    "end": 5.639
+   }
+  ]
+ },
+ "s2": {
+  "text": "A dona Maria tem 67 anos, nunca contribuiu, e a renda da casa é bem pouquinha.",
+  "seconds": 4.982,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.068
+   },
+   {
+    "text": "dona",
+    "start": 0.08,
+    "end": 0.312
+   },
+   {
+    "text": "Maria",
+    "start": 0.323,
+    "end": 0.647
+   },
+   {
+    "text": "tem",
+    "start": 0.659,
+    "end": 0.774
+   },
+   {
+    "text": "67 anos,",
+    "start": 0.786,
+    "end": 1.932
+   },
+   {
+    "text": "nunca",
+    "start": 2.024,
+    "end": 2.291
+   },
+   {
+    "text": "contribuiu,",
+    "start": 2.302,
+    "end": 2.893
+   },
+   {
+    "text": "e",
+    "start": 3.112,
+    "end": 3.193
+   },
+   {
+    "text": "a",
+    "start": 3.205,
+    "end": 3.274
+   },
+   {
+    "text": "renda",
+    "start": 3.286,
+    "end": 3.541
+   },
+   {
+    "text": "da",
+    "start": 3.552,
+    "end": 3.68
+   },
+   {
+    "text": "casa",
+    "start": 3.691,
+    "end": 4.027
+   },
+   {
+    "text": "é",
+    "start": 4.038,
+    "end": 4.073
+   },
+   {
+    "text": "bem",
+    "start": 4.085,
+    "end": 4.305
+   },
+   {
+    "text": "pouquinha.",
+    "start": 4.316,
+    "end": 4.883
+   }
+  ]
+ },
+ "s3": {
+  "text": "Aí ela descobriu o BPC: um salário mínimo por mês, sem precisar ter contribuído. Pediu e...",
+  "seconds": 5.618,
+  "words": [
+   {
+    "text": "Aí",
+    "start": 0,
+    "end": 0.254
+   },
+   {
+    "text": "ela",
+    "start": 0.265,
+    "end": 0.439
+   },
+   {
+    "text": "descobriu",
+    "start": 0.45,
+    "end": 0.913
+   },
+   {
+    "text": "o",
+    "start": 0.925,
+    "end": 0.96
+   },
+   {
+    "text": "BPC:",
+    "start": 0.971,
+    "end": 1.492
+   },
+   {
+    "text": "um",
+    "start": 1.7,
+    "end": 1.77
+   },
+   {
+    "text": "salário",
+    "start": 1.781,
+    "end": 2.198
+   },
+   {
+    "text": "mínimo",
+    "start": 2.21,
+    "end": 2.58
+   },
+   {
+    "text": "por",
+    "start": 2.592,
+    "end": 2.73
+   },
+   {
+    "text": "mês,",
+    "start": 2.742,
+    "end": 3.066
+   },
+   {
+    "text": "sem",
+    "start": 3.182,
+    "end": 3.379
+   },
+   {
+    "text": "precisar",
+    "start": 3.39,
+    "end": 3.876
+   },
+   {
+    "text": "ter",
+    "start": 3.888,
+    "end": 4.027
+   },
+   {
+    "text": "contribuído.",
+    "start": 4.038,
+    "end": 4.721
+   },
+   {
+    "text": "Pediu",
+    "start": 4.96,
+    "end": 5.365
+   },
+   {
+    "text": "e...",
+    "start": 5.376,
+    "end": 5.527
+   }
+  ]
+ },
+ "s4": {
+  "text": "Negado! E a vizinha espalhou pra rua inteira.",
+  "seconds": 2.763,
+  "words": [
+   {
+    "text": "Negado!",
+    "start": 0,
+    "end": 0.572
+   },
+   {
+    "text": "E",
+    "start": 0.811,
+    "end": 0.892
+   },
+   {
+    "text": "a",
+    "start": 0.904,
+    "end": 0.973
+   },
+   {
+    "text": "vizinha",
+    "start": 0.985,
+    "end": 1.355
+   },
+   {
+    "text": "espalhou",
+    "start": 1.367,
+    "end": 1.806
+   },
+   {
+    "text": "pra",
+    "start": 1.818,
+    "end": 1.968
+   },
+   {
+    "text": "rua",
+    "start": 1.98,
+    "end": 2.188
+   },
+   {
+    "text": "inteira.",
+    "start": 2.2,
+    "end": 2.663
+   }
+  ]
+ },
+ "s5": {
+  "text": "Mas a advogada de bolso mostrou que a renda por pessoa da casa cabia na regra, e entrou com recurso.",
+  "seconds": 5.319,
+  "words": [
+   {
+    "text": "Mas",
+    "start": 0,
+    "end": 0.097
+   },
+   {
+    "text": "a",
+    "start": 0.108,
+    "end": 0.212
+   },
+   {
+    "text": "advogada",
+    "start": 0.224,
+    "end": 0.791
+   },
+   {
+    "text": "de",
+    "start": 0.803,
+    "end": 0.907
+   },
+   {
+    "text": "bolso",
+    "start": 0.918,
+    "end": 1.277
+   },
+   {
+    "text": "mostrou",
+    "start": 1.289,
+    "end": 1.717
+   },
+   {
+    "text": "que",
+    "start": 1.729,
+    "end": 1.833
+   },
+   {
+    "text": "a",
+    "start": 1.844,
+    "end": 1.891
+   },
+   {
+    "text": "renda",
+    "start": 1.902,
+    "end": 2.203
+   },
+   {
+    "text": "por",
+    "start": 2.215,
+    "end": 2.354
+   },
+   {
+    "text": "pessoa",
+    "start": 2.365,
+    "end": 2.701
+   },
+   {
+    "text": "da",
+    "start": 2.712,
+    "end": 2.84
+   },
+   {
+    "text": "casa",
+    "start": 2.851,
+    "end": 3.141
+   },
+   {
+    "text": "cabia",
+    "start": 3.152,
+    "end": 3.476
+   },
+   {
+    "text": "na",
+    "start": 3.488,
+    "end": 3.604
+   },
+   {
+    "text": "regra,",
+    "start": 3.615,
+    "end": 3.974
+   },
+   {
+    "text": "e",
+    "start": 4.136,
+    "end": 4.229
+   },
+   {
+    "text": "entrou",
+    "start": 4.24,
+    "end": 4.518
+   },
+   {
+    "text": "com",
+    "start": 4.53,
+    "end": 4.645
+   },
+   {
+    "text": "recurso.",
+    "start": 4.657,
+    "end": 5.212
+   }
+  ]
+ },
+ "s6": {
+  "text": "Resultado? Aprovado!",
+  "seconds": 1.651,
+  "words": [
+   {
+    "text": "Resultado?",
+    "start": 0,
+    "end": 0.665
+   },
+   {
+    "text": "Aprovado!",
+    "start": 0.904,
+    "end": 1.541
+   }
+  ]
+ },
+ "s7": {
+  "text": "Agora a dona Maria recebe um salário mínimo todo mês, e ainda passou de óculos escuros na frente da vizinha.",
+  "seconds": 5.904,
+  "words": [
+   {
+    "text": "Agora",
+    "start": 0,
+    "end": 0.284
+   },
+   {
+    "text": "a",
+    "start": 0.295,
+    "end": 0.342
+   },
+   {
+    "text": "dona",
+    "start": 0.353,
+    "end": 0.619
+   },
+   {
+    "text": "Maria",
+    "start": 0.631,
+    "end": 0.955
+   },
+   {
+    "text": "recebe",
+    "start": 0.967,
+    "end": 1.36
+   },
+   {
+    "text": "um",
+    "start": 1.372,
+    "end": 1.43
+   },
+   {
+    "text": "salário",
+    "start": 1.441,
+    "end": 1.858
+   },
+   {
+    "text": "mínimo",
+    "start": 1.869,
+    "end": 2.251
+   },
+   {
+    "text": "todo",
+    "start": 2.263,
+    "end": 2.529
+   },
+   {
+    "text": "mês,",
+    "start": 2.541,
+    "end": 2.865
+   },
+   {
+    "text": "e",
+    "start": 3.096,
+    "end": 3.166
+   },
+   {
+    "text": "ainda",
+    "start": 3.177,
+    "end": 3.432
+   },
+   {
+    "text": "passou",
+    "start": 3.443,
+    "end": 3.756
+   },
+   {
+    "text": "de",
+    "start": 3.768,
+    "end": 3.883
+   },
+   {
+    "text": "óculos",
+    "start": 3.895,
+    "end": 4.207
+   },
+   {
+    "text": "escuros",
+    "start": 4.219,
+    "end": 4.728
+   },
+   {
+    "text": "na",
+    "start": 4.74,
+    "end": 4.867
+   },
+   {
+    "text": "frente",
+    "start": 4.879,
+    "end": 5.214
+   },
+   {
+    "text": "da",
+    "start": 5.226,
+    "end": 5.33
+   },
+   {
+    "text": "vizinha.",
+    "start": 5.342,
+    "end": 5.793
+   }
+  ]
+ },
+ "s8": {
+  "text": "A regra é: 65 anos ou mais, ou pessoa com deficiência, Cadastro Único em dia e, em regra, renda de até um quarto do salário mínimo por pessoa.",
+  "seconds": 8.652,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.087
+   },
+   {
+    "text": "regra",
+    "start": 0.099,
+    "end": 0.527
+   },
+   {
+    "text": "é:",
+    "start": 0.55,
+    "end": 0.7
+   },
+   {
+    "text": "65 anos",
+    "start": 0.897,
+    "end": 1.881
+   },
+   {
+    "text": "ou",
+    "start": 1.893,
+    "end": 2.031
+   },
+   {
+    "text": "mais,",
+    "start": 2.043,
+    "end": 2.379
+   },
+   {
+    "text": "ou",
+    "start": 2.46,
+    "end": 2.575
+   },
+   {
+    "text": "pessoa",
+    "start": 2.587,
+    "end": 2.946
+   },
+   {
+    "text": "com",
+    "start": 2.957,
+    "end": 3.085
+   },
+   {
+    "text": "deficiência,",
+    "start": 3.096,
+    "end": 3.814
+   },
+   {
+    "text": "Cadastro",
+    "start": 3.86,
+    "end": 4.404
+   },
+   {
+    "text": "Único",
+    "start": 4.416,
+    "end": 4.717
+   },
+   {
+    "text": "em",
+    "start": 4.728,
+    "end": 4.798
+   },
+   {
+    "text": "dia",
+    "start": 4.809,
+    "end": 5.168
+   },
+   {
+    "text": "e,",
+    "start": 5.18,
+    "end": 5.237
+   },
+   {
+    "text": "em",
+    "start": 5.261,
+    "end": 5.353
+   },
+   {
+    "text": "regra,",
+    "start": 5.365,
+    "end": 5.747
+   },
+   {
+    "text": "renda",
+    "start": 6.001,
+    "end": 6.279
+   },
+   {
+    "text": "de",
+    "start": 6.291,
+    "end": 6.36
+   },
+   {
+    "text": "até",
+    "start": 6.372,
+    "end": 6.545
+   },
+   {
+    "text": "um",
+    "start": 6.557,
+    "end": 6.65
+   },
+   {
+    "text": "quarto",
+    "start": 6.661,
+    "end": 7.008
+   },
+   {
+    "text": "do",
+    "start": 7.02,
+    "end": 7.101
+   },
+   {
+    "text": "salário",
+    "start": 7.112,
+    "end": 7.529
+   },
+   {
+    "text": "mínimo",
+    "start": 7.541,
+    "end": 7.923
+   },
+   {
+    "text": "por",
+    "start": 7.934,
+    "end": 8.05
+   },
+   {
+    "text": "pessoa.",
+    "start": 8.062,
+    "end": 8.559
+   }
+  ]
+ },
+ "s9": {
+  "text": "Conhece alguma dona Maria? Manda esse vídeo pra ela!",
+  "seconds": 3.061,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.356
+   },
+   {
+    "text": "alguma",
+    "start": 0.368,
+    "end": 0.68
+   },
+   {
+    "text": "dona",
+    "start": 0.692,
+    "end": 0.9
+   },
+   {
+    "text": "Maria?",
+    "start": 0.912,
+    "end": 1.351
+   },
+   {
+    "text": "Manda",
+    "start": 1.591,
+    "end": 1.892
+   },
+   {
+    "text": "esse",
+    "start": 1.903,
+    "end": 2.1
+   },
+   {
+    "text": "vídeo",
+    "start": 2.111,
+    "end": 2.412
+   },
+   {
+    "text": "pra",
+    "start": 2.424,
+    "end": 2.609
+   },
+   {
+    "text": "ela!",
+    "start": 2.621,
+    "end": 2.956
+   }
+  ]
+ }
+}

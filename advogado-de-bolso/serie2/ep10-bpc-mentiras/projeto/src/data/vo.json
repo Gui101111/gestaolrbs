@@ -1,0 +1,661 @@
+{
+ "s1": {
+  "text": "Três mentiras sobre o BPC que assombram muita gente. A última é a mais assustadora!",
+  "seconds": 4.826,
+  "words": [
+   {
+    "text": "Três",
+    "start": 0,
+    "end": 0.214
+   },
+   {
+    "text": "mentiras",
+    "start": 0.226,
+    "end": 0.689
+   },
+   {
+    "text": "sobre",
+    "start": 0.701,
+    "end": 0.921
+   },
+   {
+    "text": "o",
+    "start": 0.932,
+    "end": 0.967
+   },
+   {
+    "text": "BPC",
+    "start": 0.978,
+    "end": 1.522
+   },
+   {
+    "text": "que",
+    "start": 1.534,
+    "end": 1.65
+   },
+   {
+    "text": "assombram",
+    "start": 1.661,
+    "end": 2.089
+   },
+   {
+    "text": "muita",
+    "start": 2.101,
+    "end": 2.379
+   },
+   {
+    "text": "gente.",
+    "start": 2.39,
+    "end": 2.865
+   },
+   {
+    "text": "A",
+    "start": 3.105,
+    "end": 3.267
+   },
+   {
+    "text": "última",
+    "start": 3.279,
+    "end": 3.614
+   },
+   {
+    "text": "é",
+    "start": 3.626,
+    "end": 3.684
+   },
+   {
+    "text": "a",
+    "start": 3.696,
+    "end": 3.742
+   },
+   {
+    "text": "mais",
+    "start": 3.753,
+    "end": 3.962
+   },
+   {
+    "text": "assustadora!",
+    "start": 3.973,
+    "end": 4.726
+   }
+  ]
+ },
+ "s2": {
+  "text": "Mentira número um: o BPC é só pra idoso.",
+  "seconds": 2.752,
+  "words": [
+   {
+    "text": "Mentira",
+    "start": 0,
+    "end": 0.372
+   },
+   {
+    "text": "número",
+    "start": 0.383,
+    "end": 0.707
+   },
+   {
+    "text": "um:",
+    "start": 0.719,
+    "end": 0.939
+   },
+   {
+    "text": "o",
+    "start": 1.205,
+    "end": 1.251
+   },
+   {
+    "text": "BPC",
+    "start": 1.263,
+    "end": 1.761
+   },
+   {
+    "text": "é",
+    "start": 1.772,
+    "end": 1.842
+   },
+   {
+    "text": "só",
+    "start": 1.853,
+    "end": 2.073
+   },
+   {
+    "text": "pra",
+    "start": 2.085,
+    "end": 2.212
+   },
+   {
+    "text": "idoso.",
+    "start": 2.224,
+    "end": 2.663
+   }
+  ]
+ },
+ "s3": {
+  "text": "Mito! Pessoa com deficiência de qualquer idade pode ter direito, até criança, como no autismo, se cumprir a regra de renda.",
+  "seconds": 6.824,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "Pessoa",
+    "start": 0.655,
+    "end": 0.979
+   },
+   {
+    "text": "com",
+    "start": 0.99,
+    "end": 1.106
+   },
+   {
+    "text": "deficiência",
+    "start": 1.118,
+    "end": 1.754
+   },
+   {
+    "text": "de",
+    "start": 1.766,
+    "end": 1.847
+   },
+   {
+    "text": "qualquer",
+    "start": 1.858,
+    "end": 2.194
+   },
+   {
+    "text": "idade",
+    "start": 2.206,
+    "end": 2.634
+   },
+   {
+    "text": "pode",
+    "start": 2.645,
+    "end": 2.888
+   },
+   {
+    "text": "ter",
+    "start": 2.9,
+    "end": 3.039
+   },
+   {
+    "text": "direito,",
+    "start": 3.05,
+    "end": 3.525
+   },
+   {
+    "text": "até",
+    "start": 3.606,
+    "end": 3.814
+   },
+   {
+    "text": "criança,",
+    "start": 3.826,
+    "end": 4.347
+   },
+   {
+    "text": "como",
+    "start": 4.393,
+    "end": 4.601
+   },
+   {
+    "text": "no",
+    "start": 4.613,
+    "end": 4.694
+   },
+   {
+    "text": "autismo,",
+    "start": 4.706,
+    "end": 5.238
+   },
+   {
+    "text": "se",
+    "start": 5.331,
+    "end": 5.446
+   },
+   {
+    "text": "cumprir",
+    "start": 5.458,
+    "end": 5.84
+   },
+   {
+    "text": "a",
+    "start": 5.851,
+    "end": 5.909
+   },
+   {
+    "text": "regra",
+    "start": 5.921,
+    "end": 6.222
+   },
+   {
+    "text": "de",
+    "start": 6.233,
+    "end": 6.337
+   },
+   {
+    "text": "renda.",
+    "start": 6.349,
+    "end": 6.731
+   }
+  ]
+ },
+ "s4": {
+  "text": "Mentira número dois: precisa ter contribuído pro INSS.",
+  "seconds": 3.796,
+  "words": [
+   {
+    "text": "Mentira",
+    "start": 0,
+    "end": 0.383
+   },
+   {
+    "text": "número",
+    "start": 0.395,
+    "end": 0.707
+   },
+   {
+    "text": "dois:",
+    "start": 0.719,
+    "end": 1.066
+   },
+   {
+    "text": "precisa",
+    "start": 1.274,
+    "end": 1.737
+   },
+   {
+    "text": "ter",
+    "start": 1.749,
+    "end": 1.888
+   },
+   {
+    "text": "contribuído",
+    "start": 1.899,
+    "end": 2.501
+   },
+   {
+    "text": "pro",
+    "start": 2.513,
+    "end": 2.732
+   },
+   {
+    "text": "INSS.",
+    "start": 2.756,
+    "end": 3.682
+   }
+  ]
+ },
+ "s5": {
+  "text": "Mito! O BPC é assistencial: não precisa de nenhuma contribuição.",
+  "seconds": 4.135,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "O",
+    "start": 0.655,
+    "end": 0.747
+   },
+   {
+    "text": "BPC",
+    "start": 0.759,
+    "end": 1.245
+   },
+   {
+    "text": "é",
+    "start": 1.256,
+    "end": 1.326
+   },
+   {
+    "text": "assistencial:",
+    "start": 1.338,
+    "end": 2.02
+   },
+   {
+    "text": "não",
+    "start": 2.263,
+    "end": 2.391
+   },
+   {
+    "text": "precisa",
+    "start": 2.402,
+    "end": 2.831
+   },
+   {
+    "text": "de",
+    "start": 2.842,
+    "end": 2.935
+   },
+   {
+    "text": "nenhuma",
+    "start": 2.946,
+    "end": 3.293
+   },
+   {
+    "text": "contribuição.",
+    "start": 3.305,
+    "end": 4.046
+   }
+  ]
+ },
+ "s6": {
+  "text": "Mentira número três: o BPC paga décimo terceiro e deixa pensão.",
+  "seconds": 4.038,
+  "words": [
+   {
+    "text": "Mentira",
+    "start": 0,
+    "end": 0.352
+   },
+   {
+    "text": "número",
+    "start": 0.364,
+    "end": 0.688
+   },
+   {
+    "text": "três:",
+    "start": 0.699,
+    "end": 1.058
+   },
+   {
+    "text": "o",
+    "start": 1.301,
+    "end": 1.348
+   },
+   {
+    "text": "BPC",
+    "start": 1.359,
+    "end": 1.787
+   },
+   {
+    "text": "paga",
+    "start": 1.799,
+    "end": 2.135
+   },
+   {
+    "text": "décimo",
+    "start": 2.146,
+    "end": 2.54
+   },
+   {
+    "text": "terceiro",
+    "start": 2.551,
+    "end": 3.084
+   },
+   {
+    "text": "e",
+    "start": 3.095,
+    "end": 3.153
+   },
+   {
+    "text": "deixa",
+    "start": 3.165,
+    "end": 3.454
+   },
+   {
+    "text": "pensão.",
+    "start": 3.466,
+    "end": 3.94
+   }
+  ]
+ },
+ "s7": {
+  "text": "Mito! E essa assusta: o BPC não tem décimo terceiro e não deixa pensão por morte.",
+  "seconds": 4.933,
+  "words": [
+   {
+    "text": "Mito!",
+    "start": 0,
+    "end": 0.415
+   },
+   {
+    "text": "E",
+    "start": 0.655,
+    "end": 0.77
+   },
+   {
+    "text": "essa",
+    "start": 0.782,
+    "end": 0.956
+   },
+   {
+    "text": "assusta:",
+    "start": 0.967,
+    "end": 1.465
+   },
+   {
+    "text": "o",
+    "start": 1.685,
+    "end": 1.731
+   },
+   {
+    "text": "BPC",
+    "start": 1.743,
+    "end": 2.159
+   },
+   {
+    "text": "não",
+    "start": 2.171,
+    "end": 2.298
+   },
+   {
+    "text": "tem",
+    "start": 2.31,
+    "end": 2.46
+   },
+   {
+    "text": "décimo",
+    "start": 2.472,
+    "end": 2.842
+   },
+   {
+    "text": "terceiro",
+    "start": 2.854,
+    "end": 3.363
+   },
+   {
+    "text": "e",
+    "start": 3.374,
+    "end": 3.421
+   },
+   {
+    "text": "não",
+    "start": 3.432,
+    "end": 3.583
+   },
+   {
+    "text": "deixa",
+    "start": 3.594,
+    "end": 3.872
+   },
+   {
+    "text": "pensão",
+    "start": 3.884,
+    "end": 4.219
+   },
+   {
+    "text": "por",
+    "start": 4.231,
+    "end": 4.37
+   },
+   {
+    "text": "morte.",
+    "start": 4.381,
+    "end": 4.833
+   }
+  ]
+ },
+ "s8": {
+  "text": "Resumindo: um salário mínimo por mês, pra idoso de 65 anos ou mais, ou pessoa com deficiência, de baixa renda.",
+  "seconds": 7.035,
+  "words": [
+   {
+    "text": "Resumindo:",
+    "start": 0,
+    "end": 0.606
+   },
+   {
+    "text": "um",
+    "start": 0.872,
+    "end": 0.93
+   },
+   {
+    "text": "salário",
+    "start": 0.942,
+    "end": 1.37
+   },
+   {
+    "text": "mínimo",
+    "start": 1.381,
+    "end": 1.752
+   },
+   {
+    "text": "por",
+    "start": 1.763,
+    "end": 1.902
+   },
+   {
+    "text": "mês,",
+    "start": 1.914,
+    "end": 2.273
+   },
+   {
+    "text": "pra",
+    "start": 2.377,
+    "end": 2.516
+   },
+   {
+    "text": "idoso",
+    "start": 2.527,
+    "end": 2.898
+   },
+   {
+    "text": "de",
+    "start": 2.909,
+    "end": 2.979
+   },
+   {
+    "text": "65 anos",
+    "start": 2.99,
+    "end": 3.997
+   },
+   {
+    "text": "ou",
+    "start": 4.02,
+    "end": 4.159
+   },
+   {
+    "text": "mais,",
+    "start": 4.171,
+    "end": 4.506
+   },
+   {
+    "text": "ou",
+    "start": 4.703,
+    "end": 4.807
+   },
+   {
+    "text": "pessoa",
+    "start": 4.819,
+    "end": 5.201
+   },
+   {
+    "text": "com",
+    "start": 5.212,
+    "end": 5.328
+   },
+   {
+    "text": "deficiência,",
+    "start": 5.34,
+    "end": 6.034
+   },
+   {
+    "text": "de",
+    "start": 6.104,
+    "end": 6.208
+   },
+   {
+    "text": "baixa",
+    "start": 6.219,
+    "end": 6.543
+   },
+   {
+    "text": "renda.",
+    "start": 6.555,
+    "end": 6.937
+   }
+  ]
+ },
+ "s9": {
+  "text": "Conhece alguém que ainda acredita nessas lendas? Manda esse vídeo pra ele!",
+  "seconds": 3.966,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.337
+   },
+   {
+    "text": "alguém",
+    "start": 0.348,
+    "end": 0.649
+   },
+   {
+    "text": "que",
+    "start": 0.661,
+    "end": 0.742
+   },
+   {
+    "text": "ainda",
+    "start": 0.753,
+    "end": 0.997
+   },
+   {
+    "text": "acredita",
+    "start": 1.008,
+    "end": 1.471
+   },
+   {
+    "text": "nessas",
+    "start": 1.483,
+    "end": 1.807
+   },
+   {
+    "text": "lendas?",
+    "start": 1.818,
+    "end": 2.339
+   },
+   {
+    "text": "Manda",
+    "start": 2.579,
+    "end": 2.868
+   },
+   {
+    "text": "esse",
+    "start": 2.879,
+    "end": 3.076
+   },
+   {
+    "text": "vídeo",
+    "start": 3.088,
+    "end": 3.377
+   },
+   {
+    "text": "pra",
+    "start": 3.389,
+    "end": 3.574
+   },
+   {
+    "text": "ele!",
+    "start": 3.585,
+    "end": 3.875
+   }
+  ]
+ }
+}
