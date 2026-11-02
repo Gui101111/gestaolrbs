@@ -1,0 +1,624 @@
+{
+ "s1": {
+  "text": "Essa é a Ana, grávida de oito meses. Votou no Lula, e o tio do pavê jurou que ela vai perder o salário-maternidade!",
+  "seconds": 6.447,
+  "words": [
+   {
+    "text": "Essa",
+    "start": 0,
+    "end": 0.207
+   },
+   {
+    "text": "é",
+    "start": 0.218,
+    "end": 0.265
+   },
+   {
+    "text": "a",
+    "start": 0.276,
+    "end": 0.346
+   },
+   {
+    "text": "Ana,",
+    "start": 0.357,
+    "end": 0.647
+   },
+   {
+    "text": "grávida",
+    "start": 0.728,
+    "end": 1.168
+   },
+   {
+    "text": "de",
+    "start": 1.179,
+    "end": 1.295
+   },
+   {
+    "text": "oito",
+    "start": 1.306,
+    "end": 1.561
+   },
+   {
+    "text": "meses.",
+    "start": 1.573,
+    "end": 2.059
+   },
+   {
+    "text": "Votou",
+    "start": 2.298,
+    "end": 2.599
+   },
+   {
+    "text": "no",
+    "start": 2.611,
+    "end": 2.703
+   },
+   {
+    "text": "Lula,",
+    "start": 2.715,
+    "end": 3.027
+   },
+   {
+    "text": "e",
+    "start": 3.247,
+    "end": 3.317
+   },
+   {
+    "text": "o",
+    "start": 3.328,
+    "end": 3.386
+   },
+   {
+    "text": "tio",
+    "start": 3.398,
+    "end": 3.618
+   },
+   {
+    "text": "do",
+    "start": 3.629,
+    "end": 3.722
+   },
+   {
+    "text": "pavê",
+    "start": 3.733,
+    "end": 4.034
+   },
+   {
+    "text": "jurou",
+    "start": 4.046,
+    "end": 4.347
+   },
+   {
+    "text": "que",
+    "start": 4.358,
+    "end": 4.451
+   },
+   {
+    "text": "ela",
+    "start": 4.462,
+    "end": 4.613
+   },
+   {
+    "text": "vai",
+    "start": 4.625,
+    "end": 4.74
+   },
+   {
+    "text": "perder",
+    "start": 4.752,
+    "end": 5.076
+   },
+   {
+    "text": "o",
+    "start": 5.087,
+    "end": 5.122
+   },
+   {
+    "text": "salário-maternidade!",
+    "start": 5.134,
+    "end": 6.361
+   }
+  ]
+ },
+ "s2": {
+  "text": "Será que o tio tá certo? Vamos ver.",
+  "seconds": 2.354,
+  "words": [
+   {
+    "text": "Será",
+    "start": 0,
+    "end": 0.3
+   },
+   {
+    "text": "que",
+    "start": 0.312,
+    "end": 0.404
+   },
+   {
+    "text": "o",
+    "start": 0.416,
+    "end": 0.462
+   },
+   {
+    "text": "tio",
+    "start": 0.474,
+    "end": 0.694
+   },
+   {
+    "text": "tá",
+    "start": 0.705,
+    "end": 0.832
+   },
+   {
+    "text": "certo?",
+    "start": 0.844,
+    "end": 1.33
+   },
+   {
+    "text": "Vamos",
+    "start": 1.57,
+    "end": 1.963
+   },
+   {
+    "text": "ver.",
+    "start": 1.975,
+    "end": 2.218
+   }
+  ]
+ },
+ "s3": {
+  "text": "A Ana é MEI e paga o INSS todo mês. Então ela é segurada.",
+  "seconds": 4.111,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.099
+   },
+   {
+    "text": "Ana",
+    "start": 0.11,
+    "end": 0.33
+   },
+   {
+    "text": "é",
+    "start": 0.342,
+    "end": 0.376
+   },
+   {
+    "text": "MEI",
+    "start": 0.388,
+    "end": 0.608
+   },
+   {
+    "text": "e",
+    "start": 0.631,
+    "end": 0.7
+   },
+   {
+    "text": "paga",
+    "start": 0.712,
+    "end": 1.025
+   },
+   {
+    "text": "o",
+    "start": 1.036,
+    "end": 1.106
+   },
+   {
+    "text": "INSS",
+    "start": 1.117,
+    "end": 1.846
+   },
+   {
+    "text": "todo",
+    "start": 1.858,
+    "end": 2.124
+   },
+   {
+    "text": "mês.",
+    "start": 2.136,
+    "end": 2.541
+   },
+   {
+    "text": "Então",
+    "start": 2.78,
+    "end": 3.162
+   },
+   {
+    "text": "ela",
+    "start": 3.174,
+    "end": 3.313
+   },
+   {
+    "text": "é",
+    "start": 3.324,
+    "end": 3.347
+   },
+   {
+    "text": "segurada.",
+    "start": 3.359,
+    "end": 4.007
+   }
+  ]
+ },
+ "s4": {
+  "text": "E desde 2024, o STF decidiu que MEI não precisa mais cumprir carência pro salário-maternidade.",
+  "seconds": 6.304,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.045
+   },
+   {
+    "text": "desde",
+    "start": 0.057,
+    "end": 0.358
+   },
+   {
+    "text": "2024,",
+    "start": 0.369,
+    "end": 1.492
+   },
+   {
+    "text": "o",
+    "start": 1.7,
+    "end": 1.77
+   },
+   {
+    "text": "STF",
+    "start": 1.781,
+    "end": 2.418
+   },
+   {
+    "text": "decidiu",
+    "start": 2.43,
+    "end": 2.904
+   },
+   {
+    "text": "que",
+    "start": 2.916,
+    "end": 3.02
+   },
+   {
+    "text": "MEI",
+    "start": 3.031,
+    "end": 3.17
+   },
+   {
+    "text": "não",
+    "start": 3.182,
+    "end": 3.309
+   },
+   {
+    "text": "precisa",
+    "start": 3.321,
+    "end": 3.714
+   },
+   {
+    "text": "mais",
+    "start": 3.726,
+    "end": 3.969
+   },
+   {
+    "text": "cumprir",
+    "start": 3.98,
+    "end": 4.362
+   },
+   {
+    "text": "carência",
+    "start": 4.374,
+    "end": 4.825
+   },
+   {
+    "text": "pro",
+    "start": 4.837,
+    "end": 4.976
+   },
+   {
+    "text": "salário-maternidade.",
+    "start": 4.987,
+    "end": 6.214
+   }
+  ]
+ },
+ "s5": {
+  "text": "Ela vai receber, em regra, por 120 dias. Isso tá na lei, e não muda por causa de voto.",
+  "seconds": 5.294,
+  "words": [
+   {
+    "text": "Ela",
+    "start": 0,
+    "end": 0.177
+   },
+   {
+    "text": "vai",
+    "start": 0.189,
+    "end": 0.305
+   },
+   {
+    "text": "receber,",
+    "start": 0.316,
+    "end": 0.802
+   },
+   {
+    "text": "em",
+    "start": 0.86,
+    "end": 0.953
+   },
+   {
+    "text": "regra,",
+    "start": 0.964,
+    "end": 1.335
+   },
+   {
+    "text": "por",
+    "start": 1.358,
+    "end": 1.497
+   },
+   {
+    "text": "120 dias.",
+    "start": 1.508,
+    "end": 2.596
+   },
+   {
+    "text": "Isso",
+    "start": 2.836,
+    "end": 3.067
+   },
+   {
+    "text": "tá",
+    "start": 3.079,
+    "end": 3.183
+   },
+   {
+    "text": "na",
+    "start": 3.194,
+    "end": 3.298
+   },
+   {
+    "text": "lei,",
+    "start": 3.31,
+    "end": 3.553
+   },
+   {
+    "text": "e",
+    "start": 3.704,
+    "end": 3.761
+   },
+   {
+    "text": "não",
+    "start": 3.773,
+    "end": 3.912
+   },
+   {
+    "text": "muda",
+    "start": 3.923,
+    "end": 4.19
+   },
+   {
+    "text": "por",
+    "start": 4.201,
+    "end": 4.329
+   },
+   {
+    "text": "causa",
+    "start": 4.352,
+    "end": 4.641
+   },
+   {
+    "text": "de",
+    "start": 4.653,
+    "end": 4.757
+   },
+   {
+    "text": "voto.",
+    "start": 4.768,
+    "end": 5.173
+   }
+  ]
+ },
+ "s6": {
+  "text": "E o voto é secreto: o INSS nem sabe em quem a Ana votou!",
+  "seconds": 3.653,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.072
+   },
+   {
+    "text": "o",
+    "start": 0.084,
+    "end": 0.13
+   },
+   {
+    "text": "voto",
+    "start": 0.142,
+    "end": 0.408
+   },
+   {
+    "text": "é",
+    "start": 0.42,
+    "end": 0.443
+   },
+   {
+    "text": "secreto:",
+    "start": 0.454,
+    "end": 1.033
+   },
+   {
+    "text": "o",
+    "start": 1.241,
+    "end": 1.322
+   },
+   {
+    "text": "INSS",
+    "start": 1.334,
+    "end": 2.098
+   },
+   {
+    "text": "nem",
+    "start": 2.109,
+    "end": 2.283
+   },
+   {
+    "text": "sabe",
+    "start": 2.295,
+    "end": 2.63
+   },
+   {
+    "text": "em",
+    "start": 2.642,
+    "end": 2.7
+   },
+   {
+    "text": "quem",
+    "start": 2.711,
+    "end": 2.873
+   },
+   {
+    "text": "a",
+    "start": 2.885,
+    "end": 2.954
+   },
+   {
+    "text": "Ana",
+    "start": 2.966,
+    "end": 3.14
+   },
+   {
+    "text": "votou!",
+    "start": 3.151,
+    "end": 3.556
+   }
+  ]
+ },
+ "s7": {
+  "text": "E aí, o tio do pavê tá certo? Comenta aí o que você acha, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 6.162,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.064
+   },
+   {
+    "text": "aí,",
+    "start": 0.076,
+    "end": 0.377
+   },
+   {
+    "text": "o",
+    "start": 0.504,
+    "end": 0.585
+   },
+   {
+    "text": "tio",
+    "start": 0.597,
+    "end": 0.828
+   },
+   {
+    "text": "do",
+    "start": 0.84,
+    "end": 0.932
+   },
+   {
+    "text": "pavê",
+    "start": 0.944,
+    "end": 1.21
+   },
+   {
+    "text": "tá",
+    "start": 1.222,
+    "end": 1.349
+   },
+   {
+    "text": "certo?",
+    "start": 1.361,
+    "end": 1.847
+   },
+   {
+    "text": "Comenta",
+    "start": 2.086,
+    "end": 2.445
+   },
+   {
+    "text": "aí",
+    "start": 2.457,
+    "end": 2.584
+   },
+   {
+    "text": "o",
+    "start": 2.596,
+    "end": 2.642
+   },
+   {
+    "text": "que",
+    "start": 2.653,
+    "end": 2.757
+   },
+   {
+    "text": "você",
+    "start": 2.769,
+    "end": 3.024
+   },
+   {
+    "text": "acha,",
+    "start": 3.035,
+    "end": 3.406
+   },
+   {
+    "text": "e",
+    "start": 3.51,
+    "end": 3.545
+   },
+   {
+    "text": "siga",
+    "start": 3.556,
+    "end": 3.869
+   },
+   {
+    "text": "o",
+    "start": 3.88,
+    "end": 3.915
+   },
+   {
+    "text": "Advogado",
+    "start": 3.926,
+    "end": 4.494
+   },
+   {
+    "text": "de",
+    "start": 4.505,
+    "end": 4.598
+   },
+   {
+    "text": "Bolso",
+    "start": 4.609,
+    "end": 4.98
+   },
+   {
+    "text": "em",
+    "start": 4.991,
+    "end": 5.095
+   },
+   {
+    "text": "todas",
+    "start": 5.142,
+    "end": 5.396
+   },
+   {
+    "text": "as",
+    "start": 5.408,
+    "end": 5.57
+   },
+   {
+    "text": "redes!",
+    "start": 5.582,
+    "end": 6.068
+   }
+  ]
+ }
+}

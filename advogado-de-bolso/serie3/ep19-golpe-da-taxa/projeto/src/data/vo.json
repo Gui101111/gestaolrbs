@@ -1,0 +1,529 @@
+{
+ "s1": {
+  "text": "O seu Antônio recebeu uma mensagem: pague 49 reais e 90 de taxa pra liberar o seu décimo terceiro!",
+  "seconds": 6.205,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.04
+   },
+   {
+    "text": "seu",
+    "start": 0.052,
+    "end": 0.26
+   },
+   {
+    "text": "Antônio",
+    "start": 0.272,
+    "end": 0.654
+   },
+   {
+    "text": "recebeu",
+    "start": 0.665,
+    "end": 1.036
+   },
+   {
+    "text": "uma",
+    "start": 1.047,
+    "end": 1.163
+   },
+   {
+    "text": "mensagem:",
+    "start": 1.175,
+    "end": 1.8
+   },
+   {
+    "text": "pague",
+    "start": 2.019,
+    "end": 2.297
+   },
+   {
+    "text": "49 reais",
+    "start": 2.309,
+    "end": 3.304
+   },
+   {
+    "text": "e",
+    "start": 3.316,
+    "end": 3.42
+   },
+   {
+    "text": "90 de",
+    "start": 3.443,
+    "end": 3.999
+   },
+   {
+    "text": "taxa",
+    "start": 4.01,
+    "end": 4.357
+   },
+   {
+    "text": "pra",
+    "start": 4.369,
+    "end": 4.508
+   },
+   {
+    "text": "liberar",
+    "start": 4.52,
+    "end": 4.948
+   },
+   {
+    "text": "o",
+    "start": 4.959,
+    "end": 5.006
+   },
+   {
+    "text": "seu",
+    "start": 5.017,
+    "end": 5.179
+   },
+   {
+    "text": "décimo",
+    "start": 5.191,
+    "end": 5.573
+   },
+   {
+    "text": "terceiro!",
+    "start": 5.584,
+    "end": 6.105
+   }
+  ]
+ },
+ "s2": {
+  "text": "Ele já ia pagar, quando a neta gritou: é golpe, vô!",
+  "seconds": 3.027,
+  "words": [
+   {
+    "text": "Ele",
+    "start": 0,
+    "end": 0.127
+   },
+   {
+    "text": "já",
+    "start": 0.139,
+    "end": 0.301
+   },
+   {
+    "text": "ia",
+    "start": 0.313,
+    "end": 0.428
+   },
+   {
+    "text": "pagar,",
+    "start": 0.44,
+    "end": 0.822
+   },
+   {
+    "text": "quando",
+    "start": 0.972,
+    "end": 1.181
+   },
+   {
+    "text": "a",
+    "start": 1.192,
+    "end": 1.238
+   },
+   {
+    "text": "neta",
+    "start": 1.25,
+    "end": 1.505
+   },
+   {
+    "text": "gritou:",
+    "start": 1.516,
+    "end": 1.944
+   },
+   {
+    "text": "é",
+    "start": 2.164,
+    "end": 2.269
+   },
+   {
+    "text": "golpe,",
+    "start": 2.28,
+    "end": 2.651
+   },
+   {
+    "text": "vô!",
+    "start": 2.697,
+    "end": 2.859
+   }
+  ]
+ },
+ "s3": {
+  "text": "O INSS não cobra taxa nenhuma pra pagar benefício, nem pra liberar décimo terceiro.",
+  "seconds": 5.247,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.073
+   },
+   {
+    "text": "INSS",
+    "start": 0.085,
+    "end": 0.849
+   },
+   {
+    "text": "não",
+    "start": 0.861,
+    "end": 1.023
+   },
+   {
+    "text": "cobra",
+    "start": 1.034,
+    "end": 1.393
+   },
+   {
+    "text": "taxa",
+    "start": 1.405,
+    "end": 1.705
+   },
+   {
+    "text": "nenhuma",
+    "start": 1.717,
+    "end": 2.122
+   },
+   {
+    "text": "pra",
+    "start": 2.134,
+    "end": 2.273
+   },
+   {
+    "text": "pagar",
+    "start": 2.284,
+    "end": 2.573
+   },
+   {
+    "text": "benefício,",
+    "start": 2.585,
+    "end": 3.222
+   },
+   {
+    "text": "nem",
+    "start": 3.465,
+    "end": 3.627
+   },
+   {
+    "text": "pra",
+    "start": 3.638,
+    "end": 3.766
+   },
+   {
+    "text": "liberar",
+    "start": 3.777,
+    "end": 4.205
+   },
+   {
+    "text": "décimo",
+    "start": 4.217,
+    "end": 4.611
+   },
+   {
+    "text": "terceiro.",
+    "start": 4.622,
+    "end": 5.143
+   }
+  ]
+ },
+ "s4": {
+  "text": "E não manda link pra você clicar. Site oficial do governo termina com gov ponto br.",
+  "seconds": 5.144,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.037
+   },
+   {
+    "text": "não",
+    "start": 0.048,
+    "end": 0.199
+   },
+   {
+    "text": "manda",
+    "start": 0.21,
+    "end": 0.453
+   },
+   {
+    "text": "link",
+    "start": 0.465,
+    "end": 0.777
+   },
+   {
+    "text": "pra",
+    "start": 0.789,
+    "end": 0.928
+   },
+   {
+    "text": "você",
+    "start": 0.94,
+    "end": 1.171
+   },
+   {
+    "text": "clicar.",
+    "start": 1.183,
+    "end": 1.611
+   },
+   {
+    "text": "Site",
+    "start": 1.85,
+    "end": 2.267
+   },
+   {
+    "text": "oficial",
+    "start": 2.278,
+    "end": 2.73
+   },
+   {
+    "text": "do",
+    "start": 2.741,
+    "end": 2.822
+   },
+   {
+    "text": "governo",
+    "start": 2.834,
+    "end": 3.285
+   },
+   {
+    "text": "termina",
+    "start": 3.297,
+    "end": 3.725
+   },
+   {
+    "text": "com",
+    "start": 3.737,
+    "end": 3.91
+   },
+   {
+    "text": "gov",
+    "start": 3.922,
+    "end": 4.246
+   },
+   {
+    "text": "ponto",
+    "start": 4.258,
+    "end": 4.558
+   },
+   {
+    "text": "br.",
+    "start": 4.57,
+    "end": 5.056
+   }
+  ]
+ },
+ "s5": {
+  "text": "Na dúvida, confira tudo no aplicativo Meu INSS. E nunca passe senha nem código pra ninguém.",
+  "seconds": 6.011,
+  "words": [
+   {
+    "text": "Na",
+    "start": 0,
+    "end": 0.137
+   },
+   {
+    "text": "dúvida,",
+    "start": 0.148,
+    "end": 0.6
+   },
+   {
+    "text": "confira",
+    "start": 0.75,
+    "end": 1.179
+   },
+   {
+    "text": "tudo",
+    "start": 1.202,
+    "end": 1.468
+   },
+   {
+    "text": "no",
+    "start": 1.48,
+    "end": 1.584
+   },
+   {
+    "text": "aplicativo",
+    "start": 1.595,
+    "end": 2.255
+   },
+   {
+    "text": "Meu",
+    "start": 2.267,
+    "end": 2.486
+   },
+   {
+    "text": "INSS.",
+    "start": 2.498,
+    "end": 3.401
+   },
+   {
+    "text": "E",
+    "start": 3.64,
+    "end": 3.733
+   },
+   {
+    "text": "nunca",
+    "start": 3.744,
+    "end": 4.034
+   },
+   {
+    "text": "passe",
+    "start": 4.045,
+    "end": 4.358
+   },
+   {
+    "text": "senha",
+    "start": 4.369,
+    "end": 4.682
+   },
+   {
+    "text": "nem",
+    "start": 4.693,
+    "end": 4.879
+   },
+   {
+    "text": "código",
+    "start": 4.89,
+    "end": 5.318
+   },
+   {
+    "text": "pra",
+    "start": 5.33,
+    "end": 5.469
+   },
+   {
+    "text": "ninguém.",
+    "start": 5.48,
+    "end": 5.909
+   }
+  ]
+ },
+ "s6": {
+  "text": "E o golpista? Ficou falando sozinho.",
+  "seconds": 2.387,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.072
+   },
+   {
+    "text": "o",
+    "start": 0.084,
+    "end": 0.153
+   },
+   {
+    "text": "golpista?",
+    "start": 0.165,
+    "end": 0.79
+   },
+   {
+    "text": "Ficou",
+    "start": 1.029,
+    "end": 1.319
+   },
+   {
+    "text": "falando",
+    "start": 1.33,
+    "end": 1.724
+   },
+   {
+    "text": "sozinho.",
+    "start": 1.735,
+    "end": 2.291
+   }
+  ]
+ },
+ "s7": {
+  "text": "Você já recebeu mensagem assim? Comenta aí, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 5.397,
+  "words": [
+   {
+    "text": "Você",
+    "start": 0,
+    "end": 0.204
+   },
+   {
+    "text": "já",
+    "start": 0.216,
+    "end": 0.332
+   },
+   {
+    "text": "recebeu",
+    "start": 0.343,
+    "end": 0.737
+   },
+   {
+    "text": "mensagem",
+    "start": 0.748,
+    "end": 1.258
+   },
+   {
+    "text": "assim?",
+    "start": 1.269,
+    "end": 1.651
+   },
+   {
+    "text": "Comenta",
+    "start": 1.89,
+    "end": 2.272
+   },
+   {
+    "text": "aí,",
+    "start": 2.284,
+    "end": 2.504
+   },
+   {
+    "text": "e",
+    "start": 2.735,
+    "end": 2.77
+   },
+   {
+    "text": "siga",
+    "start": 2.782,
+    "end": 3.083
+   },
+   {
+    "text": "o",
+    "start": 3.094,
+    "end": 3.129
+   },
+   {
+    "text": "Advogado",
+    "start": 3.14,
+    "end": 3.696
+   },
+   {
+    "text": "de",
+    "start": 3.708,
+    "end": 3.8
+   },
+   {
+    "text": "Bolso",
+    "start": 3.812,
+    "end": 4.182
+   },
+   {
+    "text": "em",
+    "start": 4.194,
+    "end": 4.298
+   },
+   {
+    "text": "todas",
+    "start": 4.356,
+    "end": 4.61
+   },
+   {
+    "text": "as",
+    "start": 4.622,
+    "end": 4.796
+   },
+   {
+    "text": "redes!",
+    "start": 4.807,
+    "end": 5.293
+   }
+  ]
+ }
+}

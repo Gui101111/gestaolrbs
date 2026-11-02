@@ -1,0 +1,589 @@
+{
+ "s1": {
+  "text": "O seu Jorge é aposentado e ganha três mil e duzentos. E o cunhado avisou: o Leão vai morder o teu bolso!",
+  "seconds": 5.748,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.037
+   },
+   {
+    "text": "seu",
+    "start": 0.048,
+    "end": 0.222
+   },
+   {
+    "text": "Jorge",
+    "start": 0.233,
+    "end": 0.627
+   },
+   {
+    "text": "é",
+    "start": 0.639,
+    "end": 0.673
+   },
+   {
+    "text": "aposentado",
+    "start": 0.685,
+    "end": 1.333
+   },
+   {
+    "text": "e",
+    "start": 1.345,
+    "end": 1.391
+   },
+   {
+    "text": "ganha",
+    "start": 1.403,
+    "end": 1.68
+   },
+   {
+    "text": "três",
+    "start": 1.692,
+    "end": 1.981
+   },
+   {
+    "text": "mil",
+    "start": 1.993,
+    "end": 2.12
+   },
+   {
+    "text": "e",
+    "start": 2.132,
+    "end": 2.166
+   },
+   {
+    "text": "duzentos.",
+    "start": 2.178,
+    "end": 2.791
+   },
+   {
+    "text": "E",
+    "start": 3.031,
+    "end": 3.123
+   },
+   {
+    "text": "o",
+    "start": 3.135,
+    "end": 3.181
+   },
+   {
+    "text": "cunhado",
+    "start": 3.193,
+    "end": 3.528
+   },
+   {
+    "text": "avisou:",
+    "start": 3.54,
+    "end": 3.968
+   },
+   {
+    "text": "o",
+    "start": 4.119,
+    "end": 4.177
+   },
+   {
+    "text": "Leão",
+    "start": 4.188,
+    "end": 4.477
+   },
+   {
+    "text": "vai",
+    "start": 4.489,
+    "end": 4.616
+   },
+   {
+    "text": "morder",
+    "start": 4.628,
+    "end": 4.987
+   },
+   {
+    "text": "o",
+    "start": 4.998,
+    "end": 5.045
+   },
+   {
+    "text": "teu",
+    "start": 5.056,
+    "end": 5.207
+   },
+   {
+    "text": "bolso!",
+    "start": 5.218,
+    "end": 5.646
+   }
+  ]
+ },
+ "s2": {
+  "text": "Será? Em 2026, a regra mudou.",
+  "seconds": 2.821,
+  "words": [
+   {
+    "text": "Será?",
+    "start": 0,
+    "end": 0.426
+   },
+   {
+    "text": "Em 2026,",
+    "start": 0.677,
+    "end": 1.881
+   },
+   {
+    "text": "a",
+    "start": 1.951,
+    "end": 2.02
+   },
+   {
+    "text": "regra",
+    "start": 2.032,
+    "end": 2.309
+   },
+   {
+    "text": "mudou.",
+    "start": 2.321,
+    "end": 2.703
+   }
+  ]
+ },
+ "s3": {
+  "text": "Quem ganha até cinco mil reais por mês ficou isento do Imposto de Renda. E isso vale pra aposentado do INSS também.",
+  "seconds": 6.898,
+  "words": [
+   {
+    "text": "Quem",
+    "start": 0,
+    "end": 0.132
+   },
+   {
+    "text": "ganha",
+    "start": 0.144,
+    "end": 0.445
+   },
+   {
+    "text": "até",
+    "start": 0.457,
+    "end": 0.63
+   },
+   {
+    "text": "cinco",
+    "start": 0.642,
+    "end": 1.012
+   },
+   {
+    "text": "mil",
+    "start": 1.024,
+    "end": 1.151
+   },
+   {
+    "text": "reais",
+    "start": 1.163,
+    "end": 1.556
+   },
+   {
+    "text": "por",
+    "start": 1.568,
+    "end": 1.707
+   },
+   {
+    "text": "mês",
+    "start": 1.718,
+    "end": 1.961
+   },
+   {
+    "text": "ficou",
+    "start": 1.973,
+    "end": 2.274
+   },
+   {
+    "text": "isento",
+    "start": 2.285,
+    "end": 2.644
+   },
+   {
+    "text": "do",
+    "start": 2.656,
+    "end": 2.737
+   },
+   {
+    "text": "Imposto",
+    "start": 2.748,
+    "end": 3.188
+   },
+   {
+    "text": "de",
+    "start": 3.2,
+    "end": 3.292
+   },
+   {
+    "text": "Renda.",
+    "start": 3.304,
+    "end": 3.697
+   },
+   {
+    "text": "E",
+    "start": 3.937,
+    "end": 4.029
+   },
+   {
+    "text": "isso",
+    "start": 4.041,
+    "end": 4.295
+   },
+   {
+    "text": "vale",
+    "start": 4.307,
+    "end": 4.631
+   },
+   {
+    "text": "pra",
+    "start": 4.643,
+    "end": 4.782
+   },
+   {
+    "text": "aposentado",
+    "start": 4.793,
+    "end": 5.43
+   },
+   {
+    "text": "do",
+    "start": 5.441,
+    "end": 5.569
+   },
+   {
+    "text": "INSS",
+    "start": 5.58,
+    "end": 6.367
+   },
+   {
+    "text": "também.",
+    "start": 6.379,
+    "end": 6.795
+   }
+  ]
+ },
+ "s4": {
+  "text": "Quem ganha entre cinco mil e sete mil trezentos e cinquenta passou a pagar menos.",
+  "seconds": 4.189,
+  "words": [
+   {
+    "text": "Quem",
+    "start": 0,
+    "end": 0.119
+   },
+   {
+    "text": "ganha",
+    "start": 0.131,
+    "end": 0.443
+   },
+   {
+    "text": "entre",
+    "start": 0.455,
+    "end": 0.675
+   },
+   {
+    "text": "cinco",
+    "start": 0.686,
+    "end": 1.022
+   },
+   {
+    "text": "mil",
+    "start": 1.034,
+    "end": 1.23
+   },
+   {
+    "text": "e",
+    "start": 1.242,
+    "end": 1.288
+   },
+   {
+    "text": "sete",
+    "start": 1.3,
+    "end": 1.647
+   },
+   {
+    "text": "mil",
+    "start": 1.659,
+    "end": 1.821
+   },
+   {
+    "text": "trezentos",
+    "start": 1.832,
+    "end": 2.284
+   },
+   {
+    "text": "e",
+    "start": 2.295,
+    "end": 2.376
+   },
+   {
+    "text": "cinquenta",
+    "start": 2.388,
+    "end": 2.851
+   },
+   {
+    "text": "passou",
+    "start": 2.862,
+    "end": 3.21
+   },
+   {
+    "text": "a",
+    "start": 3.221,
+    "end": 3.279
+   },
+   {
+    "text": "pagar",
+    "start": 3.291,
+    "end": 3.592
+   },
+   {
+    "text": "menos.",
+    "start": 3.603,
+    "end": 4.089
+   }
+  ]
+ },
+ "s5": {
+  "text": "Só fica de olho: quem tem mais de uma renda pode ter imposto pra pagar na declaração.",
+  "seconds": 4.472,
+  "words": [
+   {
+    "text": "Só",
+    "start": 0,
+    "end": 0.182
+   },
+   {
+    "text": "fica",
+    "start": 0.193,
+    "end": 0.448
+   },
+   {
+    "text": "de",
+    "start": 0.46,
+    "end": 0.564
+   },
+   {
+    "text": "olho:",
+    "start": 0.575,
+    "end": 0.865
+   },
+   {
+    "text": "quem",
+    "start": 1.096,
+    "end": 1.247
+   },
+   {
+    "text": "tem",
+    "start": 1.258,
+    "end": 1.385
+   },
+   {
+    "text": "mais",
+    "start": 1.397,
+    "end": 1.629
+   },
+   {
+    "text": "de",
+    "start": 1.64,
+    "end": 1.71
+   },
+   {
+    "text": "uma",
+    "start": 1.721,
+    "end": 1.86
+   },
+   {
+    "text": "renda",
+    "start": 1.872,
+    "end": 2.207
+   },
+   {
+    "text": "pode",
+    "start": 2.219,
+    "end": 2.462
+   },
+   {
+    "text": "ter",
+    "start": 2.473,
+    "end": 2.601
+   },
+   {
+    "text": "imposto",
+    "start": 2.612,
+    "end": 3.098
+   },
+   {
+    "text": "pra",
+    "start": 3.11,
+    "end": 3.249
+   },
+   {
+    "text": "pagar",
+    "start": 3.26,
+    "end": 3.561
+   },
+   {
+    "text": "na",
+    "start": 3.573,
+    "end": 3.689
+   },
+   {
+    "text": "declaração.",
+    "start": 3.7,
+    "end": 4.372
+   }
+  ]
+ },
+ "s6": {
+  "text": "Resultado: o Leão nem chegou perto do seu Jorge!",
+  "seconds": 2.864,
+  "words": [
+   {
+    "text": "Resultado:",
+    "start": 0,
+    "end": 0.602
+   },
+   {
+    "text": "o",
+    "start": 0.846,
+    "end": 0.892
+   },
+   {
+    "text": "Leão",
+    "start": 0.903,
+    "end": 1.204
+   },
+   {
+    "text": "nem",
+    "start": 1.216,
+    "end": 1.378
+   },
+   {
+    "text": "chegou",
+    "start": 1.39,
+    "end": 1.702
+   },
+   {
+    "text": "perto",
+    "start": 1.714,
+    "end": 2.026
+   },
+   {
+    "text": "do",
+    "start": 2.038,
+    "end": 2.119
+   },
+   {
+    "text": "seu",
+    "start": 2.13,
+    "end": 2.315
+   },
+   {
+    "text": "Jorge!",
+    "start": 2.327,
+    "end": 2.767
+   }
+  ]
+ },
+ "s7": {
+  "text": "E você, sentiu a diferença no bolso? Comenta aí, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 5.683,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.025
+   },
+   {
+    "text": "você,",
+    "start": 0.036,
+    "end": 0.36
+   },
+   {
+    "text": "sentiu",
+    "start": 0.395,
+    "end": 0.765
+   },
+   {
+    "text": "a",
+    "start": 0.777,
+    "end": 0.835
+   },
+   {
+    "text": "diferença",
+    "start": 0.847,
+    "end": 1.333
+   },
+   {
+    "text": "no",
+    "start": 1.344,
+    "end": 1.437
+   },
+   {
+    "text": "bolso?",
+    "start": 1.448,
+    "end": 1.934
+   },
+   {
+    "text": "Comenta",
+    "start": 2.174,
+    "end": 2.556
+   },
+   {
+    "text": "aí,",
+    "start": 2.567,
+    "end": 2.787
+   },
+   {
+    "text": "e",
+    "start": 3.019,
+    "end": 3.053
+   },
+   {
+    "text": "siga",
+    "start": 3.065,
+    "end": 3.366
+   },
+   {
+    "text": "o",
+    "start": 3.377,
+    "end": 3.412
+   },
+   {
+    "text": "Advogado",
+    "start": 3.424,
+    "end": 3.979
+   },
+   {
+    "text": "de",
+    "start": 3.991,
+    "end": 4.084
+   },
+   {
+    "text": "Bolso",
+    "start": 4.095,
+    "end": 4.466
+   },
+   {
+    "text": "em",
+    "start": 4.477,
+    "end": 4.581
+   },
+   {
+    "text": "todas",
+    "start": 4.639,
+    "end": 4.894
+   },
+   {
+    "text": "as",
+    "start": 4.905,
+    "end": 5.079
+   },
+   {
+    "text": "redes!",
+    "start": 5.09,
+    "end": 5.577
+   }
+  ]
+ }
+}

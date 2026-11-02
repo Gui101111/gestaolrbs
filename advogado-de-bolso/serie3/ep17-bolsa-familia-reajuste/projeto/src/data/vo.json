@@ -1,0 +1,594 @@
+{
+ "s1": {
+  "text": "Esse é o João. Disseram pra ele que o Bolsa Família nunca mais ia aumentar, e que depois da eleição ia até acabar!",
+  "seconds": 6.167,
+  "words": [
+   {
+    "text": "Esse",
+    "start": 0,
+    "end": 0.197
+   },
+   {
+    "text": "é",
+    "start": 0.208,
+    "end": 0.255
+   },
+   {
+    "text": "o",
+    "start": 0.266,
+    "end": 0.312
+   },
+   {
+    "text": "João.",
+    "start": 0.324,
+    "end": 0.694
+   },
+   {
+    "text": "Disseram",
+    "start": 0.934,
+    "end": 1.374
+   },
+   {
+    "text": "pra",
+    "start": 1.385,
+    "end": 1.594
+   },
+   {
+    "text": "ele",
+    "start": 1.605,
+    "end": 1.825
+   },
+   {
+    "text": "que",
+    "start": 1.837,
+    "end": 1.941
+   },
+   {
+    "text": "o",
+    "start": 1.952,
+    "end": 1.999
+   },
+   {
+    "text": "Bolsa",
+    "start": 2.01,
+    "end": 2.334
+   },
+   {
+    "text": "Família",
+    "start": 2.346,
+    "end": 2.739
+   },
+   {
+    "text": "nunca",
+    "start": 2.751,
+    "end": 3.075
+   },
+   {
+    "text": "mais",
+    "start": 3.087,
+    "end": 3.306
+   },
+   {
+    "text": "ia",
+    "start": 3.318,
+    "end": 3.492
+   },
+   {
+    "text": "aumentar,",
+    "start": 3.503,
+    "end": 4.001
+   },
+   {
+    "text": "e",
+    "start": 4.221,
+    "end": 4.267
+   },
+   {
+    "text": "que",
+    "start": 4.279,
+    "end": 4.383
+   },
+   {
+    "text": "depois",
+    "start": 4.394,
+    "end": 4.73
+   },
+   {
+    "text": "da",
+    "start": 4.742,
+    "end": 4.823
+   },
+   {
+    "text": "eleição",
+    "start": 4.834,
+    "end": 5.286
+   },
+   {
+    "text": "ia",
+    "start": 5.297,
+    "end": 5.436
+   },
+   {
+    "text": "até",
+    "start": 5.448,
+    "end": 5.587
+   },
+   {
+    "text": "acabar!",
+    "start": 5.598,
+    "end": 6.038
+   }
+  ]
+ },
+ "s2": {
+  "text": "O João tem dois filhos pequenos e ficou desesperado.",
+  "seconds": 2.856,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.05
+   },
+   {
+    "text": "João",
+    "start": 0.061,
+    "end": 0.362
+   },
+   {
+    "text": "tem",
+    "start": 0.374,
+    "end": 0.524
+   },
+   {
+    "text": "dois",
+    "start": 0.536,
+    "end": 0.814
+   },
+   {
+    "text": "filhos",
+    "start": 0.825,
+    "end": 1.092
+   },
+   {
+    "text": "pequenos",
+    "start": 1.103,
+    "end": 1.531
+   },
+   {
+    "text": "e",
+    "start": 1.543,
+    "end": 1.647
+   },
+   {
+    "text": "ficou",
+    "start": 1.693,
+    "end": 2.006
+   },
+   {
+    "text": "desesperado.",
+    "start": 2.017,
+    "end": 2.758
+   }
+  ]
+ },
+ "s3": {
+  "text": "Mas olha a notícia: em outubro, o Bolsa Família teve reajuste de 15%.",
+  "seconds": 4.535,
+  "words": [
+   {
+    "text": "Mas",
+    "start": 0,
+    "end": 0.099
+   },
+   {
+    "text": "olha",
+    "start": 0.11,
+    "end": 0.388
+   },
+   {
+    "text": "a",
+    "start": 0.4,
+    "end": 0.423
+   },
+   {
+    "text": "notícia:",
+    "start": 0.434,
+    "end": 0.944
+   },
+   {
+    "text": "em",
+    "start": 1.025,
+    "end": 1.14
+   },
+   {
+    "text": "outubro,",
+    "start": 1.152,
+    "end": 1.649
+   },
+   {
+    "text": "o",
+    "start": 1.858,
+    "end": 1.916
+   },
+   {
+    "text": "Bolsa",
+    "start": 1.927,
+    "end": 2.24
+   },
+   {
+    "text": "Família",
+    "start": 2.251,
+    "end": 2.656
+   },
+   {
+    "text": "teve",
+    "start": 2.668,
+    "end": 2.876
+   },
+   {
+    "text": "reajuste",
+    "start": 2.888,
+    "end": 3.455
+   },
+   {
+    "text": "de",
+    "start": 3.467,
+    "end": 3.571
+   },
+   {
+    "text": "15%.",
+    "start": 3.582,
+    "end": 4.439
+   }
+  ]
+ },
+ "s4": {
+  "text": "O valor mínimo por família subiu de 600 pra 691 reais. E o adicional por criança pequena foi pra 173 reais.",
+  "seconds": 8.237,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.03
+   },
+   {
+    "text": "valor",
+    "start": 0.041,
+    "end": 0.354
+   },
+   {
+    "text": "mínimo",
+    "start": 0.365,
+    "end": 0.747
+   },
+   {
+    "text": "por",
+    "start": 0.759,
+    "end": 0.886
+   },
+   {
+    "text": "família",
+    "start": 0.898,
+    "end": 1.291
+   },
+   {
+    "text": "subiu",
+    "start": 1.303,
+    "end": 1.673
+   },
+   {
+    "text": "de",
+    "start": 1.685,
+    "end": 1.777
+   },
+   {
+    "text": "600 pra",
+    "start": 1.789,
+    "end": 2.564
+   },
+   {
+    "text": "691 reais.",
+    "start": 2.576,
+    "end": 4.231
+   },
+   {
+    "text": "E",
+    "start": 4.47,
+    "end": 4.563
+   },
+   {
+    "text": "o",
+    "start": 4.575,
+    "end": 4.621
+   },
+   {
+    "text": "adicional",
+    "start": 4.633,
+    "end": 5.211
+   },
+   {
+    "text": "por",
+    "start": 5.223,
+    "end": 5.339
+   },
+   {
+    "text": "criança",
+    "start": 5.35,
+    "end": 5.79
+   },
+   {
+    "text": "pequena",
+    "start": 5.802,
+    "end": 6.23
+   },
+   {
+    "text": "foi",
+    "start": 6.241,
+    "end": 6.38
+   },
+   {
+    "text": "pra",
+    "start": 6.392,
+    "end": 6.554
+   },
+   {
+    "text": "173 reais.",
+    "start": 6.565,
+    "end": 8.139
+   }
+  ]
+ },
+ "s5": {
+  "text": "E o boato de que ia acabar depois da eleição? O governo desmentiu: os pagamentos seguem normais.",
+  "seconds": 5.482,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.066
+   },
+   {
+    "text": "o",
+    "start": 0.077,
+    "end": 0.124
+   },
+   {
+    "text": "boato",
+    "start": 0.135,
+    "end": 0.54
+   },
+   {
+    "text": "de",
+    "start": 0.552,
+    "end": 0.645
+   },
+   {
+    "text": "que",
+    "start": 0.656,
+    "end": 0.749
+   },
+   {
+    "text": "ia",
+    "start": 0.76,
+    "end": 0.899
+   },
+   {
+    "text": "acabar",
+    "start": 0.911,
+    "end": 1.258
+   },
+   {
+    "text": "depois",
+    "start": 1.27,
+    "end": 1.64
+   },
+   {
+    "text": "da",
+    "start": 1.652,
+    "end": 1.733
+   },
+   {
+    "text": "eleição?",
+    "start": 1.744,
+    "end": 2.253
+   },
+   {
+    "text": "O",
+    "start": 2.493,
+    "end": 2.574
+   },
+   {
+    "text": "governo",
+    "start": 2.585,
+    "end": 3.014
+   },
+   {
+    "text": "desmentiu:",
+    "start": 3.025,
+    "end": 3.685
+   },
+   {
+    "text": "os",
+    "start": 3.847,
+    "end": 3.928
+   },
+   {
+    "text": "pagamentos",
+    "start": 3.939,
+    "end": 4.507
+   },
+   {
+    "text": "seguem",
+    "start": 4.518,
+    "end": 4.784
+   },
+   {
+    "text": "normais.",
+    "start": 4.796,
+    "end": 5.375
+   }
+  ]
+ },
+ "s6": {
+  "text": "Agora, a pergunta que não quer calar: será que vai aumentar de novo em 2027?",
+  "seconds": 4.838,
+  "words": [
+   {
+    "text": "Agora,",
+    "start": 0,
+    "end": 0.38
+   },
+   {
+    "text": "a",
+    "start": 0.415,
+    "end": 0.472
+   },
+   {
+    "text": "pergunta",
+    "start": 0.484,
+    "end": 0.959
+   },
+   {
+    "text": "que",
+    "start": 0.97,
+    "end": 1.05
+   },
+   {
+    "text": "não",
+    "start": 1.062,
+    "end": 1.225
+   },
+   {
+    "text": "quer",
+    "start": 1.236,
+    "end": 1.398
+   },
+   {
+    "text": "calar:",
+    "start": 1.41,
+    "end": 1.78
+   },
+   {
+    "text": "será",
+    "start": 2.069,
+    "end": 2.335
+   },
+   {
+    "text": "que",
+    "start": 2.347,
+    "end": 2.452
+   },
+   {
+    "text": "vai",
+    "start": 2.462,
+    "end": 2.59
+   },
+   {
+    "text": "aumentar",
+    "start": 2.601,
+    "end": 3.053
+   },
+   {
+    "text": "de",
+    "start": 3.064,
+    "end": 3.168
+   },
+   {
+    "text": "novo",
+    "start": 3.18,
+    "end": 3.482
+   },
+   {
+    "text": "em 2027?",
+    "start": 3.492,
+    "end": 4.743
+   }
+  ]
+ },
+ "s7": {
+  "text": "Comenta aí o que você acha, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 4.021,
+  "words": [
+   {
+    "text": "Comenta",
+    "start": 0,
+    "end": 0.306
+   },
+   {
+    "text": "aí",
+    "start": 0.318,
+    "end": 0.445
+   },
+   {
+    "text": "o",
+    "start": 0.457,
+    "end": 0.503
+   },
+   {
+    "text": "que",
+    "start": 0.514,
+    "end": 0.619
+   },
+   {
+    "text": "você",
+    "start": 0.63,
+    "end": 0.885
+   },
+   {
+    "text": "acha,",
+    "start": 0.896,
+    "end": 1.267
+   },
+   {
+    "text": "e",
+    "start": 1.371,
+    "end": 1.406
+   },
+   {
+    "text": "siga",
+    "start": 1.417,
+    "end": 1.73
+   },
+   {
+    "text": "o",
+    "start": 1.741,
+    "end": 1.776
+   },
+   {
+    "text": "Advogado",
+    "start": 1.788,
+    "end": 2.355
+   },
+   {
+    "text": "de",
+    "start": 2.366,
+    "end": 2.459
+   },
+   {
+    "text": "Bolso",
+    "start": 2.47,
+    "end": 2.841
+   },
+   {
+    "text": "em",
+    "start": 2.852,
+    "end": 2.957
+   },
+   {
+    "text": "todas",
+    "start": 3.003,
+    "end": 3.257
+   },
+   {
+    "text": "as",
+    "start": 3.269,
+    "end": 3.431
+   },
+   {
+    "text": "redes!",
+    "start": 3.443,
+    "end": 3.929
+   }
+  ]
+ }
+}

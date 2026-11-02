@@ -54,3 +54,7 @@ O texto de cada episódio fica em `scripts/narration.json` e as cenas em `src/da
 Vídeos curtos (41–49 s) com piada, vilão zoeiro (cunhado, vizinha fofoqueira, sogra, compadre), NEGADO → recurso com a advogada de bolso → APROVADO → óculos de "mito". Detalhes e descrições prontas para postar em [`serie2/README.md`](serie2/README.md).
 
 Nos projetos da série 2, a trilha é gerada com `python3 scripts/funk.py`, que é original e livre de direitos: funk, terror e forró.
+
+## Série 3: temas do momento
+
+Boatos pós-eleição desmentidos, reajuste do Bolsa Família, 13º do INSS, golpe da taxa e o "Leão" do IR. Detalhes em [`serie3/README.md`](serie3/README.md).

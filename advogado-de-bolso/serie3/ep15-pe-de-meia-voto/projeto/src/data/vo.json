@@ -1,0 +1,694 @@
+{
+ "s1": {
+  "text": "Esse é o Lucas, 17 anos. Votou pela primeira vez, no Flávio Bolsonaro, e já disseram que ele vai perder o Pé-de-Meia!",
+  "seconds": 6.81,
+  "words": [
+   {
+    "text": "Esse",
+    "start": 0,
+    "end": 0.193
+   },
+   {
+    "text": "é",
+    "start": 0.205,
+    "end": 0.24
+   },
+   {
+    "text": "o",
+    "start": 0.251,
+    "end": 0.297
+   },
+   {
+    "text": "Lucas,",
+    "start": 0.309,
+    "end": 0.737
+   },
+   {
+    "text": "17 anos.",
+    "start": 0.853,
+    "end": 1.906
+   },
+   {
+    "text": "Votou",
+    "start": 2.146,
+    "end": 2.458
+   },
+   {
+    "text": "pela",
+    "start": 2.47,
+    "end": 2.643
+   },
+   {
+    "text": "primeira",
+    "start": 2.655,
+    "end": 3.025
+   },
+   {
+    "text": "vez,",
+    "start": 3.037,
+    "end": 3.326
+   },
+   {
+    "text": "no",
+    "start": 3.396,
+    "end": 3.477
+   },
+   {
+    "text": "Flávio",
+    "start": 3.488,
+    "end": 3.847
+   },
+   {
+    "text": "Bolsonaro,",
+    "start": 3.859,
+    "end": 4.484
+   },
+   {
+    "text": "e",
+    "start": 4.704,
+    "end": 4.761
+   },
+   {
+    "text": "já",
+    "start": 4.773,
+    "end": 4.912
+   },
+   {
+    "text": "disseram",
+    "start": 4.923,
+    "end": 5.363
+   },
+   {
+    "text": "que",
+    "start": 5.375,
+    "end": 5.456
+   },
+   {
+    "text": "ele",
+    "start": 5.467,
+    "end": 5.595
+   },
+   {
+    "text": "vai",
+    "start": 5.606,
+    "end": 5.722
+   },
+   {
+    "text": "perder",
+    "start": 5.734,
+    "end": 6.058
+   },
+   {
+    "text": "o",
+    "start": 6.069,
+    "end": 6.116
+   },
+   {
+    "text": "Pé-de-Meia!",
+    "start": 6.127,
+    "end": 6.706
+   }
+  ]
+ },
+ "s2": {
+  "text": "Será que é verdade? Bora entender.",
+  "seconds": 2.259,
+  "words": [
+   {
+    "text": "Será",
+    "start": 0,
+    "end": 0.33
+   },
+   {
+    "text": "que",
+    "start": 0.342,
+    "end": 0.434
+   },
+   {
+    "text": "é",
+    "start": 0.446,
+    "end": 0.492
+   },
+   {
+    "text": "verdade?",
+    "start": 0.504,
+    "end": 1.152
+   },
+   {
+    "text": "Bora",
+    "start": 1.391,
+    "end": 1.634
+   },
+   {
+    "text": "entender.",
+    "start": 1.646,
+    "end": 2.144
+   }
+  ]
+ },
+ "s3": {
+  "text": "O Pé-de-Meia é pra estudante do ensino médio de escola pública, com a família no Cadastro Único.",
+  "seconds": 4.857,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.049
+   },
+   {
+    "text": "Pé-de-Meia",
+    "start": 0.06,
+    "end": 0.581
+   },
+   {
+    "text": "é",
+    "start": 0.593,
+    "end": 0.628
+   },
+   {
+    "text": "pra",
+    "start": 0.639,
+    "end": 0.801
+   },
+   {
+    "text": "estudante",
+    "start": 0.813,
+    "end": 1.368
+   },
+   {
+    "text": "do",
+    "start": 1.38,
+    "end": 1.484
+   },
+   {
+    "text": "ensino",
+    "start": 1.496,
+    "end": 1.854
+   },
+   {
+    "text": "médio",
+    "start": 1.866,
+    "end": 2.19
+   },
+   {
+    "text": "de",
+    "start": 2.202,
+    "end": 2.271
+   },
+   {
+    "text": "escola",
+    "start": 2.283,
+    "end": 2.653
+   },
+   {
+    "text": "pública,",
+    "start": 2.665,
+    "end": 3.116
+   },
+   {
+    "text": "com",
+    "start": 3.139,
+    "end": 3.278
+   },
+   {
+    "text": "a",
+    "start": 3.29,
+    "end": 3.348
+   },
+   {
+    "text": "família",
+    "start": 3.359,
+    "end": 3.764
+   },
+   {
+    "text": "no",
+    "start": 3.776,
+    "end": 3.857
+   },
+   {
+    "text": "Cadastro",
+    "start": 3.868,
+    "end": 4.366
+   },
+   {
+    "text": "Único.",
+    "start": 4.378,
+    "end": 4.76
+   }
+  ]
+ },
+ "s4": {
+  "text": "Ele paga parcelas de 200 reais pela frequência, e mais mil reais por ano concluído, guardados até a formatura.",
+  "seconds": 6.414,
+  "words": [
+   {
+    "text": "Ele",
+    "start": 0,
+    "end": 0.133
+   },
+   {
+    "text": "paga",
+    "start": 0.144,
+    "end": 0.399
+   },
+   {
+    "text": "parcelas",
+    "start": 0.411,
+    "end": 0.943
+   },
+   {
+    "text": "de",
+    "start": 0.955,
+    "end": 1.036
+   },
+   {
+    "text": "200 reais",
+    "start": 1.047,
+    "end": 1.869
+   },
+   {
+    "text": "pela",
+    "start": 1.881,
+    "end": 2.077
+   },
+   {
+    "text": "frequência,",
+    "start": 2.089,
+    "end": 2.656
+   },
+   {
+    "text": "e",
+    "start": 2.876,
+    "end": 2.945
+   },
+   {
+    "text": "mais",
+    "start": 2.957,
+    "end": 3.2
+   },
+   {
+    "text": "mil",
+    "start": 3.212,
+    "end": 3.351
+   },
+   {
+    "text": "reais",
+    "start": 3.362,
+    "end": 3.721
+   },
+   {
+    "text": "por",
+    "start": 3.732,
+    "end": 3.906
+   },
+   {
+    "text": "ano",
+    "start": 3.918,
+    "end": 4.091
+   },
+   {
+    "text": "concluído,",
+    "start": 4.103,
+    "end": 4.682
+   },
+   {
+    "text": "guardados",
+    "start": 4.844,
+    "end": 5.341
+   },
+   {
+    "text": "até",
+    "start": 5.353,
+    "end": 5.607
+   },
+   {
+    "text": "a",
+    "start": 5.619,
+    "end": 5.665
+   },
+   {
+    "text": "formatura.",
+    "start": 5.677,
+    "end": 6.313
+   }
+  ]
+ },
+ "s5": {
+  "text": "A regra de ouro é ter pelo menos 80% de presença. E quem é do terceiro ano e faz o ENEM nos dois dias ganha mais 200.",
+  "seconds": 7.287,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.081
+   },
+   {
+    "text": "regra",
+    "start": 0.093,
+    "end": 0.428
+   },
+   {
+    "text": "de",
+    "start": 0.44,
+    "end": 0.567
+   },
+   {
+    "text": "ouro",
+    "start": 0.579,
+    "end": 0.845
+   },
+   {
+    "text": "é",
+    "start": 0.856,
+    "end": 0.914
+   },
+   {
+    "text": "ter",
+    "start": 0.926,
+    "end": 1.088
+   },
+   {
+    "text": "pelo",
+    "start": 1.1,
+    "end": 1.308
+   },
+   {
+    "text": "menos",
+    "start": 1.319,
+    "end": 1.539
+   },
+   {
+    "text": "80%",
+    "start": 1.551,
+    "end": 2.465
+   },
+   {
+    "text": "de",
+    "start": 2.477,
+    "end": 2.546
+   },
+   {
+    "text": "presença.",
+    "start": 2.558,
+    "end": 3.16
+   },
+   {
+    "text": "E",
+    "start": 3.398,
+    "end": 3.479
+   },
+   {
+    "text": "quem",
+    "start": 3.491,
+    "end": 3.676
+   },
+   {
+    "text": "é",
+    "start": 3.687,
+    "end": 3.734
+   },
+   {
+    "text": "do",
+    "start": 3.745,
+    "end": 3.849
+   },
+   {
+    "text": "terceiro",
+    "start": 3.861,
+    "end": 4.347
+   },
+   {
+    "text": "ano",
+    "start": 4.359,
+    "end": 4.625
+   },
+   {
+    "text": "e",
+    "start": 4.637,
+    "end": 4.694
+   },
+   {
+    "text": "faz",
+    "start": 4.706,
+    "end": 4.937
+   },
+   {
+    "text": "o",
+    "start": 4.949,
+    "end": 5.088
+   },
+   {
+    "text": "ENEM",
+    "start": 5.099,
+    "end": 5.308
+   },
+   {
+    "text": "nos",
+    "start": 5.319,
+    "end": 5.481
+   },
+   {
+    "text": "dois",
+    "start": 5.493,
+    "end": 5.771
+   },
+   {
+    "text": "dias",
+    "start": 5.782,
+    "end": 6.025
+   },
+   {
+    "text": "ganha",
+    "start": 6.037,
+    "end": 6.303
+   },
+   {
+    "text": "mais",
+    "start": 6.315,
+    "end": 6.558
+   },
+   {
+    "text": "200.",
+    "start": 6.569,
+    "end": 7.194
+   }
+  ]
+ },
+ "s6": {
+  "text": "Ou seja: o que conta é presença na escola, não o voto. E o voto é secreto!",
+  "seconds": 4.391,
+  "words": [
+   {
+    "text": "Ou",
+    "start": 0,
+    "end": 0.094
+   },
+   {
+    "text": "seja:",
+    "start": 0.106,
+    "end": 0.534
+   },
+   {
+    "text": "o",
+    "start": 0.65,
+    "end": 0.708
+   },
+   {
+    "text": "que",
+    "start": 0.719,
+    "end": 0.835
+   },
+   {
+    "text": "conta",
+    "start": 0.847,
+    "end": 1.136
+   },
+   {
+    "text": "é",
+    "start": 1.147,
+    "end": 1.182
+   },
+   {
+    "text": "presença",
+    "start": 1.194,
+    "end": 1.68
+   },
+   {
+    "text": "na",
+    "start": 1.691,
+    "end": 1.784
+   },
+   {
+    "text": "escola,",
+    "start": 1.796,
+    "end": 2.293
+   },
+   {
+    "text": "não",
+    "start": 2.34,
+    "end": 2.502
+   },
+   {
+    "text": "o",
+    "start": 2.513,
+    "end": 2.536
+   },
+   {
+    "text": "voto.",
+    "start": 2.548,
+    "end": 2.941
+   },
+   {
+    "text": "E",
+    "start": 3.181,
+    "end": 3.273
+   },
+   {
+    "text": "o",
+    "start": 3.285,
+    "end": 3.343
+   },
+   {
+    "text": "voto",
+    "start": 3.354,
+    "end": 3.644
+   },
+   {
+    "text": "é",
+    "start": 3.655,
+    "end": 3.678
+   },
+   {
+    "text": "secreto!",
+    "start": 3.69,
+    "end": 4.269
+   }
+  ]
+ },
+ "s7": {
+  "text": "E você, acha que o Lucas cai nessa? Comenta aí o que você acha, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 6.331,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.028
+   },
+   {
+    "text": "você,",
+    "start": 0.039,
+    "end": 0.387
+   },
+   {
+    "text": "acha",
+    "start": 0.63,
+    "end": 0.896
+   },
+   {
+    "text": "que",
+    "start": 0.907,
+    "end": 1.0
+   },
+   {
+    "text": "o",
+    "start": 1.012,
+    "end": 1.058
+   },
+   {
+    "text": "Lucas",
+    "start": 1.069,
+    "end": 1.393
+   },
+   {
+    "text": "cai",
+    "start": 1.405,
+    "end": 1.567
+   },
+   {
+    "text": "nessa?",
+    "start": 1.579,
+    "end": 2.018
+   },
+   {
+    "text": "Comenta",
+    "start": 2.258,
+    "end": 2.617
+   },
+   {
+    "text": "aí",
+    "start": 2.628,
+    "end": 2.756
+   },
+   {
+    "text": "o",
+    "start": 2.767,
+    "end": 2.813
+   },
+   {
+    "text": "que",
+    "start": 2.825,
+    "end": 2.929
+   },
+   {
+    "text": "você",
+    "start": 2.941,
+    "end": 3.195
+   },
+   {
+    "text": "acha,",
+    "start": 3.207,
+    "end": 3.577
+   },
+   {
+    "text": "e",
+    "start": 3.681,
+    "end": 3.716
+   },
+   {
+    "text": "siga",
+    "start": 3.728,
+    "end": 4.04
+   },
+   {
+    "text": "o",
+    "start": 4.052,
+    "end": 4.087
+   },
+   {
+    "text": "Advogado",
+    "start": 4.098,
+    "end": 4.665
+   },
+   {
+    "text": "de",
+    "start": 4.677,
+    "end": 4.769
+   },
+   {
+    "text": "Bolso",
+    "start": 4.781,
+    "end": 5.151
+   },
+   {
+    "text": "em",
+    "start": 5.163,
+    "end": 5.267
+   },
+   {
+    "text": "todas",
+    "start": 5.313,
+    "end": 5.568
+   },
+   {
+    "text": "as",
+    "start": 5.58,
+    "end": 5.742
+   },
+   {
+    "text": "redes!",
+    "start": 5.753,
+    "end": 6.239
+   }
+  ]
+ }
+}

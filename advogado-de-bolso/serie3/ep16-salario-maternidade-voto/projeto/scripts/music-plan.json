@@ -1,0 +1,3 @@
+{"seconds": 39, "gap": 0.35, "endcard": 1.73, "style": "pagode",
+ "moods": ["pagode", "pagode-light", "pagode", "pagode", "pagode-light", "pagode", "end"],
+ "hits": [["s1", 20, "hit"], ["s2", 0, "stop"], ["s4", 5, "hit"], ["s5", 12, "hit"], ["s6", 7, "hit"]]}

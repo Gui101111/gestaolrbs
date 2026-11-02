@@ -1,0 +1,544 @@
+{
+ "s1": {
+  "text": "A dona Lurdes se aposentou em julho, e a vizinha garantiu: esse ano não tem décimo terceiro pra você!",
+  "seconds": 5.751,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.075
+   },
+   {
+    "text": "dona",
+    "start": 0.087,
+    "end": 0.342
+   },
+   {
+    "text": "Lurdes",
+    "start": 0.353,
+    "end": 0.747
+   },
+   {
+    "text": "se",
+    "start": 0.758,
+    "end": 0.828
+   },
+   {
+    "text": "aposentou",
+    "start": 0.839,
+    "end": 1.36
+   },
+   {
+    "text": "em",
+    "start": 1.372,
+    "end": 1.464
+   },
+   {
+    "text": "julho,",
+    "start": 1.476,
+    "end": 1.858
+   },
+   {
+    "text": "e",
+    "start": 2.055,
+    "end": 2.124
+   },
+   {
+    "text": "a",
+    "start": 2.136,
+    "end": 2.205
+   },
+   {
+    "text": "vizinha",
+    "start": 2.217,
+    "end": 2.587
+   },
+   {
+    "text": "garantiu:",
+    "start": 2.599,
+    "end": 3.143
+   },
+   {
+    "text": "esse",
+    "start": 3.409,
+    "end": 3.652
+   },
+   {
+    "text": "ano",
+    "start": 3.663,
+    "end": 3.883
+   },
+   {
+    "text": "não",
+    "start": 3.895,
+    "end": 4.045
+   },
+   {
+    "text": "tem",
+    "start": 4.057,
+    "end": 4.231
+   },
+   {
+    "text": "décimo",
+    "start": 4.242,
+    "end": 4.659
+   },
+   {
+    "text": "terceiro",
+    "start": 4.67,
+    "end": 5.099
+   },
+   {
+    "text": "pra",
+    "start": 5.11,
+    "end": 5.249
+   },
+   {
+    "text": "você!",
+    "start": 5.261,
+    "end": 5.643
+   }
+  ]
+ },
+ "s2": {
+  "text": "Será? Vamos aos fatos.",
+  "seconds": 1.777,
+  "words": [
+   {
+    "text": "Será?",
+    "start": 0,
+    "end": 0.426
+   },
+   {
+    "text": "Vamos",
+    "start": 0.677,
+    "end": 0.944
+   },
+   {
+    "text": "aos",
+    "start": 0.955,
+    "end": 1.175
+   },
+   {
+    "text": "fatos.",
+    "start": 1.187,
+    "end": 1.673
+   }
+  ]
+ },
+ "s3": {
+  "text": "Quem começou a receber do INSS depois de maio ganha o décimo terceiro proporcional. De julho a dezembro, são seis meses: metade.",
+  "seconds": 7.993,
+  "words": [
+   {
+    "text": "Quem",
+    "start": 0,
+    "end": 0.092
+   },
+   {
+    "text": "começou",
+    "start": 0.104,
+    "end": 0.532
+   },
+   {
+    "text": "a",
+    "start": 0.544,
+    "end": 0.59
+   },
+   {
+    "text": "receber",
+    "start": 0.601,
+    "end": 1.03
+   },
+   {
+    "text": "do",
+    "start": 1.041,
+    "end": 1.18
+   },
+   {
+    "text": "INSS",
+    "start": 1.192,
+    "end": 2.083
+   },
+   {
+    "text": "depois",
+    "start": 2.094,
+    "end": 2.442
+   },
+   {
+    "text": "de",
+    "start": 2.453,
+    "end": 2.546
+   },
+   {
+    "text": "maio",
+    "start": 2.557,
+    "end": 2.87
+   },
+   {
+    "text": "ganha",
+    "start": 2.882,
+    "end": 3.252
+   },
+   {
+    "text": "o",
+    "start": 3.275,
+    "end": 3.333
+   },
+   {
+    "text": "décimo",
+    "start": 3.344,
+    "end": 3.738
+   },
+   {
+    "text": "terceiro",
+    "start": 3.75,
+    "end": 4.189
+   },
+   {
+    "text": "proporcional.",
+    "start": 4.201,
+    "end": 4.919
+   },
+   {
+    "text": "De",
+    "start": 5.158,
+    "end": 5.308
+   },
+   {
+    "text": "julho",
+    "start": 5.32,
+    "end": 5.598
+   },
+   {
+    "text": "a",
+    "start": 5.609,
+    "end": 5.656
+   },
+   {
+    "text": "dezembro,",
+    "start": 5.667,
+    "end": 6.2
+   },
+   {
+    "text": "são",
+    "start": 6.269,
+    "end": 6.454
+   },
+   {
+    "text": "seis",
+    "start": 6.466,
+    "end": 6.732
+   },
+   {
+    "text": "meses:",
+    "start": 6.744,
+    "end": 7.16
+   },
+   {
+    "text": "metade.",
+    "start": 7.334,
+    "end": 7.901
+   }
+  ]
+ },
+ "s4": {
+  "text": "E esse pagamento começa no dia 24 de novembro, pra quem recebe até um salário mínimo.",
+  "seconds": 5.148,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.088
+   },
+   {
+    "text": "esse",
+    "start": 0.099,
+    "end": 0.284
+   },
+   {
+    "text": "pagamento",
+    "start": 0.296,
+    "end": 0.828
+   },
+   {
+    "text": "começa",
+    "start": 0.84,
+    "end": 1.303
+   },
+   {
+    "text": "no",
+    "start": 1.314,
+    "end": 1.43
+   },
+   {
+    "text": "dia",
+    "start": 1.442,
+    "end": 1.662
+   },
+   {
+    "text": "24 de novembro,",
+    "start": 1.673,
+    "end": 2.912
+   },
+   {
+    "text": "pra",
+    "start": 3.155,
+    "end": 3.305
+   },
+   {
+    "text": "quem",
+    "start": 3.317,
+    "end": 3.456
+   },
+   {
+    "text": "recebe",
+    "start": 3.467,
+    "end": 3.896
+   },
+   {
+    "text": "até",
+    "start": 3.907,
+    "end": 4.081
+   },
+   {
+    "text": "um",
+    "start": 4.092,
+    "end": 4.162
+   },
+   {
+    "text": "salário",
+    "start": 4.173,
+    "end": 4.59
+   },
+   {
+    "text": "mínimo.",
+    "start": 4.601,
+    "end": 5.053
+   }
+  ]
+ },
+ "s5": {
+  "text": "Mas atenção: quem recebe BPC não tem décimo terceiro, porque o BPC é assistencial.",
+  "seconds": 4.962,
+  "words": [
+   {
+    "text": "Mas",
+    "start": 0,
+    "end": 0.092
+   },
+   {
+    "text": "atenção:",
+    "start": 0.103,
+    "end": 0.705
+   },
+   {
+    "text": "quem",
+    "start": 0.902,
+    "end": 1.041
+   },
+   {
+    "text": "recebe",
+    "start": 1.052,
+    "end": 1.423
+   },
+   {
+    "text": "BPC",
+    "start": 1.434,
+    "end": 1.874
+   },
+   {
+    "text": "não",
+    "start": 1.886,
+    "end": 2.036
+   },
+   {
+    "text": "tem",
+    "start": 2.048,
+    "end": 2.221
+   },
+   {
+    "text": "décimo",
+    "start": 2.233,
+    "end": 2.615
+   },
+   {
+    "text": "terceiro,",
+    "start": 2.626,
+    "end": 3.124
+   },
+   {
+    "text": "porque",
+    "start": 3.193,
+    "end": 3.448
+   },
+   {
+    "text": "o",
+    "start": 3.46,
+    "end": 3.506
+   },
+   {
+    "text": "BPC",
+    "start": 3.518,
+    "end": 4.015
+   },
+   {
+    "text": "é",
+    "start": 4.038,
+    "end": 4.131
+   },
+   {
+    "text": "assistencial.",
+    "start": 4.143,
+    "end": 4.86
+   }
+  ]
+ },
+ "s6": {
+  "text": "Ou seja: a vizinha errou feio!",
+  "seconds": 1.701,
+  "words": [
+   {
+    "text": "Ou",
+    "start": 0,
+    "end": 0.087
+   },
+   {
+    "text": "seja:",
+    "start": 0.098,
+    "end": 0.538
+   },
+   {
+    "text": "a",
+    "start": 0.619,
+    "end": 0.688
+   },
+   {
+    "text": "vizinha",
+    "start": 0.7,
+    "end": 1.024
+   },
+   {
+    "text": "errou",
+    "start": 1.036,
+    "end": 1.221
+   },
+   {
+    "text": "feio!",
+    "start": 1.232,
+    "end": 1.603
+   }
+  ]
+ },
+ "s7": {
+  "text": "E o seu décimo terceiro, já tá na conta? Comenta aí, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 5.812,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.062
+   },
+   {
+    "text": "o",
+    "start": 0.073,
+    "end": 0.12
+   },
+   {
+    "text": "seu",
+    "start": 0.131,
+    "end": 0.293
+   },
+   {
+    "text": "décimo",
+    "start": 0.305,
+    "end": 0.664
+   },
+   {
+    "text": "terceiro,",
+    "start": 0.675,
+    "end": 1.15
+   },
+   {
+    "text": "já",
+    "start": 1.219,
+    "end": 1.347
+   },
+   {
+    "text": "tá",
+    "start": 1.358,
+    "end": 1.485
+   },
+   {
+    "text": "na",
+    "start": 1.497,
+    "end": 1.613
+   },
+   {
+    "text": "conta?",
+    "start": 1.624,
+    "end": 2.064
+   },
+   {
+    "text": "Comenta",
+    "start": 2.304,
+    "end": 2.685
+   },
+   {
+    "text": "aí,",
+    "start": 2.697,
+    "end": 2.917
+   },
+   {
+    "text": "e",
+    "start": 3.148,
+    "end": 3.183
+   },
+   {
+    "text": "siga",
+    "start": 3.195,
+    "end": 3.496
+   },
+   {
+    "text": "o",
+    "start": 3.507,
+    "end": 3.542
+   },
+   {
+    "text": "Advogado",
+    "start": 3.554,
+    "end": 4.109
+   },
+   {
+    "text": "de",
+    "start": 4.121,
+    "end": 4.213
+   },
+   {
+    "text": "Bolso",
+    "start": 4.225,
+    "end": 4.595
+   },
+   {
+    "text": "em",
+    "start": 4.607,
+    "end": 4.711
+   },
+   {
+    "text": "todas",
+    "start": 4.769,
+    "end": 5.023
+   },
+   {
+    "text": "as",
+    "start": 5.035,
+    "end": 5.209
+   },
+   {
+    "text": "redes!",
+    "start": 5.22,
+    "end": 5.706
+   }
+  ]
+ }
+}
