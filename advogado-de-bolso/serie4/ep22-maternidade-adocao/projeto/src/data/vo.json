@@ -1,0 +1,579 @@
+{
+ "s1": {
+  "text": "O Paulo adotou a Sofia, de três anos. E o colega do trabalho zoou: licença é coisa de mãe, rapaz!",
+  "seconds": 5.815,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.066
+   },
+   {
+    "text": "Paulo",
+    "start": 0.078,
+    "end": 0.39
+   },
+   {
+    "text": "adotou",
+    "start": 0.413,
+    "end": 0.749
+   },
+   {
+    "text": "a",
+    "start": 0.76,
+    "end": 0.807
+   },
+   {
+    "text": "Sofia,",
+    "start": 0.818,
+    "end": 1.316
+   },
+   {
+    "text": "de",
+    "start": 1.386,
+    "end": 1.513
+   },
+   {
+    "text": "três",
+    "start": 1.524,
+    "end": 1.698
+   },
+   {
+    "text": "anos.",
+    "start": 1.71,
+    "end": 2.184
+   },
+   {
+    "text": "E",
+    "start": 2.423,
+    "end": 2.516
+   },
+   {
+    "text": "o",
+    "start": 2.528,
+    "end": 2.574
+   },
+   {
+    "text": "colega",
+    "start": 2.586,
+    "end": 2.956
+   },
+   {
+    "text": "do",
+    "start": 2.967,
+    "end": 3.06
+   },
+   {
+    "text": "trabalho",
+    "start": 3.072,
+    "end": 3.442
+   },
+   {
+    "text": "zoou:",
+    "start": 3.454,
+    "end": 3.812
+   },
+   {
+    "text": "licença",
+    "start": 3.963,
+    "end": 4.414
+   },
+   {
+    "text": "é",
+    "start": 4.426,
+    "end": 4.472
+   },
+   {
+    "text": "coisa",
+    "start": 4.484,
+    "end": 4.773
+   },
+   {
+    "text": "de",
+    "start": 4.785,
+    "end": 4.877
+   },
+   {
+    "text": "mãe,",
+    "start": 4.889,
+    "end": 5.12
+   },
+   {
+    "text": "rapaz!",
+    "start": 5.143,
+    "end": 5.71
+   }
+  ]
+ },
+ "s2": {
+  "text": "Será? Olha só que lindo.",
+  "seconds": 1.755,
+  "words": [
+   {
+    "text": "Será?",
+    "start": 0,
+    "end": 0.426
+   },
+   {
+    "text": "Olha",
+    "start": 0.677,
+    "end": 0.932
+   },
+   {
+    "text": "só",
+    "start": 0.944,
+    "end": 1.14
+   },
+   {
+    "text": "que",
+    "start": 1.152,
+    "end": 1.256
+   },
+   {
+    "text": "lindo.",
+    "start": 1.268,
+    "end": 1.661
+   }
+  ]
+ },
+ "s3": {
+  "text": "Na adoção, quem adota também tem direito ao salário-maternidade, seja mãe, seja pai.",
+  "seconds": 4.587,
+  "words": [
+   {
+    "text": "Na",
+    "start": 0,
+    "end": 0.109
+   },
+   {
+    "text": "adoção,",
+    "start": 0.12,
+    "end": 0.618
+   },
+   {
+    "text": "quem",
+    "start": 0.641,
+    "end": 0.815
+   },
+   {
+    "text": "adota",
+    "start": 0.826,
+    "end": 1.208
+   },
+   {
+    "text": "também",
+    "start": 1.22,
+    "end": 1.567
+   },
+   {
+    "text": "tem",
+    "start": 1.579,
+    "end": 1.694
+   },
+   {
+    "text": "direito",
+    "start": 1.706,
+    "end": 2.076
+   },
+   {
+    "text": "ao",
+    "start": 2.088,
+    "end": 2.146
+   },
+   {
+    "text": "salário-maternidade,",
+    "start": 2.157,
+    "end": 3.268
+   },
+   {
+    "text": "seja",
+    "start": 3.303,
+    "end": 3.581
+   },
+   {
+    "text": "mãe,",
+    "start": 3.593,
+    "end": 3.87
+   },
+   {
+    "text": "seja",
+    "start": 3.894,
+    "end": 4.183
+   },
+   {
+    "text": "pai.",
+    "start": 4.194,
+    "end": 4.495
+   }
+  ]
+ },
+ "s4": {
+  "text": "Vale pra criança de até 12 anos, e são 120 dias pra se dedicar à nova família.",
+  "seconds": 5.031,
+  "words": [
+   {
+    "text": "Vale",
+    "start": 0,
+    "end": 0.266
+   },
+   {
+    "text": "pra",
+    "start": 0.278,
+    "end": 0.417
+   },
+   {
+    "text": "criança",
+    "start": 0.428,
+    "end": 0.891
+   },
+   {
+    "text": "de",
+    "start": 0.903,
+    "end": 0.972
+   },
+   {
+    "text": "até",
+    "start": 0.984,
+    "end": 1.181
+   },
+   {
+    "text": "12 anos,",
+    "start": 1.192,
+    "end": 1.933
+   },
+   {
+    "text": "e",
+    "start": 2.141,
+    "end": 2.187
+   },
+   {
+    "text": "são",
+    "start": 2.199,
+    "end": 2.396
+   },
+   {
+    "text": "120 dias",
+    "start": 2.407,
+    "end": 3.391
+   },
+   {
+    "text": "pra",
+    "start": 3.403,
+    "end": 3.542
+   },
+   {
+    "text": "se",
+    "start": 3.553,
+    "end": 3.669
+   },
+   {
+    "text": "dedicar",
+    "start": 3.681,
+    "end": 4.109
+   },
+   {
+    "text": "à",
+    "start": 4.12,
+    "end": 4.167
+   },
+   {
+    "text": "nova",
+    "start": 4.178,
+    "end": 4.456
+   },
+   {
+    "text": "família.",
+    "start": 4.468,
+    "end": 4.931
+   }
+  ]
+ },
+ "s5": {
+  "text": "É só ser segurado do INSS e ter o termo de guarda ou a nova certidão. E se o casal adotar junto, só um dos dois recebe.",
+  "seconds": 7.365,
+  "words": [
+   {
+    "text": "É",
+    "start": 0,
+    "end": 0.042
+   },
+   {
+    "text": "só",
+    "start": 0.053,
+    "end": 0.227
+   },
+   {
+    "text": "ser",
+    "start": 0.239,
+    "end": 0.412
+   },
+   {
+    "text": "segurado",
+    "start": 0.424,
+    "end": 0.945
+   },
+   {
+    "text": "do",
+    "start": 0.956,
+    "end": 1.084
+   },
+   {
+    "text": "INSS",
+    "start": 1.095,
+    "end": 1.94
+   },
+   {
+    "text": "e",
+    "start": 1.952,
+    "end": 1.998
+   },
+   {
+    "text": "ter",
+    "start": 2.009,
+    "end": 2.148
+   },
+   {
+    "text": "o",
+    "start": 2.16,
+    "end": 2.229
+   },
+   {
+    "text": "termo",
+    "start": 2.241,
+    "end": 2.542
+   },
+   {
+    "text": "de",
+    "start": 2.553,
+    "end": 2.658
+   },
+   {
+    "text": "guarda",
+    "start": 2.669,
+    "end": 3.144
+   },
+   {
+    "text": "ou",
+    "start": 3.202,
+    "end": 3.294
+   },
+   {
+    "text": "a",
+    "start": 3.306,
+    "end": 3.364
+   },
+   {
+    "text": "nova",
+    "start": 3.375,
+    "end": 3.63
+   },
+   {
+    "text": "certidão.",
+    "start": 3.641,
+    "end": 4.232
+   },
+   {
+    "text": "E",
+    "start": 4.471,
+    "end": 4.54
+   },
+   {
+    "text": "se",
+    "start": 4.552,
+    "end": 4.668
+   },
+   {
+    "text": "o",
+    "start": 4.679,
+    "end": 4.726
+   },
+   {
+    "text": "casal",
+    "start": 4.737,
+    "end": 5.096
+   },
+   {
+    "text": "adotar",
+    "start": 5.108,
+    "end": 5.478
+   },
+   {
+    "text": "junto,",
+    "start": 5.49,
+    "end": 5.895
+   },
+   {
+    "text": "só",
+    "start": 6.068,
+    "end": 6.242
+   },
+   {
+    "text": "um",
+    "start": 6.253,
+    "end": 6.346
+   },
+   {
+    "text": "dos",
+    "start": 6.358,
+    "end": 6.52
+   },
+   {
+    "text": "dois",
+    "start": 6.531,
+    "end": 6.74
+   },
+   {
+    "text": "recebe.",
+    "start": 6.751,
+    "end": 7.272
+   }
+  ]
+ },
+ "s6": {
+  "text": "E o colega? Já pediu pra ser padrinho.",
+  "seconds": 2.452,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.079
+   },
+   {
+    "text": "o",
+    "start": 0.091,
+    "end": 0.148
+   },
+   {
+    "text": "colega?",
+    "start": 0.16,
+    "end": 0.704
+   },
+   {
+    "text": "Já",
+    "start": 0.943,
+    "end": 1.094
+   },
+   {
+    "text": "pediu",
+    "start": 1.105,
+    "end": 1.453
+   },
+   {
+    "text": "pra",
+    "start": 1.464,
+    "end": 1.603
+   },
+   {
+    "text": "ser",
+    "start": 1.615,
+    "end": 1.8
+   },
+   {
+    "text": "padrinho.",
+    "start": 1.811,
+    "end": 2.355
+   }
+  ]
+ },
+ "s7": {
+  "text": "Conhece alguém que sonha em adotar? Marca nos comentários, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 5.882,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.364
+   },
+   {
+    "text": "alguém",
+    "start": 0.376,
+    "end": 0.653
+   },
+   {
+    "text": "que",
+    "start": 0.665,
+    "end": 0.757
+   },
+   {
+    "text": "sonha",
+    "start": 0.769,
+    "end": 1.058
+   },
+   {
+    "text": "em",
+    "start": 1.07,
+    "end": 1.151
+   },
+   {
+    "text": "adotar?",
+    "start": 1.163,
+    "end": 1.614
+   },
+   {
+    "text": "Marca",
+    "start": 1.853,
+    "end": 2.189
+   },
+   {
+    "text": "nos",
+    "start": 2.201,
+    "end": 2.339
+   },
+   {
+    "text": "comentários,",
+    "start": 2.351,
+    "end": 2.988
+   },
+   {
+    "text": "e",
+    "start": 3.196,
+    "end": 3.242
+   },
+   {
+    "text": "siga",
+    "start": 3.254,
+    "end": 3.566
+   },
+   {
+    "text": "o",
+    "start": 3.578,
+    "end": 3.613
+   },
+   {
+    "text": "Advogado",
+    "start": 3.624,
+    "end": 4.203
+   },
+   {
+    "text": "de",
+    "start": 4.214,
+    "end": 4.307
+   },
+   {
+    "text": "Bolso",
+    "start": 4.319,
+    "end": 4.689
+   },
+   {
+    "text": "em",
+    "start": 4.701,
+    "end": 4.805
+   },
+   {
+    "text": "todas",
+    "start": 4.851,
+    "end": 5.106
+   },
+   {
+    "text": "as",
+    "start": 5.117,
+    "end": 5.279
+   },
+   {
+    "text": "redes!",
+    "start": 5.291,
+    "end": 5.788
+   }
+  ]
+ }
+}

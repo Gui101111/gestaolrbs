@@ -1,0 +1,574 @@
+{
+ "s1": {
+  "text": "A Bia teve gêmeos há dois anos, nunca pediu o salário-maternidade, e achou que tinha perdido tudo.",
+  "seconds": 5.484,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.067
+   },
+   {
+    "text": "Bia",
+    "start": 0.079,
+    "end": 0.322
+   },
+   {
+    "text": "teve",
+    "start": 0.334,
+    "end": 0.542
+   },
+   {
+    "text": "gêmeos",
+    "start": 0.554,
+    "end": 0.866
+   },
+   {
+    "text": "há",
+    "start": 0.878,
+    "end": 0.982
+   },
+   {
+    "text": "dois",
+    "start": 0.993,
+    "end": 1.225
+   },
+   {
+    "text": "anos,",
+    "start": 1.236,
+    "end": 1.676
+   },
+   {
+    "text": "nunca",
+    "start": 1.838,
+    "end": 2.081
+   },
+   {
+    "text": "pediu",
+    "start": 2.093,
+    "end": 2.371
+   },
+   {
+    "text": "o",
+    "start": 2.382,
+    "end": 2.417
+   },
+   {
+    "text": "salário-maternidade,",
+    "start": 2.429,
+    "end": 3.586
+   },
+   {
+    "text": "e",
+    "start": 3.841,
+    "end": 3.922
+   },
+   {
+    "text": "achou",
+    "start": 3.933,
+    "end": 4.246
+   },
+   {
+    "text": "que",
+    "start": 4.257,
+    "end": 4.361
+   },
+   {
+    "text": "tinha",
+    "start": 4.373,
+    "end": 4.581
+   },
+   {
+    "text": "perdido",
+    "start": 4.593,
+    "end": 5.021
+   },
+   {
+    "text": "tudo.",
+    "start": 5.033,
+    "end": 5.38
+   }
+  ]
+ },
+ "s2": {
+  "text": "Spoiler: não perdeu!",
+  "seconds": 1.364,
+  "words": [
+   {
+    "text": "Spoiler:",
+    "start": 0,
+    "end": 0.491
+   },
+   {
+    "text": "não",
+    "start": 0.63,
+    "end": 0.804
+   },
+   {
+    "text": "perdeu!",
+    "start": 0.815,
+    "end": 1.267
+   }
+  ]
+ },
+ "s3": {
+  "text": "Em regra, dá pra pedir o salário-maternidade em até cinco anos depois do parto, se ela era segurada na gravidez.",
+  "seconds": 6.123,
+  "words": [
+   {
+    "text": "Em",
+    "start": 0,
+    "end": 0.097
+   },
+   {
+    "text": "regra,",
+    "start": 0.108,
+    "end": 0.49
+   },
+   {
+    "text": "dá",
+    "start": 0.513,
+    "end": 0.641
+   },
+   {
+    "text": "pra",
+    "start": 0.652,
+    "end": 0.791
+   },
+   {
+    "text": "pedir",
+    "start": 0.803,
+    "end": 1.092
+   },
+   {
+    "text": "o",
+    "start": 1.104,
+    "end": 1.15
+   },
+   {
+    "text": "salário-maternidade",
+    "start": 1.161,
+    "end": 2.284
+   },
+   {
+    "text": "em",
+    "start": 2.296,
+    "end": 2.388
+   },
+   {
+    "text": "até",
+    "start": 2.4,
+    "end": 2.585
+   },
+   {
+    "text": "cinco",
+    "start": 2.597,
+    "end": 2.967
+   },
+   {
+    "text": "anos",
+    "start": 2.979,
+    "end": 3.175
+   },
+   {
+    "text": "depois",
+    "start": 3.187,
+    "end": 3.499
+   },
+   {
+    "text": "do",
+    "start": 3.511,
+    "end": 3.615
+   },
+   {
+    "text": "parto,",
+    "start": 3.627,
+    "end": 4.02
+   },
+   {
+    "text": "se",
+    "start": 4.24,
+    "end": 4.367
+   },
+   {
+    "text": "ela",
+    "start": 4.379,
+    "end": 4.553
+   },
+   {
+    "text": "era",
+    "start": 4.564,
+    "end": 4.703
+   },
+   {
+    "text": "segurada",
+    "start": 4.715,
+    "end": 5.247
+   },
+   {
+    "text": "na",
+    "start": 5.259,
+    "end": 5.363
+   },
+   {
+    "text": "gravidez.",
+    "start": 5.374,
+    "end": 6.023
+   }
+  ]
+ },
+ "s4": {
+  "text": "A Bia era MEI e pagava em dia. Pediu no INSS e recebeu os 120 dias atrasados, tudo de uma vez.",
+  "seconds": 6.512,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.087
+   },
+   {
+    "text": "Bia",
+    "start": 0.099,
+    "end": 0.353
+   },
+   {
+    "text": "era",
+    "start": 0.365,
+    "end": 0.492
+   },
+   {
+    "text": "MEI",
+    "start": 0.504,
+    "end": 0.7
+   },
+   {
+    "text": "e",
+    "start": 0.724,
+    "end": 0.77
+   },
+   {
+    "text": "pagava",
+    "start": 0.781,
+    "end": 1.14
+   },
+   {
+    "text": "em",
+    "start": 1.152,
+    "end": 1.233
+   },
+   {
+    "text": "dia.",
+    "start": 1.244,
+    "end": 1.592
+   },
+   {
+    "text": "Pediu",
+    "start": 1.831,
+    "end": 2.155
+   },
+   {
+    "text": "no",
+    "start": 2.167,
+    "end": 2.282
+   },
+   {
+    "text": "INSS",
+    "start": 2.294,
+    "end": 3.185
+   },
+   {
+    "text": "e",
+    "start": 3.197,
+    "end": 3.231
+   },
+   {
+    "text": "recebeu",
+    "start": 3.243,
+    "end": 3.66
+   },
+   {
+    "text": "os",
+    "start": 3.671,
+    "end": 3.775
+   },
+   {
+    "text": "120 dias",
+    "start": 3.787,
+    "end": 4.597
+   },
+   {
+    "text": "atrasados,",
+    "start": 4.609,
+    "end": 5.338
+   },
+   {
+    "text": "tudo",
+    "start": 5.5,
+    "end": 5.755
+   },
+   {
+    "text": "de",
+    "start": 5.766,
+    "end": 5.847
+   },
+   {
+    "text": "uma",
+    "start": 5.859,
+    "end": 6.032
+   },
+   {
+    "text": "vez.",
+    "start": 6.044,
+    "end": 6.403
+   }
+  ]
+ },
+ "s5": {
+  "text": "Mas atenção: gêmeos não dobram o benefício. É um só por parto.",
+  "seconds": 3.901,
+  "words": [
+   {
+    "text": "Mas",
+    "start": 0,
+    "end": 0.084
+   },
+   {
+    "text": "atenção:",
+    "start": 0.095,
+    "end": 0.697
+   },
+   {
+    "text": "gêmeos",
+    "start": 0.882,
+    "end": 1.253
+   },
+   {
+    "text": "não",
+    "start": 1.264,
+    "end": 1.426
+   },
+   {
+    "text": "dobram",
+    "start": 1.438,
+    "end": 1.808
+   },
+   {
+    "text": "o",
+    "start": 1.82,
+    "end": 1.843
+   },
+   {
+    "text": "benefício.",
+    "start": 1.854,
+    "end": 2.491
+   },
+   {
+    "text": "É",
+    "start": 2.73,
+    "end": 2.846
+   },
+   {
+    "text": "um",
+    "start": 2.858,
+    "end": 2.95
+   },
+   {
+    "text": "só",
+    "start": 2.962,
+    "end": 3.135
+   },
+   {
+    "text": "por",
+    "start": 3.147,
+    "end": 3.321
+   },
+   {
+    "text": "parto.",
+    "start": 3.355,
+    "end": 3.784
+   }
+  ]
+ },
+ "s6": {
+  "text": "E já tem projeto no Senado pra aumentar o valor pra mãe de gêmeos. Você acha justo?",
+  "seconds": 4.834,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.031
+   },
+   {
+    "text": "já",
+    "start": 0.043,
+    "end": 0.159
+   },
+   {
+    "text": "tem",
+    "start": 0.17,
+    "end": 0.32
+   },
+   {
+    "text": "projeto",
+    "start": 0.332,
+    "end": 0.818
+   },
+   {
+    "text": "no",
+    "start": 0.83,
+    "end": 0.922
+   },
+   {
+    "text": "Senado",
+    "start": 0.934,
+    "end": 1.408
+   },
+   {
+    "text": "pra",
+    "start": 1.42,
+    "end": 1.536
+   },
+   {
+    "text": "aumentar",
+    "start": 1.547,
+    "end": 1.999
+   },
+   {
+    "text": "o",
+    "start": 2.01,
+    "end": 2.033
+   },
+   {
+    "text": "valor",
+    "start": 2.045,
+    "end": 2.381
+   },
+   {
+    "text": "pra",
+    "start": 2.392,
+    "end": 2.554
+   },
+   {
+    "text": "mãe",
+    "start": 2.566,
+    "end": 2.763
+   },
+   {
+    "text": "de",
+    "start": 2.774,
+    "end": 2.878
+   },
+   {
+    "text": "gêmeos.",
+    "start": 2.89,
+    "end": 3.434
+   },
+   {
+    "text": "Você",
+    "start": 3.673,
+    "end": 3.963
+   },
+   {
+    "text": "acha",
+    "start": 3.974,
+    "end": 4.275
+   },
+   {
+    "text": "justo?",
+    "start": 4.287,
+    "end": 4.738
+   }
+  ]
+ },
+ "s7": {
+  "text": "Comenta aí, marca uma mãe de gêmeos, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 4.607,
+  "words": [
+   {
+    "text": "Comenta",
+    "start": 0,
+    "end": 0.318
+   },
+   {
+    "text": "aí,",
+    "start": 0.341,
+    "end": 0.491
+   },
+   {
+    "text": "marca",
+    "start": 0.538,
+    "end": 0.827
+   },
+   {
+    "text": "uma",
+    "start": 0.839,
+    "end": 0.966
+   },
+   {
+    "text": "mãe",
+    "start": 0.977,
+    "end": 1.163
+   },
+   {
+    "text": "de",
+    "start": 1.174,
+    "end": 1.278
+   },
+   {
+    "text": "gêmeos,",
+    "start": 1.29,
+    "end": 1.741
+   },
+   {
+    "text": "e",
+    "start": 1.926,
+    "end": 1.973
+   },
+   {
+    "text": "siga",
+    "start": 1.984,
+    "end": 2.308
+   },
+   {
+    "text": "o",
+    "start": 2.32,
+    "end": 2.355
+   },
+   {
+    "text": "Advogado",
+    "start": 2.366,
+    "end": 2.945
+   },
+   {
+    "text": "de",
+    "start": 2.957,
+    "end": 3.049
+   },
+   {
+    "text": "Bolso",
+    "start": 3.061,
+    "end": 3.431
+   },
+   {
+    "text": "em",
+    "start": 3.443,
+    "end": 3.547
+   },
+   {
+    "text": "todas",
+    "start": 3.593,
+    "end": 3.848
+   },
+   {
+    "text": "as",
+    "start": 3.859,
+    "end": 4.021
+   },
+   {
+    "text": "redes!",
+    "start": 4.033,
+    "end": 4.519
+   }
+  ]
+ }
+}

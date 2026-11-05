@@ -1,0 +1,604 @@
+{
+ "s1": {
+  "text": "A Júlia perdeu o emprego, descobriu que tava grávida, e a sogra disse: agora você não recebe nada!",
+  "seconds": 5.494,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.08
+   },
+   {
+    "text": "Júlia",
+    "start": 0.092,
+    "end": 0.404
+   },
+   {
+    "text": "perdeu",
+    "start": 0.416,
+    "end": 0.74
+   },
+   {
+    "text": "o",
+    "start": 0.751,
+    "end": 0.786
+   },
+   {
+    "text": "emprego,",
+    "start": 0.798,
+    "end": 1.261
+   },
+   {
+    "text": "descobriu",
+    "start": 1.295,
+    "end": 1.805
+   },
+   {
+    "text": "que",
+    "start": 1.816,
+    "end": 1.932
+   },
+   {
+    "text": "tava",
+    "start": 1.943,
+    "end": 2.198
+   },
+   {
+    "text": "grávida,",
+    "start": 2.21,
+    "end": 2.696
+   },
+   {
+    "text": "e",
+    "start": 2.742,
+    "end": 2.823
+   },
+   {
+    "text": "a",
+    "start": 2.835,
+    "end": 2.893
+   },
+   {
+    "text": "sogra",
+    "start": 2.904,
+    "end": 3.286
+   },
+   {
+    "text": "disse:",
+    "start": 3.298,
+    "end": 3.68
+   },
+   {
+    "text": "agora",
+    "start": 3.876,
+    "end": 4.2
+   },
+   {
+    "text": "você",
+    "start": 4.212,
+    "end": 4.455
+   },
+   {
+    "text": "não",
+    "start": 4.467,
+    "end": 4.594
+   },
+   {
+    "text": "recebe",
+    "start": 4.605,
+    "end": 4.976
+   },
+   {
+    "text": "nada!",
+    "start": 4.987,
+    "end": 5.393
+   }
+  ]
+ },
+ "s2": {
+  "text": "Será? Calma, que essa história tem final feliz.",
+  "seconds": 2.809,
+  "words": [
+   {
+    "text": "Será?",
+    "start": 0,
+    "end": 0.426
+   },
+   {
+    "text": "Calma,",
+    "start": 0.677,
+    "end": 1.025
+   },
+   {
+    "text": "que",
+    "start": 1.071,
+    "end": 1.152
+   },
+   {
+    "text": "essa",
+    "start": 1.163,
+    "end": 1.337
+   },
+   {
+    "text": "história",
+    "start": 1.349,
+    "end": 1.754
+   },
+   {
+    "text": "tem",
+    "start": 1.765,
+    "end": 1.893
+   },
+   {
+    "text": "final",
+    "start": 1.904,
+    "end": 2.193
+   },
+   {
+    "text": "feliz.",
+    "start": 2.205,
+    "end": 2.622
+   }
+  ]
+ },
+ "s3": {
+  "text": "Quem sai do emprego continua segurada do INSS por um tempo. É o período de graça: em regra, 12 meses, e pode ser mais.",
+  "seconds": 7.313,
+  "words": [
+   {
+    "text": "Quem",
+    "start": 0,
+    "end": 0.12
+   },
+   {
+    "text": "sai",
+    "start": 0.132,
+    "end": 0.352
+   },
+   {
+    "text": "do",
+    "start": 0.363,
+    "end": 0.456
+   },
+   {
+    "text": "emprego",
+    "start": 0.468,
+    "end": 0.873
+   },
+   {
+    "text": "continua",
+    "start": 0.884,
+    "end": 1.347
+   },
+   {
+    "text": "segurada",
+    "start": 1.359,
+    "end": 1.914
+   },
+   {
+    "text": "do",
+    "start": 1.926,
+    "end": 2.03
+   },
+   {
+    "text": "INSS",
+    "start": 2.042,
+    "end": 2.863
+   },
+   {
+    "text": "por",
+    "start": 2.875,
+    "end": 3.014
+   },
+   {
+    "text": "um",
+    "start": 3.025,
+    "end": 3.118
+   },
+   {
+    "text": "tempo.",
+    "start": 3.13,
+    "end": 3.512
+   },
+   {
+    "text": "É",
+    "start": 3.751,
+    "end": 3.843
+   },
+   {
+    "text": "o",
+    "start": 3.855,
+    "end": 3.901
+   },
+   {
+    "text": "período",
+    "start": 3.913,
+    "end": 4.272
+   },
+   {
+    "text": "de",
+    "start": 4.283,
+    "end": 4.376
+   },
+   {
+    "text": "graça:",
+    "start": 4.387,
+    "end": 4.85
+   },
+   {
+    "text": "em",
+    "start": 4.955,
+    "end": 5.059
+   },
+   {
+    "text": "regra,",
+    "start": 5.07,
+    "end": 5.441
+   },
+   {
+    "text": "12 meses,",
+    "start": 5.464,
+    "end": 6.193
+   },
+   {
+    "text": "e",
+    "start": 6.239,
+    "end": 6.297
+   },
+   {
+    "text": "pode",
+    "start": 6.309,
+    "end": 6.575
+   },
+   {
+    "text": "ser",
+    "start": 6.587,
+    "end": 6.783
+   },
+   {
+    "text": "mais.",
+    "start": 6.795,
+    "end": 7.223
+   }
+  ]
+ },
+ "s4": {
+  "text": "A Júlia ainda tava nesse prazo. Então pediu o salário-maternidade direto no INSS: 120 dias.",
+  "seconds": 6.622,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.088
+   },
+   {
+    "text": "Júlia",
+    "start": 0.1,
+    "end": 0.493
+   },
+   {
+    "text": "ainda",
+    "start": 0.505,
+    "end": 0.771
+   },
+   {
+    "text": "tava",
+    "start": 0.782,
+    "end": 1.049
+   },
+   {
+    "text": "nesse",
+    "start": 1.06,
+    "end": 1.303
+   },
+   {
+    "text": "prazo.",
+    "start": 1.315,
+    "end": 1.755
+   },
+   {
+    "text": "Então",
+    "start": 1.994,
+    "end": 2.307
+   },
+   {
+    "text": "pediu",
+    "start": 2.318,
+    "end": 2.607
+   },
+   {
+    "text": "o",
+    "start": 2.619,
+    "end": 2.665
+   },
+   {
+    "text": "salário-maternidade",
+    "start": 2.677,
+    "end": 3.8
+   },
+   {
+    "text": "direto",
+    "start": 3.811,
+    "end": 4.205
+   },
+   {
+    "text": "no",
+    "start": 4.216,
+    "end": 4.309
+   },
+   {
+    "text": "INSS:",
+    "start": 4.32,
+    "end": 5.212
+   },
+   {
+    "text": "120 dias.",
+    "start": 5.397,
+    "end": 6.519
+   }
+  ]
+ },
+ "s5": {
+  "text": "E desde maio de 2026, o INSS tem 30 dias pra liberar. Se atrasar, o benefício é liberado automaticamente, de forma provisória.",
+  "seconds": 8.992,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.047
+   },
+   {
+    "text": "desde",
+    "start": 0.059,
+    "end": 0.383
+   },
+   {
+    "text": "maio",
+    "start": 0.395,
+    "end": 0.695
+   },
+   {
+    "text": "de",
+    "start": 0.707,
+    "end": 0.788
+   },
+   {
+    "text": "2026,",
+    "start": 0.8,
+    "end": 1.841
+   },
+   {
+    "text": "o",
+    "start": 2.05,
+    "end": 2.142
+   },
+   {
+    "text": "INSS",
+    "start": 2.154,
+    "end": 2.999
+   },
+   {
+    "text": "tem",
+    "start": 3.01,
+    "end": 3.172
+   },
+   {
+    "text": "30 dias",
+    "start": 3.184,
+    "end": 3.867
+   },
+   {
+    "text": "pra",
+    "start": 3.878,
+    "end": 4.006
+   },
+   {
+    "text": "liberar.",
+    "start": 4.017,
+    "end": 4.48
+   },
+   {
+    "text": "Se",
+    "start": 4.72,
+    "end": 4.939
+   },
+   {
+    "text": "atrasar,",
+    "start": 4.951,
+    "end": 5.472
+   },
+   {
+    "text": "o",
+    "start": 5.634,
+    "end": 5.68
+   },
+   {
+    "text": "benefício",
+    "start": 5.692,
+    "end": 6.27
+   },
+   {
+    "text": "é",
+    "start": 6.282,
+    "end": 6.305
+   },
+   {
+    "text": "liberado",
+    "start": 6.317,
+    "end": 6.826
+   },
+   {
+    "text": "automaticamente,",
+    "start": 6.838,
+    "end": 7.729
+   },
+   {
+    "text": "de",
+    "start": 7.764,
+    "end": 7.879
+   },
+   {
+    "text": "forma",
+    "start": 7.891,
+    "end": 8.226
+   },
+   {
+    "text": "provisória.",
+    "start": 8.238,
+    "end": 8.898
+   }
+  ]
+ },
+ "s6": {
+  "text": "E a sogra? Já tá escolhendo o nome do neto.",
+  "seconds": 2.668,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.055
+   },
+   {
+    "text": "a",
+    "start": 0.066,
+    "end": 0.136
+   },
+   {
+    "text": "sogra?",
+    "start": 0.147,
+    "end": 0.645
+   },
+   {
+    "text": "Já",
+    "start": 0.884,
+    "end": 1.058
+   },
+   {
+    "text": "tá",
+    "start": 1.07,
+    "end": 1.209
+   },
+   {
+    "text": "escolhendo",
+    "start": 1.22,
+    "end": 1.741
+   },
+   {
+    "text": "o",
+    "start": 1.753,
+    "end": 1.776
+   },
+   {
+    "text": "nome",
+    "start": 1.787,
+    "end": 2.042
+   },
+   {
+    "text": "do",
+    "start": 2.054,
+    "end": 2.146
+   },
+   {
+    "text": "neto.",
+    "start": 2.158,
+    "end": 2.563
+   }
+  ]
+ },
+ "s7": {
+  "text": "Conhece alguma grávida desempregada? Marca ela nos comentários, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 6.367,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.337
+   },
+   {
+    "text": "alguma",
+    "start": 0.348,
+    "end": 0.672
+   },
+   {
+    "text": "grávida",
+    "start": 0.684,
+    "end": 1.112
+   },
+   {
+    "text": "desempregada?",
+    "start": 1.124,
+    "end": 1.911
+   },
+   {
+    "text": "Marca",
+    "start": 2.15,
+    "end": 2.497
+   },
+   {
+    "text": "ela",
+    "start": 2.509,
+    "end": 2.648
+   },
+   {
+    "text": "nos",
+    "start": 2.659,
+    "end": 2.798
+   },
+   {
+    "text": "comentários,",
+    "start": 2.81,
+    "end": 3.47
+   },
+   {
+    "text": "e",
+    "start": 3.69,
+    "end": 3.736
+   },
+   {
+    "text": "siga",
+    "start": 3.747,
+    "end": 4.06
+   },
+   {
+    "text": "o",
+    "start": 4.072,
+    "end": 4.106
+   },
+   {
+    "text": "Advogado",
+    "start": 4.118,
+    "end": 4.697
+   },
+   {
+    "text": "de",
+    "start": 4.708,
+    "end": 4.801
+   },
+   {
+    "text": "Bolso",
+    "start": 4.812,
+    "end": 5.194
+   },
+   {
+    "text": "em",
+    "start": 5.206,
+    "end": 5.31
+   },
+   {
+    "text": "todas",
+    "start": 5.356,
+    "end": 5.611
+   },
+   {
+    "text": "as",
+    "start": 5.622,
+    "end": 5.784
+   },
+   {
+    "text": "redes!",
+    "start": 5.796,
+    "end": 6.282
+   }
+  ]
+ }
+}

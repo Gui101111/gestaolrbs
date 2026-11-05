@@ -1,0 +1,609 @@
+{
+ "s1": {
+  "text": "O Diego é motoboy, caiu de moto e ficou com sequela no joelho. A pergunta que vale ouro: ele é de carteira assinada?",
+  "seconds": 6.705,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.052
+   },
+   {
+    "text": "Diego",
+    "start": 0.064,
+    "end": 0.446
+   },
+   {
+    "text": "é",
+    "start": 0.458,
+    "end": 0.504
+   },
+   {
+    "text": "motoboy,",
+    "start": 0.515,
+    "end": 1.14
+   },
+   {
+    "text": "caiu",
+    "start": 1.349,
+    "end": 1.627
+   },
+   {
+    "text": "de",
+    "start": 1.638,
+    "end": 1.742
+   },
+   {
+    "text": "moto",
+    "start": 1.754,
+    "end": 2.136
+   },
+   {
+    "text": "e",
+    "start": 2.147,
+    "end": 2.171
+   },
+   {
+    "text": "ficou",
+    "start": 2.182,
+    "end": 2.483
+   },
+   {
+    "text": "com",
+    "start": 2.495,
+    "end": 2.622
+   },
+   {
+    "text": "sequela",
+    "start": 2.633,
+    "end": 3.073
+   },
+   {
+    "text": "no",
+    "start": 3.085,
+    "end": 3.189
+   },
+   {
+    "text": "joelho.",
+    "start": 3.201,
+    "end": 3.629
+   },
+   {
+    "text": "A",
+    "start": 3.868,
+    "end": 3.961
+   },
+   {
+    "text": "pergunta",
+    "start": 3.972,
+    "end": 4.435
+   },
+   {
+    "text": "que",
+    "start": 4.447,
+    "end": 4.539
+   },
+   {
+    "text": "vale",
+    "start": 4.551,
+    "end": 4.806
+   },
+   {
+    "text": "ouro:",
+    "start": 4.817,
+    "end": 5.107
+   },
+   {
+    "text": "ele",
+    "start": 5.35,
+    "end": 5.489
+   },
+   {
+    "text": "é",
+    "start": 5.5,
+    "end": 5.546
+   },
+   {
+    "text": "de",
+    "start": 5.558,
+    "end": 5.639
+   },
+   {
+    "text": "carteira",
+    "start": 5.651,
+    "end": 6.021
+   },
+   {
+    "text": "assinada?",
+    "start": 6.033,
+    "end": 6.6
+   }
+  ]
+ },
+ "s2": {
+  "text": "Porque isso muda tudo!",
+  "seconds": 1.241,
+  "words": [
+   {
+    "text": "Porque",
+    "start": 0,
+    "end": 0.211
+   },
+   {
+    "text": "isso",
+    "start": 0.222,
+    "end": 0.477
+   },
+   {
+    "text": "muda",
+    "start": 0.489,
+    "end": 0.766
+   },
+   {
+    "text": "tudo!",
+    "start": 0.778,
+    "end": 1.148
+   }
+  ]
+ },
+ "s3": {
+  "text": "Se for empregado de carteira assinada e ficar com sequela, tem direito ao auxílio-acidente, mesmo voltando a trabalhar.",
+  "seconds": 6.191,
+  "words": [
+   {
+    "text": "Se",
+    "start": 0,
+    "end": 0.135
+   },
+   {
+    "text": "for",
+    "start": 0.147,
+    "end": 0.332
+   },
+   {
+    "text": "empregado",
+    "start": 0.344,
+    "end": 0.853
+   },
+   {
+    "text": "de",
+    "start": 0.865,
+    "end": 0.946
+   },
+   {
+    "text": "carteira",
+    "start": 0.957,
+    "end": 1.339
+   },
+   {
+    "text": "assinada",
+    "start": 1.351,
+    "end": 1.895
+   },
+   {
+    "text": "e",
+    "start": 1.906,
+    "end": 1.941
+   },
+   {
+    "text": "ficar",
+    "start": 1.953,
+    "end": 2.277
+   },
+   {
+    "text": "com",
+    "start": 2.288,
+    "end": 2.427
+   },
+   {
+    "text": "sequela,",
+    "start": 2.439,
+    "end": 2.971
+   },
+   {
+    "text": "tem",
+    "start": 3.064,
+    "end": 3.179
+   },
+   {
+    "text": "direito",
+    "start": 3.191,
+    "end": 3.561
+   },
+   {
+    "text": "ao",
+    "start": 3.573,
+    "end": 3.654
+   },
+   {
+    "text": "auxílio-acidente,",
+    "start": 3.666,
+    "end": 4.591
+   },
+   {
+    "text": "mesmo",
+    "start": 4.788,
+    "end": 5.124
+   },
+   {
+    "text": "voltando",
+    "start": 5.136,
+    "end": 5.517
+   },
+   {
+    "text": "a",
+    "start": 5.529,
+    "end": 5.564
+   },
+   {
+    "text": "trabalhar.",
+    "start": 5.575,
+    "end": 6.061
+   }
+  ]
+ },
+ "s4": {
+  "text": "E vale até pra acidente fora do trabalho, tipo num passeio no fim de semana.",
+  "seconds": 4.097,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.059
+   },
+   {
+    "text": "vale",
+    "start": 0.07,
+    "end": 0.337
+   },
+   {
+    "text": "até",
+    "start": 0.348,
+    "end": 0.545
+   },
+   {
+    "text": "pra",
+    "start": 0.557,
+    "end": 0.684
+   },
+   {
+    "text": "acidente",
+    "start": 0.695,
+    "end": 1.17
+   },
+   {
+    "text": "fora",
+    "start": 1.182,
+    "end": 1.471
+   },
+   {
+    "text": "do",
+    "start": 1.483,
+    "end": 1.575
+   },
+   {
+    "text": "trabalho,",
+    "start": 1.587,
+    "end": 2.073
+   },
+   {
+    "text": "tipo",
+    "start": 2.235,
+    "end": 2.536
+   },
+   {
+    "text": "num",
+    "start": 2.547,
+    "end": 2.663
+   },
+   {
+    "text": "passeio",
+    "start": 2.675,
+    "end": 3.103
+   },
+   {
+    "text": "no",
+    "start": 3.114,
+    "end": 3.219
+   },
+   {
+    "text": "fim",
+    "start": 3.23,
+    "end": 3.404
+   },
+   {
+    "text": "de",
+    "start": 3.415,
+    "end": 3.496
+   },
+   {
+    "text": "semana.",
+    "start": 3.508,
+    "end": 3.994
+   }
+  ]
+ },
+ "s5": {
+  "text": "Agora, se ele trabalha por aplicativo como autônomo, pagando o INSS por conta própria, não tem direito a esse benefício.",
+  "seconds": 6.762,
+  "words": [
+   {
+    "text": "Agora,",
+    "start": 0,
+    "end": 0.385
+   },
+   {
+    "text": "se",
+    "start": 0.408,
+    "end": 0.535
+   },
+   {
+    "text": "ele",
+    "start": 0.547,
+    "end": 0.674
+   },
+   {
+    "text": "trabalha",
+    "start": 0.686,
+    "end": 1.126
+   },
+   {
+    "text": "por",
+    "start": 1.137,
+    "end": 1.265
+   },
+   {
+    "text": "aplicativo",
+    "start": 1.276,
+    "end": 1.901
+   },
+   {
+    "text": "como",
+    "start": 1.913,
+    "end": 2.086
+   },
+   {
+    "text": "autônomo,",
+    "start": 2.098,
+    "end": 2.653
+   },
+   {
+    "text": "pagando",
+    "start": 2.711,
+    "end": 3.093
+   },
+   {
+    "text": "o",
+    "start": 3.105,
+    "end": 3.128
+   },
+   {
+    "text": "INSS",
+    "start": 3.14,
+    "end": 3.973
+   },
+   {
+    "text": "por",
+    "start": 3.984,
+    "end": 4.123
+   },
+   {
+    "text": "conta",
+    "start": 4.147,
+    "end": 4.424
+   },
+   {
+    "text": "própria,",
+    "start": 4.436,
+    "end": 4.864
+   },
+   {
+    "text": "não",
+    "start": 5.107,
+    "end": 5.246
+   },
+   {
+    "text": "tem",
+    "start": 5.258,
+    "end": 5.397
+   },
+   {
+    "text": "direito",
+    "start": 5.408,
+    "end": 5.802
+   },
+   {
+    "text": "a",
+    "start": 5.813,
+    "end": 5.883
+   },
+   {
+    "text": "esse",
+    "start": 5.894,
+    "end": 6.068
+   },
+   {
+    "text": "benefício.",
+    "start": 6.079,
+    "end": 6.658
+   }
+  ]
+ },
+ "s6": {
+  "text": "O Diego era de carteira assinada. Resultado: recebe o auxílio todo mês, junto com o salário!",
+  "seconds": 5.524,
+  "words": [
+   {
+    "text": "O",
+    "start": 0,
+    "end": 0.056
+   },
+   {
+    "text": "Diego",
+    "start": 0.068,
+    "end": 0.485
+   },
+   {
+    "text": "era",
+    "start": 0.496,
+    "end": 0.635
+   },
+   {
+    "text": "de",
+    "start": 0.647,
+    "end": 0.728
+   },
+   {
+    "text": "carteira",
+    "start": 0.739,
+    "end": 1.121
+   },
+   {
+    "text": "assinada.",
+    "start": 1.133,
+    "end": 1.677
+   },
+   {
+    "text": "Resultado:",
+    "start": 1.916,
+    "end": 2.541
+   },
+   {
+    "text": "recebe",
+    "start": 2.773,
+    "end": 3.178
+   },
+   {
+    "text": "o",
+    "start": 3.189,
+    "end": 3.224
+   },
+   {
+    "text": "auxílio",
+    "start": 3.236,
+    "end": 3.675
+   },
+   {
+    "text": "todo",
+    "start": 3.699,
+    "end": 3.988
+   },
+   {
+    "text": "mês,",
+    "start": 4.0,
+    "end": 4.312
+   },
+   {
+    "text": "junto",
+    "start": 4.416,
+    "end": 4.74
+   },
+   {
+    "text": "com",
+    "start": 4.752,
+    "end": 4.868
+   },
+   {
+    "text": "o",
+    "start": 4.879,
+    "end": 4.925
+   },
+   {
+    "text": "salário!",
+    "start": 4.937,
+    "end": 5.412
+   }
+  ]
+ },
+ "s7": {
+  "text": "Conhece algum motoboy? Marca ele nos comentários, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 5.738,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.34
+   },
+   {
+    "text": "algum",
+    "start": 0.352,
+    "end": 0.572
+   },
+   {
+    "text": "motoboy?",
+    "start": 0.583,
+    "end": 1.185
+   },
+   {
+    "text": "Marca",
+    "start": 1.425,
+    "end": 1.807
+   },
+   {
+    "text": "ele",
+    "start": 1.818,
+    "end": 1.98
+   },
+   {
+    "text": "nos",
+    "start": 1.992,
+    "end": 2.131
+   },
+   {
+    "text": "comentários,",
+    "start": 2.142,
+    "end": 2.814
+   },
+   {
+    "text": "e",
+    "start": 3.033,
+    "end": 3.08
+   },
+   {
+    "text": "siga",
+    "start": 3.091,
+    "end": 3.404
+   },
+   {
+    "text": "o",
+    "start": 3.415,
+    "end": 3.45
+   },
+   {
+    "text": "Advogado",
+    "start": 3.462,
+    "end": 4.04
+   },
+   {
+    "text": "de",
+    "start": 4.052,
+    "end": 4.156
+   },
+   {
+    "text": "Bolso",
+    "start": 4.168,
+    "end": 4.55
+   },
+   {
+    "text": "em",
+    "start": 4.561,
+    "end": 4.665
+   },
+   {
+    "text": "todas",
+    "start": 4.712,
+    "end": 4.966
+   },
+   {
+    "text": "as",
+    "start": 4.978,
+    "end": 5.14
+   },
+   {
+    "text": "redes!",
+    "start": 5.151,
+    "end": 5.649
+   }
+  ]
+ }
+}

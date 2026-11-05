@@ -1,0 +1,564 @@
+{
+ "s1": {
+  "text": "A Rose é empregada doméstica, machucou a mão na cozinha, e a vizinha disse: doméstica não tem direito a nada!",
+  "seconds": 5.823,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.086
+   },
+   {
+    "text": "Rose",
+    "start": 0.098,
+    "end": 0.41
+   },
+   {
+    "text": "é",
+    "start": 0.422,
+    "end": 0.445
+   },
+   {
+    "text": "empregada",
+    "start": 0.456,
+    "end": 0.919
+   },
+   {
+    "text": "doméstica,",
+    "start": 0.931,
+    "end": 1.544
+   },
+   {
+    "text": "machucou",
+    "start": 1.568,
+    "end": 1.961
+   },
+   {
+    "text": "a",
+    "start": 1.973,
+    "end": 2.031
+   },
+   {
+    "text": "mão",
+    "start": 2.042,
+    "end": 2.216
+   },
+   {
+    "text": "na",
+    "start": 2.227,
+    "end": 2.32
+   },
+   {
+    "text": "cozinha,",
+    "start": 2.331,
+    "end": 2.806
+   },
+   {
+    "text": "e",
+    "start": 2.956,
+    "end": 3.037
+   },
+   {
+    "text": "a",
+    "start": 3.049,
+    "end": 3.107
+   },
+   {
+    "text": "vizinha",
+    "start": 3.118,
+    "end": 3.466
+   },
+   {
+    "text": "disse:",
+    "start": 3.477,
+    "end": 3.848
+   },
+   {
+    "text": "doméstica",
+    "start": 4.079,
+    "end": 4.6
+   },
+   {
+    "text": "não",
+    "start": 4.611,
+    "end": 4.774
+   },
+   {
+    "text": "tem",
+    "start": 4.785,
+    "end": 4.901
+   },
+   {
+    "text": "direito",
+    "start": 4.912,
+    "end": 5.271
+   },
+   {
+    "text": "a",
+    "start": 5.283,
+    "end": 5.329
+   },
+   {
+    "text": "nada!",
+    "start": 5.341,
+    "end": 5.723
+   }
+  ]
+ },
+ "s2": {
+  "text": "Será? A vizinha errou feio.",
+  "seconds": 1.88,
+  "words": [
+   {
+    "text": "Será?",
+    "start": 0,
+    "end": 0.426
+   },
+   {
+    "text": "A",
+    "start": 0.677,
+    "end": 0.781
+   },
+   {
+    "text": "vizinha",
+    "start": 0.793,
+    "end": 1.14
+   },
+   {
+    "text": "errou",
+    "start": 1.152,
+    "end": 1.349
+   },
+   {
+    "text": "feio.",
+    "start": 1.36,
+    "end": 1.788
+   }
+  ]
+ },
+ "s3": {
+  "text": "Desde 2015, empregada doméstica de carteira assinada também tem direito ao auxílio-acidente.",
+  "seconds": 5.452,
+  "words": [
+   {
+    "text": "Desde",
+    "start": 0,
+    "end": 0.304
+   },
+   {
+    "text": "2015,",
+    "start": 0.316,
+    "end": 1.184
+   },
+   {
+    "text": "empregada",
+    "start": 1.218,
+    "end": 1.693
+   },
+   {
+    "text": "doméstica",
+    "start": 1.704,
+    "end": 2.272
+   },
+   {
+    "text": "de",
+    "start": 2.283,
+    "end": 2.364
+   },
+   {
+    "text": "carteira",
+    "start": 2.376,
+    "end": 2.816
+   },
+   {
+    "text": "assinada",
+    "start": 2.827,
+    "end": 3.359
+   },
+   {
+    "text": "também",
+    "start": 3.371,
+    "end": 3.73
+   },
+   {
+    "text": "tem",
+    "start": 3.741,
+    "end": 3.857
+   },
+   {
+    "text": "direito",
+    "start": 3.869,
+    "end": 4.262
+   },
+   {
+    "text": "ao",
+    "start": 4.274,
+    "end": 4.366
+   },
+   {
+    "text": "auxílio-acidente.",
+    "start": 4.378,
+    "end": 5.362
+   }
+  ]
+ },
+ "s4": {
+  "text": "A Rose ficou com sequela: dois dedos não dobram direito, e isso atrapalha o trabalho dela.",
+  "seconds": 5.032,
+  "words": [
+   {
+    "text": "A",
+    "start": 0,
+    "end": 0.089
+   },
+   {
+    "text": "Rose",
+    "start": 0.101,
+    "end": 0.425
+   },
+   {
+    "text": "ficou",
+    "start": 0.436,
+    "end": 0.714
+   },
+   {
+    "text": "com",
+    "start": 0.726,
+    "end": 0.841
+   },
+   {
+    "text": "sequela:",
+    "start": 0.853,
+    "end": 1.362
+   },
+   {
+    "text": "dois",
+    "start": 1.594,
+    "end": 1.814
+   },
+   {
+    "text": "dedos",
+    "start": 1.825,
+    "end": 2.161
+   },
+   {
+    "text": "não",
+    "start": 2.172,
+    "end": 2.334
+   },
+   {
+    "text": "dobram",
+    "start": 2.346,
+    "end": 2.693
+   },
+   {
+    "text": "direito,",
+    "start": 2.705,
+    "end": 3.168
+   },
+   {
+    "text": "e",
+    "start": 3.33,
+    "end": 3.422
+   },
+   {
+    "text": "isso",
+    "start": 3.434,
+    "end": 3.642
+   },
+   {
+    "text": "atrapalha",
+    "start": 3.654,
+    "end": 4.14
+   },
+   {
+    "text": "o",
+    "start": 4.152,
+    "end": 4.186
+   },
+   {
+    "text": "trabalho",
+    "start": 4.198,
+    "end": 4.568
+   },
+   {
+    "text": "dela.",
+    "start": 4.58,
+    "end": 4.939
+   }
+  ]
+ },
+ "s5": {
+  "text": "Então ela recebe uma indenização todo mês, em regra, metade do salário de benefício, e continua trabalhando.",
+  "seconds": 6.048,
+  "words": [
+   {
+    "text": "Então",
+    "start": 0,
+    "end": 0.336
+   },
+   {
+    "text": "ela",
+    "start": 0.347,
+    "end": 0.486
+   },
+   {
+    "text": "recebe",
+    "start": 0.498,
+    "end": 0.903
+   },
+   {
+    "text": "uma",
+    "start": 0.914,
+    "end": 1.018
+   },
+   {
+    "text": "indenização",
+    "start": 1.03,
+    "end": 1.701
+   },
+   {
+    "text": "todo",
+    "start": 1.725,
+    "end": 1.991
+   },
+   {
+    "text": "mês,",
+    "start": 2.002,
+    "end": 2.303
+   },
+   {
+    "text": "em",
+    "start": 2.338,
+    "end": 2.442
+   },
+   {
+    "text": "regra,",
+    "start": 2.454,
+    "end": 2.836
+   },
+   {
+    "text": "metade",
+    "start": 3.067,
+    "end": 3.472
+   },
+   {
+    "text": "do",
+    "start": 3.484,
+    "end": 3.576
+   },
+   {
+    "text": "salário",
+    "start": 3.588,
+    "end": 4.005
+   },
+   {
+    "text": "de",
+    "start": 4.016,
+    "end": 4.097
+   },
+   {
+    "text": "benefício,",
+    "start": 4.109,
+    "end": 4.734
+   },
+   {
+    "text": "e",
+    "start": 4.768,
+    "end": 4.826
+   },
+   {
+    "text": "continua",
+    "start": 4.838,
+    "end": 5.324
+   },
+   {
+    "text": "trabalhando.",
+    "start": 5.336,
+    "end": 5.949
+   }
+  ]
+ },
+ "s6": {
+  "text": "E isso vai até ela se aposentar. E a vizinha? Ficou sem palavras.",
+  "seconds": 4.117,
+  "words": [
+   {
+    "text": "E",
+    "start": 0,
+    "end": 0.083
+   },
+   {
+    "text": "isso",
+    "start": 0.095,
+    "end": 0.349
+   },
+   {
+    "text": "vai",
+    "start": 0.361,
+    "end": 0.511
+   },
+   {
+    "text": "até",
+    "start": 0.523,
+    "end": 0.696
+   },
+   {
+    "text": "ela",
+    "start": 0.708,
+    "end": 0.951
+   },
+   {
+    "text": "se",
+    "start": 0.963,
+    "end": 1.067
+   },
+   {
+    "text": "aposentar.",
+    "start": 1.078,
+    "end": 1.669
+   },
+   {
+    "text": "E",
+    "start": 1.908,
+    "end": 1.977
+   },
+   {
+    "text": "a",
+    "start": 1.989,
+    "end": 2.058
+   },
+   {
+    "text": "vizinha?",
+    "start": 2.07,
+    "end": 2.568
+   },
+   {
+    "text": "Ficou",
+    "start": 2.811,
+    "end": 3.17
+   },
+   {
+    "text": "sem",
+    "start": 3.181,
+    "end": 3.378
+   },
+   {
+    "text": "palavras.",
+    "start": 3.389,
+    "end": 4.026
+   }
+  ]
+ },
+ "s7": {
+  "text": "Conhece alguma doméstica que passou por isso? Marca ela nos comentários, e siga o Advogado de Bolso em todas as redes!",
+  "seconds": 6.585,
+  "words": [
+   {
+    "text": "Conhece",
+    "start": 0,
+    "end": 0.314
+   },
+   {
+    "text": "alguma",
+    "start": 0.325,
+    "end": 0.626
+   },
+   {
+    "text": "doméstica",
+    "start": 0.638,
+    "end": 1.182
+   },
+   {
+    "text": "que",
+    "start": 1.193,
+    "end": 1.286
+   },
+   {
+    "text": "passou",
+    "start": 1.297,
+    "end": 1.598
+   },
+   {
+    "text": "por",
+    "start": 1.61,
+    "end": 1.76
+   },
+   {
+    "text": "isso?",
+    "start": 1.772,
+    "end": 2.131
+   },
+   {
+    "text": "Marca",
+    "start": 2.37,
+    "end": 2.717
+   },
+   {
+    "text": "ela",
+    "start": 2.729,
+    "end": 2.868
+   },
+   {
+    "text": "nos",
+    "start": 2.879,
+    "end": 3.018
+   },
+   {
+    "text": "comentários,",
+    "start": 3.03,
+    "end": 3.69
+   },
+   {
+    "text": "e",
+    "start": 3.909,
+    "end": 3.956
+   },
+   {
+    "text": "siga",
+    "start": 3.967,
+    "end": 4.28
+   },
+   {
+    "text": "o",
+    "start": 4.291,
+    "end": 4.326
+   },
+   {
+    "text": "Advogado",
+    "start": 4.338,
+    "end": 4.916
+   },
+   {
+    "text": "de",
+    "start": 4.928,
+    "end": 5.021
+   },
+   {
+    "text": "Bolso",
+    "start": 5.032,
+    "end": 5.414
+   },
+   {
+    "text": "em",
+    "start": 5.426,
+    "end": 5.53
+   },
+   {
+    "text": "todas",
+    "start": 5.576,
+    "end": 5.831
+   },
+   {
+    "text": "as",
+    "start": 5.842,
+    "end": 6.004
+   },
+   {
+    "text": "redes!",
+    "start": 6.016,
+    "end": 6.502
+   }
+  ]
+ }
+}

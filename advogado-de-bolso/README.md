@@ -58,3 +58,7 @@ Nos projetos da série 2, a trilha é gerada com `python3 scripts/funk.py`, que 
 ## Série 3: temas do momento
 
 Boatos pós-eleição desmentidos, reajuste do Bolsa Família, 13º do INSS, golpe da taxa e o "Leão" do IR. Detalhes em [`serie3/README.md`](serie3/README.md).
+
+## Série 4: histórias de maternidade e acidente
+
+Júlia (desempregada), Paulo (adoção), Bia (gêmeos), Rose (doméstica) e Diego (motoboy). Detalhes em [`serie4/README.md`](serie4/README.md).
