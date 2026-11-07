@@ -62,3 +62,7 @@ Boatos pós-eleição desmentidos, reajuste do Bolsa Família, 13º do INSS, gol
 ## Série 4: histórias de maternidade e acidente
 
 Júlia (desempregada), Paulo (adoção), Bia (gêmeos), Rose (doméstica) e Diego (motoboy). Detalhes em [`serie4/README.md`](serie4/README.md).
+
+## Série 5: Apocalipse Zumbi no INSS (interativa)
+
+É uma história em partes, e cada uma termina com uma escolha A ou B nos comentários. A Parte 1 (EP26) fala de queda da escada, auxílio por incapacidade temporária, auxílio-acidente, BPC, o golpe do código e prova de vida. Detalhes em [`serie5/README.md`](serie5/README.md).
